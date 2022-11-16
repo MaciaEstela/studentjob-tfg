@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="edu.uoc.mestemi.studentjob.model.CompanyProfile">
+		<field name="uuid" type="String" />
+		<field name="companyProfileId" type="long" />
+		<field name="regionId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="active" type="boolean" />
+		<field localized="true" name="title" type="String" />
+		<field localized="true" name="description" type="String" />
+		<field name="email" type="String" />
+		<field localized="true" name="sector" type="String" />
+		<field name="website" type="String" />
+	</model>
+	<model name="edu.uoc.mestemi.studentjob.model.Degree">
+		<field name="uuid" type="String" />
+		<field name="degreeId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field localized="true" name="name" type="String" />
+	</model>
+	<model name="edu.uoc.mestemi.studentjob.model.DegreeArea">
+		<field name="uuid" type="String" />
+		<field name="degreeAreaId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field localized="true" name="name" type="String" />
+	</model>
+	<model name="edu.uoc.mestemi.studentjob.model.Offer">
+		<field name="uuid" type="String" />
+		<field name="offerId" type="long" />
+		<field name="provinceId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field localized="true" name="name" type="String" />
+		<field name="preference" type="String" />
+		<field localized="true" name="description" type="String" />
+	</model>
+	<model name="edu.uoc.mestemi.studentjob.model.SocialMedia">
+		<field name="uuid" type="String" />
+		<field name="socialMediaId" type="long" />
+		<field name="socialMediaNetworkId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="socialMediaType" type="String" />
+		<field name="socialURL" type="String" />
+		<field name="className" type="String" />
+		<field name="classPK" type="long" />
+	</model>
+	<model name="edu.uoc.mestemi.studentjob.model.SocialMediaNetwork">
+		<field name="uuid" type="String" />
+		<field name="socialMediaNetworkId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="name" type="String" />
+		<field name="logo" type="long" />
+		<field name="baseURL" type="String" />
+	</model>
+	<model name="edu.uoc.mestemi.studentjob.model.StudentProfile">
+		<field name="uuid" type="String" />
+		<field name="studentProfileId" type="long" />
+		<field name="regionId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="active" type="boolean" />
+		<field localized="true" name="title" type="String" />
+		<field localized="true" name="description" type="String" />
+		<field name="email" type="String" />
+		<field name="preference" type="String" />
+		<field name="curriculumId" type="long" />
+	</model>
+	<model name="edu.uoc.mestemi.studentjob.model.UserEnrollOffer">
+		<field name="uuid" type="String" />
+		<field name="userId" type="long" />
+		<field name="offerId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+	</model>
+</model-hints>
