@@ -1,0 +1,10 @@
+Bundle-Name: studentjob-api
+Bundle-SymbolicName: edu.uoc.mestemi.studentjob.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	edu.uoc.mestemi.studentjob.exception,\
+	edu.uoc.mestemi.studentjob.model,\
+	edu.uoc.mestemi.studentjob.service,\
+	edu.uoc.mestemi.studentjob.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../studentjob-service/service.xml
