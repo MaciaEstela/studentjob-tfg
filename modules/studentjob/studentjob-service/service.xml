@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="edu.uoc.mestemi.studentjob">
+	<namespace>SJob</namespace>	
+	<!-- SOCIALMEDIANETWORK ENTITY -->
+	<entity local-service="true" name="SocialMediaNetwork" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="socialMediaNetworkId" primary="true" type="long" />
+		<!-- FK fields -->
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="logo" type="long" />
+		<column name="baseURL" type="String" />
+
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<!-- References -->
+
+	</entity>
+	
+	<!-- SOCIALMEDIA ENTITY -->
+	<entity local-service="true" name="SocialMedia" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="socialMediaId" primary="true" type="long" />
+		<!-- FK fields -->
+		<column name="socialMediaNetworkId" type="long" />
+
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="socialMediaType" type="String" />
+		<column name="socialURL" type="String" />
+		<column name="className" type="String" />
+		<column name="classPK" type="long" />
+
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="className" />
+		</order>
+
+		<!-- Finder methods -->
+		<finder return-type="Collection" name="GroupIdAndClassNameAndClassPK">
+			<finder-column name="groupId" />
+			<finder-column name="className" />
+			<finder-column name="classPK" />
+		</finder>
+		
+		<!-- References -->
+		
+
+	</entity>
+	
+	<!-- STUDENTPROFILE ENTITY -->
+	<entity local-service="true" name="StudentProfile" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="studentProfileId" primary="true" type="long" />
+		<!-- FK fields -->
+		<column name="regionId" type="long" />
+		<column name="degrees" type="Collection" entity="Degree" mapping-table="Students_Degrees"/>
+		
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="active" type="boolean" />
+		<column name="title" type="String" localized="true"/>
+		<column name="description" type="String" localized="true"/>
+		<column name="email" type="String" />
+		<column name="preference" type="String" />
+		<column name="curriculumId" type="long"/>
+
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="title" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<!-- References -->
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetCategory" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetLink" package-path="com.liferay.portlet.asset" />
+
+	</entity>
+	
+	<!-- Student User Offer Enrollment  -->
+	<entity local-service="true" name="UserEnrollOffer" remote-service="true" uuid="true">
+		<column name="userId" type="long" primary="true" />
+		<column name="offerId" type="long" primary="true" />
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+	</entity>
+	
+	<!-- COMPANYPROFILE ENTITY -->
+	<entity local-service="true" name="CompanyProfile" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="companyProfileId" primary="true" type="long" />
+		<!-- FK fields -->
+		<column name="regionId" type="long" />
+
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="active" type="boolean" />
+		<column name="title" type="String" localized="true"/>
+		<column name="description" type="String" localized="true"/>
+		<column name="email" type="String" />
+		<column name="sector" type="String" localized="true"/>
+		<column name="website" type="String" />
+		
+
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="title" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<!-- References -->
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetCategory" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetLink" package-path="com.liferay.portlet.asset" />
+		
+	</entity>
+	
+	<!-- OFFER ENTITY -->
+	<entity local-service="true" name="Offer" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="offerId" primary="true" type="long" />
+		<!-- FK fields -->
+		<column name="provinceId" type="long" />
+		<column name="degrees" type="Collection" entity="Degree" mapping-table="Offers_Degrees"/>
+		
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="name" type="String" localized="true"/>
+		<column name="preference" type="String" />
+		<column name="description" type="String" localized="true"/>
+		
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<!-- References -->
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetCategory" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetLink" package-path="com.liferay.portlet.asset" />
+		
+	</entity>
+	
+	<!-- DEGREEAREA ENTITY -->
+	<entity local-service="true" name="DegreeArea" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="degreeAreaId" primary="true" type="long" />
+		<!-- FK fields -->
+		<column name="degrees" type="Collection" entity="Degree" mapping-table="Degrees_DegreesAreas"/>
+
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+
+		<!-- Other fields -->
+		<column name="name" type="String" localized="true"/>
+		
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<!-- References -->
+	</entity>
+	
+	<!-- DEGREE ENTITY -->
+	<entity local-service="true" name="Degree" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="degreeId" primary="true" type="long" />
+		<!-- FK fields -->
+		<column name="areas" type="Collection" entity="DegreeArea" mapping-table="Degrees_DegreesAreas"/>
+		<column name="studentProfiles" type="Collection" entity="StudentProfile" mapping-table="Students_Degrees"/>
+		<column name="offers" type="Collection" entity="Offer" mapping-table="Offers_Degrees"/>
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="name" type="String" localized="true"/>
+		
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<!-- References -->
+	</entity>
+	<!-- Exceptions -->
+	<exceptions>
+		<exception>SocialMediaNetworkValidation</exception>
+		<exception>SocialMediaTypeValidation</exception>
+		<exception>StudentProfileValidation</exception>
+		<exception>CompanyProfileValidation</exception>
+		<exception>OfferValidation</exception>
+		<exception>DegreeAreaValidation</exception>
+		<exception>DegreeValidation</exception>
+	</exceptions>
+</service-builder>
