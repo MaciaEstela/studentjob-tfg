@@ -37,6 +37,17 @@ public class SocialMediaNetworkLocalServiceWrapper
 		_socialMediaNetworkLocalService = socialMediaNetworkLocalService;
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMediaNetwork
+			addSocialMediaNetwork(
+				long groupId, String name, long logo, String baseURL,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaNetworkLocalService.addSocialMediaNetwork(
+			groupId, name, logo, baseURL, serviceContext);
+	}
+
 	/**
 	 * Adds the social media network to the database. Also notifies the appropriate model listeners.
 	 *
@@ -269,6 +280,16 @@ public class SocialMediaNetworkLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
+		getExportActionableDynamicQuery(
+			com.liferay.exportimport.kernel.lar.PortletDataContext
+				portletDataContext) {
+
+		return _socialMediaNetworkLocalService.getExportActionableDynamicQuery(
+			portletDataContext);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -349,6 +370,34 @@ public class SocialMediaNetworkLocalServiceWrapper
 			start, end);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+		getSocialMediaNetworksByGroupId(long groupId) {
+
+		return _socialMediaNetworkLocalService.getSocialMediaNetworksByGroupId(
+			groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+		getSocialMediaNetworksByGroupId(long groupId, int start, int end) {
+
+		return _socialMediaNetworkLocalService.getSocialMediaNetworksByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+		getSocialMediaNetworksByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+					orderByComparator) {
+
+		return _socialMediaNetworkLocalService.getSocialMediaNetworksByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the social media networks matching the UUID and company.
 	 *
@@ -395,6 +444,26 @@ public class SocialMediaNetworkLocalServiceWrapper
 	@Override
 	public int getSocialMediaNetworksCount() {
 		return _socialMediaNetworkLocalService.getSocialMediaNetworksCount();
+	}
+
+	@Override
+	public long getSocialMediaNetworksCountByKeywords(
+		long groupId, String keywords) {
+
+		return _socialMediaNetworkLocalService.
+			getSocialMediaNetworksCountByKeywords(groupId, keywords);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMediaNetwork
+			updateSocialMediaNetwork(
+				long socialMediaNetworkId, String name, long logo,
+				String baseURL,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaNetworkLocalService.updateSocialMediaNetwork(
+			socialMediaNetworkId, name, logo, baseURL, serviceContext);
 	}
 
 	/**

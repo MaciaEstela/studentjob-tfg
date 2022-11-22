@@ -52,7 +52,6 @@ public class SocialMediaWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("socialMediaType", getSocialMediaType());
 		attributes.put("socialURL", getSocialURL());
 		attributes.put("className", getClassName());
 		attributes.put("classPK", getClassPK());
@@ -115,12 +114,6 @@ public class SocialMediaWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
-		}
-
-		String socialMediaType = (String)attributes.get("socialMediaType");
-
-		if (socialMediaType != null) {
-			setSocialMediaType(socialMediaType);
 		}
 
 		String socialURL = (String)attributes.get("socialURL");
@@ -235,16 +228,6 @@ public class SocialMediaWrapper
 	@Override
 	public long getSocialMediaNetworkId() {
 		return model.getSocialMediaNetworkId();
-	}
-
-	/**
-	 * Returns the social media type of this social media.
-	 *
-	 * @return the social media type of this social media
-	 */
-	@Override
-	public String getSocialMediaType() {
-		return model.getSocialMediaType();
 	}
 
 	/**
@@ -390,16 +373,6 @@ public class SocialMediaWrapper
 	@Override
 	public void setSocialMediaNetworkId(long socialMediaNetworkId) {
 		model.setSocialMediaNetworkId(socialMediaNetworkId);
-	}
-
-	/**
-	 * Sets the social media type of this social media.
-	 *
-	 * @param socialMediaType the social media type of this social media
-	 */
-	@Override
-	public void setSocialMediaType(String socialMediaType) {
-		model.setSocialMediaType(socialMediaType);
 	}
 
 	/**

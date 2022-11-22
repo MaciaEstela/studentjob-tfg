@@ -391,6 +391,149 @@ public interface SocialMediaNetworkPersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns all the social media networks where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the matching social media networks
+	 */
+	public java.util.List<SocialMediaNetwork> findByGroupId(long groupId);
+
+	/**
+	 * Returns a range of all the social media networks where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>SocialMediaNetworkModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of social media networks
+	 * @param end the upper bound of the range of social media networks (not inclusive)
+	 * @return the range of matching social media networks
+	 */
+	public java.util.List<SocialMediaNetwork> findByGroupId(
+		long groupId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the social media networks where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>SocialMediaNetworkModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of social media networks
+	 * @param end the upper bound of the range of social media networks (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching social media networks
+	 */
+	public java.util.List<SocialMediaNetwork> findByGroupId(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<SocialMediaNetwork>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the social media networks where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>SocialMediaNetworkModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of social media networks
+	 * @param end the upper bound of the range of social media networks (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching social media networks
+	 */
+	public java.util.List<SocialMediaNetwork> findByGroupId(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<SocialMediaNetwork>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first social media network in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching social media network
+	 * @throws NoSuchSocialMediaNetworkException if a matching social media network could not be found
+	 */
+	public SocialMediaNetwork findByGroupId_First(
+			long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<SocialMediaNetwork>
+				orderByComparator)
+		throws NoSuchSocialMediaNetworkException;
+
+	/**
+	 * Returns the first social media network in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching social media network, or <code>null</code> if a matching social media network could not be found
+	 */
+	public SocialMediaNetwork fetchByGroupId_First(
+		long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<SocialMediaNetwork>
+			orderByComparator);
+
+	/**
+	 * Returns the last social media network in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching social media network
+	 * @throws NoSuchSocialMediaNetworkException if a matching social media network could not be found
+	 */
+	public SocialMediaNetwork findByGroupId_Last(
+			long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<SocialMediaNetwork>
+				orderByComparator)
+		throws NoSuchSocialMediaNetworkException;
+
+	/**
+	 * Returns the last social media network in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching social media network, or <code>null</code> if a matching social media network could not be found
+	 */
+	public SocialMediaNetwork fetchByGroupId_Last(
+		long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<SocialMediaNetwork>
+			orderByComparator);
+
+	/**
+	 * Returns the social media networks before and after the current social media network in the ordered set where groupId = &#63;.
+	 *
+	 * @param socialMediaNetworkId the primary key of the current social media network
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next social media network
+	 * @throws NoSuchSocialMediaNetworkException if a social media network with the primary key could not be found
+	 */
+	public SocialMediaNetwork[] findByGroupId_PrevAndNext(
+			long socialMediaNetworkId, long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<SocialMediaNetwork>
+				orderByComparator)
+		throws NoSuchSocialMediaNetworkException;
+
+	/**
+	 * Removes all the social media networks where groupId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 */
+	public void removeByGroupId(long groupId);
+
+	/**
+	 * Returns the number of social media networks where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching social media networks
+	 */
+	public int countByGroupId(long groupId);
+
+	/**
 	 * Caches the social media network in the entity cache if it is enabled.
 	 *
 	 * @param socialMediaNetwork the social media network

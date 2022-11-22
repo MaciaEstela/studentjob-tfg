@@ -14,6 +14,12 @@
 
 package edu.uoc.mestemi.studentjob.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
+import edu.uoc.mestemi.studentjob.model.DegreeArea;
+
+import java.util.Map;
+
 /**
  * Provides the remote service utility for DegreeArea. This utility wraps
  * <code>edu.uoc.mestemi.studentjob.service.impl.DegreeAreaServiceImpl</code> and is an
@@ -33,14 +39,42 @@ public class DegreeAreaServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.DegreeAreaServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static DegreeArea addDegreeArea(
+			long groupId, Map<java.util.Locale, String> nameMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addDegreeArea(groupId, nameMap, serviceContext);
+	}
+
+	public static DegreeArea deleteDegreeArea(long degreeAreaId)
+		throws PortalException {
+
+		return getService().deleteDegreeArea(degreeAreaId);
+	}
+
+	public static DegreeArea getDegreeArea(long degreeAreaId)
+		throws PortalException {
+
+		return getService().getDegreeArea(degreeAreaId);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static DegreeArea updateDegreeArea(
+			long degreeAreaId, Map<java.util.Locale, String> nameMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateDegreeArea(
+			degreeAreaId, nameMap, serviceContext);
 	}
 
 	public static DegreeAreaService getService() {

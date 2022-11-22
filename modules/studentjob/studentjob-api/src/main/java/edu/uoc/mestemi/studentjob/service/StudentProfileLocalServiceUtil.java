@@ -25,6 +25,7 @@ import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for StudentProfile. This utility wraps
@@ -67,6 +68,19 @@ public class StudentProfileLocalServiceUtil {
 		long degreeId, long[] studentProfileIds) {
 
 		getService().addDegreeStudentProfiles(degreeId, studentProfileIds);
+	}
+
+	public static StudentProfile addStudentProfile(
+			long groupId, long regionId, boolean active,
+			Map<java.util.Locale, String> titleMap,
+			Map<java.util.Locale, String> descriptionMap, String email,
+			String preference, long curriculumId, List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addStudentProfile(
+			groupId, regionId, active, titleMap, descriptionMap, email,
+			preference, curriculumId, degreeIds, serviceContext);
 	}
 
 	/**
@@ -284,6 +298,41 @@ public class StudentProfileLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<StudentProfile> getCompanyProfilesByGroupId(
+		long groupId) {
+
+		return getService().getCompanyProfilesByGroupId(groupId);
+	}
+
+	public static List<StudentProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getCompanyProfilesByGroupId(groupId, start, end);
+	}
+
+	public static List<StudentProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getService().getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<StudentProfile> getCompanyProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getService().getCompanyProfilesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	public static long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getCompanyProfilesCountByKeywords(
+			groupId, keywords);
+	}
+
 	/**
 	 * Returns the degreeIds of the degrees associated with the student profile.
 	 *
@@ -447,6 +496,19 @@ public class StudentProfileLocalServiceUtil {
 		long degreeId, long[] studentProfileIds) {
 
 		getService().setDegreeStudentProfiles(degreeId, studentProfileIds);
+	}
+
+	public static StudentProfile updateStudentProfile(
+			long studentProfileId, long regionId, boolean active,
+			Map<java.util.Locale, String> titleMap,
+			Map<java.util.Locale, String> descriptionMap, String email,
+			String preference, long curriculumId, List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateStudentProfile(
+			studentProfileId, regionId, active, titleMap, descriptionMap, email,
+			preference, curriculumId, degreeIds, serviceContext);
 	}
 
 	/**

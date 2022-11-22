@@ -96,18 +96,18 @@ public interface OfferModel
 	public void setOfferId(long offerId);
 
 	/**
-	 * Returns the province ID of this offer.
+	 * Returns the region ID of this offer.
 	 *
-	 * @return the province ID of this offer
+	 * @return the region ID of this offer
 	 */
-	public long getProvinceId();
+	public long getRegionId();
 
 	/**
-	 * Sets the province ID of this offer.
+	 * Sets the region ID of this offer.
 	 *
-	 * @param provinceId the province ID of this offer
+	 * @param regionId the region ID of this offer
 	 */
-	public void setProvinceId(long provinceId);
+	public void setRegionId(long regionId);
 
 	/**
 	 * Returns the group ID of this offer.

@@ -524,6 +524,169 @@ public class DegreeUtil {
 	}
 
 	/**
+	 * Returns all the degrees where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the matching degrees
+	 */
+	public static List<Degree> findByGroupId(long groupId) {
+		return getPersistence().findByGroupId(groupId);
+	}
+
+	/**
+	 * Returns a range of all the degrees where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DegreeModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of degrees
+	 * @param end the upper bound of the range of degrees (not inclusive)
+	 * @return the range of matching degrees
+	 */
+	public static List<Degree> findByGroupId(long groupId, int start, int end) {
+		return getPersistence().findByGroupId(groupId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the degrees where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DegreeModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of degrees
+	 * @param end the upper bound of the range of degrees (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching degrees
+	 */
+	public static List<Degree> findByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Degree> orderByComparator) {
+
+		return getPersistence().findByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the degrees where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DegreeModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of degrees
+	 * @param end the upper bound of the range of degrees (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching degrees
+	 */
+	public static List<Degree> findByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Degree> orderByComparator, boolean useFinderCache) {
+
+		return getPersistence().findByGroupId(
+			groupId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching degree
+	 * @throws NoSuchDegreeException if a matching degree could not be found
+	 */
+	public static Degree findByGroupId_First(
+			long groupId, OrderByComparator<Degree> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchDegreeException {
+
+		return getPersistence().findByGroupId_First(groupId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching degree, or <code>null</code> if a matching degree could not be found
+	 */
+	public static Degree fetchByGroupId_First(
+		long groupId, OrderByComparator<Degree> orderByComparator) {
+
+		return getPersistence().fetchByGroupId_First(
+			groupId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching degree
+	 * @throws NoSuchDegreeException if a matching degree could not be found
+	 */
+	public static Degree findByGroupId_Last(
+			long groupId, OrderByComparator<Degree> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchDegreeException {
+
+		return getPersistence().findByGroupId_Last(groupId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching degree, or <code>null</code> if a matching degree could not be found
+	 */
+	public static Degree fetchByGroupId_Last(
+		long groupId, OrderByComparator<Degree> orderByComparator) {
+
+		return getPersistence().fetchByGroupId_Last(groupId, orderByComparator);
+	}
+
+	/**
+	 * Returns the degrees before and after the current degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param degreeId the primary key of the current degree
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next degree
+	 * @throws NoSuchDegreeException if a degree with the primary key could not be found
+	 */
+	public static Degree[] findByGroupId_PrevAndNext(
+			long degreeId, long groupId,
+			OrderByComparator<Degree> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchDegreeException {
+
+		return getPersistence().findByGroupId_PrevAndNext(
+			degreeId, groupId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the degrees where groupId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 */
+	public static void removeByGroupId(long groupId) {
+		getPersistence().removeByGroupId(groupId);
+	}
+
+	/**
+	 * Returns the number of degrees where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching degrees
+	 */
+	public static int countByGroupId(long groupId) {
+		return getPersistence().countByGroupId(groupId);
+	}
+
+	/**
 	 * Caches the degree in the entity cache if it is enabled.
 	 *
 	 * @param degree the degree

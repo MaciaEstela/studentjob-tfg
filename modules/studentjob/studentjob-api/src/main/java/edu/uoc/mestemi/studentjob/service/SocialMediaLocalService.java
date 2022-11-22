@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -64,6 +65,10 @@ public interface SocialMediaLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.SocialMediaLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the social media local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SocialMediaLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public SocialMedia addSocialMedia(
+			long groupId, long socialMediaNetworkId, String socialURL,
+			String className, long classPK, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the social media to the database. Also notifies the appropriate model listeners.
@@ -262,6 +267,18 @@ public interface SocialMediaLocalService
 	public SocialMedia getSocialMediaByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<SocialMedia> orderByComparator);
+
 	/**
 	 * Returns a range of all the social medias.
 	 *
@@ -309,6 +326,10 @@ public interface SocialMediaLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSocialMediasCount();
+
+	public SocialMedia updateSocialMedia(
+			long socialMediaId, String socialURL, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the social media in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

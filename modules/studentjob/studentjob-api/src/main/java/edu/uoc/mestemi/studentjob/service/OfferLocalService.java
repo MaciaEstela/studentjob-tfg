@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -38,6 +39,8 @@ import edu.uoc.mestemi.studentjob.model.Offer;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -71,6 +74,12 @@ public interface OfferLocalService
 	public void addDegreeOffers(long degreeId, List<Offer> offers);
 
 	public void addDegreeOffers(long degreeId, long[] offerIds);
+
+	public Offer addOffer(
+			long groupId, long regionId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, String preference,
+			List<Long> degreeIds, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the offer to the database. Also notifies the appropriate model listeners.
@@ -256,6 +265,9 @@ public interface OfferLocalService
 	public long[] getDegreePrimaryKeys(long offerId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getDegreesByGroupId(long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 
@@ -298,6 +310,14 @@ public interface OfferLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Offer> getOffers(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Offer> orderByComparator);
+
 	/**
 	 * Returns all the offers matching the UUID and company.
 	 *
@@ -331,6 +351,9 @@ public interface OfferLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getOffersCount();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getOffersCountByKeywords(long groupId, String keywords);
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -353,6 +376,12 @@ public interface OfferLocalService
 	public boolean hasDegreeOffers(long degreeId);
 
 	public void setDegreeOffers(long degreeId, long[] offerIds);
+
+	public Offer updateOffer(
+			long offerId, long regionId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, String preference,
+			List<Long> degreeIds, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the offer in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

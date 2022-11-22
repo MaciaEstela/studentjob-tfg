@@ -63,7 +63,7 @@ public class SocialMediaCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -83,8 +83,6 @@ public class SocialMediaCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", socialMediaType=");
-		sb.append(socialMediaType);
 		sb.append(", socialURL=");
 		sb.append(socialURL);
 		sb.append(", className=");
@@ -134,13 +132,6 @@ public class SocialMediaCacheModel
 			socialMediaImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		if (socialMediaType == null) {
-			socialMediaImpl.setSocialMediaType("");
-		}
-		else {
-			socialMediaImpl.setSocialMediaType(socialMediaType);
-		}
-
 		if (socialURL == null) {
 			socialMediaImpl.setSocialURL("");
 		}
@@ -178,7 +169,6 @@ public class SocialMediaCacheModel
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		socialMediaType = objectInput.readUTF();
 		socialURL = objectInput.readUTF();
 		className = objectInput.readUTF();
 
@@ -214,13 +204,6 @@ public class SocialMediaCacheModel
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
-		if (socialMediaType == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(socialMediaType);
-		}
-
 		if (socialURL == null) {
 			objectOutput.writeUTF("");
 		}
@@ -247,7 +230,6 @@ public class SocialMediaCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public String socialMediaType;
 	public String socialURL;
 	public String className;
 	public long classPK;

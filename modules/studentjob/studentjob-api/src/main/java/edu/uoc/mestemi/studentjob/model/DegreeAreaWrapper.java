@@ -14,9 +14,11 @@
 
 package edu.uoc.mestemi.studentjob.model;
 
+import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,9 @@ public class DegreeAreaWrapper
 		attributes.put("degreeAreaId", getDegreeAreaId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
 
 		return attributes;
@@ -76,6 +81,24 @@ public class DegreeAreaWrapper
 			setCompanyId(companyId);
 		}
 
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
@@ -103,6 +126,16 @@ public class DegreeAreaWrapper
 		return model.getCompanyId();
 	}
 
+	/**
+	 * Returns the create date of this degree area.
+	 *
+	 * @return the create date of this degree area
+	 */
+	@Override
+	public Date getCreateDate() {
+		return model.getCreateDate();
+	}
+
 	@Override
 	public String getDefaultLanguageId() {
 		return model.getDefaultLanguageId();
@@ -126,6 +159,16 @@ public class DegreeAreaWrapper
 	@Override
 	public long getGroupId() {
 		return model.getGroupId();
+	}
+
+	/**
+	 * Returns the modified date of this degree area.
+	 *
+	 * @return the modified date of this degree area
+	 */
+	@Override
+	public Date getModifiedDate() {
+		return model.getModifiedDate();
 	}
 
 	/**
@@ -215,6 +258,26 @@ public class DegreeAreaWrapper
 	}
 
 	/**
+	 * Returns the user ID of this degree area.
+	 *
+	 * @return the user ID of this degree area
+	 */
+	@Override
+	public long getUserId() {
+		return model.getUserId();
+	}
+
+	/**
+	 * Returns the user uuid of this degree area.
+	 *
+	 * @return the user uuid of this degree area
+	 */
+	@Override
+	public String getUserUuid() {
+		return model.getUserUuid();
+	}
+
+	/**
 	 * Returns the uuid of this degree area.
 	 *
 	 * @return the uuid of this degree area
@@ -255,6 +318,16 @@ public class DegreeAreaWrapper
 	}
 
 	/**
+	 * Sets the create date of this degree area.
+	 *
+	 * @param createDate the create date of this degree area
+	 */
+	@Override
+	public void setCreateDate(Date createDate) {
+		model.setCreateDate(createDate);
+	}
+
+	/**
 	 * Sets the degree area ID of this degree area.
 	 *
 	 * @param degreeAreaId the degree area ID of this degree area
@@ -272,6 +345,16 @@ public class DegreeAreaWrapper
 	@Override
 	public void setGroupId(long groupId) {
 		model.setGroupId(groupId);
+	}
+
+	/**
+	 * Sets the modified date of this degree area.
+	 *
+	 * @param modifiedDate the modified date of this degree area
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		model.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -348,6 +431,26 @@ public class DegreeAreaWrapper
 	}
 
 	/**
+	 * Sets the user ID of this degree area.
+	 *
+	 * @param userId the user ID of this degree area
+	 */
+	@Override
+	public void setUserId(long userId) {
+		model.setUserId(userId);
+	}
+
+	/**
+	 * Sets the user uuid of this degree area.
+	 *
+	 * @param userUuid the user uuid of this degree area
+	 */
+	@Override
+	public void setUserUuid(String userUuid) {
+		model.setUserUuid(userUuid);
+	}
+
+	/**
 	 * Sets the uuid of this degree area.
 	 *
 	 * @param uuid the uuid of this degree area
@@ -355,6 +458,11 @@ public class DegreeAreaWrapper
 	@Override
 	public void setUuid(String uuid) {
 		model.setUuid(uuid);
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return model.getStagedModelType();
 	}
 
 	@Override

@@ -14,13 +14,22 @@
 
 package edu.uoc.mestemi.studentjob.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
+import com.liferay.portal.kernel.util.MethodHandler;
+import com.liferay.portal.kernel.util.MethodKey;
+
+import edu.uoc.mestemi.studentjob.service.StudentProfileServiceUtil;
+
 /**
  * Provides the HTTP utility for the
- * <code>edu.uoc.mestemi.studentjob.service.StudentProfileServiceUtil</code> service
+ * <code>StudentProfileServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -41,4 +50,205 @@ package edu.uoc.mestemi.studentjob.service.http;
  * @generated
  */
 public class StudentProfileServiceHttp {
+
+	public static edu.uoc.mestemi.studentjob.model.StudentProfile
+			addStudentProfile(
+				HttpPrincipal httpPrincipal, long groupId, long regionId,
+				boolean active,
+				java.util.Map<java.util.Locale, String> titleMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String email, String preference, long curriculumId,
+				java.util.List<Long> degreeIds,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "addStudentProfile",
+				_addStudentProfileParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, regionId, active, titleMap, descriptionMap,
+				email, preference, curriculumId, degreeIds, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.StudentProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.StudentProfile
+			updateStudentProfile(
+				HttpPrincipal httpPrincipal, long studentProfileId,
+				long regionId, boolean active,
+				java.util.Map<java.util.Locale, String> titleMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String email, String preference, long curriculumId,
+				java.util.List<Long> degreeIds,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "updateStudentProfile",
+				_updateStudentProfileParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, studentProfileId, regionId, active, titleMap,
+				descriptionMap, email, preference, curriculumId, degreeIds,
+				serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.StudentProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.StudentProfile
+			deleteStudentProfile(
+				HttpPrincipal httpPrincipal, long studentProfileId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "deleteStudentProfile",
+				_deleteStudentProfileParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, studentProfileId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.StudentProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.StudentProfile
+			getStudentProfile(HttpPrincipal httpPrincipal, long socialMediaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "getStudentProfile",
+				_getStudentProfileParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, socialMediaId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.StudentProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		StudentProfileServiceHttp.class);
+
+	private static final Class<?>[] _addStudentProfileParameterTypes0 =
+		new Class[] {
+			long.class, long.class, boolean.class, java.util.Map.class,
+			java.util.Map.class, String.class, String.class, long.class,
+			java.util.List.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _updateStudentProfileParameterTypes1 =
+		new Class[] {
+			long.class, long.class, boolean.class, java.util.Map.class,
+			java.util.Map.class, String.class, String.class, long.class,
+			java.util.List.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _deleteStudentProfileParameterTypes2 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getStudentProfileParameterTypes3 =
+		new Class[] {long.class};
+
 }

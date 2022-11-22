@@ -70,6 +70,21 @@ public class StudentProfileLocalServiceWrapper
 			degreeId, studentProfileIds);
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.StudentProfile addStudentProfile(
+			long groupId, long regionId, boolean active,
+			java.util.Map<java.util.Locale, String> titleMap,
+			java.util.Map<java.util.Locale, String> descriptionMap,
+			String email, String preference, long curriculumId,
+			java.util.List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _studentProfileLocalService.addStudentProfile(
+			groupId, regionId, active, titleMap, descriptionMap, email,
+			preference, curriculumId, degreeIds, serviceContext);
+	}
+
 	/**
 	 * Adds the student profile to the database. Also notifies the appropriate model listeners.
 	 *
@@ -333,6 +348,53 @@ public class StudentProfileLocalServiceWrapper
 		return _studentProfileLocalService.getActionableDynamicQuery();
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getCompanyProfilesByGroupId(long groupId) {
+
+		return _studentProfileLocalService.getCompanyProfilesByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getCompanyProfilesByGroupId(long groupId, int start, int end) {
+
+		return _studentProfileLocalService.getCompanyProfilesByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getCompanyProfilesByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>
+					orderByComparator) {
+
+		return _studentProfileLocalService.getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getCompanyProfilesByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>
+					orderByComparator) {
+
+		return _studentProfileLocalService.getCompanyProfilesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	@Override
+	public long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return _studentProfileLocalService.getCompanyProfilesCountByKeywords(
+			groupId, keywords);
+	}
+
 	/**
 	 * Returns the degreeIds of the degrees associated with the student profile.
 	 *
@@ -532,6 +594,21 @@ public class StudentProfileLocalServiceWrapper
 
 		_studentProfileLocalService.setDegreeStudentProfiles(
 			degreeId, studentProfileIds);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.StudentProfile updateStudentProfile(
+			long studentProfileId, long regionId, boolean active,
+			java.util.Map<java.util.Locale, String> titleMap,
+			java.util.Map<java.util.Locale, String> descriptionMap,
+			String email, String preference, long curriculumId,
+			java.util.List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _studentProfileLocalService.updateStudentProfile(
+			studentProfileId, regionId, active, titleMap, descriptionMap, email,
+			preference, curriculumId, degreeIds, serviceContext);
 	}
 
 	/**

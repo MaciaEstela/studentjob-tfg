@@ -388,6 +388,149 @@ public interface DegreePersistence extends BasePersistence<Degree> {
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns all the degrees where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the matching degrees
+	 */
+	public java.util.List<Degree> findByGroupId(long groupId);
+
+	/**
+	 * Returns a range of all the degrees where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DegreeModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of degrees
+	 * @param end the upper bound of the range of degrees (not inclusive)
+	 * @return the range of matching degrees
+	 */
+	public java.util.List<Degree> findByGroupId(
+		long groupId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the degrees where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DegreeModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of degrees
+	 * @param end the upper bound of the range of degrees (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching degrees
+	 */
+	public java.util.List<Degree> findByGroupId(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Degree>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the degrees where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DegreeModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of degrees
+	 * @param end the upper bound of the range of degrees (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching degrees
+	 */
+	public java.util.List<Degree> findByGroupId(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Degree>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching degree
+	 * @throws NoSuchDegreeException if a matching degree could not be found
+	 */
+	public Degree findByGroupId_First(
+			long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<Degree>
+				orderByComparator)
+		throws NoSuchDegreeException;
+
+	/**
+	 * Returns the first degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching degree, or <code>null</code> if a matching degree could not be found
+	 */
+	public Degree fetchByGroupId_First(
+		long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<Degree>
+			orderByComparator);
+
+	/**
+	 * Returns the last degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching degree
+	 * @throws NoSuchDegreeException if a matching degree could not be found
+	 */
+	public Degree findByGroupId_Last(
+			long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<Degree>
+				orderByComparator)
+		throws NoSuchDegreeException;
+
+	/**
+	 * Returns the last degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching degree, or <code>null</code> if a matching degree could not be found
+	 */
+	public Degree fetchByGroupId_Last(
+		long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<Degree>
+			orderByComparator);
+
+	/**
+	 * Returns the degrees before and after the current degree in the ordered set where groupId = &#63;.
+	 *
+	 * @param degreeId the primary key of the current degree
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next degree
+	 * @throws NoSuchDegreeException if a degree with the primary key could not be found
+	 */
+	public Degree[] findByGroupId_PrevAndNext(
+			long degreeId, long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<Degree>
+				orderByComparator)
+		throws NoSuchDegreeException;
+
+	/**
+	 * Removes all the degrees where groupId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 */
+	public void removeByGroupId(long groupId);
+
+	/**
+	 * Returns the number of degrees where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching degrees
+	 */
+	public int countByGroupId(long groupId);
+
+	/**
 	 * Caches the degree in the entity cache if it is enabled.
 	 *
 	 * @param degree the degree

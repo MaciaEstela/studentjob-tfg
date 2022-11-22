@@ -14,6 +14,10 @@
 
 package edu.uoc.mestemi.studentjob.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
+import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
+
 /**
  * Provides the remote service utility for SocialMediaNetwork. This utility wraps
  * <code>edu.uoc.mestemi.studentjob.service.impl.SocialMediaNetworkServiceImpl</code> and is an
@@ -33,14 +37,45 @@ public class SocialMediaNetworkServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.SocialMediaNetworkServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SocialMediaNetwork addSocialMediaNetwork(
+			long groupId, String name, long logo, String baseURL,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addSocialMediaNetwork(
+			groupId, name, logo, baseURL, serviceContext);
+	}
+
+	public static SocialMediaNetwork deleteSocialMediaNetwork(
+			long socialMediaNetworkId)
+		throws PortalException {
+
+		return getService().deleteSocialMediaNetwork(socialMediaNetworkId);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static SocialMediaNetwork getSocialMediaNetwork(
+			long socialMediaNetworkId)
+		throws PortalException {
+
+		return getService().getSocialMediaNetwork(socialMediaNetworkId);
+	}
+
+	public static SocialMediaNetwork updateSocialMediaNetwork(
+			long socialMediaNetworkId, String name, long logo, String baseURL,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateSocialMediaNetwork(
+			socialMediaNetworkId, name, logo, baseURL, serviceContext);
 	}
 
 	public static SocialMediaNetworkService getService() {

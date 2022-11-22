@@ -14,6 +14,12 @@
 
 package edu.uoc.mestemi.studentjob.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
+import edu.uoc.mestemi.studentjob.model.CompanyProfile;
+
+import java.util.Map;
+
 /**
  * Provides the remote service utility for CompanyProfile. This utility wraps
  * <code>edu.uoc.mestemi.studentjob.service.impl.CompanyProfileServiceImpl</code> and is an
@@ -33,14 +39,51 @@ public class CompanyProfileServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.CompanyProfileServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static CompanyProfile addCompanyProfile(
+			long groupId, long regionId, boolean active,
+			Map<java.util.Locale, String> titleMap,
+			Map<java.util.Locale, String> descriptionMap, String email,
+			Map<java.util.Locale, String> sectorMap, String website,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addCompanyProfile(
+			groupId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, serviceContext);
+	}
+
+	public static CompanyProfile deleteCompanyProfile(long companyProfileId)
+		throws PortalException {
+
+		return getService().deleteCompanyProfile(companyProfileId);
+	}
+
+	public static CompanyProfile getCompanyProfile(long companyProfileId)
+		throws PortalException {
+
+		return getService().getCompanyProfile(companyProfileId);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static CompanyProfile updateCompanyProfile(
+			long companyProfileId, long regionId, boolean active,
+			Map<java.util.Locale, String> titleMap,
+			Map<java.util.Locale, String> descriptionMap, String email,
+			Map<java.util.Locale, String> sectorMap, String website,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateCompanyProfile(
+			companyProfileId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, serviceContext);
 	}
 
 	public static CompanyProfileService getService() {

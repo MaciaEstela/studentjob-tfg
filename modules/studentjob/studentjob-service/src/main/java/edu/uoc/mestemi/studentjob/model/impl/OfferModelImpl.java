@@ -81,7 +81,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"offerId", Types.BIGINT},
-		{"provinceId", Types.BIGINT}, {"groupId", Types.BIGINT},
+		{"regionId", Types.BIGINT}, {"groupId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
@@ -94,7 +94,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 	static {
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("offerId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("provinceId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("regionId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
@@ -107,7 +107,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_Offer (uuid_ VARCHAR(75) null,offerId LONG not null primary key,provinceId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name STRING null,preference VARCHAR(75) null,description STRING null)";
+		"create table SJob_Offer (uuid_ VARCHAR(75) null,offerId LONG not null primary key,regionId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name STRING null,preference VARCHAR(75) null,description STRING null)";
 
 	public static final String TABLE_SQL_DROP = "drop table SJob_Offer";
 
@@ -268,9 +268,9 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		attributeGetterFunctions.put("offerId", Offer::getOfferId);
 		attributeSetterBiConsumers.put(
 			"offerId", (BiConsumer<Offer, Long>)Offer::setOfferId);
-		attributeGetterFunctions.put("provinceId", Offer::getProvinceId);
+		attributeGetterFunctions.put("regionId", Offer::getRegionId);
 		attributeSetterBiConsumers.put(
-			"provinceId", (BiConsumer<Offer, Long>)Offer::setProvinceId);
+			"regionId", (BiConsumer<Offer, Long>)Offer::setRegionId);
 		attributeGetterFunctions.put("groupId", Offer::getGroupId);
 		attributeSetterBiConsumers.put(
 			"groupId", (BiConsumer<Offer, Long>)Offer::setGroupId);
@@ -351,17 +351,17 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 	@JSON
 	@Override
-	public long getProvinceId() {
-		return _provinceId;
+	public long getRegionId() {
+		return _regionId;
 	}
 
 	@Override
-	public void setProvinceId(long provinceId) {
+	public void setRegionId(long regionId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_provinceId = provinceId;
+		_regionId = regionId;
 	}
 
 	@JSON
@@ -891,7 +891,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 		offerImpl.setUuid(getUuid());
 		offerImpl.setOfferId(getOfferId());
-		offerImpl.setProvinceId(getProvinceId());
+		offerImpl.setRegionId(getRegionId());
 		offerImpl.setGroupId(getGroupId());
 		offerImpl.setCompanyId(getCompanyId());
 		offerImpl.setUserId(getUserId());
@@ -913,8 +913,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 		offerImpl.setUuid(this.<String>getColumnOriginalValue("uuid_"));
 		offerImpl.setOfferId(this.<Long>getColumnOriginalValue("offerId"));
-		offerImpl.setProvinceId(
-			this.<Long>getColumnOriginalValue("provinceId"));
+		offerImpl.setRegionId(this.<Long>getColumnOriginalValue("regionId"));
 		offerImpl.setGroupId(this.<Long>getColumnOriginalValue("groupId"));
 		offerImpl.setCompanyId(this.<Long>getColumnOriginalValue("companyId"));
 		offerImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
@@ -1013,7 +1012,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 		offerCacheModel.offerId = getOfferId();
 
-		offerCacheModel.provinceId = getProvinceId();
+		offerCacheModel.regionId = getRegionId();
 
 		offerCacheModel.groupId = getGroupId();
 
@@ -1163,7 +1162,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 	private String _uuid;
 	private long _offerId;
-	private long _provinceId;
+	private long _regionId;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;
@@ -1208,7 +1207,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 		_columnOriginalValues.put("uuid_", _uuid);
 		_columnOriginalValues.put("offerId", _offerId);
-		_columnOriginalValues.put("provinceId", _provinceId);
+		_columnOriginalValues.put("regionId", _regionId);
 		_columnOriginalValues.put("groupId", _groupId);
 		_columnOriginalValues.put("companyId", _companyId);
 		_columnOriginalValues.put("userId", _userId);
@@ -1245,7 +1244,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 		columnBitmasks.put("offerId", 2L);
 
-		columnBitmasks.put("provinceId", 4L);
+		columnBitmasks.put("regionId", 4L);
 
 		columnBitmasks.put("groupId", 8L);
 

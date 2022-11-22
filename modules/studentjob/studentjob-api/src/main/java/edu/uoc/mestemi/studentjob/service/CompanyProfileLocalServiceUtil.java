@@ -25,6 +25,7 @@ import edu.uoc.mestemi.studentjob.model.CompanyProfile;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for CompanyProfile. This utility wraps
@@ -60,6 +61,19 @@ public class CompanyProfileLocalServiceUtil {
 		CompanyProfile companyProfile) {
 
 		return getService().addCompanyProfile(companyProfile);
+	}
+
+	public static CompanyProfile addCompanyProfile(
+			long groupId, long regionId, boolean active,
+			Map<java.util.Locale, String> titleMap,
+			Map<java.util.Locale, String> descriptionMap, String email,
+			Map<java.util.Locale, String> sectorMap, String website,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addCompanyProfile(
+			groupId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, serviceContext);
 	}
 
 	/**
@@ -276,6 +290,34 @@ public class CompanyProfileLocalServiceUtil {
 		return getService().getCompanyProfiles(start, end);
 	}
 
+	public static List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId) {
+
+		return getService().getCompanyProfilesByGroupId(groupId);
+	}
+
+	public static List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getCompanyProfilesByGroupId(groupId, start, end);
+	}
+
+	public static List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator) {
+
+		return getService().getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<CompanyProfile> getCompanyProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator) {
+
+		return getService().getCompanyProfilesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the company profiles matching the UUID and company.
 	 *
@@ -315,6 +357,13 @@ public class CompanyProfileLocalServiceUtil {
 	 */
 	public static int getCompanyProfilesCount() {
 		return getService().getCompanyProfilesCount();
+	}
+
+	public static long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getCompanyProfilesCountByKeywords(
+			groupId, keywords);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
@@ -364,6 +413,19 @@ public class CompanyProfileLocalServiceUtil {
 		CompanyProfile companyProfile) {
 
 		return getService().updateCompanyProfile(companyProfile);
+	}
+
+	public static CompanyProfile updateCompanyProfile(
+			long companyProfileId, long regionId, boolean active,
+			Map<java.util.Locale, String> titleMap,
+			Map<java.util.Locale, String> descriptionMap, String email,
+			Map<java.util.Locale, String> sectorMap, String website,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateCompanyProfile(
+			companyProfileId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, serviceContext);
 	}
 
 	public static CompanyProfileLocalService getService() {

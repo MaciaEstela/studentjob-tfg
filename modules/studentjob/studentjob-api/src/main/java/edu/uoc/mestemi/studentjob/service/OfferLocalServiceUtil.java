@@ -25,6 +25,7 @@ import edu.uoc.mestemi.studentjob.model.Offer;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for Offer. This utility wraps
@@ -59,6 +60,18 @@ public class OfferLocalServiceUtil {
 
 	public static void addDegreeOffers(long degreeId, long[] offerIds) {
 		getService().addDegreeOffers(degreeId, offerIds);
+	}
+
+	public static Offer addOffer(
+			long groupId, long regionId, Map<java.util.Locale, String> nameMap,
+			Map<java.util.Locale, String> descriptionMap, String preference,
+			List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addOffer(
+			groupId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			serviceContext);
 	}
 
 	/**
@@ -292,6 +305,12 @@ public class OfferLocalServiceUtil {
 		return getService().getDegreePrimaryKeys(offerId);
 	}
 
+	public static List<Offer> getDegreesByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getDegreesByGroupId(groupId, start, end);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
@@ -347,6 +366,18 @@ public class OfferLocalServiceUtil {
 		return getService().getOffers(start, end);
 	}
 
+	public static List<Offer> getOffersByGroupId(long groupId) {
+		return getService().getOffersByGroupId(groupId);
+	}
+
+	public static List<Offer> getOffersByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Offer> orderByComparator) {
+
+		return getService().getOffersByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the offers matching the UUID and company.
 	 *
@@ -387,6 +418,10 @@ public class OfferLocalServiceUtil {
 		return getService().getOffersCount();
 	}
 
+	public static long getOffersCountByKeywords(long groupId, String keywords) {
+		return getService().getOffersCountByKeywords(groupId, keywords);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -415,6 +450,18 @@ public class OfferLocalServiceUtil {
 
 	public static void setDegreeOffers(long degreeId, long[] offerIds) {
 		getService().setDegreeOffers(degreeId, offerIds);
+	}
+
+	public static Offer updateOffer(
+			long offerId, long regionId, Map<java.util.Locale, String> nameMap,
+			Map<java.util.Locale, String> descriptionMap, String preference,
+			List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateOffer(
+			offerId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			serviceContext);
 	}
 
 	/**

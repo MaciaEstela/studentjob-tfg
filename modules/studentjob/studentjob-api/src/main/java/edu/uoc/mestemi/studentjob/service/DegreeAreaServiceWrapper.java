@@ -34,6 +34,32 @@ public class DegreeAreaServiceWrapper
 		_degreeAreaService = degreeAreaService;
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.DegreeArea addDegreeArea(
+			long groupId, java.util.Map<java.util.Locale, String> nameMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeAreaService.addDegreeArea(
+			groupId, nameMap, serviceContext);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.DegreeArea deleteDegreeArea(
+			long degreeAreaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeAreaService.deleteDegreeArea(degreeAreaId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.DegreeArea getDegreeArea(
+			long degreeAreaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeAreaService.getDegreeArea(degreeAreaId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -42,6 +68,16 @@ public class DegreeAreaServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _degreeAreaService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.DegreeArea updateDegreeArea(
+			long degreeAreaId, java.util.Map<java.util.Locale, String> nameMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeAreaService.updateDegreeArea(
+			degreeAreaId, nameMap, serviceContext);
 	}
 
 	@Override

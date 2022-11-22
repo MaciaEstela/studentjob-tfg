@@ -117,6 +117,20 @@ public interface UserEnrollOfferModel
 	public void setOfferId(long offerId);
 
 	/**
+	 * Returns the group ID of this user enroll offer.
+	 *
+	 * @return the group ID of this user enroll offer
+	 */
+	public long getGroupId();
+
+	/**
+	 * Sets the group ID of this user enroll offer.
+	 *
+	 * @param groupId the group ID of this user enroll offer
+	 */
+	public void setGroupId(long groupId);
+
+	/**
 	 * Returns the company ID of this user enroll offer.
 	 *
 	 * @return the company ID of this user enroll offer

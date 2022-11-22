@@ -45,6 +45,14 @@ public class UserEnrollOfferLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.UserEnrollOfferLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static UserEnrollOffer addUserEnrollOffer(
+			long groupId, long offerId, long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addUserEnrollOffer(
+			groupId, offerId, userId, serviceContext);
+	}
 
 	/**
 	 * Adds the user enroll offer to the database. Also notifies the appropriate model listeners.
@@ -223,17 +231,16 @@ public class UserEnrollOfferLocalServiceUtil {
 	}
 
 	/**
-	 * Returns the user enroll offer with the matching UUID and company.
+	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID
-	 * @param companyId the primary key of the company
+	 * @param groupId the primary key of the group
 	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
 	 */
-	public static UserEnrollOffer fetchUserEnrollOfferByUuidAndCompanyId(
-		String uuid, long companyId) {
+	public static UserEnrollOffer fetchUserEnrollOfferByUuidAndGroupId(
+		String uuid, long groupId) {
 
-		return getService().fetchUserEnrollOfferByUuidAndCompanyId(
-			uuid, companyId);
+		return getService().fetchUserEnrollOfferByUuidAndGroupId(uuid, groupId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
@@ -283,19 +290,18 @@ public class UserEnrollOfferLocalServiceUtil {
 	}
 
 	/**
-	 * Returns the user enroll offer with the matching UUID and company.
+	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID
-	 * @param companyId the primary key of the company
+	 * @param groupId the primary key of the group
 	 * @return the matching user enroll offer
 	 * @throws PortalException if a matching user enroll offer could not be found
 	 */
-	public static UserEnrollOffer getUserEnrollOfferByUuidAndCompanyId(
-			String uuid, long companyId)
+	public static UserEnrollOffer getUserEnrollOfferByUuidAndGroupId(
+			String uuid, long groupId)
 		throws PortalException {
 
-		return getService().getUserEnrollOfferByUuidAndCompanyId(
-			uuid, companyId);
+		return getService().getUserEnrollOfferByUuidAndGroupId(uuid, groupId);
 	}
 
 	/**
@@ -313,6 +319,38 @@ public class UserEnrollOfferLocalServiceUtil {
 		int start, int end) {
 
 		return getService().getUserEnrollOffers(start, end);
+	}
+
+	/**
+	 * Returns all the user enroll offers matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the user enroll offers
+	 * @param companyId the primary key of the company
+	 * @return the matching user enroll offers, or an empty list if no matches were found
+	 */
+	public static List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
+		String uuid, long companyId) {
+
+		return getService().getUserEnrollOffersByUuidAndCompanyId(
+			uuid, companyId);
+	}
+
+	/**
+	 * Returns a range of user enroll offers matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the user enroll offers
+	 * @param companyId the primary key of the company
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the range of matching user enroll offers, or an empty list if no matches were found
+	 */
+	public static List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return getService().getUserEnrollOffersByUuidAndCompanyId(
+			uuid, companyId, start, end, orderByComparator);
 	}
 
 	/**

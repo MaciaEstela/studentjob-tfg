@@ -15,7 +15,13 @@
 package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
 
+import java.util.Locale;
+import java.util.Map;
+
+import edu.uoc.mestemi.studentjob.model.CompanyProfile;
 import edu.uoc.mestemi.studentjob.service.base.CompanyProfileServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -31,4 +37,30 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class CompanyProfileServiceImpl extends CompanyProfileServiceBaseImpl {
+	
+	public CompanyProfile addCompanyProfile(long groupId, long regionId, boolean active, 
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, 
+			Map<Locale, String> sectorMap, String website, ServiceContext serviceContext) throws PortalException {
+		
+		return companyProfileLocalService.addCompanyProfile(groupId, 
+				regionId, active, titleMap, descriptionMap, email, sectorMap, website, serviceContext);
+	}
+	
+	public CompanyProfile updateCompanyProfile(long companyProfileId, long regionId, boolean active, 
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, 
+			Map<Locale, String> sectorMap, String website, ServiceContext serviceContext) 
+					throws PortalException {
+		
+		return companyProfileLocalService.updateCompanyProfile(companyProfileId, 
+				regionId, active, titleMap, descriptionMap, email, sectorMap, website, serviceContext);
+	}
+	
+	public CompanyProfile deleteCompanyProfile(long companyProfileId) throws PortalException {
+		return companyProfileLocalService.deleteCompanyProfile(companyProfileId);
+	}
+	
+	public CompanyProfile getCompanyProfile(long companyProfileId) throws PortalException {
+		return companyProfileLocalService.getCompanyProfile(companyProfileId);
+	}
+	
 }

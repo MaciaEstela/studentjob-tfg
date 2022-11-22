@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing SocialMediaNetwork in entity cache.
  *
@@ -63,7 +65,7 @@ public class SocialMediaNetworkCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -73,6 +75,12 @@ public class SocialMediaNetworkCacheModel
 		sb.append(groupId);
 		sb.append(", companyId=");
 		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", createDate=");
+		sb.append(createDate);
+		sb.append(", modifiedDate=");
+		sb.append(modifiedDate);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", logo=");
@@ -99,6 +107,21 @@ public class SocialMediaNetworkCacheModel
 		socialMediaNetworkImpl.setSocialMediaNetworkId(socialMediaNetworkId);
 		socialMediaNetworkImpl.setGroupId(groupId);
 		socialMediaNetworkImpl.setCompanyId(companyId);
+		socialMediaNetworkImpl.setUserId(userId);
+
+		if (createDate == Long.MIN_VALUE) {
+			socialMediaNetworkImpl.setCreateDate(null);
+		}
+		else {
+			socialMediaNetworkImpl.setCreateDate(new Date(createDate));
+		}
+
+		if (modifiedDate == Long.MIN_VALUE) {
+			socialMediaNetworkImpl.setModifiedDate(null);
+		}
+		else {
+			socialMediaNetworkImpl.setModifiedDate(new Date(modifiedDate));
+		}
 
 		if (name == null) {
 			socialMediaNetworkImpl.setName("");
@@ -130,6 +153,10 @@ public class SocialMediaNetworkCacheModel
 		groupId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
+
+		userId = objectInput.readLong();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
 
 		logo = objectInput.readLong();
@@ -150,6 +177,10 @@ public class SocialMediaNetworkCacheModel
 		objectOutput.writeLong(groupId);
 
 		objectOutput.writeLong(companyId);
+
+		objectOutput.writeLong(userId);
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
 
 		if (name == null) {
 			objectOutput.writeUTF("");
@@ -172,6 +203,9 @@ public class SocialMediaNetworkCacheModel
 	public long socialMediaNetworkId;
 	public long groupId;
 	public long companyId;
+	public long userId;
+	public long createDate;
+	public long modifiedDate;
 	public String name;
 	public long logo;
 	public String baseURL;

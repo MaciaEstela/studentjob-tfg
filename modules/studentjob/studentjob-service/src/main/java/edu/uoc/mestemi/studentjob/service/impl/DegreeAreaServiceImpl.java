@@ -15,7 +15,13 @@
 package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
 
+import java.util.Locale;
+import java.util.Map;
+
+import edu.uoc.mestemi.studentjob.model.DegreeArea;
 import edu.uoc.mestemi.studentjob.service.base.DegreeAreaServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -31,4 +37,25 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class DegreeAreaServiceImpl extends DegreeAreaServiceBaseImpl {
+	
+	public DegreeArea addDegreeArea(long groupId, Map<Locale, String> nameMap, 
+			ServiceContext serviceContext) throws PortalException {
+		
+		return degreeAreaLocalService.addDegreeArea(groupId, nameMap, serviceContext);
+	}
+	
+	public DegreeArea updateDegreeArea(long degreeAreaId, Map<Locale, String> nameMap, 
+			ServiceContext serviceContext) throws PortalException {
+
+		return degreeAreaLocalService.updateDegreeArea(degreeAreaId, nameMap, serviceContext);
+	}
+	
+	public DegreeArea deleteDegreeArea(long degreeAreaId) throws PortalException {
+		return degreeAreaLocalService.deleteDegreeArea(degreeAreaId);
+	}
+	
+	public DegreeArea getDegreeArea(long degreeAreaId) throws PortalException {
+		return degreeAreaLocalService.getDegreeArea(degreeAreaId);
+	}
+
 }

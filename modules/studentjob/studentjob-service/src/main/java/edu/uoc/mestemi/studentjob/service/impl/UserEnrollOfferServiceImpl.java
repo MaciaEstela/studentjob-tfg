@@ -15,8 +15,15 @@
 package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.service.ServiceContext;
 
+import java.util.Date;
+
+import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.base.UserEnrollOfferServiceBaseImpl;
+import edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -31,4 +38,14 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class UserEnrollOfferServiceImpl extends UserEnrollOfferServiceBaseImpl {
+	
+	public UserEnrollOffer addUserEnrollOffer(long groupId, long offerId, long userId,
+			ServiceContext serviceContext) throws PortalException {
+		return userEnrollOfferLocalService.addUserEnrollOffer(groupId, offerId, userId, serviceContext);
+	}
+	
+	public UserEnrollOffer deleteEnrollOffer(long offerId, long userId) throws PortalException {
+		return userEnrollOfferLocalService.deleteUserEnrollOffer(
+				new UserEnrollOfferPK(userId, offerId));
+	}
 }

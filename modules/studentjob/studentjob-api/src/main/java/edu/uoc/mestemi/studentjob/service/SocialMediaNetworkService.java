@@ -19,8 +19,12 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -47,6 +51,14 @@ public interface SocialMediaNetworkService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.SocialMediaNetworkServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the social media network remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SocialMediaNetworkServiceUtil} if injection and service tracking are not available.
 	 */
+	public SocialMediaNetwork addSocialMediaNetwork(
+			long groupId, String name, long logo, String baseURL,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	public SocialMediaNetwork deleteSocialMediaNetwork(
+			long socialMediaNetworkId)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -54,5 +66,14 @@ public interface SocialMediaNetworkService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SocialMediaNetwork getSocialMediaNetwork(long socialMediaNetworkId)
+		throws PortalException;
+
+	public SocialMediaNetwork updateSocialMediaNetwork(
+			long socialMediaNetworkId, String name, long logo, String baseURL,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 }

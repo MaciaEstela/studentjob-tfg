@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -38,6 +39,8 @@ import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -74,6 +77,13 @@ public interface StudentProfileLocalService
 
 	public void addDegreeStudentProfiles(
 		long degreeId, long[] studentProfileIds);
+
+	public StudentProfile addStudentProfile(
+			long groupId, long regionId, boolean active,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String email, String preference, long curriculumId,
+			List<Long> degreeIds, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the student profile to the database. Also notifies the appropriate model listeners.
@@ -241,6 +251,27 @@ public interface StudentProfileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getCompanyProfilesByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getCompanyProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords);
+
 	/**
 	 * Returns the degreeIds of the degrees associated with the student profile.
 	 *
@@ -368,6 +399,13 @@ public interface StudentProfileLocalService
 
 	public void setDegreeStudentProfiles(
 		long degreeId, long[] studentProfileIds);
+
+	public StudentProfile updateStudentProfile(
+			long studentProfileId, long regionId, boolean active,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String email, String preference, long curriculumId,
+			List<Long> degreeIds, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the student profile in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

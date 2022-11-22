@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -38,6 +39,8 @@ import edu.uoc.mestemi.studentjob.model.CompanyProfile;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -77,6 +80,13 @@ public interface CompanyProfileLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public CompanyProfile addCompanyProfile(CompanyProfile companyProfile);
+
+	public CompanyProfile addCompanyProfile(
+			long groupId, long regionId, boolean active,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String email, Map<Locale, String> sectorMap, String website,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Creates a new company profile with the primary key. Does not add the company profile to the database.
@@ -255,6 +265,23 @@ public interface CompanyProfileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CompanyProfile> getCompanyProfiles(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator);
+
 	/**
 	 * Returns all the company profiles matching the UUID and company.
 	 *
@@ -290,6 +317,10 @@ public interface CompanyProfileLocalService
 	public int getCompanyProfilesCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 
@@ -323,5 +354,12 @@ public interface CompanyProfileLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public CompanyProfile updateCompanyProfile(CompanyProfile companyProfile);
+
+	public CompanyProfile updateCompanyProfile(
+			long companyProfileId, long regionId, boolean active,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String email, Map<Locale, String> sectorMap, String website,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 }

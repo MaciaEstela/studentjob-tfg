@@ -15,13 +15,26 @@
 package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.Validator;
 
+import java.util.Date;
+import java.util.List;
+import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
+import edu.uoc.mestemi.studentjob.model.SocialMedia;
+import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkLocalService;
 import edu.uoc.mestemi.studentjob.service.base.SocialMediaLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Macia Estela (mestemi@uoc.edu)
  */
 @Component(
 	property = "model.class.name=edu.uoc.mestemi.studentjob.model.SocialMedia",
@@ -29,4 +42,79 @@ import org.osgi.service.component.annotations.Component;
 )
 public class SocialMediaLocalServiceImpl
 	extends SocialMediaLocalServiceBaseImpl {
+	
+	public SocialMedia addSocialMedia(long groupId, long socialMediaNetworkId, String socialURL, String className, 
+			long classPK, ServiceContext serviceContext) throws PortalException {
+		
+		if (Validator.isNull(socialMediaNetworkId)) {
+			throw new OfferValidationException("SocialMedia should have a SocialMediaNetwork associated");
+		}
+		
+		// Get group and user
+		Group group = groupLocalService.getGroup(groupId);
+		long userId = serviceContext.getUserId();
+		User user = userLocalService.getUser(userId);
+
+		// Generate degree primary key
+		long socialMediaId = counterLocalService.increment(SocialMedia.class.getName());
+		
+		SocialMedia socialMedia = createSocialMedia(socialMediaId);
+		
+		socialMedia.setCompanyId(group.getCompanyId());
+		socialMedia.setCreateDate(serviceContext.getCreateDate(new Date()));
+		socialMedia.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+		socialMedia.setUserId(userId);
+		socialMedia.setUserName(user.getScreenName());
+		
+		socialMedia.setSocialMediaNetworkId(socialMediaNetworkId);
+		socialMedia.setSocialURL(socialURL);
+		socialMedia.setClassName(className);
+		socialMedia.setClassPK(classPK);
+		
+		return super.addSocialMedia(socialMedia);
+	}
+	
+	public SocialMedia updateSocialMedia(long socialMediaId, String socialURL, ServiceContext serviceContext) 
+			throws PortalException {
+
+		SocialMedia socialMedia = getSocialMedia(socialMediaId);
+		
+		socialMedia.setModifiedDate(new Date());
+		
+		socialMedia.setSocialURL(socialURL);
+		
+		super.updateSocialMedia(socialMedia);
+		
+		return socialMedia;
+	}
+	
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId) {
+		return socialMediaPersistence.findByGroupId(groupId);
+	}
+	
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId, int start, int end) {
+		return socialMediaPersistence.findByGroupId(groupId, start, end);
+	}
+	
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId, int start, int end, 
+			OrderByComparator<SocialMedia> orderByComparator) {
+		return socialMediaPersistence.findByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	
+	@Override
+	public SocialMedia addSocialMedia(SocialMedia offer) {
+		throw new UnsupportedOperationException("Not supported");
+	}
+	
+	@Override
+	public SocialMedia updateSocialMedia(SocialMedia offer) {
+		throw new UnsupportedOperationException("Not supported");
+	}
+	
+	@Reference
+	GroupLocalService groupLocalService;
+	
+	@Reference
+	SocialMediaNetworkLocalService socialMediaNetworkLocalService;
 }

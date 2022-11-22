@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing DegreeArea in entity cache.
  *
@@ -61,7 +63,7 @@ public class DegreeAreaCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -71,6 +73,12 @@ public class DegreeAreaCacheModel
 		sb.append(groupId);
 		sb.append(", companyId=");
 		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", createDate=");
+		sb.append(createDate);
+		sb.append(", modifiedDate=");
+		sb.append(modifiedDate);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append("}");
@@ -92,6 +100,21 @@ public class DegreeAreaCacheModel
 		degreeAreaImpl.setDegreeAreaId(degreeAreaId);
 		degreeAreaImpl.setGroupId(groupId);
 		degreeAreaImpl.setCompanyId(companyId);
+		degreeAreaImpl.setUserId(userId);
+
+		if (createDate == Long.MIN_VALUE) {
+			degreeAreaImpl.setCreateDate(null);
+		}
+		else {
+			degreeAreaImpl.setCreateDate(new Date(createDate));
+		}
+
+		if (modifiedDate == Long.MIN_VALUE) {
+			degreeAreaImpl.setModifiedDate(null);
+		}
+		else {
+			degreeAreaImpl.setModifiedDate(new Date(modifiedDate));
+		}
 
 		if (name == null) {
 			degreeAreaImpl.setName("");
@@ -114,6 +137,10 @@ public class DegreeAreaCacheModel
 		groupId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
+
+		userId = objectInput.readLong();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
 	}
 
@@ -132,6 +159,10 @@ public class DegreeAreaCacheModel
 
 		objectOutput.writeLong(companyId);
 
+		objectOutput.writeLong(userId);
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -144,6 +175,9 @@ public class DegreeAreaCacheModel
 	public long degreeAreaId;
 	public long groupId;
 	public long companyId;
+	public long userId;
+	public long createDate;
+	public long modifiedDate;
 	public String name;
 
 }

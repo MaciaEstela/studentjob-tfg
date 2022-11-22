@@ -37,6 +37,18 @@ public class SocialMediaLocalServiceWrapper
 		_socialMediaLocalService = socialMediaLocalService;
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMedia addSocialMedia(
+			long groupId, long socialMediaNetworkId, String socialURL,
+			String className, long classPK,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaLocalService.addSocialMedia(
+			groupId, socialMediaNetworkId, socialURL, className, classPK,
+			serviceContext);
+	}
+
 	/**
 	 * Adds the social media to the database. Also notifies the appropriate model listeners.
 	 *
@@ -326,6 +338,34 @@ public class SocialMediaLocalServiceWrapper
 			uuid, groupId);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(long groupId) {
+
+		return _socialMediaLocalService.getSocialMediaNetworksByGroupId(
+			groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(long groupId, int start, int end) {
+
+		return _socialMediaLocalService.getSocialMediaNetworksByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.SocialMedia>
+					orderByComparator) {
+
+		return _socialMediaLocalService.getSocialMediaNetworksByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns a range of all the social medias.
 	 *
@@ -389,6 +429,16 @@ public class SocialMediaLocalServiceWrapper
 	@Override
 	public int getSocialMediasCount() {
 		return _socialMediaLocalService.getSocialMediasCount();
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMedia updateSocialMedia(
+			long socialMediaId, String socialURL,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaLocalService.updateSocialMedia(
+			socialMediaId, socialURL, serviceContext);
 	}
 
 	/**

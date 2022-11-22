@@ -66,7 +66,7 @@ public class UserEnrollOfferCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -74,6 +74,8 @@ public class UserEnrollOfferCacheModel
 		sb.append(userId);
 		sb.append(", offerId=");
 		sb.append(offerId);
+		sb.append(", groupId=");
+		sb.append(groupId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", createDate=");
@@ -96,6 +98,7 @@ public class UserEnrollOfferCacheModel
 
 		userEnrollOfferImpl.setUserId(userId);
 		userEnrollOfferImpl.setOfferId(offerId);
+		userEnrollOfferImpl.setGroupId(groupId);
 		userEnrollOfferImpl.setCompanyId(companyId);
 
 		if (createDate == Long.MIN_VALUE) {
@@ -118,6 +121,8 @@ public class UserEnrollOfferCacheModel
 
 		offerId = objectInput.readLong();
 
+		groupId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
 		createDate = objectInput.readLong();
 
@@ -137,6 +142,8 @@ public class UserEnrollOfferCacheModel
 
 		objectOutput.writeLong(offerId);
 
+		objectOutput.writeLong(groupId);
+
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(createDate);
 	}
@@ -144,6 +151,7 @@ public class UserEnrollOfferCacheModel
 	public String uuid;
 	public long userId;
 	public long offerId;
+	public long groupId;
 	public long companyId;
 	public long createDate;
 	public transient UserEnrollOfferPK userEnrollOfferPK;

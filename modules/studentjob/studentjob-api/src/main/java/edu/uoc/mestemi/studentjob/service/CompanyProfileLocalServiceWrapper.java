@@ -54,6 +54,21 @@ public class CompanyProfileLocalServiceWrapper
 		return _companyProfileLocalService.addCompanyProfile(companyProfile);
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.CompanyProfile addCompanyProfile(
+			long groupId, long regionId, boolean active,
+			java.util.Map<java.util.Locale, String> titleMap,
+			java.util.Map<java.util.Locale, String> descriptionMap,
+			String email, java.util.Map<java.util.Locale, String> sectorMap,
+			String website,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _companyProfileLocalService.addCompanyProfile(
+			groupId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, serviceContext);
+	}
+
 	/**
 	 * Creates a new company profile with the primary key. Does not add the company profile to the database.
 	 *
@@ -310,6 +325,45 @@ public class CompanyProfileLocalServiceWrapper
 		return _companyProfileLocalService.getCompanyProfiles(start, end);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByGroupId(long groupId) {
+
+		return _companyProfileLocalService.getCompanyProfilesByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByGroupId(long groupId, int start, int end) {
+
+		return _companyProfileLocalService.getCompanyProfilesByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+					orderByComparator) {
+
+		return _companyProfileLocalService.getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+					orderByComparator) {
+
+		return _companyProfileLocalService.getCompanyProfilesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the company profiles matching the UUID and company.
 	 *
@@ -355,6 +409,14 @@ public class CompanyProfileLocalServiceWrapper
 	@Override
 	public int getCompanyProfilesCount() {
 		return _companyProfileLocalService.getCompanyProfilesCount();
+	}
+
+	@Override
+	public long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return _companyProfileLocalService.getCompanyProfilesCountByKeywords(
+			groupId, keywords);
 	}
 
 	@Override
@@ -410,6 +472,21 @@ public class CompanyProfileLocalServiceWrapper
 		edu.uoc.mestemi.studentjob.model.CompanyProfile companyProfile) {
 
 		return _companyProfileLocalService.updateCompanyProfile(companyProfile);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.CompanyProfile updateCompanyProfile(
+			long companyProfileId, long regionId, boolean active,
+			java.util.Map<java.util.Locale, String> titleMap,
+			java.util.Map<java.util.Locale, String> descriptionMap,
+			String email, java.util.Map<java.util.Locale, String> sectorMap,
+			String website,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _companyProfileLocalService.updateCompanyProfile(
+			companyProfileId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, serviceContext);
 	}
 
 	@Override

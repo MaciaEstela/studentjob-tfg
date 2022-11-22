@@ -15,7 +15,10 @@
 package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
 
+import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.base.SocialMediaNetworkServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -32,4 +35,26 @@ import org.osgi.service.component.annotations.Component;
 )
 public class SocialMediaNetworkServiceImpl
 	extends SocialMediaNetworkServiceBaseImpl {
+	
+	public SocialMediaNetwork addSocialMediaNetwork(long groupId, String name, long logo, 
+			String baseURL, ServiceContext serviceContext) throws PortalException {
+		
+		return socialMediaNetworkLocalService.addSocialMediaNetwork(groupId, 
+				name, logo, baseURL, serviceContext);
+	}
+	
+	public SocialMediaNetwork updateSocialMediaNetwork(long socialMediaNetworkId, String name, long logo, 
+			String baseURL, ServiceContext serviceContext) throws PortalException {
+
+		return socialMediaNetworkLocalService.updateSocialMediaNetwork(socialMediaNetworkId, 
+				name, logo, baseURL, serviceContext);
+	}
+	
+	public SocialMediaNetwork deleteSocialMediaNetwork(long socialMediaNetworkId) throws PortalException {
+		return socialMediaNetworkLocalService.deleteSocialMediaNetwork(socialMediaNetworkId);
+	}
+	
+	public SocialMediaNetwork getSocialMediaNetwork(long socialMediaNetworkId) throws PortalException {
+		return socialMediaNetworkLocalService.getSocialMediaNetwork(socialMediaNetworkId);
+	}
 }

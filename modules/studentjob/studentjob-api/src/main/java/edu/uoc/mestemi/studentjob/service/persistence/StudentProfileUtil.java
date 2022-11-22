@@ -542,6 +542,175 @@ public class StudentProfileUtil {
 	}
 
 	/**
+	 * Returns all the student profiles where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the matching student profiles
+	 */
+	public static List<StudentProfile> findByGroupId(long groupId) {
+		return getPersistence().findByGroupId(groupId);
+	}
+
+	/**
+	 * Returns a range of all the student profiles where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StudentProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of student profiles
+	 * @param end the upper bound of the range of student profiles (not inclusive)
+	 * @return the range of matching student profiles
+	 */
+	public static List<StudentProfile> findByGroupId(
+		long groupId, int start, int end) {
+
+		return getPersistence().findByGroupId(groupId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the student profiles where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StudentProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of student profiles
+	 * @param end the upper bound of the range of student profiles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching student profiles
+	 */
+	public static List<StudentProfile> findByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getPersistence().findByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the student profiles where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StudentProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of student profiles
+	 * @param end the upper bound of the range of student profiles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching student profiles
+	 */
+	public static List<StudentProfile> findByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByGroupId(
+			groupId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first student profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching student profile
+	 * @throws NoSuchStudentProfileException if a matching student profile could not be found
+	 */
+	public static StudentProfile findByGroupId_First(
+			long groupId, OrderByComparator<StudentProfile> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchStudentProfileException {
+
+		return getPersistence().findByGroupId_First(groupId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first student profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching student profile, or <code>null</code> if a matching student profile could not be found
+	 */
+	public static StudentProfile fetchByGroupId_First(
+		long groupId, OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getPersistence().fetchByGroupId_First(
+			groupId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last student profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching student profile
+	 * @throws NoSuchStudentProfileException if a matching student profile could not be found
+	 */
+	public static StudentProfile findByGroupId_Last(
+			long groupId, OrderByComparator<StudentProfile> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchStudentProfileException {
+
+		return getPersistence().findByGroupId_Last(groupId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last student profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching student profile, or <code>null</code> if a matching student profile could not be found
+	 */
+	public static StudentProfile fetchByGroupId_Last(
+		long groupId, OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getPersistence().fetchByGroupId_Last(groupId, orderByComparator);
+	}
+
+	/**
+	 * Returns the student profiles before and after the current student profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param studentProfileId the primary key of the current student profile
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next student profile
+	 * @throws NoSuchStudentProfileException if a student profile with the primary key could not be found
+	 */
+	public static StudentProfile[] findByGroupId_PrevAndNext(
+			long studentProfileId, long groupId,
+			OrderByComparator<StudentProfile> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchStudentProfileException {
+
+		return getPersistence().findByGroupId_PrevAndNext(
+			studentProfileId, groupId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the student profiles where groupId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 */
+	public static void removeByGroupId(long groupId) {
+		getPersistence().removeByGroupId(groupId);
+	}
+
+	/**
+	 * Returns the number of student profiles where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching student profiles
+	 */
+	public static int countByGroupId(long groupId) {
+		return getPersistence().countByGroupId(groupId);
+	}
+
+	/**
 	 * Caches the student profile in the entity cache if it is enabled.
 	 *
 	 * @param studentProfile the student profile

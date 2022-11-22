@@ -16,14 +16,19 @@ package edu.uoc.mestemi.studentjob.model.impl;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -72,8 +77,9 @@ public class SocialMediaNetworkModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"socialMediaNetworkId", Types.BIGINT},
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"name", Types.VARCHAR}, {"logo", Types.BIGINT},
-		{"baseURL", Types.VARCHAR}
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
+		{"logo", Types.BIGINT}, {"baseURL", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -84,13 +90,16 @@ public class SocialMediaNetworkModelImpl
 		TABLE_COLUMNS_MAP.put("socialMediaNetworkId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("logo", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("baseURL", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_SocialMediaNetwork (uuid_ VARCHAR(75) null,socialMediaNetworkId LONG not null primary key,groupId LONG,companyId LONG,name VARCHAR(75) null,logo LONG,baseURL VARCHAR(75) null)";
+		"create table SJob_SocialMediaNetwork (uuid_ VARCHAR(75) null,socialMediaNetworkId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,logo LONG,baseURL VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table SJob_SocialMediaNetwork";
@@ -268,6 +277,23 @@ public class SocialMediaNetworkModelImpl
 			"companyId",
 			(BiConsumer<SocialMediaNetwork, Long>)
 				SocialMediaNetwork::setCompanyId);
+		attributeGetterFunctions.put("userId", SocialMediaNetwork::getUserId);
+		attributeSetterBiConsumers.put(
+			"userId",
+			(BiConsumer<SocialMediaNetwork, Long>)
+				SocialMediaNetwork::setUserId);
+		attributeGetterFunctions.put(
+			"createDate", SocialMediaNetwork::getCreateDate);
+		attributeSetterBiConsumers.put(
+			"createDate",
+			(BiConsumer<SocialMediaNetwork, Date>)
+				SocialMediaNetwork::setCreateDate);
+		attributeGetterFunctions.put(
+			"modifiedDate", SocialMediaNetwork::getModifiedDate);
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			(BiConsumer<SocialMediaNetwork, Date>)
+				SocialMediaNetwork::setModifiedDate);
 		attributeGetterFunctions.put("name", SocialMediaNetwork::getName);
 		attributeSetterBiConsumers.put(
 			"name",
@@ -384,6 +410,73 @@ public class SocialMediaNetworkModelImpl
 
 	@JSON
 	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException portalException) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+	}
+
+	@JSON
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_createDate = createDate;
+	}
+
+	@JSON
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public boolean hasSetModifiedDate() {
+		return _setModifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		_setModifiedDate = true;
+
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_modifiedDate = modifiedDate;
+	}
+
+	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -435,6 +528,12 @@ public class SocialMediaNetworkModelImpl
 		}
 
 		_baseURL = baseURL;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(
+			PortalUtil.getClassNameId(SocialMediaNetwork.class.getName()));
 	}
 
 	public long getColumnBitmask() {
@@ -500,6 +599,9 @@ public class SocialMediaNetworkModelImpl
 			getSocialMediaNetworkId());
 		socialMediaNetworkImpl.setGroupId(getGroupId());
 		socialMediaNetworkImpl.setCompanyId(getCompanyId());
+		socialMediaNetworkImpl.setUserId(getUserId());
+		socialMediaNetworkImpl.setCreateDate(getCreateDate());
+		socialMediaNetworkImpl.setModifiedDate(getModifiedDate());
 		socialMediaNetworkImpl.setName(getName());
 		socialMediaNetworkImpl.setLogo(getLogo());
 		socialMediaNetworkImpl.setBaseURL(getBaseURL());
@@ -522,6 +624,12 @@ public class SocialMediaNetworkModelImpl
 			this.<Long>getColumnOriginalValue("groupId"));
 		socialMediaNetworkImpl.setCompanyId(
 			this.<Long>getColumnOriginalValue("companyId"));
+		socialMediaNetworkImpl.setUserId(
+			this.<Long>getColumnOriginalValue("userId"));
+		socialMediaNetworkImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		socialMediaNetworkImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
 		socialMediaNetworkImpl.setName(
 			this.<String>getColumnOriginalValue("name"));
 		socialMediaNetworkImpl.setLogo(
@@ -594,6 +702,8 @@ public class SocialMediaNetworkModelImpl
 	public void resetOriginalValues() {
 		_columnOriginalValues = Collections.emptyMap();
 
+		_setModifiedDate = false;
+
 		_columnBitmask = 0;
 	}
 
@@ -616,6 +726,26 @@ public class SocialMediaNetworkModelImpl
 		socialMediaNetworkCacheModel.groupId = getGroupId();
 
 		socialMediaNetworkCacheModel.companyId = getCompanyId();
+
+		socialMediaNetworkCacheModel.userId = getUserId();
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			socialMediaNetworkCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			socialMediaNetworkCacheModel.createDate = Long.MIN_VALUE;
+		}
+
+		Date modifiedDate = getModifiedDate();
+
+		if (modifiedDate != null) {
+			socialMediaNetworkCacheModel.modifiedDate = modifiedDate.getTime();
+		}
+		else {
+			socialMediaNetworkCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
 
 		socialMediaNetworkCacheModel.name = getName();
 
@@ -732,6 +862,10 @@ public class SocialMediaNetworkModelImpl
 	private long _socialMediaNetworkId;
 	private long _groupId;
 	private long _companyId;
+	private long _userId;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private boolean _setModifiedDate;
 	private String _name;
 	private long _logo;
 	private String _baseURL;
@@ -770,6 +904,9 @@ public class SocialMediaNetworkModelImpl
 			"socialMediaNetworkId", _socialMediaNetworkId);
 		_columnOriginalValues.put("groupId", _groupId);
 		_columnOriginalValues.put("companyId", _companyId);
+		_columnOriginalValues.put("userId", _userId);
+		_columnOriginalValues.put("createDate", _createDate);
+		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("name", _name);
 		_columnOriginalValues.put("logo", _logo);
 		_columnOriginalValues.put("baseURL", _baseURL);
@@ -804,11 +941,17 @@ public class SocialMediaNetworkModelImpl
 
 		columnBitmasks.put("companyId", 8L);
 
-		columnBitmasks.put("name", 16L);
+		columnBitmasks.put("userId", 16L);
 
-		columnBitmasks.put("logo", 32L);
+		columnBitmasks.put("createDate", 32L);
 
-		columnBitmasks.put("baseURL", 64L);
+		columnBitmasks.put("modifiedDate", 64L);
+
+		columnBitmasks.put("name", 128L);
+
+		columnBitmasks.put("logo", 256L);
+
+		columnBitmasks.put("baseURL", 512L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

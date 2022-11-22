@@ -36,6 +36,24 @@ public class UserEnrollOfferServiceWrapper
 		_userEnrollOfferService = userEnrollOfferService;
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.UserEnrollOffer addUserEnrollOffer(
+			long groupId, long offerId, long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userEnrollOfferService.addUserEnrollOffer(
+			groupId, offerId, userId, serviceContext);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.UserEnrollOffer deleteEnrollOffer(
+			long offerId, long userId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userEnrollOfferService.deleteEnrollOffer(offerId, userId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

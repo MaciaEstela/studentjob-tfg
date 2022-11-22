@@ -36,8 +36,8 @@ public class OfferTable extends BaseTable<OfferTable> {
 		"uuid_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<OfferTable, Long> offerId = createColumn(
 		"offerId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
-	public final Column<OfferTable, Long> provinceId = createColumn(
-		"provinceId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<OfferTable, Long> regionId = createColumn(
+		"regionId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<OfferTable, Long> groupId = createColumn(
 		"groupId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<OfferTable, Long> companyId = createColumn(

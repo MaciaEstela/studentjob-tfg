@@ -45,6 +45,16 @@ public class SocialMediaLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.SocialMediaLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SocialMedia addSocialMedia(
+			long groupId, long socialMediaNetworkId, String socialURL,
+			String className, long classPK,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addSocialMedia(
+			groupId, socialMediaNetworkId, socialURL, className, classPK,
+			serviceContext);
+	}
 
 	/**
 	 * Adds the social media to the database. Also notifies the appropriate model listeners.
@@ -290,6 +300,27 @@ public class SocialMediaLocalServiceUtil {
 		return getService().getSocialMediaByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static List<SocialMedia> getSocialMediaNetworksByGroupId(
+		long groupId) {
+
+		return getService().getSocialMediaNetworksByGroupId(groupId);
+	}
+
+	public static List<SocialMedia> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getSocialMediaNetworksByGroupId(
+			groupId, start, end);
+	}
+
+	public static List<SocialMedia> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<SocialMedia> orderByComparator) {
+
+		return getService().getSocialMediaNetworksByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns a range of all the social medias.
 	 *
@@ -343,6 +374,15 @@ public class SocialMediaLocalServiceUtil {
 	 */
 	public static int getSocialMediasCount() {
 		return getService().getSocialMediasCount();
+	}
+
+	public static SocialMedia updateSocialMedia(
+			long socialMediaId, String socialURL,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateSocialMedia(
+			socialMediaId, socialURL, serviceContext);
 	}
 
 	/**

@@ -19,7 +19,9 @@ import com.liferay.portal.kernel.exception.LocaleException;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.LocalizedModel;
 import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedModel;
 
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -38,7 +40,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface DegreeAreaModel
-	extends BaseModel<DegreeArea>, LocalizedModel, ShardedModel {
+	extends BaseModel<DegreeArea>, LocalizedModel, ShardedModel, StagedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -66,6 +68,7 @@ public interface DegreeAreaModel
 	 * @return the uuid of this degree area
 	 */
 	@AutoEscape
+	@Override
 	public String getUuid();
 
 	/**
@@ -73,6 +76,7 @@ public interface DegreeAreaModel
 	 *
 	 * @param uuid the uuid of this degree area
 	 */
+	@Override
 	public void setUuid(String uuid);
 
 	/**
@@ -118,6 +122,66 @@ public interface DegreeAreaModel
 	 */
 	@Override
 	public void setCompanyId(long companyId);
+
+	/**
+	 * Returns the user ID of this degree area.
+	 *
+	 * @return the user ID of this degree area
+	 */
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this degree area.
+	 *
+	 * @param userId the user ID of this degree area
+	 */
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this degree area.
+	 *
+	 * @return the user uuid of this degree area
+	 */
+	public String getUserUuid();
+
+	/**
+	 * Sets the user uuid of this degree area.
+	 *
+	 * @param userUuid the user uuid of this degree area
+	 */
+	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the create date of this degree area.
+	 *
+	 * @return the create date of this degree area
+	 */
+	@Override
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this degree area.
+	 *
+	 * @param createDate the create date of this degree area
+	 */
+	@Override
+	public void setCreateDate(Date createDate);
+
+	/**
+	 * Returns the modified date of this degree area.
+	 *
+	 * @return the modified date of this degree area
+	 */
+	@Override
+	public Date getModifiedDate();
+
+	/**
+	 * Sets the modified date of this degree area.
+	 *
+	 * @param modifiedDate the modified date of this degree area
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate);
 
 	/**
 	 * Returns the name of this degree area.

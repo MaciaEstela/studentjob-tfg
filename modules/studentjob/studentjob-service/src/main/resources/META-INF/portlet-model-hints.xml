@@ -34,12 +34,15 @@
 		<field name="degreeAreaId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
 		<field localized="true" name="name" type="String" />
 	</model>
 	<model name="edu.uoc.mestemi.studentjob.model.Offer">
 		<field name="uuid" type="String" />
 		<field name="offerId" type="long" />
-		<field name="provinceId" type="long" />
+		<field name="regionId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
@@ -60,7 +63,6 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="socialMediaType" type="String" />
 		<field name="socialURL" type="String" />
 		<field name="className" type="String" />
 		<field name="classPK" type="long" />
@@ -70,6 +72,9 @@
 		<field name="socialMediaNetworkId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
 		<field name="name" type="String" />
 		<field name="logo" type="long" />
 		<field name="baseURL" type="String" />
@@ -95,6 +100,7 @@
 		<field name="uuid" type="String" />
 		<field name="userId" type="long" />
 		<field name="offerId" type="long" />
+		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="createDate" type="Date" />
 	</model>

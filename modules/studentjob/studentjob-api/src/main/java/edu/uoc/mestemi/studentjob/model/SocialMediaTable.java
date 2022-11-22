@@ -52,10 +52,6 @@ public class SocialMediaTable extends BaseTable<SocialMediaTable> {
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<SocialMediaTable, Date> modifiedDate = createColumn(
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
-	public final Column<SocialMediaTable, String> socialMediaType =
-		createColumn(
-			"socialMediaType", String.class, Types.VARCHAR,
-			Column.FLAG_DEFAULT);
 	public final Column<SocialMediaTable, String> socialURL = createColumn(
 		"socialURL", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<SocialMediaTable, String> className = createColumn(

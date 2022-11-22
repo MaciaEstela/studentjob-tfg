@@ -14,9 +14,11 @@
 
 package edu.uoc.mestemi.studentjob.model;
 
+import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,9 @@ public class SocialMediaNetworkWrapper
 		attributes.put("socialMediaNetworkId", getSocialMediaNetworkId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
 		attributes.put("logo", getLogo());
 		attributes.put("baseURL", getBaseURL());
@@ -77,6 +82,24 @@ public class SocialMediaNetworkWrapper
 
 		if (companyId != null) {
 			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
 		}
 
 		String name = (String)attributes.get("name");
@@ -124,6 +147,16 @@ public class SocialMediaNetworkWrapper
 	}
 
 	/**
+	 * Returns the create date of this social media network.
+	 *
+	 * @return the create date of this social media network
+	 */
+	@Override
+	public Date getCreateDate() {
+		return model.getCreateDate();
+	}
+
+	/**
 	 * Returns the group ID of this social media network.
 	 *
 	 * @return the group ID of this social media network
@@ -141,6 +174,16 @@ public class SocialMediaNetworkWrapper
 	@Override
 	public long getLogo() {
 		return model.getLogo();
+	}
+
+	/**
+	 * Returns the modified date of this social media network.
+	 *
+	 * @return the modified date of this social media network
+	 */
+	@Override
+	public Date getModifiedDate() {
+		return model.getModifiedDate();
 	}
 
 	/**
@@ -171,6 +214,26 @@ public class SocialMediaNetworkWrapper
 	@Override
 	public long getSocialMediaNetworkId() {
 		return model.getSocialMediaNetworkId();
+	}
+
+	/**
+	 * Returns the user ID of this social media network.
+	 *
+	 * @return the user ID of this social media network
+	 */
+	@Override
+	public long getUserId() {
+		return model.getUserId();
+	}
+
+	/**
+	 * Returns the user uuid of this social media network.
+	 *
+	 * @return the user uuid of this social media network
+	 */
+	@Override
+	public String getUserUuid() {
+		return model.getUserUuid();
 	}
 
 	/**
@@ -209,6 +272,16 @@ public class SocialMediaNetworkWrapper
 	}
 
 	/**
+	 * Sets the create date of this social media network.
+	 *
+	 * @param createDate the create date of this social media network
+	 */
+	@Override
+	public void setCreateDate(Date createDate) {
+		model.setCreateDate(createDate);
+	}
+
+	/**
 	 * Sets the group ID of this social media network.
 	 *
 	 * @param groupId the group ID of this social media network
@@ -226,6 +299,16 @@ public class SocialMediaNetworkWrapper
 	@Override
 	public void setLogo(long logo) {
 		model.setLogo(logo);
+	}
+
+	/**
+	 * Sets the modified date of this social media network.
+	 *
+	 * @param modifiedDate the modified date of this social media network
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		model.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -259,6 +342,26 @@ public class SocialMediaNetworkWrapper
 	}
 
 	/**
+	 * Sets the user ID of this social media network.
+	 *
+	 * @param userId the user ID of this social media network
+	 */
+	@Override
+	public void setUserId(long userId) {
+		model.setUserId(userId);
+	}
+
+	/**
+	 * Sets the user uuid of this social media network.
+	 *
+	 * @param userUuid the user uuid of this social media network
+	 */
+	@Override
+	public void setUserUuid(String userUuid) {
+		model.setUserUuid(userUuid);
+	}
+
+	/**
 	 * Sets the uuid of this social media network.
 	 *
 	 * @param uuid the uuid of this social media network
@@ -266,6 +369,11 @@ public class SocialMediaNetworkWrapper
 	@Override
 	public void setUuid(String uuid) {
 		model.setUuid(uuid);
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return model.getStagedModelType();
 	}
 
 	@Override

@@ -14,9 +14,11 @@
 
 package edu.uoc.mestemi.studentjob.service;
 
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -26,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -36,6 +39,8 @@ import edu.uoc.mestemi.studentjob.model.DegreeArea;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -75,6 +80,11 @@ public interface DegreeAreaLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public DegreeArea addDegreeArea(DegreeArea degreeArea);
+
+	public DegreeArea addDegreeArea(
+			long groupId, Map<Locale, String> nameMap,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	public void addDegreeDegreeArea(long degreeId, DegreeArea degreeArea);
 
@@ -235,6 +245,11 @@ public interface DegreeAreaLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<DegreeArea> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<DegreeArea> orderByComparator);
+
 	/**
 	 * Returns the degree area with the primary key.
 	 *
@@ -271,6 +286,18 @@ public interface DegreeAreaLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DegreeArea> getDegreeAreas(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<DegreeArea> getDegreeAreasByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<DegreeArea> getDegreeAreasByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<DegreeArea> getDegreeAreasByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<DegreeArea> orderByComparator);
+
 	/**
 	 * Returns all the degree areas matching the UUID and company.
 	 *
@@ -306,6 +333,9 @@ public interface DegreeAreaLocalService
 	public int getDegreeAreasCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getDegreeAreasCountByKeywords(long groupId, String keywords);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DegreeArea> getDegreeDegreeAreas(long degreeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -328,6 +358,10 @@ public interface DegreeAreaLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long[] getDegreePrimaryKeys(long degreeAreaId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		PortletDataContext portletDataContext);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -367,5 +401,10 @@ public interface DegreeAreaLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public DegreeArea updateDegreeArea(DegreeArea degreeArea);
+
+	public DegreeArea updateDegreeArea(
+			long degreeAreaId, Map<Locale, String> nameMap,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 }

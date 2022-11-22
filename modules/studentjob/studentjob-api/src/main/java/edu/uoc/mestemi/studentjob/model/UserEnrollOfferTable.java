@@ -39,6 +39,8 @@ public class UserEnrollOfferTable extends BaseTable<UserEnrollOfferTable> {
 		"userId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
 	public final Column<UserEnrollOfferTable, Long> offerId = createColumn(
 		"offerId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
+	public final Column<UserEnrollOfferTable, Long> groupId = createColumn(
+		"groupId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<UserEnrollOfferTable, Long> companyId = createColumn(
 		"companyId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<UserEnrollOfferTable, Date> createDate = createColumn(

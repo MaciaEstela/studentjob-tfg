@@ -33,6 +33,9 @@ create table SJob_DegreeArea (
 	degreeAreaId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
 	name STRING null
 );
 
@@ -46,7 +49,7 @@ create table SJob_Degrees_DegreesAreas (
 create table SJob_Offer (
 	uuid_ VARCHAR(75) null,
 	offerId LONG not null primary key,
-	provinceId LONG,
+	regionId LONG,
 	groupId LONG,
 	companyId LONG,
 	userId LONG,
@@ -75,7 +78,6 @@ create table SJob_SocialMedia (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	socialMediaType VARCHAR(75) null,
 	socialURL VARCHAR(75) null,
 	className VARCHAR(75) null,
 	classPK LONG
@@ -86,6 +88,9 @@ create table SJob_SocialMediaNetwork (
 	socialMediaNetworkId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
 	name VARCHAR(75) null,
 	logo LONG,
 	baseURL VARCHAR(75) null
@@ -120,6 +125,7 @@ create table SJob_UserEnrollOffer (
 	uuid_ VARCHAR(75) null,
 	userId LONG not null,
 	offerId LONG not null,
+	groupId LONG,
 	companyId LONG,
 	createDate DATE null,
 	primary key (userId, offerId)

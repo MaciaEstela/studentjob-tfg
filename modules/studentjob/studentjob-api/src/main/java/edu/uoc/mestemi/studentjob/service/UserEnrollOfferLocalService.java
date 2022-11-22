@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -63,6 +64,10 @@ public interface UserEnrollOfferLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.UserEnrollOfferLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the user enroll offer local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link UserEnrollOfferLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public UserEnrollOffer addUserEnrollOffer(
+			long groupId, long offerId, long userId,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the user enroll offer to the database. Also notifies the appropriate model listeners.
@@ -207,15 +212,15 @@ public interface UserEnrollOfferLocalService
 		UserEnrollOfferPK userEnrollOfferPK);
 
 	/**
-	 * Returns the user enroll offer with the matching UUID and company.
+	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID
-	 * @param companyId the primary key of the company
+	 * @param groupId the primary key of the group
 	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public UserEnrollOffer fetchUserEnrollOfferByUuidAndCompanyId(
-		String uuid, long companyId);
+	public UserEnrollOffer fetchUserEnrollOfferByUuidAndGroupId(
+		String uuid, long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -251,16 +256,16 @@ public interface UserEnrollOfferLocalService
 		throws PortalException;
 
 	/**
-	 * Returns the user enroll offer with the matching UUID and company.
+	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID
-	 * @param companyId the primary key of the company
+	 * @param groupId the primary key of the group
 	 * @return the matching user enroll offer
 	 * @throws PortalException if a matching user enroll offer could not be found
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public UserEnrollOffer getUserEnrollOfferByUuidAndCompanyId(
-			String uuid, long companyId)
+	public UserEnrollOffer getUserEnrollOfferByUuidAndGroupId(
+			String uuid, long groupId)
 		throws PortalException;
 
 	/**
@@ -276,6 +281,32 @@ public interface UserEnrollOfferLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<UserEnrollOffer> getUserEnrollOffers(int start, int end);
+
+	/**
+	 * Returns all the user enroll offers matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the user enroll offers
+	 * @param companyId the primary key of the company
+	 * @return the matching user enroll offers, or an empty list if no matches were found
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
+		String uuid, long companyId);
+
+	/**
+	 * Returns a range of user enroll offers matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the user enroll offers
+	 * @param companyId the primary key of the company
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the range of matching user enroll offers, or an empty list if no matches were found
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator);
 
 	/**
 	 * Returns the number of user enroll offers.

@@ -34,6 +34,34 @@ public class OfferServiceWrapper
 		_offerService = offerService;
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.Offer addOffer(
+			long groupId, long regionId,
+			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> descriptionMap,
+			String preference, java.util.List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _offerService.addOffer(
+			groupId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			serviceContext);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.Offer deleteOffer(long offerId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _offerService.deleteOffer(offerId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.Offer getOffer(long offerId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _offerService.getOffer(offerId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -42,6 +70,20 @@ public class OfferServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _offerService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.Offer updateOffer(
+			long offerId, long regionId,
+			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> descriptionMap,
+			String preference, java.util.List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _offerService.updateOffer(
+			offerId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			serviceContext);
 	}
 
 	@Override

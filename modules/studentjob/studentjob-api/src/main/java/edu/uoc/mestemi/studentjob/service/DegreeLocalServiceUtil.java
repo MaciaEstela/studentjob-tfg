@@ -25,6 +25,7 @@ import edu.uoc.mestemi.studentjob.model.Degree;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for Degree. This utility wraps
@@ -58,6 +59,16 @@ public class DegreeLocalServiceUtil {
 	 */
 	public static Degree addDegree(Degree degree) {
 		return getService().addDegree(degree);
+	}
+
+	public static Degree addDegree(
+			long groupId, Map<java.util.Locale, String> nameMap,
+			List<Long> degreeAreasIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addDegree(
+			groupId, nameMap, degreeAreasIds, serviceContext);
 	}
 
 	public static void addDegreeAreaDegree(long degreeAreaId, Degree degree) {
@@ -363,6 +374,13 @@ public class DegreeLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getCompanyProfilesCountByKeywords(
+			groupId, keywords);
+	}
+
 	/**
 	 * Returns the degree with the primary key.
 	 *
@@ -433,6 +451,32 @@ public class DegreeLocalServiceUtil {
 	 */
 	public static List<Degree> getDegrees(int start, int end) {
 		return getService().getDegrees(start, end);
+	}
+
+	public static List<Degree> getDegreesByGroupId(long groupId) {
+		return getService().getDegreesByGroupId(groupId);
+	}
+
+	public static List<Degree> getDegreesByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getDegreesByGroupId(groupId, start, end);
+	}
+
+	public static List<Degree> getDegreesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Degree> orderByComparator) {
+
+		return getService().getDegreesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<Degree> getDegreesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Degree> orderByComparator) {
+
+		return getService().getDegreesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
 	}
 
 	/**
@@ -629,6 +673,16 @@ public class DegreeLocalServiceUtil {
 	 */
 	public static Degree updateDegree(Degree degree) {
 		return getService().updateDegree(degree);
+	}
+
+	public static Degree updateDegree(
+			long degreeId, Map<java.util.Locale, String> nameMap,
+			List<Long> degreeAreasIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateDegree(
+			degreeId, nameMap, degreeAreasIds, serviceContext);
 	}
 
 	public static DegreeLocalService getService() {

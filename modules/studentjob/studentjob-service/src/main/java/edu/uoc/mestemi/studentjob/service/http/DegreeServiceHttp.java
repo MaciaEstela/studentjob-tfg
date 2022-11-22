@@ -14,13 +14,22 @@
 
 package edu.uoc.mestemi.studentjob.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
+import com.liferay.portal.kernel.util.MethodHandler;
+import com.liferay.portal.kernel.util.MethodKey;
+
+import edu.uoc.mestemi.studentjob.service.DegreeServiceUtil;
+
 /**
  * Provides the HTTP utility for the
- * <code>edu.uoc.mestemi.studentjob.service.DegreeServiceUtil</code> service
+ * <code>DegreeServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -41,4 +50,188 @@ package edu.uoc.mestemi.studentjob.service.http;
  * @generated
  */
 public class DegreeServiceHttp {
+
+	public static edu.uoc.mestemi.studentjob.model.Degree addDegree(
+			HttpPrincipal httpPrincipal, long groupId,
+			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.List<Long> degreeAreasIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "addDegree",
+				_addDegreeParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, nameMap, degreeAreasIds, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.Degree)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.Degree updateDegree(
+			HttpPrincipal httpPrincipal, long degreeId,
+			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.List<Long> degreeAreasIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "updateDegree",
+				_updateDegreeParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, degreeId, nameMap, degreeAreasIds, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.Degree)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.Degree deleteDegree(
+			HttpPrincipal httpPrincipal, long degreeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "deleteDegree",
+				_deleteDegreeParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, degreeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.Degree)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.Degree getDegree(
+			HttpPrincipal httpPrincipal, long degreeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "getDegree",
+				_getDegreeParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, degreeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.Degree)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(DegreeServiceHttp.class);
+
+	private static final Class<?>[] _addDegreeParameterTypes0 = new Class[] {
+		long.class, java.util.Map.class, java.util.List.class,
+		com.liferay.portal.kernel.service.ServiceContext.class
+	};
+	private static final Class<?>[] _updateDegreeParameterTypes1 = new Class[] {
+		long.class, java.util.Map.class, java.util.List.class,
+		com.liferay.portal.kernel.service.ServiceContext.class
+	};
+	private static final Class<?>[] _deleteDegreeParameterTypes2 = new Class[] {
+		long.class
+	};
+	private static final Class<?>[] _getDegreeParameterTypes3 = new Class[] {
+		long.class
+	};
+
 }

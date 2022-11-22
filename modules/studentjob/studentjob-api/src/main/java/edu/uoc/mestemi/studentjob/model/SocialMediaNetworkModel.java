@@ -17,6 +17,9 @@ package edu.uoc.mestemi.studentjob.model;
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedModel;
+
+import java.util.Date;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -33,7 +36,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface SocialMediaNetworkModel
-	extends BaseModel<SocialMediaNetwork>, ShardedModel {
+	extends BaseModel<SocialMediaNetwork>, ShardedModel, StagedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -61,6 +64,7 @@ public interface SocialMediaNetworkModel
 	 * @return the uuid of this social media network
 	 */
 	@AutoEscape
+	@Override
 	public String getUuid();
 
 	/**
@@ -68,6 +72,7 @@ public interface SocialMediaNetworkModel
 	 *
 	 * @param uuid the uuid of this social media network
 	 */
+	@Override
 	public void setUuid(String uuid);
 
 	/**
@@ -113,6 +118,66 @@ public interface SocialMediaNetworkModel
 	 */
 	@Override
 	public void setCompanyId(long companyId);
+
+	/**
+	 * Returns the user ID of this social media network.
+	 *
+	 * @return the user ID of this social media network
+	 */
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this social media network.
+	 *
+	 * @param userId the user ID of this social media network
+	 */
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this social media network.
+	 *
+	 * @return the user uuid of this social media network
+	 */
+	public String getUserUuid();
+
+	/**
+	 * Sets the user uuid of this social media network.
+	 *
+	 * @param userUuid the user uuid of this social media network
+	 */
+	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the create date of this social media network.
+	 *
+	 * @return the create date of this social media network
+	 */
+	@Override
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this social media network.
+	 *
+	 * @param createDate the create date of this social media network
+	 */
+	@Override
+	public void setCreateDate(Date createDate);
+
+	/**
+	 * Returns the modified date of this social media network.
+	 *
+	 * @return the modified date of this social media network
+	 */
+	@Override
+	public Date getModifiedDate();
+
+	/**
+	 * Sets the modified date of this social media network.
+	 *
+	 * @param modifiedDate the modified date of this social media network
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate);
 
 	/**
 	 * Returns the name of this social media network.

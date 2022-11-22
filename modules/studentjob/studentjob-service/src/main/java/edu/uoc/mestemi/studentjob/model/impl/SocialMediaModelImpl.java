@@ -78,9 +78,8 @@ public class SocialMediaModelImpl
 		{"socialMediaNetworkId", Types.BIGINT}, {"groupId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"socialMediaType", Types.VARCHAR},
-		{"socialURL", Types.VARCHAR}, {"className", Types.VARCHAR},
-		{"classPK", Types.BIGINT}
+		{"modifiedDate", Types.TIMESTAMP}, {"socialURL", Types.VARCHAR},
+		{"className", Types.VARCHAR}, {"classPK", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -96,14 +95,13 @@ public class SocialMediaModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("socialMediaType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("socialURL", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("className", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("classPK", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_SocialMedia (uuid_ VARCHAR(75) null,socialMediaId LONG not null primary key,socialMediaNetworkId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,socialMediaType VARCHAR(75) null,socialURL VARCHAR(75) null,className VARCHAR(75) null,classPK LONG)";
+		"create table SJob_SocialMedia (uuid_ VARCHAR(75) null,socialMediaId LONG not null primary key,socialMediaNetworkId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,socialURL VARCHAR(75) null,className VARCHAR(75) null,classPK LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SJob_SocialMedia";
 
@@ -296,11 +294,6 @@ public class SocialMediaModelImpl
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			(BiConsumer<SocialMedia, Date>)SocialMedia::setModifiedDate);
-		attributeGetterFunctions.put(
-			"socialMediaType", SocialMedia::getSocialMediaType);
-		attributeSetterBiConsumers.put(
-			"socialMediaType",
-			(BiConsumer<SocialMedia, String>)SocialMedia::setSocialMediaType);
 		attributeGetterFunctions.put("socialURL", SocialMedia::getSocialURL);
 		attributeSetterBiConsumers.put(
 			"socialURL",
@@ -516,26 +509,6 @@ public class SocialMediaModelImpl
 
 	@JSON
 	@Override
-	public String getSocialMediaType() {
-		if (_socialMediaType == null) {
-			return "";
-		}
-		else {
-			return _socialMediaType;
-		}
-	}
-
-	@Override
-	public void setSocialMediaType(String socialMediaType) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_socialMediaType = socialMediaType;
-	}
-
-	@JSON
-	@Override
 	public String getSocialURL() {
 		if (_socialURL == null) {
 			return "";
@@ -678,7 +651,6 @@ public class SocialMediaModelImpl
 		socialMediaImpl.setUserName(getUserName());
 		socialMediaImpl.setCreateDate(getCreateDate());
 		socialMediaImpl.setModifiedDate(getModifiedDate());
-		socialMediaImpl.setSocialMediaType(getSocialMediaType());
 		socialMediaImpl.setSocialURL(getSocialURL());
 		socialMediaImpl.setClassName(getClassName());
 		socialMediaImpl.setClassPK(getClassPK());
@@ -708,8 +680,6 @@ public class SocialMediaModelImpl
 			this.<Date>getColumnOriginalValue("createDate"));
 		socialMediaImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
-		socialMediaImpl.setSocialMediaType(
-			this.<String>getColumnOriginalValue("socialMediaType"));
 		socialMediaImpl.setSocialURL(
 			this.<String>getColumnOriginalValue("socialURL"));
 		socialMediaImpl.setClassName(
@@ -836,14 +806,6 @@ public class SocialMediaModelImpl
 			socialMediaCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		socialMediaCacheModel.socialMediaType = getSocialMediaType();
-
-		String socialMediaType = socialMediaCacheModel.socialMediaType;
-
-		if ((socialMediaType != null) && (socialMediaType.length() == 0)) {
-			socialMediaCacheModel.socialMediaType = null;
-		}
-
 		socialMediaCacheModel.socialURL = getSocialURL();
 
 		String socialURL = socialMediaCacheModel.socialURL;
@@ -964,7 +926,6 @@ public class SocialMediaModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
-	private String _socialMediaType;
 	private String _socialURL;
 	private String _className;
 	private long _classPK;
@@ -1008,7 +969,6 @@ public class SocialMediaModelImpl
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
-		_columnOriginalValues.put("socialMediaType", _socialMediaType);
 		_columnOriginalValues.put("socialURL", _socialURL);
 		_columnOriginalValues.put("className", _className);
 		_columnOriginalValues.put("classPK", _classPK);
@@ -1053,13 +1013,11 @@ public class SocialMediaModelImpl
 
 		columnBitmasks.put("modifiedDate", 256L);
 
-		columnBitmasks.put("socialMediaType", 512L);
+		columnBitmasks.put("socialURL", 512L);
 
-		columnBitmasks.put("socialURL", 1024L);
+		columnBitmasks.put("className", 1024L);
 
-		columnBitmasks.put("className", 2048L);
-
-		columnBitmasks.put("classPK", 4096L);
+		columnBitmasks.put("classPK", 2048L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

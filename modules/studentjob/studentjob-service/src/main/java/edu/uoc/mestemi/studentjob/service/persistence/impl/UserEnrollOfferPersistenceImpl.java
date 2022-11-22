@@ -634,6 +634,254 @@ public class UserEnrollOfferPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_UUID_3 =
 		"(userEnrollOffer.uuid IS NULL OR userEnrollOffer.uuid = '')";
 
+	private FinderPath _finderPathFetchByUUID_G;
+	private FinderPath _finderPathCountByUUID_G;
+
+	/**
+	 * Returns the user enroll offer where uuid = &#63; and groupId = &#63; or throws a <code>NoSuchUserEnrollOfferException</code> if it could not be found.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer findByUUID_G(String uuid, long groupId)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer = fetchByUUID_G(uuid, groupId);
+
+		if (userEnrollOffer == null) {
+			StringBundler sb = new StringBundler(6);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("uuid=");
+			sb.append(uuid);
+
+			sb.append(", groupId=");
+			sb.append(groupId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchUserEnrollOfferException(sb.toString());
+		}
+
+		return userEnrollOffer;
+	}
+
+	/**
+	 * Returns the user enroll offer where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer fetchByUUID_G(String uuid, long groupId) {
+		return fetchByUUID_G(uuid, groupId, true);
+	}
+
+	/**
+	 * Returns the user enroll offer where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer fetchByUUID_G(
+		String uuid, long groupId, boolean useFinderCache) {
+
+		uuid = Objects.toString(uuid, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {uuid, groupId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByUUID_G, finderArgs);
+		}
+
+		if (result instanceof UserEnrollOffer) {
+			UserEnrollOffer userEnrollOffer = (UserEnrollOffer)result;
+
+			if (!Objects.equals(uuid, userEnrollOffer.getUuid()) ||
+				(groupId != userEnrollOffer.getGroupId())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_SELECT_USERENROLLOFFER_WHERE);
+
+			boolean bindUuid = false;
+
+			if (uuid.isEmpty()) {
+				sb.append(_FINDER_COLUMN_UUID_G_UUID_3);
+			}
+			else {
+				bindUuid = true;
+
+				sb.append(_FINDER_COLUMN_UUID_G_UUID_2);
+			}
+
+			sb.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindUuid) {
+					queryPos.add(uuid);
+				}
+
+				queryPos.add(groupId);
+
+				List<UserEnrollOffer> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByUUID_G, finderArgs, list);
+					}
+				}
+				else {
+					UserEnrollOffer userEnrollOffer = list.get(0);
+
+					result = userEnrollOffer;
+
+					cacheResult(userEnrollOffer);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (UserEnrollOffer)result;
+		}
+	}
+
+	/**
+	 * Removes the user enroll offer where uuid = &#63; and groupId = &#63; from the database.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the user enroll offer that was removed
+	 */
+	@Override
+	public UserEnrollOffer removeByUUID_G(String uuid, long groupId)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer = findByUUID_G(uuid, groupId);
+
+		return remove(userEnrollOffer);
+	}
+
+	/**
+	 * Returns the number of user enroll offers where uuid = &#63; and groupId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the number of matching user enroll offers
+	 */
+	@Override
+	public int countByUUID_G(String uuid, long groupId) {
+		uuid = Objects.toString(uuid, "");
+
+		FinderPath finderPath = _finderPathCountByUUID_G;
+
+		Object[] finderArgs = new Object[] {uuid, groupId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_USERENROLLOFFER_WHERE);
+
+			boolean bindUuid = false;
+
+			if (uuid.isEmpty()) {
+				sb.append(_FINDER_COLUMN_UUID_G_UUID_3);
+			}
+			else {
+				bindUuid = true;
+
+				sb.append(_FINDER_COLUMN_UUID_G_UUID_2);
+			}
+
+			sb.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindUuid) {
+					queryPos.add(uuid);
+				}
+
+				queryPos.add(groupId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_UUID_G_UUID_2 =
+		"userEnrollOffer.uuid = ? AND ";
+
+	private static final String _FINDER_COLUMN_UUID_G_UUID_3 =
+		"(userEnrollOffer.uuid IS NULL OR userEnrollOffer.uuid = '') AND ";
+
+	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 =
+		"userEnrollOffer.groupId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByUuid_C;
 	private FinderPath _finderPathWithoutPaginationFindByUuid_C;
 	private FinderPath _finderPathCountByUuid_C;
@@ -1241,6 +1489,13 @@ public class UserEnrollOfferPersistenceImpl
 		entityCache.putResult(
 			UserEnrollOfferImpl.class, userEnrollOffer.getPrimaryKey(),
 			userEnrollOffer);
+
+		finderCache.putResult(
+			_finderPathFetchByUUID_G,
+			new Object[] {
+				userEnrollOffer.getUuid(), userEnrollOffer.getGroupId()
+			},
+			userEnrollOffer);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -1311,6 +1566,19 @@ public class UserEnrollOfferPersistenceImpl
 		for (Serializable primaryKey : primaryKeys) {
 			entityCache.removeResult(UserEnrollOfferImpl.class, primaryKey);
 		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		UserEnrollOfferModelImpl userEnrollOfferModelImpl) {
+
+		Object[] args = new Object[] {
+			userEnrollOfferModelImpl.getUuid(),
+			userEnrollOfferModelImpl.getGroupId()
+		};
+
+		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByUUID_G, args, userEnrollOfferModelImpl);
 	}
 
 	/**
@@ -1488,6 +1756,8 @@ public class UserEnrollOfferPersistenceImpl
 
 		entityCache.putResult(
 			UserEnrollOfferImpl.class, userEnrollOfferModelImpl, false, true);
+
+		cacheUniqueFindersCache(userEnrollOfferModelImpl);
 
 		if (isNew) {
 			userEnrollOffer.setNew(false);
@@ -1798,6 +2068,16 @@ public class UserEnrollOfferPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid",
 			new String[] {String.class.getName()}, new String[] {"uuid_"},
 			false);
+
+		_finderPathFetchByUUID_G = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
+			new String[] {String.class.getName(), Long.class.getName()},
+			new String[] {"uuid_", "groupId"}, true);
+
+		_finderPathCountByUUID_G = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
+			new String[] {String.class.getName(), Long.class.getName()},
+			new String[] {"uuid_", "groupId"}, false);
 
 		_finderPathWithPaginationFindByUuid_C = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",

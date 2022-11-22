@@ -19,8 +19,15 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import edu.uoc.mestemi.studentjob.model.CompanyProfile;
+
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -47,6 +54,19 @@ public interface CompanyProfileService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.CompanyProfileServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the company profile remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CompanyProfileServiceUtil} if injection and service tracking are not available.
 	 */
+	public CompanyProfile addCompanyProfile(
+			long groupId, long regionId, boolean active,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String email, Map<Locale, String> sectorMap, String website,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	public CompanyProfile deleteCompanyProfile(long companyProfileId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CompanyProfile getCompanyProfile(long companyProfileId)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -54,5 +74,12 @@ public interface CompanyProfileService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	public CompanyProfile updateCompanyProfile(
+			long companyProfileId, long regionId, boolean active,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String email, Map<Locale, String> sectorMap, String website,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 }

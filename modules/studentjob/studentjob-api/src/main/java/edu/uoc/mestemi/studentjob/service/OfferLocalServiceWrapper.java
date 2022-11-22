@@ -59,6 +59,20 @@ public class OfferLocalServiceWrapper
 		_offerLocalService.addDegreeOffers(degreeId, offerIds);
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.Offer addOffer(
+			long groupId, long regionId,
+			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> descriptionMap,
+			String preference, java.util.List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _offerLocalService.addOffer(
+			groupId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			serviceContext);
+	}
+
 	/**
 	 * Adds the offer to the database. Also notifies the appropriate model listeners.
 	 *
@@ -343,6 +357,13 @@ public class OfferLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getDegreesByGroupId(long groupId, int start, int end) {
+
+		return _offerLocalService.getDegreesByGroupId(groupId, start, end);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
@@ -407,6 +428,24 @@ public class OfferLocalServiceWrapper
 		return _offerLocalService.getOffers(start, end);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByGroupId(long groupId) {
+
+		return _offerLocalService.getOffersByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
+
+		return _offerLocalService.getOffersByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the offers matching the UUID and company.
 	 *
@@ -452,6 +491,11 @@ public class OfferLocalServiceWrapper
 		return _offerLocalService.getOffersCount();
 	}
 
+	@Override
+	public long getOffersCountByKeywords(long groupId, String keywords) {
+		return _offerLocalService.getOffersCountByKeywords(groupId, keywords);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -486,6 +530,20 @@ public class OfferLocalServiceWrapper
 	@Override
 	public void setDegreeOffers(long degreeId, long[] offerIds) {
 		_offerLocalService.setDegreeOffers(degreeId, offerIds);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.Offer updateOffer(
+			long offerId, long regionId,
+			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> descriptionMap,
+			String preference, java.util.List<Long> degreeIds,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _offerLocalService.updateOffer(
+			offerId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			serviceContext);
 	}
 
 	/**

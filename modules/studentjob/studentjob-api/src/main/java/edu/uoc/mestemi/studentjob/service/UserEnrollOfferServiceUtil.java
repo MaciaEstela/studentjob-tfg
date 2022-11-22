@@ -14,6 +14,10 @@
 
 package edu.uoc.mestemi.studentjob.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
+import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
+
 /**
  * Provides the remote service utility for UserEnrollOffer. This utility wraps
  * <code>edu.uoc.mestemi.studentjob.service.impl.UserEnrollOfferServiceImpl</code> and is an
@@ -33,13 +37,27 @@ public class UserEnrollOfferServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.UserEnrollOfferServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static UserEnrollOffer addUserEnrollOffer(
+			long groupId, long offerId, long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addUserEnrollOffer(
+			groupId, offerId, userId, serviceContext);
+	}
+
+	public static UserEnrollOffer deleteEnrollOffer(long offerId, long userId)
+		throws PortalException {
+
+		return getService().deleteEnrollOffer(offerId, userId);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 

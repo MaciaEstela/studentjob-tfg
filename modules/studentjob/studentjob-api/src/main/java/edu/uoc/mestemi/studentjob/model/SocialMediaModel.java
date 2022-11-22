@@ -219,21 +219,6 @@ public interface SocialMediaModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the social media type of this social media.
-	 *
-	 * @return the social media type of this social media
-	 */
-	@AutoEscape
-	public String getSocialMediaType();
-
-	/**
-	 * Sets the social media type of this social media.
-	 *
-	 * @param socialMediaType the social media type of this social media
-	 */
-	public void setSocialMediaType(String socialMediaType);
-
-	/**
 	 * Returns the social url of this social media.
 	 *
 	 * @return the social url of this social media

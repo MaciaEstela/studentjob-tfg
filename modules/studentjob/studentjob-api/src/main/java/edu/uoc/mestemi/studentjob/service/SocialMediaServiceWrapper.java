@@ -34,6 +34,26 @@ public class SocialMediaServiceWrapper
 		_socialMediaService = socialMediaService;
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMedia addSocialMedia(
+			long groupId, long socialMediaId, String socialURL,
+			String className, long classPK,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaService.addSocialMedia(
+			groupId, socialMediaId, socialURL, className, classPK,
+			serviceContext);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMedia deleteSocialMedia(
+			long socialMediaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaService.deleteSocialMedia(socialMediaId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -42,6 +62,24 @@ public class SocialMediaServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _socialMediaService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMedia getSocialMedia(
+			long socialMediaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaService.getSocialMedia(socialMediaId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMedia updateSocialMedia(
+			long socialMediaId, String socialURL,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaService.updateSocialMedia(
+			socialMediaId, socialURL, serviceContext);
 	}
 
 	@Override

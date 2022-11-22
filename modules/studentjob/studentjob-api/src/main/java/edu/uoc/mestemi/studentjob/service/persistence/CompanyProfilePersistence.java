@@ -391,6 +391,149 @@ public interface CompanyProfilePersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns all the company profiles where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the matching company profiles
+	 */
+	public java.util.List<CompanyProfile> findByGroupId(long groupId);
+
+	/**
+	 * Returns a range of all the company profiles where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CompanyProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of company profiles
+	 * @param end the upper bound of the range of company profiles (not inclusive)
+	 * @return the range of matching company profiles
+	 */
+	public java.util.List<CompanyProfile> findByGroupId(
+		long groupId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the company profiles where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CompanyProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of company profiles
+	 * @param end the upper bound of the range of company profiles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching company profiles
+	 */
+	public java.util.List<CompanyProfile> findByGroupId(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CompanyProfile>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the company profiles where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CompanyProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param start the lower bound of the range of company profiles
+	 * @param end the upper bound of the range of company profiles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching company profiles
+	 */
+	public java.util.List<CompanyProfile> findByGroupId(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CompanyProfile>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first company profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching company profile
+	 * @throws NoSuchCompanyProfileException if a matching company profile could not be found
+	 */
+	public CompanyProfile findByGroupId_First(
+			long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<CompanyProfile>
+				orderByComparator)
+		throws NoSuchCompanyProfileException;
+
+	/**
+	 * Returns the first company profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching company profile, or <code>null</code> if a matching company profile could not be found
+	 */
+	public CompanyProfile fetchByGroupId_First(
+		long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<CompanyProfile>
+			orderByComparator);
+
+	/**
+	 * Returns the last company profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching company profile
+	 * @throws NoSuchCompanyProfileException if a matching company profile could not be found
+	 */
+	public CompanyProfile findByGroupId_Last(
+			long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<CompanyProfile>
+				orderByComparator)
+		throws NoSuchCompanyProfileException;
+
+	/**
+	 * Returns the last company profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching company profile, or <code>null</code> if a matching company profile could not be found
+	 */
+	public CompanyProfile fetchByGroupId_Last(
+		long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<CompanyProfile>
+			orderByComparator);
+
+	/**
+	 * Returns the company profiles before and after the current company profile in the ordered set where groupId = &#63;.
+	 *
+	 * @param companyProfileId the primary key of the current company profile
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next company profile
+	 * @throws NoSuchCompanyProfileException if a company profile with the primary key could not be found
+	 */
+	public CompanyProfile[] findByGroupId_PrevAndNext(
+			long companyProfileId, long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<CompanyProfile>
+				orderByComparator)
+		throws NoSuchCompanyProfileException;
+
+	/**
+	 * Removes all the company profiles where groupId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 */
+	public void removeByGroupId(long groupId);
+
+	/**
+	 * Returns the number of company profiles where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching company profiles
+	 */
+	public int countByGroupId(long groupId);
+
+	/**
 	 * Caches the company profile in the entity cache if it is enabled.
 	 *
 	 * @param companyProfile the company profile

@@ -67,8 +67,8 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 		sb.append(uuid);
 		sb.append(", offerId=");
 		sb.append(offerId);
-		sb.append(", provinceId=");
-		sb.append(provinceId);
+		sb.append(", regionId=");
+		sb.append(regionId);
 		sb.append(", groupId=");
 		sb.append(groupId);
 		sb.append(", companyId=");
@@ -104,7 +104,7 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 		}
 
 		offerImpl.setOfferId(offerId);
-		offerImpl.setProvinceId(provinceId);
+		offerImpl.setRegionId(regionId);
 		offerImpl.setGroupId(groupId);
 		offerImpl.setCompanyId(companyId);
 		offerImpl.setUserId(userId);
@@ -162,7 +162,7 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 
 		offerId = objectInput.readLong();
 
-		provinceId = objectInput.readLong();
+		regionId = objectInput.readLong();
 
 		groupId = objectInput.readLong();
 
@@ -188,7 +188,7 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 
 		objectOutput.writeLong(offerId);
 
-		objectOutput.writeLong(provinceId);
+		objectOutput.writeLong(regionId);
 
 		objectOutput.writeLong(groupId);
 
@@ -230,7 +230,7 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 
 	public String uuid;
 	public long offerId;
-	public long provinceId;
+	public long regionId;
 	public long groupId;
 	public long companyId;
 	public long userId;

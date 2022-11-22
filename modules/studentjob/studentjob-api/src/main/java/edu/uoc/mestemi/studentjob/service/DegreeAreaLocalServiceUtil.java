@@ -25,6 +25,7 @@ import edu.uoc.mestemi.studentjob.model.DegreeArea;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for DegreeArea. This utility wraps
@@ -58,6 +59,14 @@ public class DegreeAreaLocalServiceUtil {
 	 */
 	public static DegreeArea addDegreeArea(DegreeArea degreeArea) {
 		return getService().addDegreeArea(degreeArea);
+	}
+
+	public static DegreeArea addDegreeArea(
+			long groupId, Map<java.util.Locale, String> nameMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addDegreeArea(groupId, nameMap, serviceContext);
 	}
 
 	public static void addDegreeDegreeArea(
@@ -279,6 +288,14 @@ public class DegreeAreaLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<DegreeArea> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<DegreeArea> orderByComparator) {
+
+		return getService().getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns the degree area with the primary key.
 	 *
@@ -322,6 +339,24 @@ public class DegreeAreaLocalServiceUtil {
 		return getService().getDegreeAreas(start, end);
 	}
 
+	public static List<DegreeArea> getDegreeAreasByGroupId(long groupId) {
+		return getService().getDegreeAreasByGroupId(groupId);
+	}
+
+	public static List<DegreeArea> getDegreeAreasByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getDegreeAreasByGroupId(groupId, start, end);
+	}
+
+	public static List<DegreeArea> getDegreeAreasByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<DegreeArea> orderByComparator) {
+
+		return getService().getDegreeAreasByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the degree areas matching the UUID and company.
 	 *
@@ -362,6 +397,12 @@ public class DegreeAreaLocalServiceUtil {
 		return getService().getDegreeAreasCount();
 	}
 
+	public static long getDegreeAreasCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getDegreeAreasCountByKeywords(groupId, keywords);
+	}
+
 	public static List<DegreeArea> getDegreeDegreeAreas(long degreeId) {
 		return getService().getDegreeDegreeAreas(degreeId);
 	}
@@ -392,6 +433,14 @@ public class DegreeAreaLocalServiceUtil {
 	 */
 	public static long[] getDegreePrimaryKeys(long degreeAreaId) {
 		return getService().getDegreePrimaryKeys(degreeAreaId);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
+		getExportActionableDynamicQuery(
+			com.liferay.exportimport.kernel.lar.PortletDataContext
+				portletDataContext) {
+
+		return getService().getExportActionableDynamicQuery(portletDataContext);
 	}
 
 	public static
@@ -447,6 +496,15 @@ public class DegreeAreaLocalServiceUtil {
 	 */
 	public static DegreeArea updateDegreeArea(DegreeArea degreeArea) {
 		return getService().updateDegreeArea(degreeArea);
+	}
+
+	public static DegreeArea updateDegreeArea(
+			long degreeAreaId, Map<java.util.Locale, String> nameMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateDegreeArea(
+			degreeAreaId, nameMap, serviceContext);
 	}
 
 	public static DegreeAreaLocalService getService() {

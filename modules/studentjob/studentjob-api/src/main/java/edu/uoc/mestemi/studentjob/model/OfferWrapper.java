@@ -44,7 +44,7 @@ public class OfferWrapper
 
 		attributes.put("uuid", getUuid());
 		attributes.put("offerId", getOfferId());
-		attributes.put("provinceId", getProvinceId());
+		attributes.put("regionId", getRegionId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -72,10 +72,10 @@ public class OfferWrapper
 			setOfferId(offerId);
 		}
 
-		Long provinceId = (Long)attributes.get("provinceId");
+		Long regionId = (Long)attributes.get("regionId");
 
-		if (provinceId != null) {
-			setProvinceId(provinceId);
+		if (regionId != null) {
+			setRegionId(regionId);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -371,13 +371,13 @@ public class OfferWrapper
 	}
 
 	/**
-	 * Returns the province ID of this offer.
+	 * Returns the region ID of this offer.
 	 *
-	 * @return the province ID of this offer
+	 * @return the region ID of this offer
 	 */
 	@Override
-	public long getProvinceId() {
-		return model.getProvinceId();
+	public long getRegionId() {
+		return model.getRegionId();
 	}
 
 	/**
@@ -641,13 +641,13 @@ public class OfferWrapper
 	}
 
 	/**
-	 * Sets the province ID of this offer.
+	 * Sets the region ID of this offer.
 	 *
-	 * @param provinceId the province ID of this offer
+	 * @param regionId the region ID of this offer
 	 */
 	@Override
-	public void setProvinceId(long provinceId) {
-		model.setProvinceId(provinceId);
+	public void setRegionId(long regionId) {
+		model.setRegionId(regionId);
 	}
 
 	/**

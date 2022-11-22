@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -38,6 +39,8 @@ import edu.uoc.mestemi.studentjob.model.Degree;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -77,6 +80,11 @@ public interface DegreeLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Degree addDegree(Degree degree);
+
+	public Degree addDegree(
+			long groupId, Map<Locale, String> nameMap,
+			List<Long> degreeAreasIds, ServiceContext serviceContext)
+		throws PortalException;
 
 	public void addDegreeAreaDegree(long degreeAreaId, Degree degree);
 
@@ -276,6 +284,10 @@ public interface DegreeLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords);
+
 	/**
 	 * Returns the degree with the primary key.
 	 *
@@ -335,6 +347,22 @@ public interface DegreeLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Degree> getDegrees(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByGroupId(long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Degree> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Degree> orderByComparator);
 
 	/**
 	 * Returns all the degrees matching the UUID and company.
@@ -477,5 +505,10 @@ public interface DegreeLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Degree updateDegree(Degree degree);
+
+	public Degree updateDegree(
+			long degreeId, Map<Locale, String> nameMap,
+			List<Long> degreeAreasIds, ServiceContext serviceContext)
+		throws PortalException;
 
 }

@@ -45,6 +45,7 @@ public class UserEnrollOfferWrapper
 		attributes.put("uuid", getUuid());
 		attributes.put("userId", getUserId());
 		attributes.put("offerId", getOfferId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
 
@@ -69,6 +70,12 @@ public class UserEnrollOfferWrapper
 
 		if (offerId != null) {
 			setOfferId(offerId);
+		}
+
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -107,6 +114,16 @@ public class UserEnrollOfferWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the group ID of this user enroll offer.
+	 *
+	 * @return the group ID of this user enroll offer
+	 */
+	@Override
+	public long getGroupId() {
+		return model.getGroupId();
 	}
 
 	/**
@@ -184,6 +201,16 @@ public class UserEnrollOfferWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the group ID of this user enroll offer.
+	 *
+	 * @param groupId the group ID of this user enroll offer
+	 */
+	@Override
+	public void setGroupId(long groupId) {
+		model.setGroupId(groupId);
 	}
 
 	/**

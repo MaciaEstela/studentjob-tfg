@@ -262,18 +262,17 @@ public abstract class UserEnrollOfferLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the user enroll offer with the matching UUID and company.
+	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID
-	 * @param companyId the primary key of the company
+	 * @param groupId the primary key of the group
 	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
 	 */
 	@Override
-	public UserEnrollOffer fetchUserEnrollOfferByUuidAndCompanyId(
-		String uuid, long companyId) {
+	public UserEnrollOffer fetchUserEnrollOfferByUuidAndGroupId(
+		String uuid, long groupId) {
 
-		return userEnrollOfferPersistence.fetchByUuid_C_First(
-			uuid, companyId, null);
+		return userEnrollOfferPersistence.fetchByUUID_G(uuid, groupId);
 	}
 
 	/**
@@ -371,20 +370,52 @@ public abstract class UserEnrollOfferLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the user enroll offer with the matching UUID and company.
+	 * Returns all the user enroll offers matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the user enroll offers
+	 * @param companyId the primary key of the company
+	 * @return the matching user enroll offers, or an empty list if no matches were found
+	 */
+	@Override
+	public List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
+		String uuid, long companyId) {
+
+		return userEnrollOfferPersistence.findByUuid_C(uuid, companyId);
+	}
+
+	/**
+	 * Returns a range of user enroll offers matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the user enroll offers
+	 * @param companyId the primary key of the company
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the range of matching user enroll offers, or an empty list if no matches were found
+	 */
+	@Override
+	public List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return userEnrollOfferPersistence.findByUuid_C(
+			uuid, companyId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID
-	 * @param companyId the primary key of the company
+	 * @param groupId the primary key of the group
 	 * @return the matching user enroll offer
 	 * @throws PortalException if a matching user enroll offer could not be found
 	 */
 	@Override
-	public UserEnrollOffer getUserEnrollOfferByUuidAndCompanyId(
-			String uuid, long companyId)
+	public UserEnrollOffer getUserEnrollOfferByUuidAndGroupId(
+			String uuid, long groupId)
 		throws PortalException {
 
-		return userEnrollOfferPersistence.findByUuid_C_First(
-			uuid, companyId, null);
+		return userEnrollOfferPersistence.findByUUID_G(uuid, groupId);
 	}
 
 	/**

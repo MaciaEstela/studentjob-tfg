@@ -13,7 +13,10 @@
 		<column name="groupId" type="long" />
 		<!-- Audit fields -->
 		<column name="companyId" type="long" />
-
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		
 		<!-- Other fields -->
 		<column name="name" type="String" />
 		<column name="logo" type="long" />
@@ -25,7 +28,10 @@
 		</order>
 
 		<!-- Finder methods -->
-
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+		</finder>
+		
 		<!-- References -->
 
 	</entity>
@@ -49,7 +55,6 @@
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
-		<column name="socialMediaType" type="String" />
 		<column name="socialURL" type="String" />
 		<column name="className" type="String" />
 		<column name="classPK" type="long" />
@@ -60,6 +65,10 @@
 		</order>
 
 		<!-- Finder methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+		</finder>
+		
 		<finder return-type="Collection" name="GroupIdAndClassNameAndClassPK">
 			<finder-column name="groupId" />
 			<finder-column name="className" />
@@ -104,7 +113,10 @@
 		</order>
 
 		<!-- Finder methods -->
-
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+		</finder>
+		
 		<!-- References -->
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
@@ -117,6 +129,9 @@
 	<entity local-service="true" name="UserEnrollOffer" remote-service="true" uuid="true">
 		<column name="userId" type="long" primary="true" />
 		<column name="offerId" type="long" primary="true" />
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+		
 		<column name="companyId" type="long" />
 		<column name="createDate" type="Date" />
 	</entity>
@@ -154,7 +169,10 @@
 		</order>
 
 		<!-- Finder methods -->
-
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+		</finder>
+		
 		<!-- References -->
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
@@ -169,7 +187,7 @@
 		<!-- PK fields -->
 		<column name="offerId" primary="true" type="long" />
 		<!-- FK fields -->
-		<column name="provinceId" type="long" />
+		<column name="regionId" type="long" />
 		<column name="degrees" type="Collection" entity="Degree" mapping-table="Offers_Degrees"/>
 		
 		<!-- Group instance -->
@@ -194,7 +212,10 @@
 		</order>
 
 		<!-- Finder methods -->
-
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+		</finder>
+		
 		<!-- References -->
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
@@ -217,7 +238,10 @@
 
 		<!-- Audit fields -->
 		<column name="companyId" type="long" />
-
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		
 		<!-- Other fields -->
 		<column name="name" type="String" localized="true"/>
 		
@@ -227,7 +251,10 @@
 		</order>
 
 		<!-- Finder methods -->
-
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+		</finder>
+		
 		<!-- References -->
 	</entity>
 	
@@ -263,7 +290,10 @@
 		</order>
 
 		<!-- Finder methods -->
-
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+		</finder>
+		
 		<!-- References -->
 	</entity>
 	<!-- Exceptions -->

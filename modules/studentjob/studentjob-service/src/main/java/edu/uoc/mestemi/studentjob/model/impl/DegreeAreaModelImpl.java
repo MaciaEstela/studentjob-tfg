@@ -16,17 +16,22 @@ package edu.uoc.mestemi.studentjob.model.impl;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.LocaleException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -78,7 +83,8 @@ public class DegreeAreaModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"degreeAreaId", Types.BIGINT},
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"name", Types.VARCHAR}
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -89,11 +95,14 @@ public class DegreeAreaModelImpl
 		TABLE_COLUMNS_MAP.put("degreeAreaId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_DegreeArea (uuid_ VARCHAR(75) null,degreeAreaId LONG not null primary key,groupId LONG,companyId LONG,name STRING null)";
+		"create table SJob_DegreeArea (uuid_ VARCHAR(75) null,degreeAreaId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,name STRING null)";
 
 	public static final String TABLE_SQL_DROP = "drop table SJob_DegreeArea";
 
@@ -270,6 +279,18 @@ public class DegreeAreaModelImpl
 		attributeSetterBiConsumers.put(
 			"companyId",
 			(BiConsumer<DegreeArea, Long>)DegreeArea::setCompanyId);
+		attributeGetterFunctions.put("userId", DegreeArea::getUserId);
+		attributeSetterBiConsumers.put(
+			"userId", (BiConsumer<DegreeArea, Long>)DegreeArea::setUserId);
+		attributeGetterFunctions.put("createDate", DegreeArea::getCreateDate);
+		attributeSetterBiConsumers.put(
+			"createDate",
+			(BiConsumer<DegreeArea, Date>)DegreeArea::setCreateDate);
+		attributeGetterFunctions.put(
+			"modifiedDate", DegreeArea::getModifiedDate);
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			(BiConsumer<DegreeArea, Date>)DegreeArea::setModifiedDate);
 		attributeGetterFunctions.put("name", DegreeArea::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<DegreeArea, String>)DegreeArea::setName);
@@ -371,6 +392,73 @@ public class DegreeAreaModelImpl
 	public long getOriginalCompanyId() {
 		return GetterUtil.getLong(
 			this.<Long>getColumnOriginalValue("companyId"));
+	}
+
+	@JSON
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException portalException) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+	}
+
+	@JSON
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_createDate = createDate;
+	}
+
+	@JSON
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public boolean hasSetModifiedDate() {
+		return _setModifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		_setModifiedDate = true;
+
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_modifiedDate = modifiedDate;
 	}
 
 	@JSON
@@ -478,6 +566,12 @@ public class DegreeAreaModelImpl
 			LocalizationUtil.updateLocalization(
 				nameMap, getName(), "Name",
 				LocaleUtil.toLanguageId(defaultLocale)));
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(
+			PortalUtil.getClassNameId(DegreeArea.class.getName()));
 	}
 
 	public long getColumnBitmask() {
@@ -606,6 +700,9 @@ public class DegreeAreaModelImpl
 		degreeAreaImpl.setDegreeAreaId(getDegreeAreaId());
 		degreeAreaImpl.setGroupId(getGroupId());
 		degreeAreaImpl.setCompanyId(getCompanyId());
+		degreeAreaImpl.setUserId(getUserId());
+		degreeAreaImpl.setCreateDate(getCreateDate());
+		degreeAreaImpl.setModifiedDate(getModifiedDate());
 		degreeAreaImpl.setName(getName());
 
 		degreeAreaImpl.resetOriginalValues();
@@ -623,6 +720,11 @@ public class DegreeAreaModelImpl
 		degreeAreaImpl.setGroupId(this.<Long>getColumnOriginalValue("groupId"));
 		degreeAreaImpl.setCompanyId(
 			this.<Long>getColumnOriginalValue("companyId"));
+		degreeAreaImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		degreeAreaImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		degreeAreaImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
 		degreeAreaImpl.setName(this.<String>getColumnOriginalValue("name"));
 
 		return degreeAreaImpl;
@@ -690,6 +792,8 @@ public class DegreeAreaModelImpl
 	public void resetOriginalValues() {
 		_columnOriginalValues = Collections.emptyMap();
 
+		_setModifiedDate = false;
+
 		_columnBitmask = 0;
 	}
 
@@ -710,6 +814,26 @@ public class DegreeAreaModelImpl
 		degreeAreaCacheModel.groupId = getGroupId();
 
 		degreeAreaCacheModel.companyId = getCompanyId();
+
+		degreeAreaCacheModel.userId = getUserId();
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			degreeAreaCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			degreeAreaCacheModel.createDate = Long.MIN_VALUE;
+		}
+
+		Date modifiedDate = getModifiedDate();
+
+		if (modifiedDate != null) {
+			degreeAreaCacheModel.modifiedDate = modifiedDate.getTime();
+		}
+		else {
+			degreeAreaCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
 
 		degreeAreaCacheModel.name = getName();
 
@@ -815,6 +939,10 @@ public class DegreeAreaModelImpl
 	private long _degreeAreaId;
 	private long _groupId;
 	private long _companyId;
+	private long _userId;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private boolean _setModifiedDate;
 	private String _name;
 	private String _nameCurrentLanguageId;
 
@@ -851,6 +979,9 @@ public class DegreeAreaModelImpl
 		_columnOriginalValues.put("degreeAreaId", _degreeAreaId);
 		_columnOriginalValues.put("groupId", _groupId);
 		_columnOriginalValues.put("companyId", _companyId);
+		_columnOriginalValues.put("userId", _userId);
+		_columnOriginalValues.put("createDate", _createDate);
+		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("name", _name);
 	}
 
@@ -883,7 +1014,13 @@ public class DegreeAreaModelImpl
 
 		columnBitmasks.put("companyId", 8L);
 
-		columnBitmasks.put("name", 16L);
+		columnBitmasks.put("userId", 16L);
+
+		columnBitmasks.put("createDate", 32L);
+
+		columnBitmasks.put("modifiedDate", 64L);
+
+		columnBitmasks.put("name", 128L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

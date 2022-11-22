@@ -54,6 +54,16 @@ public class DegreeAreaLocalServiceWrapper
 	}
 
 	@Override
+	public edu.uoc.mestemi.studentjob.model.DegreeArea addDegreeArea(
+			long groupId, java.util.Map<java.util.Locale, String> nameMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeAreaLocalService.addDegreeArea(
+			groupId, nameMap, serviceContext);
+	}
+
+	@Override
 	public void addDegreeDegreeArea(
 		long degreeId, edu.uoc.mestemi.studentjob.model.DegreeArea degreeArea) {
 
@@ -313,6 +323,18 @@ public class DegreeAreaLocalServiceWrapper
 		return _degreeAreaLocalService.getActionableDynamicQuery();
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getCompanyProfilesByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.DegreeArea>
+					orderByComparator) {
+
+		return _degreeAreaLocalService.getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns the degree area with the primary key.
 	 *
@@ -363,6 +385,33 @@ public class DegreeAreaLocalServiceWrapper
 		return _degreeAreaLocalService.getDegreeAreas(start, end);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByGroupId(long groupId) {
+
+		return _degreeAreaLocalService.getDegreeAreasByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByGroupId(long groupId, int start, int end) {
+
+		return _degreeAreaLocalService.getDegreeAreasByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.DegreeArea>
+					orderByComparator) {
+
+		return _degreeAreaLocalService.getDegreeAreasByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the degree areas matching the UUID and company.
 	 *
@@ -411,6 +460,12 @@ public class DegreeAreaLocalServiceWrapper
 	}
 
 	@Override
+	public long getDegreeAreasCountByKeywords(long groupId, String keywords) {
+		return _degreeAreaLocalService.getDegreeAreasCountByKeywords(
+			groupId, keywords);
+	}
+
+	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
 		getDegreeDegreeAreas(long degreeId) {
 
@@ -451,6 +506,16 @@ public class DegreeAreaLocalServiceWrapper
 	@Override
 	public long[] getDegreePrimaryKeys(long degreeAreaId) {
 		return _degreeAreaLocalService.getDegreePrimaryKeys(degreeAreaId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
+		getExportActionableDynamicQuery(
+			com.liferay.exportimport.kernel.lar.PortletDataContext
+				portletDataContext) {
+
+		return _degreeAreaLocalService.getExportActionableDynamicQuery(
+			portletDataContext);
 	}
 
 	@Override
@@ -512,6 +577,16 @@ public class DegreeAreaLocalServiceWrapper
 		edu.uoc.mestemi.studentjob.model.DegreeArea degreeArea) {
 
 		return _degreeAreaLocalService.updateDegreeArea(degreeArea);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.DegreeArea updateDegreeArea(
+			long degreeAreaId, java.util.Map<java.util.Locale, String> nameMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeAreaLocalService.updateDegreeArea(
+			degreeAreaId, nameMap, serviceContext);
 	}
 
 	@Override

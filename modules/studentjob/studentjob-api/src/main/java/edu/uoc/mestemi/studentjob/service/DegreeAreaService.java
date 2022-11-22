@@ -19,8 +19,15 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import edu.uoc.mestemi.studentjob.model.DegreeArea;
+
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -47,6 +54,16 @@ public interface DegreeAreaService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.DegreeAreaServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the degree area remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link DegreeAreaServiceUtil} if injection and service tracking are not available.
 	 */
+	public DegreeArea addDegreeArea(
+			long groupId, Map<Locale, String> nameMap,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	public DegreeArea deleteDegreeArea(long degreeAreaId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public DegreeArea getDegreeArea(long degreeAreaId) throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -54,5 +71,10 @@ public interface DegreeAreaService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	public DegreeArea updateDegreeArea(
+			long degreeAreaId, Map<Locale, String> nameMap,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 }

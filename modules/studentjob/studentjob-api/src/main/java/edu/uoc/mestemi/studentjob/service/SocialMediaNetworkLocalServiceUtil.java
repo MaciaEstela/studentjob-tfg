@@ -45,6 +45,14 @@ public class SocialMediaNetworkLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.SocialMediaNetworkLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SocialMediaNetwork addSocialMediaNetwork(
+			long groupId, String name, long logo, String baseURL,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addSocialMediaNetwork(
+			groupId, name, logo, baseURL, serviceContext);
+	}
 
 	/**
 	 * Adds the social media network to the database. Also notifies the appropriate model listeners.
@@ -239,6 +247,14 @@ public class SocialMediaNetworkLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
+		getExportActionableDynamicQuery(
+			com.liferay.exportimport.kernel.lar.PortletDataContext
+				portletDataContext) {
+
+		return getService().getExportActionableDynamicQuery(portletDataContext);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -311,6 +327,27 @@ public class SocialMediaNetworkLocalServiceUtil {
 		return getService().getSocialMediaNetworks(start, end);
 	}
 
+	public static List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId) {
+
+		return getService().getSocialMediaNetworksByGroupId(groupId);
+	}
+
+	public static List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getSocialMediaNetworksByGroupId(
+			groupId, start, end);
+	}
+
+	public static List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<SocialMediaNetwork> orderByComparator) {
+
+		return getService().getSocialMediaNetworksByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the social media networks matching the UUID and company.
 	 *
@@ -351,6 +388,22 @@ public class SocialMediaNetworkLocalServiceUtil {
 	 */
 	public static int getSocialMediaNetworksCount() {
 		return getService().getSocialMediaNetworksCount();
+	}
+
+	public static long getSocialMediaNetworksCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getSocialMediaNetworksCountByKeywords(
+			groupId, keywords);
+	}
+
+	public static SocialMediaNetwork updateSocialMediaNetwork(
+			long socialMediaNetworkId, String name, long logo, String baseURL,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateSocialMediaNetwork(
+			socialMediaNetworkId, name, logo, baseURL, serviceContext);
 	}
 
 	/**

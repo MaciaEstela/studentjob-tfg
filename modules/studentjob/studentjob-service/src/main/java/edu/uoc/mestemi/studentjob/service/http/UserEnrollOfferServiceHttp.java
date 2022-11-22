@@ -14,13 +14,22 @@
 
 package edu.uoc.mestemi.studentjob.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
+import com.liferay.portal.kernel.util.MethodHandler;
+import com.liferay.portal.kernel.util.MethodKey;
+
+import edu.uoc.mestemi.studentjob.service.UserEnrollOfferServiceUtil;
+
 /**
  * Provides the HTTP utility for the
- * <code>edu.uoc.mestemi.studentjob.service.UserEnrollOfferServiceUtil</code> service
+ * <code>UserEnrollOfferServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -41,4 +50,100 @@ package edu.uoc.mestemi.studentjob.service.http;
  * @generated
  */
 public class UserEnrollOfferServiceHttp {
+
+	public static edu.uoc.mestemi.studentjob.model.UserEnrollOffer
+			addUserEnrollOffer(
+				HttpPrincipal httpPrincipal, long groupId, long offerId,
+				long userId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEnrollOfferServiceUtil.class, "addUserEnrollOffer",
+				_addUserEnrollOfferParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, offerId, userId, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.UserEnrollOffer)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.UserEnrollOffer
+			deleteEnrollOffer(
+				HttpPrincipal httpPrincipal, long offerId, long userId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEnrollOfferServiceUtil.class, "deleteEnrollOffer",
+				_deleteEnrollOfferParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, offerId, userId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.UserEnrollOffer)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		UserEnrollOfferServiceHttp.class);
+
+	private static final Class<?>[] _addUserEnrollOfferParameterTypes0 =
+		new Class[] {
+			long.class, long.class, long.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _deleteEnrollOfferParameterTypes1 =
+		new Class[] {long.class, long.class};
+
 }

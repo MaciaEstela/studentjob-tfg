@@ -37,6 +37,26 @@ public class SocialMediaNetworkServiceWrapper
 		_socialMediaNetworkService = socialMediaNetworkService;
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMediaNetwork
+			addSocialMediaNetwork(
+				long groupId, String name, long logo, String baseURL,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaNetworkService.addSocialMediaNetwork(
+			groupId, name, logo, baseURL, serviceContext);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMediaNetwork
+			deleteSocialMediaNetwork(long socialMediaNetworkId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaNetworkService.deleteSocialMediaNetwork(
+			socialMediaNetworkId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -45,6 +65,27 @@ public class SocialMediaNetworkServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _socialMediaNetworkService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMediaNetwork
+			getSocialMediaNetwork(long socialMediaNetworkId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaNetworkService.getSocialMediaNetwork(
+			socialMediaNetworkId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMediaNetwork
+			updateSocialMediaNetwork(
+				long socialMediaNetworkId, String name, long logo,
+				String baseURL,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _socialMediaNetworkService.updateSocialMediaNetwork(
+			socialMediaNetworkId, name, logo, baseURL, serviceContext);
 	}
 
 	@Override

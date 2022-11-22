@@ -14,9 +14,11 @@
 
 package edu.uoc.mestemi.studentjob.service;
 
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -26,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -62,6 +65,10 @@ public interface SocialMediaNetworkLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.SocialMediaNetworkLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the social media network local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SocialMediaNetworkLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public SocialMediaNetwork addSocialMediaNetwork(
+			long groupId, String name, long logo, String baseURL,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the social media network to the database. Also notifies the appropriate model listeners.
@@ -221,6 +228,10 @@ public interface SocialMediaNetworkLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		PortletDataContext portletDataContext);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -276,6 +287,19 @@ public interface SocialMediaNetworkLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SocialMediaNetwork> getSocialMediaNetworks(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<SocialMediaNetwork> orderByComparator);
+
 	/**
 	 * Returns all the social media networks matching the UUID and company.
 	 *
@@ -309,6 +333,15 @@ public interface SocialMediaNetworkLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSocialMediaNetworksCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getSocialMediaNetworksCountByKeywords(
+		long groupId, String keywords);
+
+	public SocialMediaNetwork updateSocialMediaNetwork(
+			long socialMediaNetworkId, String name, long logo, String baseURL,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the social media network in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

@@ -37,6 +37,16 @@ public class UserEnrollOfferLocalServiceWrapper
 		_userEnrollOfferLocalService = userEnrollOfferLocalService;
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.UserEnrollOffer addUserEnrollOffer(
+			long groupId, long offerId, long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userEnrollOfferLocalService.addUserEnrollOffer(
+			groupId, offerId, userId, serviceContext);
+	}
+
 	/**
 	 * Adds the user enroll offer to the database. Also notifies the appropriate model listeners.
 	 *
@@ -248,18 +258,18 @@ public class UserEnrollOfferLocalServiceWrapper
 	}
 
 	/**
-	 * Returns the user enroll offer with the matching UUID and company.
+	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID
-	 * @param companyId the primary key of the company
+	 * @param groupId the primary key of the group
 	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
 	 */
 	@Override
 	public edu.uoc.mestemi.studentjob.model.UserEnrollOffer
-		fetchUserEnrollOfferByUuidAndCompanyId(String uuid, long companyId) {
+		fetchUserEnrollOfferByUuidAndGroupId(String uuid, long groupId) {
 
 		return _userEnrollOfferLocalService.
-			fetchUserEnrollOfferByUuidAndCompanyId(uuid, companyId);
+			fetchUserEnrollOfferByUuidAndGroupId(uuid, groupId);
 	}
 
 	@Override
@@ -316,20 +326,20 @@ public class UserEnrollOfferLocalServiceWrapper
 	}
 
 	/**
-	 * Returns the user enroll offer with the matching UUID and company.
+	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID
-	 * @param companyId the primary key of the company
+	 * @param groupId the primary key of the group
 	 * @return the matching user enroll offer
 	 * @throws PortalException if a matching user enroll offer could not be found
 	 */
 	@Override
 	public edu.uoc.mestemi.studentjob.model.UserEnrollOffer
-			getUserEnrollOfferByUuidAndCompanyId(String uuid, long companyId)
+			getUserEnrollOfferByUuidAndGroupId(String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _userEnrollOfferLocalService.
-			getUserEnrollOfferByUuidAndCompanyId(uuid, companyId);
+		return _userEnrollOfferLocalService.getUserEnrollOfferByUuidAndGroupId(
+			uuid, groupId);
 	}
 
 	/**
@@ -348,6 +358,44 @@ public class UserEnrollOfferLocalServiceWrapper
 		getUserEnrollOffers(int start, int end) {
 
 		return _userEnrollOfferLocalService.getUserEnrollOffers(start, end);
+	}
+
+	/**
+	 * Returns all the user enroll offers matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the user enroll offers
+	 * @param companyId the primary key of the company
+	 * @return the matching user enroll offers, or an empty list if no matches were found
+	 */
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>
+		getUserEnrollOffersByUuidAndCompanyId(String uuid, long companyId) {
+
+		return _userEnrollOfferLocalService.
+			getUserEnrollOffersByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	 * Returns a range of user enroll offers matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the user enroll offers
+	 * @param companyId the primary key of the company
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the range of matching user enroll offers, or an empty list if no matches were found
+	 */
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>
+		getUserEnrollOffersByUuidAndCompanyId(
+			String uuid, long companyId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>
+					orderByComparator) {
+
+		return _userEnrollOfferLocalService.
+			getUserEnrollOffersByUuidAndCompanyId(
+				uuid, companyId, start, end, orderByComparator);
 	}
 
 	/**
