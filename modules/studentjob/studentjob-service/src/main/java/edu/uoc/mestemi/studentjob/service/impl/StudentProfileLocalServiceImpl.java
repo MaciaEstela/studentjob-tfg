@@ -64,6 +64,7 @@ public class StudentProfileLocalServiceImpl
 		StudentProfile studentProfile = createStudentProfile(studentProfileId);
 		
 		studentProfile.setCompanyId(group.getCompanyId());
+		studentProfile.setGroupId(group.getGroupId());
 		studentProfile.setCreateDate(serviceContext.getCreateDate(new Date()));
 		studentProfile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		studentProfile.setUserId(userId);
@@ -147,6 +148,8 @@ public class StudentProfileLocalServiceImpl
 			
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("title", "%" + keywords + "%"));
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("description", "%" + keywords + "%"));
+			
+			dynamicQuery.add(disjunctionQuery);
 		}
 		
 		return dynamicQuery;

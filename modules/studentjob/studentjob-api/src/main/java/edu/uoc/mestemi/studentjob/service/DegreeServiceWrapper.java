@@ -59,6 +59,59 @@ public class DegreeServiceWrapper
 		return _degreeService.getDegree(degreeId);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByDegreeId(long degreeId) {
+
+		return _degreeService.getDegreeAreasByDegreeId(degreeId);
+	}
+
+	@Override
+	public java.util.List<Long> getDegreeAreasIdsByDegreeId(long degreeId) {
+		return _degreeService.getDegreeAreasIdsByDegreeId(degreeId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByGroupId(long groupId) {
+
+		return _degreeService.getDegreesByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByGroupId(long groupId, int start, int end) {
+
+		return _degreeService.getDegreesByGroupId(groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Degree> orderByComparator) {
+
+		return _degreeService.getDegreesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Degree> orderByComparator) {
+
+		return _degreeService.getDegreesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	@Override
+	public long getDegreesCountByKeywords(long groupId, String keywords) {
+		return _degreeService.getDegreesCountByKeywords(groupId, keywords);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

@@ -374,13 +374,6 @@ public class DegreeLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords) {
-
-		return getService().getCompanyProfilesCountByKeywords(
-			groupId, keywords);
-	}
-
 	/**
 	 * Returns the degree with the primary key.
 	 *
@@ -422,6 +415,16 @@ public class DegreeLocalServiceUtil {
 	 */
 	public static long[] getDegreeAreaPrimaryKeys(long degreeId) {
 		return getService().getDegreeAreaPrimaryKeys(degreeId);
+	}
+
+	public static List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByDegreeId(long degreeId) {
+
+		return getService().getDegreeAreasByDegreeId(degreeId);
+	}
+
+	public static List<Long> getDegreeAreasIdsByDegreeId(long degreeId) {
+		return getService().getDegreeAreasIdsByDegreeId(degreeId);
 	}
 
 	/**
@@ -517,6 +520,12 @@ public class DegreeLocalServiceUtil {
 	 */
 	public static int getDegreesCount() {
 		return getService().getDegreesCount();
+	}
+
+	public static long getDegreesCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getDegreesCountByKeywords(groupId, keywords);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery

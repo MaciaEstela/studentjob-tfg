@@ -52,6 +52,9 @@ public class SocialMediaNetworkTable
 	public final Column<SocialMediaNetworkTable, Date> modifiedDate =
 		createColumn(
 			"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<SocialMediaNetworkTable, String> userName =
+		createColumn(
+			"userName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<SocialMediaNetworkTable, String> name = createColumn(
 		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<SocialMediaNetworkTable, Long> logo = createColumn(

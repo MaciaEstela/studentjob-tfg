@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -50,6 +51,7 @@ public class DegreeAreaLocalServiceImpl extends DegreeAreaLocalServiceBaseImpl {
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
 		long userId = serviceContext.getUserId();
+		User user = userLocalService.getUser(userId);
 		
 		// Generate companyprofile primary key
 		long degreeAreaId = counterLocalService.increment(DegreeArea.class.getName());
@@ -57,9 +59,11 @@ public class DegreeAreaLocalServiceImpl extends DegreeAreaLocalServiceBaseImpl {
 		DegreeArea degreeArea = createDegreeArea(degreeAreaId);
 		
 		degreeArea.setCompanyId(group.getCompanyId());
+		degreeArea.setGroupId(group.getGroupId());
 		degreeArea.setCreateDate(serviceContext.getCreateDate(new Date()));
 		degreeArea.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		degreeArea.setUserId(userId);
+		degreeArea.setUserName(user.getScreenName());
 		
 		degreeArea.setNameMap(nameMap);
 		
@@ -77,7 +81,6 @@ public class DegreeAreaLocalServiceImpl extends DegreeAreaLocalServiceBaseImpl {
 		
 		return degreeArea;
 	}
-
 	
 	public List<DegreeArea> getDegreeAreasByGroupId(long groupId) {
 		return degreeAreaPersistence.findByGroupId(groupId);
@@ -110,6 +113,8 @@ public class DegreeAreaLocalServiceImpl extends DegreeAreaLocalServiceBaseImpl {
 			Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
 			
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("name", "%" + keywords + "%"));
+			
+			dynamicQuery.add(disjunctionQuery);
 		}
 		
 		return dynamicQuery;

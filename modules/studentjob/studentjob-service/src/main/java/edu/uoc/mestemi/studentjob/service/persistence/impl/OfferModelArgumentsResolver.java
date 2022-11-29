@@ -130,7 +130,7 @@ public class OfferModelArgumentsResolver implements ArgumentsResolver {
 	static {
 		long orderByColumnsBitmask = 0;
 
-		orderByColumnsBitmask |= OfferModelImpl.getColumnBitmask("name");
+		orderByColumnsBitmask |= OfferModelImpl.getColumnBitmask("title");
 
 		_ORDER_BY_COLUMNS_BITMASK = orderByColumnsBitmask;
 	}

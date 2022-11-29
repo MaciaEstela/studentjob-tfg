@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.Degree;
+import edu.uoc.mestemi.studentjob.model.DegreeArea;
 
 import java.io.Serializable;
 
@@ -284,10 +285,6 @@ public interface DegreeLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords);
-
 	/**
 	 * Returns the degree with the primary key.
 	 *
@@ -321,6 +318,12 @@ public interface DegreeLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long[] getDegreeAreaPrimaryKeys(long degreeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<DegreeArea> getDegreeAreasByDegreeId(long degreeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Long> getDegreeAreasIdsByDegreeId(long degreeId);
 
 	/**
 	 * Returns the degree matching the UUID and group.
@@ -397,6 +400,9 @@ public interface DegreeLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getDegreesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getDegreesCountByKeywords(long groupId, String keywords);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(

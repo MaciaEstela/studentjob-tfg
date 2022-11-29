@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 
 import java.io.Serializable;
@@ -76,7 +77,7 @@ public interface OfferLocalService
 	public void addDegreeOffers(long degreeId, long[] offerIds);
 
 	public Offer addOffer(
-			long groupId, long regionId, Map<Locale, String> nameMap,
+			long groupId, long regionId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String preference,
 			List<Long> degreeIds, ServiceContext serviceContext)
 		throws PortalException;
@@ -265,7 +266,10 @@ public interface OfferLocalService
 	public long[] getDegreePrimaryKeys(long offerId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Offer> getDegreesByGroupId(long groupId, int start, int end);
+	public List<Degree> getDegreesByOfferId(long offerId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Long> getDegreesIdsByOfferId(long offerId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
@@ -314,8 +318,16 @@ public interface OfferLocalService
 	public List<Offer> getOffersByGroupId(long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByGroupId(long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Offer> getOffersByGroupId(
 		long groupId, int start, int end,
+		OrderByComparator<Offer> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByKeywords(
+		long groupId, String keywords, int start, int end,
 		OrderByComparator<Offer> orderByComparator);
 
 	/**
@@ -378,7 +390,7 @@ public interface OfferLocalService
 	public void setDegreeOffers(long degreeId, long[] offerIds);
 
 	public Offer updateOffer(
-			long offerId, long regionId, Map<Locale, String> nameMap,
+			long offerId, long regionId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String preference,
 			List<Long> degreeIds, ServiceContext serviceContext)
 		throws PortalException;

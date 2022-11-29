@@ -36,6 +36,7 @@ create table SJob_DegreeArea (
 	userId LONG,
 	createDate DATE null,
 	modifiedDate DATE null,
+	userName VARCHAR(75) null,
 	name STRING null
 );
 
@@ -56,7 +57,7 @@ create table SJob_Offer (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	name STRING null,
+	title STRING null,
 	preference VARCHAR(75) null,
 	description STRING null
 );
@@ -91,6 +92,7 @@ create table SJob_SocialMediaNetwork (
 	userId LONG,
 	createDate DATE null,
 	modifiedDate DATE null,
+	userName VARCHAR(75) null,
 	name VARCHAR(75) null,
 	logo LONG,
 	baseURL VARCHAR(75) null

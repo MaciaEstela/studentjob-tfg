@@ -53,7 +53,7 @@ public class OfferServiceHttp {
 
 	public static edu.uoc.mestemi.studentjob.model.Offer addOffer(
 			HttpPrincipal httpPrincipal, long groupId, long regionId,
-			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> titleMap,
 			java.util.Map<java.util.Locale, String> descriptionMap,
 			String preference, java.util.List<Long> degreeIds,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -64,7 +64,7 @@ public class OfferServiceHttp {
 				OfferServiceUtil.class, "addOffer", _addOfferParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, regionId, nameMap, descriptionMap,
+				methodKey, groupId, regionId, titleMap, descriptionMap,
 				preference, degreeIds, serviceContext);
 
 			Object returnObj = null;
@@ -97,7 +97,7 @@ public class OfferServiceHttp {
 
 	public static edu.uoc.mestemi.studentjob.model.Offer updateOffer(
 			HttpPrincipal httpPrincipal, long offerId, long regionId,
-			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> titleMap,
 			java.util.Map<java.util.Locale, String> descriptionMap,
 			String preference, java.util.List<Long> degreeIds,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -109,7 +109,7 @@ public class OfferServiceHttp {
 				_updateOfferParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, offerId, regionId, nameMap, descriptionMap,
+				methodKey, offerId, regionId, titleMap, descriptionMap,
 				preference, degreeIds, serviceContext);
 
 			Object returnObj = null;
@@ -217,6 +217,303 @@ public class OfferServiceHttp {
 		}
 	}
 
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByGroupId(HttpPrincipal httpPrincipal, long groupId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "getOffersByGroupId",
+				_getOffersByGroupIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Offer>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "getOffersByGroupId",
+				_getOffersByGroupIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Offer>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<Long> getDegreesIdsByOfferId(
+		HttpPrincipal httpPrincipal, long offerId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "getDegreesIdsByOfferId",
+				_getDegreesIdsByOfferIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, offerId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<Long>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByOfferId(HttpPrincipal httpPrincipal, long offerId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "getDegreesByOfferId",
+				_getDegreesByOfferIdParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, offerId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Degree>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "getOffersByGroupId",
+				_getOffersByGroupIdParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Offer>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByKeywords(
+			HttpPrincipal httpPrincipal, long groupId, String keywords,
+			int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "getOffersByKeywords",
+				_getOffersByKeywordsParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Offer>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long getOffersCountByKeywords(
+		HttpPrincipal httpPrincipal, long groupId, String keywords) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "getOffersCountByKeywords",
+				_getOffersCountByKeywordsParameterTypes10);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.Offer addOffer(
+		HttpPrincipal httpPrincipal,
+		edu.uoc.mestemi.studentjob.model.Offer offer) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "addOffer", _addOfferParameterTypes11);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, offer);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.Offer)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.Offer updateOffer(
+		HttpPrincipal httpPrincipal,
+		edu.uoc.mestemi.studentjob.model.Offer offer) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "updateOffer",
+				_updateOfferParameterTypes12);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, offer);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.Offer)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(OfferServiceHttp.class);
 
 	private static final Class<?>[] _addOfferParameterTypes0 = new Class[] {
@@ -234,6 +531,32 @@ public class OfferServiceHttp {
 	};
 	private static final Class<?>[] _getOfferParameterTypes3 = new Class[] {
 		long.class
+	};
+	private static final Class<?>[] _getOffersByGroupIdParameterTypes4 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getOffersByGroupIdParameterTypes5 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[] _getDegreesIdsByOfferIdParameterTypes6 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getDegreesByOfferIdParameterTypes7 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getOffersByGroupIdParameterTypes8 =
+		new Class[] {
+			long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[] _getOffersByKeywordsParameterTypes9 =
+		new Class[] {
+			long.class, String.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[] _getOffersCountByKeywordsParameterTypes10 =
+		new Class[] {long.class, String.class};
+	private static final Class<?>[] _addOfferParameterTypes11 = new Class[] {
+		edu.uoc.mestemi.studentjob.model.Offer.class
+	};
+	private static final Class<?>[] _updateOfferParameterTypes12 = new Class[] {
+		edu.uoc.mestemi.studentjob.model.Offer.class
 	};
 
 }

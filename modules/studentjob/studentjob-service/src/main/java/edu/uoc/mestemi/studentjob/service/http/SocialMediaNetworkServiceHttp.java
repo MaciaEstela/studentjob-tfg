@@ -224,6 +224,189 @@ public class SocialMediaNetworkServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+			getSocialMediaNetworksByGroupId(
+				HttpPrincipal httpPrincipal, long groupId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaNetworkServiceUtil.class,
+				"getSocialMediaNetworksByGroupId",
+				_getSocialMediaNetworksByGroupIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+			getSocialMediaNetworksByGroupId(
+				HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaNetworkServiceUtil.class,
+				"getSocialMediaNetworksByGroupId",
+				_getSocialMediaNetworksByGroupIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+			getSocialMediaNetworksByGroupId(
+				HttpPrincipal httpPrincipal, long groupId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+						orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaNetworkServiceUtil.class,
+				"getSocialMediaNetworksByGroupId",
+				_getSocialMediaNetworksByGroupIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+			getSocialMediaNetworksByKeywords(
+				HttpPrincipal httpPrincipal, long groupId, String keywords,
+				int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+						orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaNetworkServiceUtil.class,
+				"getSocialMediaNetworksByKeywords",
+				_getSocialMediaNetworksByKeywordsParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long getSocialMediaNetworksCountByKeywords(
+		HttpPrincipal httpPrincipal, long groupId, String keywords) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaNetworkServiceUtil.class,
+				"getSocialMediaNetworksCountByKeywords",
+				_getSocialMediaNetworksCountByKeywordsParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		SocialMediaNetworkServiceHttp.class);
 
@@ -241,5 +424,27 @@ public class SocialMediaNetworkServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getSocialMediaNetworkParameterTypes3 =
 		new Class[] {long.class};
+	private static final Class<?>[]
+		_getSocialMediaNetworksByGroupIdParameterTypes4 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getSocialMediaNetworksByGroupIdParameterTypes5 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getSocialMediaNetworksByGroupIdParameterTypes6 = new Class[] {
+			long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getSocialMediaNetworksByKeywordsParameterTypes7 = new Class[] {
+			long.class, String.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getSocialMediaNetworksCountByKeywordsParameterTypes8 = new Class[] {
+			long.class, String.class
+		};
 
 }

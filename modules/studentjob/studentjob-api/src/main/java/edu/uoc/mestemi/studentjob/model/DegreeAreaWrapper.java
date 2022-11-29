@@ -50,6 +50,7 @@ public class DegreeAreaWrapper
 		attributes.put("userId", getUserId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("userName", getUserName());
 		attributes.put("name", getName());
 
 		return attributes;
@@ -97,6 +98,12 @@ public class DegreeAreaWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
 		}
 
 		String name = (String)attributes.get("name");
@@ -265,6 +272,16 @@ public class DegreeAreaWrapper
 	@Override
 	public long getUserId() {
 		return model.getUserId();
+	}
+
+	/**
+	 * Returns the user name of this degree area.
+	 *
+	 * @return the user name of this degree area
+	 */
+	@Override
+	public String getUserName() {
+		return model.getUserName();
 	}
 
 	/**
@@ -438,6 +455,16 @@ public class DegreeAreaWrapper
 	@Override
 	public void setUserId(long userId) {
 		model.setUserId(userId);
+	}
+
+	/**
+	 * Sets the user name of this degree area.
+	 *
+	 * @param userName the user name of this degree area
+	 */
+	@Override
+	public void setUserName(String userName) {
+		model.setUserName(userName);
 	}
 
 	/**

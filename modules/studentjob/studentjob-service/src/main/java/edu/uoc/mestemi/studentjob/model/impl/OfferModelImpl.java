@@ -84,7 +84,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		{"regionId", Types.BIGINT}, {"groupId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
+		{"modifiedDate", Types.TIMESTAMP}, {"title", Types.VARCHAR},
 		{"preference", Types.VARCHAR}, {"description", Types.VARCHAR}
 	};
 
@@ -101,19 +101,19 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("preference", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_Offer (uuid_ VARCHAR(75) null,offerId LONG not null primary key,regionId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name STRING null,preference VARCHAR(75) null,description STRING null)";
+		"create table SJob_Offer (uuid_ VARCHAR(75) null,offerId LONG not null primary key,regionId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title STRING null,preference VARCHAR(75) null,description STRING null)";
 
 	public static final String TABLE_SQL_DROP = "drop table SJob_Offer";
 
-	public static final String ORDER_BY_JPQL = " ORDER BY offer.name ASC";
+	public static final String ORDER_BY_JPQL = " ORDER BY offer.title ASC";
 
-	public static final String ORDER_BY_SQL = " ORDER BY SJob_Offer.name ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY SJob_Offer.title ASC";
 
 	public static final String DATA_SOURCE = "liferayDataSource";
 
@@ -144,7 +144,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long NAME_COLUMN_BITMASK = 8L;
+	public static final long TITLE_COLUMN_BITMASK = 8L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -289,9 +289,9 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		attributeGetterFunctions.put("modifiedDate", Offer::getModifiedDate);
 		attributeSetterBiConsumers.put(
 			"modifiedDate", (BiConsumer<Offer, Date>)Offer::setModifiedDate);
-		attributeGetterFunctions.put("name", Offer::getName);
+		attributeGetterFunctions.put("title", Offer::getTitle);
 		attributeSetterBiConsumers.put(
-			"name", (BiConsumer<Offer, String>)Offer::setName);
+			"title", (BiConsumer<Offer, String>)Offer::setTitle);
 		attributeGetterFunctions.put("preference", Offer::getPreference);
 		attributeSetterBiConsumers.put(
 			"preference", (BiConsumer<Offer, String>)Offer::setPreference);
@@ -502,108 +502,110 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 	@JSON
 	@Override
-	public String getName() {
-		if (_name == null) {
+	public String getTitle() {
+		if (_title == null) {
 			return "";
 		}
 		else {
-			return _name;
+			return _title;
 		}
 	}
 
 	@Override
-	public String getName(Locale locale) {
+	public String getTitle(Locale locale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
-		return getName(languageId);
+		return getTitle(languageId);
 	}
 
 	@Override
-	public String getName(Locale locale, boolean useDefault) {
+	public String getTitle(Locale locale, boolean useDefault) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
-		return getName(languageId, useDefault);
+		return getTitle(languageId, useDefault);
 	}
 
 	@Override
-	public String getName(String languageId) {
-		return LocalizationUtil.getLocalization(getName(), languageId);
+	public String getTitle(String languageId) {
+		return LocalizationUtil.getLocalization(getTitle(), languageId);
 	}
 
 	@Override
-	public String getName(String languageId, boolean useDefault) {
+	public String getTitle(String languageId, boolean useDefault) {
 		return LocalizationUtil.getLocalization(
-			getName(), languageId, useDefault);
+			getTitle(), languageId, useDefault);
 	}
 
 	@Override
-	public String getNameCurrentLanguageId() {
-		return _nameCurrentLanguageId;
+	public String getTitleCurrentLanguageId() {
+		return _titleCurrentLanguageId;
 	}
 
 	@JSON
 	@Override
-	public String getNameCurrentValue() {
-		Locale locale = getLocale(_nameCurrentLanguageId);
+	public String getTitleCurrentValue() {
+		Locale locale = getLocale(_titleCurrentLanguageId);
 
-		return getName(locale);
+		return getTitle(locale);
 	}
 
 	@Override
-	public Map<Locale, String> getNameMap() {
-		return LocalizationUtil.getLocalizationMap(getName());
+	public Map<Locale, String> getTitleMap() {
+		return LocalizationUtil.getLocalizationMap(getTitle());
 	}
 
 	@Override
-	public void setName(String name) {
+	public void setTitle(String title) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_name = name;
+		_title = title;
 	}
 
 	@Override
-	public void setName(String name, Locale locale) {
-		setName(name, locale, LocaleUtil.getSiteDefault());
+	public void setTitle(String title, Locale locale) {
+		setTitle(title, locale, LocaleUtil.getSiteDefault());
 	}
 
 	@Override
-	public void setName(String name, Locale locale, Locale defaultLocale) {
+	public void setTitle(String title, Locale locale, Locale defaultLocale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 
-		if (Validator.isNotNull(name)) {
-			setName(
+		if (Validator.isNotNull(title)) {
+			setTitle(
 				LocalizationUtil.updateLocalization(
-					getName(), "Name", name, languageId, defaultLanguageId));
+					getTitle(), "Title", title, languageId, defaultLanguageId));
 		}
 		else {
-			setName(
+			setTitle(
 				LocalizationUtil.removeLocalization(
-					getName(), "Name", languageId));
+					getTitle(), "Title", languageId));
 		}
 	}
 
 	@Override
-	public void setNameCurrentLanguageId(String languageId) {
-		_nameCurrentLanguageId = languageId;
+	public void setTitleCurrentLanguageId(String languageId) {
+		_titleCurrentLanguageId = languageId;
 	}
 
 	@Override
-	public void setNameMap(Map<Locale, String> nameMap) {
-		setNameMap(nameMap, LocaleUtil.getSiteDefault());
+	public void setTitleMap(Map<Locale, String> titleMap) {
+		setTitleMap(titleMap, LocaleUtil.getSiteDefault());
 	}
 
 	@Override
-	public void setNameMap(Map<Locale, String> nameMap, Locale defaultLocale) {
-		if (nameMap == null) {
+	public void setTitleMap(
+		Map<Locale, String> titleMap, Locale defaultLocale) {
+
+		if (titleMap == null) {
 			return;
 		}
 
-		setName(
+		setTitle(
 			LocalizationUtil.updateLocalization(
-				nameMap, getName(), "Name",
+				titleMap, getTitle(), "Title",
 				LocaleUtil.toLanguageId(defaultLocale)));
 	}
 
@@ -786,9 +788,9 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 	public String[] getAvailableLanguageIds() {
 		Set<String> availableLanguageIds = new TreeSet<String>();
 
-		Map<Locale, String> nameMap = getNameMap();
+		Map<Locale, String> titleMap = getTitleMap();
 
-		for (Map.Entry<Locale, String> entry : nameMap.entrySet()) {
+		for (Map.Entry<Locale, String> entry : titleMap.entrySet()) {
 			Locale locale = entry.getKey();
 			String value = entry.getValue();
 
@@ -814,7 +816,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 	@Override
 	public String getDefaultLanguageId() {
-		String xml = getName();
+		String xml = getTitle();
 
 		if (xml == null) {
 			return "";
@@ -849,13 +851,13 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 		String modelDefaultLanguageId = getDefaultLanguageId();
 
-		String name = getName(defaultLocale);
+		String title = getTitle(defaultLocale);
 
-		if (Validator.isNull(name)) {
-			setName(getName(modelDefaultLanguageId), defaultLocale);
+		if (Validator.isNull(title)) {
+			setTitle(getTitle(modelDefaultLanguageId), defaultLocale);
 		}
 		else {
-			setName(getName(defaultLocale), defaultLocale, defaultLocale);
+			setTitle(getTitle(defaultLocale), defaultLocale, defaultLocale);
 		}
 
 		String description = getDescription(defaultLocale);
@@ -898,7 +900,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		offerImpl.setUserName(getUserName());
 		offerImpl.setCreateDate(getCreateDate());
 		offerImpl.setModifiedDate(getModifiedDate());
-		offerImpl.setName(getName());
+		offerImpl.setTitle(getTitle());
 		offerImpl.setPreference(getPreference());
 		offerImpl.setDescription(getDescription());
 
@@ -922,7 +924,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 			this.<Date>getColumnOriginalValue("createDate"));
 		offerImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
-		offerImpl.setName(this.<String>getColumnOriginalValue("name"));
+		offerImpl.setTitle(this.<String>getColumnOriginalValue("title"));
 		offerImpl.setPreference(
 			this.<String>getColumnOriginalValue("preference"));
 		offerImpl.setDescription(
@@ -935,7 +937,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 	public int compareTo(Offer offer) {
 		int value = 0;
 
-		value = getName().compareTo(offer.getName());
+		value = getTitle().compareTo(offer.getTitle());
 
 		if (value != 0) {
 			return value;
@@ -1046,12 +1048,12 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 			offerCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		offerCacheModel.name = getName();
+		offerCacheModel.title = getTitle();
 
-		String name = offerCacheModel.name;
+		String title = offerCacheModel.title;
 
-		if ((name != null) && (name.length() == 0)) {
-			offerCacheModel.name = null;
+		if ((title != null) && (title.length() == 0)) {
+			offerCacheModel.title = null;
 		}
 
 		offerCacheModel.preference = getPreference();
@@ -1170,8 +1172,8 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
-	private String _name;
-	private String _nameCurrentLanguageId;
+	private String _title;
+	private String _titleCurrentLanguageId;
 	private String _preference;
 	private String _description;
 	private String _descriptionCurrentLanguageId;
@@ -1214,7 +1216,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
-		_columnOriginalValues.put("name", _name);
+		_columnOriginalValues.put("title", _title);
 		_columnOriginalValues.put("preference", _preference);
 		_columnOriginalValues.put("description", _description);
 	}
@@ -1258,7 +1260,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 		columnBitmasks.put("modifiedDate", 256L);
 
-		columnBitmasks.put("name", 512L);
+		columnBitmasks.put("title", 512L);
 
 		columnBitmasks.put("preference", 1024L);
 

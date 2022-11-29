@@ -16,8 +16,9 @@ package edu.uoc.mestemi.studentjob.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.model.StagedModel;
+import com.liferay.portal.kernel.model.StagedAuditedModel;
 
 import java.util.Date;
 
@@ -36,7 +37,8 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface SocialMediaNetworkModel
-	extends BaseModel<SocialMediaNetwork>, ShardedModel, StagedModel {
+	extends BaseModel<SocialMediaNetwork>, GroupedModel, ShardedModel,
+			StagedAuditedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -94,6 +96,7 @@ public interface SocialMediaNetworkModel
 	 *
 	 * @return the group ID of this social media network
 	 */
+	@Override
 	public long getGroupId();
 
 	/**
@@ -101,6 +104,7 @@ public interface SocialMediaNetworkModel
 	 *
 	 * @param groupId the group ID of this social media network
 	 */
+	@Override
 	public void setGroupId(long groupId);
 
 	/**
@@ -124,6 +128,7 @@ public interface SocialMediaNetworkModel
 	 *
 	 * @return the user ID of this social media network
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -131,6 +136,7 @@ public interface SocialMediaNetworkModel
 	 *
 	 * @param userId the user ID of this social media network
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -138,6 +144,7 @@ public interface SocialMediaNetworkModel
 	 *
 	 * @return the user uuid of this social media network
 	 */
+	@Override
 	public String getUserUuid();
 
 	/**
@@ -145,6 +152,7 @@ public interface SocialMediaNetworkModel
 	 *
 	 * @param userUuid the user uuid of this social media network
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -178,6 +186,23 @@ public interface SocialMediaNetworkModel
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the user name of this social media network.
+	 *
+	 * @return the user name of this social media network
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this social media network.
+	 *
+	 * @param userName the user name of this social media network
+	 */
+	@Override
+	public void setUserName(String userName);
 
 	/**
 	 * Returns the name of this social media network.

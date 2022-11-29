@@ -23,7 +23,9 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
+import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 
 import java.util.List;
@@ -56,15 +58,42 @@ public interface OfferService extends BaseService {
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.OfferServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the offer remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link OfferServiceUtil} if injection and service tracking are not available.
 	 */
 	public Offer addOffer(
-			long groupId, long regionId, Map<Locale, String> nameMap,
+			long groupId, long regionId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String preference,
 			List<Long> degreeIds, ServiceContext serviceContext)
 		throws PortalException;
 
+	public Offer addOffer(Offer offer);
+
 	public Offer deleteOffer(long offerId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByOfferId(long offerId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Long> getDegreesIdsByOfferId(long offerId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Offer getOffer(long offerId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByGroupId(long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Offer> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Offer> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getOffersCountByKeywords(long groupId, String keywords);
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -74,9 +103,11 @@ public interface OfferService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public Offer updateOffer(
-			long offerId, long regionId, Map<Locale, String> nameMap,
+			long offerId, long regionId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String preference,
 			List<Long> degreeIds, ServiceContext serviceContext)
 		throws PortalException;
+
+	public Offer updateOffer(Offer offer);
 
 }

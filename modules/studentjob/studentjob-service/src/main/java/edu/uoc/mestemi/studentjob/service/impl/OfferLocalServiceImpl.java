@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -49,7 +50,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	
-	public Offer addOffer(long groupId, long regionId, Map<Locale, String> nameMap, Map<Locale, String> descriptionMap, String preference, 
+	public Offer addOffer(long groupId, long regionId, Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String preference, 
 			List<Long> degreeIds, ServiceContext serviceContext) throws PortalException {
 		
 		if (Validator.isNull(degreeIds) && degreeIds.isEmpty()) {
@@ -66,13 +67,14 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		
 		Offer offer = createOffer(offerId);
 		
+		offer.setGroupId(group.getGroupId());
 		offer.setCompanyId(group.getCompanyId());
 		offer.setCreateDate(serviceContext.getCreateDate(new Date()));
 		offer.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		offer.setUserId(userId);
 		offer.setUserName(user.getScreenName());
 		
-		offer.setNameMap(nameMap);
+		offer.setTitleMap(titleMap);
 		offer.setRegionId(regionId);
 		offer.setPreference(preference);
 		offer.setDescriptionMap(descriptionMap);
@@ -84,7 +86,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		return super.addOffer(offer);
 	}
 	
-	public Offer updateOffer(long offerId, long regionId, Map<Locale, String> nameMap, Map<Locale, String> descriptionMap, String preference, 
+	public Offer updateOffer(long offerId, long regionId, Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String preference, 
 			List<Long> degreeIds, ServiceContext serviceContext) 
 					throws PortalException {
 		
@@ -92,7 +94,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		
 		offer.setModifiedDate(new Date());
 		
-		offer.setNameMap(nameMap);
+		offer.setTitleMap(titleMap);
 		offer.setRegionId(regionId);
 		offer.setPreference(preference);
 		offer.setDescriptionMap(descriptionMap);
@@ -115,13 +117,33 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		return offerPersistence.findByGroupId(groupId);
 	}
 	
-	public List<Offer> getDegreesByGroupId(long groupId, int start, int end) {
+	public List<Offer> getOffersByGroupId(long groupId, int start, int end) {
 		return offerPersistence.findByGroupId(groupId, start, end);
+	}
+	
+	public List<Degree> getDegreesByOfferId(long offerId){
+		return degreePersistence.getOfferDegrees(offerId);
+	}
+	
+	public List<Long> getDegreesIdsByOfferId(long offerId){
+		List<Degree> degrees = getDegreesByOfferId(offerId);
+		List<Long> degreesIds = new ArrayList<>();
+		
+		for (Degree degree : degrees)
+			degreesIds.add(degree.getDegreeId());
+		
+		return degreesIds;
 	}
 	
 	public List<Offer> getOffersByGroupId(long groupId, int start, int end, 
 			OrderByComparator<Offer> orderByComparator) {
 		return offerPersistence.findByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	public List<Offer> getOffersByKeywords(long groupId, String keywords, int start, 
+			int end, OrderByComparator<Offer> orderByComparator) {
+		return offerPersistence.findWithDynamicQuery(
+				getKeywordSearchDynamicQuery(groupId, keywords), start, end, orderByComparator);
 	}
 	
 	public long getOffersCountByKeywords(long groupId, String keywords) {
@@ -135,8 +157,10 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		if (Validator.isNotNull(keywords)) {
 			Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
 			
-			disjunctionQuery.add(RestrictionsFactoryUtil.like("name", "%" + keywords + "%"));
+			disjunctionQuery.add(RestrictionsFactoryUtil.like("title", "%" + keywords + "%"));
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("description", "%" + keywords + "%"));
+			
+			dynamicQuery.add(disjunctionQuery);
 		}
 		
 		return dynamicQuery;

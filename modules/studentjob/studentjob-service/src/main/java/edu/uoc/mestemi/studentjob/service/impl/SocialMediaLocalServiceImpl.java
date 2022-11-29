@@ -61,6 +61,7 @@ public class SocialMediaLocalServiceImpl
 		SocialMedia socialMedia = createSocialMedia(socialMediaId);
 		
 		socialMedia.setCompanyId(group.getCompanyId());
+		socialMedia.setGroupId(group.getGroupId());
 		socialMedia.setCreateDate(serviceContext.getCreateDate(new Date()));
 		socialMedia.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		socialMedia.setUserId(userId);
@@ -100,7 +101,6 @@ public class SocialMediaLocalServiceImpl
 			OrderByComparator<SocialMedia> orderByComparator) {
 		return socialMediaPersistence.findByGroupId(groupId, start, end, orderByComparator);
 	}
-	
 	
 	@Override
 	public SocialMedia addSocialMedia(SocialMedia offer) {

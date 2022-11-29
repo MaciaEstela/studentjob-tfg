@@ -77,6 +77,54 @@ public class SocialMediaNetworkServiceWrapper
 	}
 
 	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+		getSocialMediaNetworksByGroupId(long groupId) {
+
+		return _socialMediaNetworkService.getSocialMediaNetworksByGroupId(
+			groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+		getSocialMediaNetworksByGroupId(long groupId, int start, int end) {
+
+		return _socialMediaNetworkService.getSocialMediaNetworksByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+		getSocialMediaNetworksByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+					orderByComparator) {
+
+		return _socialMediaNetworkService.getSocialMediaNetworksByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+		getSocialMediaNetworksByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+					orderByComparator) {
+
+		return _socialMediaNetworkService.getSocialMediaNetworksByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	@Override
+	public long getSocialMediaNetworksCountByKeywords(
+		long groupId, String keywords) {
+
+		return _socialMediaNetworkService.getSocialMediaNetworksCountByKeywords(
+			groupId, keywords);
+	}
+
+	@Override
 	public edu.uoc.mestemi.studentjob.model.SocialMediaNetwork
 			updateSocialMediaNetwork(
 				long socialMediaNetworkId, String name, long logo,

@@ -46,6 +46,8 @@ public class DegreeAreaTable extends BaseTable<DegreeAreaTable> {
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<DegreeAreaTable, Date> modifiedDate = createColumn(
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<DegreeAreaTable, String> userName = createColumn(
+		"userName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<DegreeAreaTable, String> name = createColumn(
 		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 

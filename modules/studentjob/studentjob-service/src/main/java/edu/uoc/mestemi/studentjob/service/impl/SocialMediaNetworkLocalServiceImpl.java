@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -27,6 +28,8 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Date;
 import java.util.List;
+
+import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalService;
 import edu.uoc.mestemi.studentjob.service.base.SocialMediaNetworkLocalServiceBaseImpl;
@@ -49,6 +52,7 @@ public class SocialMediaNetworkLocalServiceImpl
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
 		long userId = serviceContext.getUserId();
+		User user = userLocalService.getUser(userId);
 
 		// Generate degree primary key
 		long socialMediaNetworkId = counterLocalService.increment(SocialMediaNetwork.class.getName());
@@ -56,9 +60,11 @@ public class SocialMediaNetworkLocalServiceImpl
 		SocialMediaNetwork socialMediaNetwork = createSocialMediaNetwork(socialMediaNetworkId);
 		
 		socialMediaNetwork.setCompanyId(group.getCompanyId());
+		socialMediaNetwork.setGroupId(group.getGroupId());
 		socialMediaNetwork.setCreateDate(serviceContext.getCreateDate(new Date()));
 		socialMediaNetwork.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		socialMediaNetwork.setUserId(userId);
+		socialMediaNetwork.setUserName(user.getScreenName());
 		
 		socialMediaNetwork.setName(name);
 		socialMediaNetwork.setLogo(logo);
@@ -83,6 +89,7 @@ public class SocialMediaNetworkLocalServiceImpl
 		return socialMediaNetwork;
 	}
 	
+	
 	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(long groupId) {
 		return socialMediaNetworkPersistence.findByGroupId(groupId);
 	}
@@ -94,6 +101,12 @@ public class SocialMediaNetworkLocalServiceImpl
 	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(long groupId, int start, int end, 
 			OrderByComparator<SocialMediaNetwork> orderByComparator) {
 		return socialMediaNetworkPersistence.findByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	public List<SocialMediaNetwork> getSocialMediaNetworksByKeywords(long groupId, String keywords, int start, 
+			int end, OrderByComparator<SocialMediaNetwork> orderByComparator) {
+		return socialMediaNetworkPersistence.findWithDynamicQuery(
+				getKeywordSearchDynamicQuery(groupId, keywords), start, end, orderByComparator);
 	}
 	
 	public long getSocialMediaNetworksCountByKeywords(long groupId, String keywords) {
@@ -108,6 +121,8 @@ public class SocialMediaNetworkLocalServiceImpl
 			Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
 			
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("name", "%" + keywords + "%"));
+			
+			dynamicQuery.add(disjunctionQuery);
 		}
 		
 		return dynamicQuery;

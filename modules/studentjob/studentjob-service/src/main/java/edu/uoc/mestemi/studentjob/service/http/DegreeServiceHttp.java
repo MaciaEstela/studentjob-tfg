@@ -217,6 +217,242 @@ public class DegreeServiceHttp {
 		}
 	}
 
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByGroupId(HttpPrincipal httpPrincipal, long groupId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "getDegreesByGroupId",
+				_getDegreesByGroupIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Degree>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "getDegreesByGroupId",
+				_getDegreesByGroupIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Degree>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Degree> orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "getDegreesByGroupId",
+				_getDegreesByGroupIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Degree>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByDegreeId(HttpPrincipal httpPrincipal, long degreeId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "getDegreeAreasByDegreeId",
+				_getDegreeAreasByDegreeIdParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, degreeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<Long> getDegreeAreasIdsByDegreeId(
+		HttpPrincipal httpPrincipal, long degreeId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "getDegreeAreasIdsByDegreeId",
+				_getDegreeAreasIdsByDegreeIdParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, degreeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<Long>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByKeywords(
+			HttpPrincipal httpPrincipal, long groupId, String keywords,
+			int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Degree> orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "getDegreesByKeywords",
+				_getDegreesByKeywordsParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Degree>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long getDegreesCountByKeywords(
+		HttpPrincipal httpPrincipal, long groupId, String keywords) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "getDegreesCountByKeywords",
+				_getDegreesCountByKeywordsParameterTypes10);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DegreeServiceHttp.class);
 
 	private static final Class<?>[] _addDegreeParameterTypes0 = new Class[] {
@@ -233,5 +469,25 @@ public class DegreeServiceHttp {
 	private static final Class<?>[] _getDegreeParameterTypes3 = new Class[] {
 		long.class
 	};
+	private static final Class<?>[] _getDegreesByGroupIdParameterTypes4 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getDegreesByGroupIdParameterTypes5 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[] _getDegreesByGroupIdParameterTypes6 =
+		new Class[] {
+			long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[] _getDegreeAreasByDegreeIdParameterTypes7 =
+		new Class[] {long.class};
+	private static final Class<?>[]
+		_getDegreeAreasIdsByDegreeIdParameterTypes8 = new Class[] {long.class};
+	private static final Class<?>[] _getDegreesByKeywordsParameterTypes9 =
+		new Class[] {
+			long.class, String.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[] _getDegreesCountByKeywordsParameterTypes10 =
+		new Class[] {long.class, String.class};
 
 }

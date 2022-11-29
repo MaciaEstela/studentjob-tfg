@@ -81,8 +81,8 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", name=");
-		sb.append(name);
+		sb.append(", title=");
+		sb.append(title);
 		sb.append(", preference=");
 		sb.append(preference);
 		sb.append(", description=");
@@ -130,11 +130,11 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 			offerImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		if (name == null) {
-			offerImpl.setName("");
+		if (title == null) {
+			offerImpl.setTitle("");
 		}
 		else {
-			offerImpl.setName(name);
+			offerImpl.setTitle(title);
 		}
 
 		if (preference == null) {
@@ -172,7 +172,7 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		name = objectInput.readUTF();
+		title = objectInput.readUTF();
 		preference = objectInput.readUTF();
 		description = objectInput.readUTF();
 	}
@@ -206,11 +206,11 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
-		if (name == null) {
+		if (title == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(name);
+			objectOutput.writeUTF(title);
 		}
 
 		if (preference == null) {
@@ -237,7 +237,7 @@ public class OfferCacheModel implements CacheModel<Offer>, Externalizable {
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public String name;
+	public String title;
 	public String preference;
 	public String description;
 

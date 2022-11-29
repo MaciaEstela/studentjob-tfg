@@ -433,14 +433,6 @@ public class DegreeLocalServiceWrapper
 		return _degreeLocalService.getActionableDynamicQuery();
 	}
 
-	@Override
-	public long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords) {
-
-		return _degreeLocalService.getCompanyProfilesCountByKeywords(
-			groupId, keywords);
-	}
-
 	/**
 	 * Returns the degree with the primary key.
 	 *
@@ -495,6 +487,18 @@ public class DegreeLocalServiceWrapper
 	@Override
 	public long[] getDegreeAreaPrimaryKeys(long degreeId) {
 		return _degreeLocalService.getDegreeAreaPrimaryKeys(degreeId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByDegreeId(long degreeId) {
+
+		return _degreeLocalService.getDegreeAreasByDegreeId(degreeId);
+	}
+
+	@Override
+	public java.util.List<Long> getDegreeAreasIdsByDegreeId(long degreeId) {
+		return _degreeLocalService.getDegreeAreasIdsByDegreeId(degreeId);
 	}
 
 	/**
@@ -611,6 +615,11 @@ public class DegreeLocalServiceWrapper
 	@Override
 	public int getDegreesCount() {
 		return _degreeLocalService.getDegreesCount();
+	}
+
+	@Override
+	public long getDegreesCountByKeywords(long groupId, String keywords) {
+		return _degreeLocalService.getDegreesCountByKeywords(groupId, keywords);
 	}
 
 	@Override

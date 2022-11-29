@@ -84,7 +84,8 @@ public class DegreeAreaModelImpl
 		{"uuid_", Types.VARCHAR}, {"degreeAreaId", Types.BIGINT},
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR}
+		{"modifiedDate", Types.TIMESTAMP}, {"userName", Types.VARCHAR},
+		{"name", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -98,11 +99,12 @@ public class DegreeAreaModelImpl
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_DegreeArea (uuid_ VARCHAR(75) null,degreeAreaId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,name STRING null)";
+		"create table SJob_DegreeArea (uuid_ VARCHAR(75) null,degreeAreaId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,userName VARCHAR(75) null,name STRING null)";
 
 	public static final String TABLE_SQL_DROP = "drop table SJob_DegreeArea";
 
@@ -291,6 +293,10 @@ public class DegreeAreaModelImpl
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			(BiConsumer<DegreeArea, Date>)DegreeArea::setModifiedDate);
+		attributeGetterFunctions.put("userName", DegreeArea::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName",
+			(BiConsumer<DegreeArea, String>)DegreeArea::setUserName);
 		attributeGetterFunctions.put("name", DegreeArea::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<DegreeArea, String>)DegreeArea::setName);
@@ -463,6 +469,26 @@ public class DegreeAreaModelImpl
 
 	@JSON
 	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userName = userName;
+	}
+
+	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -526,7 +552,7 @@ public class DegreeAreaModelImpl
 
 	@Override
 	public void setName(String name, Locale locale) {
-		setName(name, locale, LocaleUtil.getDefault());
+		setName(name, locale, LocaleUtil.getSiteDefault());
 	}
 
 	@Override
@@ -553,7 +579,7 @@ public class DegreeAreaModelImpl
 
 	@Override
 	public void setNameMap(Map<Locale, String> nameMap) {
-		setNameMap(nameMap, LocaleUtil.getDefault());
+		setNameMap(nameMap, LocaleUtil.getSiteDefault());
 	}
 
 	@Override
@@ -638,7 +664,7 @@ public class DegreeAreaModelImpl
 			return "";
 		}
 
-		Locale defaultLocale = LocaleUtil.getDefault();
+		Locale defaultLocale = LocaleUtil.getSiteDefault();
 
 		return LocalizationUtil.getDefaultLanguageId(xml, defaultLocale);
 	}
@@ -663,7 +689,7 @@ public class DegreeAreaModelImpl
 	public void prepareLocalizedFieldsForImport(Locale defaultImportLocale)
 		throws LocaleException {
 
-		Locale defaultLocale = LocaleUtil.getDefault();
+		Locale defaultLocale = LocaleUtil.getSiteDefault();
 
 		String modelDefaultLanguageId = getDefaultLanguageId();
 
@@ -703,6 +729,7 @@ public class DegreeAreaModelImpl
 		degreeAreaImpl.setUserId(getUserId());
 		degreeAreaImpl.setCreateDate(getCreateDate());
 		degreeAreaImpl.setModifiedDate(getModifiedDate());
+		degreeAreaImpl.setUserName(getUserName());
 		degreeAreaImpl.setName(getName());
 
 		degreeAreaImpl.resetOriginalValues();
@@ -725,6 +752,8 @@ public class DegreeAreaModelImpl
 			this.<Date>getColumnOriginalValue("createDate"));
 		degreeAreaImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
+		degreeAreaImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
 		degreeAreaImpl.setName(this.<String>getColumnOriginalValue("name"));
 
 		return degreeAreaImpl;
@@ -835,6 +864,14 @@ public class DegreeAreaModelImpl
 			degreeAreaCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		degreeAreaCacheModel.userName = getUserName();
+
+		String userName = degreeAreaCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			degreeAreaCacheModel.userName = null;
+		}
+
 		degreeAreaCacheModel.name = getName();
 
 		String name = degreeAreaCacheModel.name;
@@ -943,6 +980,7 @@ public class DegreeAreaModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private String _userName;
 	private String _name;
 	private String _nameCurrentLanguageId;
 
@@ -982,6 +1020,7 @@ public class DegreeAreaModelImpl
 		_columnOriginalValues.put("userId", _userId);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("name", _name);
 	}
 
@@ -1020,7 +1059,9 @@ public class DegreeAreaModelImpl
 
 		columnBitmasks.put("modifiedDate", 64L);
 
-		columnBitmasks.put("name", 128L);
+		columnBitmasks.put("userName", 128L);
+
+		columnBitmasks.put("name", 256L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

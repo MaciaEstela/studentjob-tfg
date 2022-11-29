@@ -17,7 +17,11 @@ package edu.uoc.mestemi.studentjob.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.SQLQuery;
+import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
@@ -26,6 +30,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -66,6 +71,7 @@ public class DegreeLocalServiceImpl extends DegreeLocalServiceBaseImpl {
 		Degree degree = createDegree(degreeId);
 		
 		degree.setCompanyId(group.getCompanyId());
+		degree.setGroupId(group.getGroupId());
 		degree.setCreateDate(serviceContext.getCreateDate(new Date()));
 		degree.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		degree.setUserId(userId);
@@ -121,9 +127,23 @@ public class DegreeLocalServiceImpl extends DegreeLocalServiceBaseImpl {
 				getKeywordSearchDynamicQuery(groupId, keywords), start, end, orderByComparator);
 	}
 	
-	public long getCompanyProfilesCountByKeywords(long groupId, String keywords) {
+	public long getDegreesCountByKeywords(long groupId, String keywords) {
 		return degreePersistence.countWithDynamicQuery(
 				getKeywordSearchDynamicQuery(groupId, keywords));
+	}
+	
+	public List<DegreeArea> getDegreeAreasByDegreeId(long degreeId){
+		return degreeAreaPersistence.getDegreeDegreeAreas(degreeId);
+	}
+	
+	public List<Long> getDegreeAreasIdsByDegreeId(long degreeId){
+		List<DegreeArea> degreeAreas = getDegreeAreasByDegreeId(degreeId);
+		List<Long> degreesIds = new ArrayList<>();
+		
+		for (DegreeArea degreeArea : degreeAreas)
+			degreesIds.add(degreeArea.getDegreeAreaId());
+		
+		return degreesIds;
 	}
 	
 	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords) {
@@ -133,11 +153,38 @@ public class DegreeLocalServiceImpl extends DegreeLocalServiceBaseImpl {
 			Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
 			
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("name", "%" + keywords + "%"));
-			disjunctionQuery.add(RestrictionsFactoryUtil.like("areas", "%" + keywords + "%"));
+			
+			dynamicQuery.add(disjunctionQuery);
 		}
 		
 		return dynamicQuery;
 	}
+	
+	public List<Degree> getDegreeAreaDegrees(long degreeAreaId, int start, int end, OrderByComparator<Degree> orderByComparator){
+		return degreePersistence.getDegreeAreaDegrees(
+				degreeAreaId, start, end, orderByComparator);
+	}
+	
+//	public List<Degree> getDegreeAreaDegreesCount(long degreeAreaId, int start, int end, OrderByComparator<Degree> orderByComparator){
+//		return degreePersistence.degreeAreas
+//	}
+	
+//	public List<Degree> getDegreesByDegreeAreaId(String degreeAreaId)
+//	{
+//		Session session = degreePersistence.openSession();
+//		SQLQuery query = session.createSQLQuery("select sdg.degreeId as degreeId from sjob_degree sdg inner join sjob_degrees_degreesareas sdd where sdg.degreeId = sdd.degreeId and sdd.degreeAreaId = ? LIMIT ? OFFSET ?");
+//		query.addScalar("degreeId", Type.LONG);
+//		QueryPos pos = QueryPos.getInstance(query);
+//		pos.add(degreeAreaId);
+//		
+//		List<Long> list = query.list();
+//		List<Degree> degrees = new ArrayList<>();
+//		for (long degreeId : list) {
+//			degrees.add(getDegree(degreeId));
+//		}
+//		
+//		return degrees;
+//	}
 	
 	@Override
 	public Degree addDegree(Degree degree) {

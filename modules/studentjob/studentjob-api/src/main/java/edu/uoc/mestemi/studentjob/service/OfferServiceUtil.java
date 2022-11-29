@@ -15,6 +15,7 @@
 package edu.uoc.mestemi.studentjob.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.Offer;
 
@@ -41,23 +42,67 @@ public class OfferServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.OfferServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static Offer addOffer(
-			long groupId, long regionId, Map<java.util.Locale, String> nameMap,
+			long groupId, long regionId, Map<java.util.Locale, String> titleMap,
 			Map<java.util.Locale, String> descriptionMap, String preference,
 			List<Long> degreeIds,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().addOffer(
-			groupId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			groupId, regionId, titleMap, descriptionMap, preference, degreeIds,
 			serviceContext);
+	}
+
+	public static Offer addOffer(Offer offer) {
+		return getService().addOffer(offer);
 	}
 
 	public static Offer deleteOffer(long offerId) throws PortalException {
 		return getService().deleteOffer(offerId);
 	}
 
+	public static List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByOfferId(long offerId) {
+
+		return getService().getDegreesByOfferId(offerId);
+	}
+
+	public static List<Long> getDegreesIdsByOfferId(long offerId) {
+		return getService().getDegreesIdsByOfferId(offerId);
+	}
+
 	public static Offer getOffer(long offerId) throws PortalException {
 		return getService().getOffer(offerId);
+	}
+
+	public static List<Offer> getOffersByGroupId(long groupId) {
+		return getService().getOffersByGroupId(groupId);
+	}
+
+	public static List<Offer> getOffersByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getOffersByGroupId(groupId, start, end);
+	}
+
+	public static List<Offer> getOffersByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Offer> orderByComparator) {
+
+		return getService().getOffersByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<Offer> getOffersByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Offer> orderByComparator) {
+
+		return getService().getOffersByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	public static long getOffersCountByKeywords(long groupId, String keywords) {
+		return getService().getOffersCountByKeywords(groupId, keywords);
 	}
 
 	/**
@@ -70,15 +115,19 @@ public class OfferServiceUtil {
 	}
 
 	public static Offer updateOffer(
-			long offerId, long regionId, Map<java.util.Locale, String> nameMap,
+			long offerId, long regionId, Map<java.util.Locale, String> titleMap,
 			Map<java.util.Locale, String> descriptionMap, String preference,
 			List<Long> degreeIds,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().updateOffer(
-			offerId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			offerId, regionId, titleMap, descriptionMap, preference, degreeIds,
 			serviceContext);
+	}
+
+	public static Offer updateOffer(Offer offer) {
+		return getService().updateOffer(offer);
 	}
 
 	public static OfferService getService() {

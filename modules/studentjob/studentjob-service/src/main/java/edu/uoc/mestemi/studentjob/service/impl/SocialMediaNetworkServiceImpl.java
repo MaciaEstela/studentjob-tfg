@@ -17,6 +17,9 @@ package edu.uoc.mestemi.studentjob.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.util.List;
 
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.base.SocialMediaNetworkServiceBaseImpl;
@@ -56,5 +59,27 @@ public class SocialMediaNetworkServiceImpl
 	
 	public SocialMediaNetwork getSocialMediaNetwork(long socialMediaNetworkId) throws PortalException {
 		return socialMediaNetworkLocalService.getSocialMediaNetwork(socialMediaNetworkId);
+	}
+	
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(long groupId) {
+		return socialMediaNetworkLocalService.getSocialMediaNetworksByGroupId(groupId);
+	}
+	
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(long groupId, int start, int end) {
+		return socialMediaNetworkLocalService.getSocialMediaNetworksByGroupId(groupId, start, end);
+	}
+	
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(long groupId, int start, int end, 
+			OrderByComparator<SocialMediaNetwork> orderByComparator) {
+		return socialMediaNetworkLocalService.getSocialMediaNetworksByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	public List<SocialMediaNetwork> getSocialMediaNetworksByKeywords(long groupId, String keywords, int start, 
+			int end, OrderByComparator<SocialMediaNetwork> orderByComparator) {
+		return socialMediaNetworkLocalService.getSocialMediaNetworksByKeywords(groupId, keywords, start, end, orderByComparator);
+	}
+	
+	public long getSocialMediaNetworksCountByKeywords(long groupId, String keywords) {
+		return socialMediaNetworkLocalService.getSocialMediaNetworksCountByKeywords(groupId, keywords);
 	}
 }

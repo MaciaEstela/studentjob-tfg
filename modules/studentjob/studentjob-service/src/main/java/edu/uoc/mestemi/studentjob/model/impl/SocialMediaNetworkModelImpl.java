@@ -78,8 +78,9 @@ public class SocialMediaNetworkModelImpl
 		{"uuid_", Types.VARCHAR}, {"socialMediaNetworkId", Types.BIGINT},
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
-		{"logo", Types.BIGINT}, {"baseURL", Types.VARCHAR}
+		{"modifiedDate", Types.TIMESTAMP}, {"userName", Types.VARCHAR},
+		{"name", Types.VARCHAR}, {"logo", Types.BIGINT},
+		{"baseURL", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -93,13 +94,14 @@ public class SocialMediaNetworkModelImpl
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("logo", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("baseURL", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_SocialMediaNetwork (uuid_ VARCHAR(75) null,socialMediaNetworkId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,logo LONG,baseURL VARCHAR(75) null)";
+		"create table SJob_SocialMediaNetwork (uuid_ VARCHAR(75) null,socialMediaNetworkId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,userName VARCHAR(75) null,name VARCHAR(75) null,logo LONG,baseURL VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table SJob_SocialMediaNetwork";
@@ -294,6 +296,12 @@ public class SocialMediaNetworkModelImpl
 			"modifiedDate",
 			(BiConsumer<SocialMediaNetwork, Date>)
 				SocialMediaNetwork::setModifiedDate);
+		attributeGetterFunctions.put(
+			"userName", SocialMediaNetwork::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName",
+			(BiConsumer<SocialMediaNetwork, String>)
+				SocialMediaNetwork::setUserName);
 		attributeGetterFunctions.put("name", SocialMediaNetwork::getName);
 		attributeSetterBiConsumers.put(
 			"name",
@@ -477,6 +485,26 @@ public class SocialMediaNetworkModelImpl
 
 	@JSON
 	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userName = userName;
+	}
+
+	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -602,6 +630,7 @@ public class SocialMediaNetworkModelImpl
 		socialMediaNetworkImpl.setUserId(getUserId());
 		socialMediaNetworkImpl.setCreateDate(getCreateDate());
 		socialMediaNetworkImpl.setModifiedDate(getModifiedDate());
+		socialMediaNetworkImpl.setUserName(getUserName());
 		socialMediaNetworkImpl.setName(getName());
 		socialMediaNetworkImpl.setLogo(getLogo());
 		socialMediaNetworkImpl.setBaseURL(getBaseURL());
@@ -630,6 +659,8 @@ public class SocialMediaNetworkModelImpl
 			this.<Date>getColumnOriginalValue("createDate"));
 		socialMediaNetworkImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
+		socialMediaNetworkImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
 		socialMediaNetworkImpl.setName(
 			this.<String>getColumnOriginalValue("name"));
 		socialMediaNetworkImpl.setLogo(
@@ -745,6 +776,14 @@ public class SocialMediaNetworkModelImpl
 		}
 		else {
 			socialMediaNetworkCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
+
+		socialMediaNetworkCacheModel.userName = getUserName();
+
+		String userName = socialMediaNetworkCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			socialMediaNetworkCacheModel.userName = null;
 		}
 
 		socialMediaNetworkCacheModel.name = getName();
@@ -866,6 +905,7 @@ public class SocialMediaNetworkModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private String _userName;
 	private String _name;
 	private long _logo;
 	private String _baseURL;
@@ -907,6 +947,7 @@ public class SocialMediaNetworkModelImpl
 		_columnOriginalValues.put("userId", _userId);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("name", _name);
 		_columnOriginalValues.put("logo", _logo);
 		_columnOriginalValues.put("baseURL", _baseURL);
@@ -947,11 +988,13 @@ public class SocialMediaNetworkModelImpl
 
 		columnBitmasks.put("modifiedDate", 64L);
 
-		columnBitmasks.put("name", 128L);
+		columnBitmasks.put("userName", 128L);
 
-		columnBitmasks.put("logo", 256L);
+		columnBitmasks.put("name", 256L);
 
-		columnBitmasks.put("baseURL", 512L);
+		columnBitmasks.put("logo", 512L);
+
+		columnBitmasks.put("baseURL", 1024L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

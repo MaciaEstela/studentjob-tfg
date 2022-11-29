@@ -15,6 +15,7 @@
 package edu.uoc.mestemi.studentjob.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.Degree;
 
@@ -56,6 +57,48 @@ public class DegreeServiceUtil {
 
 	public static Degree getDegree(long degreeId) throws PortalException {
 		return getService().getDegree(degreeId);
+	}
+
+	public static List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByDegreeId(long degreeId) {
+
+		return getService().getDegreeAreasByDegreeId(degreeId);
+	}
+
+	public static List<Long> getDegreeAreasIdsByDegreeId(long degreeId) {
+		return getService().getDegreeAreasIdsByDegreeId(degreeId);
+	}
+
+	public static List<Degree> getDegreesByGroupId(long groupId) {
+		return getService().getDegreesByGroupId(groupId);
+	}
+
+	public static List<Degree> getDegreesByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getDegreesByGroupId(groupId, start, end);
+	}
+
+	public static List<Degree> getDegreesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Degree> orderByComparator) {
+
+		return getService().getDegreesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<Degree> getDegreesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Degree> orderByComparator) {
+
+		return getService().getDegreesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	public static long getDegreesCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getDegreesCountByKeywords(groupId, keywords);
 	}
 
 	/**

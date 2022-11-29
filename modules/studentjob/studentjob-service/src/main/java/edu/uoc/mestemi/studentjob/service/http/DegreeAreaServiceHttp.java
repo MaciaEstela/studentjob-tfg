@@ -215,6 +215,179 @@ public class DegreeAreaServiceHttp {
 		}
 	}
 
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByGroupId(HttpPrincipal httpPrincipal, long groupId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeAreaServiceUtil.class, "getDegreeAreasByGroupId",
+				_getDegreeAreasByGroupIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeAreaServiceUtil.class, "getDegreeAreasByGroupId",
+				_getDegreeAreasByGroupIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getCompanyProfilesByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.DegreeArea>
+					orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeAreaServiceUtil.class, "getCompanyProfilesByGroupId",
+				_getCompanyProfilesByGroupIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByKeywords(
+			HttpPrincipal httpPrincipal, long groupId, String keywords,
+			int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.DegreeArea>
+					orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeAreaServiceUtil.class, "getDegreeAreasByKeywords",
+				_getDegreeAreasByKeywordsParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long getDegreeAreasCountByKeywords(
+		HttpPrincipal httpPrincipal, long groupId, String keywords) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeAreaServiceUtil.class, "getDegreeAreasCountByKeywords",
+				_getDegreeAreasCountByKeywordsParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		DegreeAreaServiceHttp.class);
 
@@ -232,5 +405,23 @@ public class DegreeAreaServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getDegreeAreaParameterTypes3 =
 		new Class[] {long.class};
+	private static final Class<?>[] _getDegreeAreasByGroupIdParameterTypes4 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getDegreeAreasByGroupIdParameterTypes5 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[]
+		_getCompanyProfilesByGroupIdParameterTypes6 = new Class[] {
+			long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[] _getDegreeAreasByKeywordsParameterTypes7 =
+		new Class[] {
+			long.class, String.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getDegreeAreasCountByKeywordsParameterTypes8 = new Class[] {
+			long.class, String.class
+		};
 
 }

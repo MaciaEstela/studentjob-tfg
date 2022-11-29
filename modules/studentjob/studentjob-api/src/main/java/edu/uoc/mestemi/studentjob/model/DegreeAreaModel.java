@@ -17,9 +17,10 @@ package edu.uoc.mestemi.studentjob.model;
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.LocaleException;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.LocalizedModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.model.StagedModel;
+import com.liferay.portal.kernel.model.StagedAuditedModel;
 
 import java.util.Date;
 import java.util.Locale;
@@ -40,7 +41,8 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface DegreeAreaModel
-	extends BaseModel<DegreeArea>, LocalizedModel, ShardedModel, StagedModel {
+	extends BaseModel<DegreeArea>, GroupedModel, LocalizedModel, ShardedModel,
+			StagedAuditedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -98,6 +100,7 @@ public interface DegreeAreaModel
 	 *
 	 * @return the group ID of this degree area
 	 */
+	@Override
 	public long getGroupId();
 
 	/**
@@ -105,6 +108,7 @@ public interface DegreeAreaModel
 	 *
 	 * @param groupId the group ID of this degree area
 	 */
+	@Override
 	public void setGroupId(long groupId);
 
 	/**
@@ -128,6 +132,7 @@ public interface DegreeAreaModel
 	 *
 	 * @return the user ID of this degree area
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -135,6 +140,7 @@ public interface DegreeAreaModel
 	 *
 	 * @param userId the user ID of this degree area
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -142,6 +148,7 @@ public interface DegreeAreaModel
 	 *
 	 * @return the user uuid of this degree area
 	 */
+	@Override
 	public String getUserUuid();
 
 	/**
@@ -149,6 +156,7 @@ public interface DegreeAreaModel
 	 *
 	 * @param userUuid the user uuid of this degree area
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -182,6 +190,23 @@ public interface DegreeAreaModel
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the user name of this degree area.
+	 *
+	 * @return the user name of this degree area
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this degree area.
+	 *
+	 * @param userName the user name of this degree area
+	 */
+	@Override
+	public void setUserName(String userName);
 
 	/**
 	 * Returns the name of this degree area.

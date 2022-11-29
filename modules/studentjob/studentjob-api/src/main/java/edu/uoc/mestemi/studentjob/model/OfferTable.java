@@ -50,8 +50,8 @@ public class OfferTable extends BaseTable<OfferTable> {
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<OfferTable, Date> modifiedDate = createColumn(
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
-	public final Column<OfferTable, String> name = createColumn(
-		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<OfferTable, String> title = createColumn(
+		"title", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<OfferTable, String> preference = createColumn(
 		"preference", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<OfferTable, String> description = createColumn(

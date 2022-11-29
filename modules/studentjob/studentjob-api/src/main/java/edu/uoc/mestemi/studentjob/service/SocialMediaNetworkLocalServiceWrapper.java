@@ -398,6 +398,18 @@ public class SocialMediaNetworkLocalServiceWrapper
 			groupId, start, end, orderByComparator);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+		getSocialMediaNetworksByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.SocialMediaNetwork>
+					orderByComparator) {
+
+		return _socialMediaNetworkLocalService.getSocialMediaNetworksByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the social media networks matching the UUID and company.
 	 *

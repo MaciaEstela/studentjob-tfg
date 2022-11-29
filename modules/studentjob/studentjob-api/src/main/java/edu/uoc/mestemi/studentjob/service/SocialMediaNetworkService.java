@@ -23,8 +23,11 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
+
+import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -70,6 +73,28 @@ public interface SocialMediaNetworkService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SocialMediaNetwork getSocialMediaNetwork(long socialMediaNetworkId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<SocialMediaNetwork> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMediaNetwork> getSocialMediaNetworksByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<SocialMediaNetwork> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getSocialMediaNetworksCountByKeywords(
+		long groupId, String keywords);
 
 	public SocialMediaNetwork updateSocialMediaNetwork(
 			long socialMediaNetworkId, String name, long logo, String baseURL,

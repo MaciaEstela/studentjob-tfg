@@ -1,0 +1,4 @@
+Bundle-Name: studentjob-web
+Bundle-SymbolicName: edu.uoc.mestemi.studentjob.web
+Bundle-Version: 1.0.0
+Export-Package: edu.uoc.mestemi.studentjob.web.constants

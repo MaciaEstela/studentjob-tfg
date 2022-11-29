@@ -50,6 +50,7 @@ public class SocialMediaNetworkWrapper
 		attributes.put("userId", getUserId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("userName", getUserName());
 		attributes.put("name", getName());
 		attributes.put("logo", getLogo());
 		attributes.put("baseURL", getBaseURL());
@@ -100,6 +101,12 @@ public class SocialMediaNetworkWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
 		}
 
 		String name = (String)attributes.get("name");
@@ -227,6 +234,16 @@ public class SocialMediaNetworkWrapper
 	}
 
 	/**
+	 * Returns the user name of this social media network.
+	 *
+	 * @return the user name of this social media network
+	 */
+	@Override
+	public String getUserName() {
+		return model.getUserName();
+	}
+
+	/**
 	 * Returns the user uuid of this social media network.
 	 *
 	 * @return the user uuid of this social media network
@@ -349,6 +366,16 @@ public class SocialMediaNetworkWrapper
 	@Override
 	public void setUserId(long userId) {
 		model.setUserId(userId);
+	}
+
+	/**
+	 * Sets the user name of this social media network.
+	 *
+	 * @param userName the user name of this social media network
+	 */
+	@Override
+	public void setUserName(String userName) {
+		model.setUserName(userName);
 	}
 
 	/**

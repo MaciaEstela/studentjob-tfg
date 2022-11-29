@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="getDegreesByDegreeAreaId"> 
+		<![CDATA[ 
+			SELECT * FROM Degree dg INNER JOIN sjob_degrees_degreesareas sdd WHERE dg.degreeId = sdd.degreeId and sdd.degreeAreaId = ?
+		]]>
+	</sql>
+</custom-sql>

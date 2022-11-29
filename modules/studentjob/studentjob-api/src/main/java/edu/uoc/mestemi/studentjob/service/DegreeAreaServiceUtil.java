@@ -15,9 +15,11 @@
 package edu.uoc.mestemi.studentjob.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,10 +55,42 @@ public class DegreeAreaServiceUtil {
 		return getService().deleteDegreeArea(degreeAreaId);
 	}
 
+	public static List<DegreeArea> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<DegreeArea> orderByComparator) {
+
+		return getService().getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
 	public static DegreeArea getDegreeArea(long degreeAreaId)
 		throws PortalException {
 
 		return getService().getDegreeArea(degreeAreaId);
+	}
+
+	public static List<DegreeArea> getDegreeAreasByGroupId(long groupId) {
+		return getService().getDegreeAreasByGroupId(groupId);
+	}
+
+	public static List<DegreeArea> getDegreeAreasByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getDegreeAreasByGroupId(groupId, start, end);
+	}
+
+	public static List<DegreeArea> getDegreeAreasByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<DegreeArea> orderByComparator) {
+
+		return getService().getDegreeAreasByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	public static long getDegreeAreasCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getDegreeAreasCountByKeywords(groupId, keywords);
 	}
 
 	/**

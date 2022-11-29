@@ -53,11 +53,55 @@ public class DegreeAreaServiceWrapper
 	}
 
 	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getCompanyProfilesByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.DegreeArea>
+					orderByComparator) {
+
+		return _degreeAreaService.getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
 	public edu.uoc.mestemi.studentjob.model.DegreeArea getDegreeArea(
 			long degreeAreaId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _degreeAreaService.getDegreeArea(degreeAreaId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByGroupId(long groupId) {
+
+		return _degreeAreaService.getDegreeAreasByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByGroupId(long groupId, int start, int end) {
+
+		return _degreeAreaService.getDegreeAreasByGroupId(groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
+		getDegreeAreasByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.DegreeArea>
+					orderByComparator) {
+
+		return _degreeAreaService.getDegreeAreasByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	@Override
+	public long getDegreeAreasCountByKeywords(long groupId, String keywords) {
+		return _degreeAreaService.getDegreeAreasCountByKeywords(
+			groupId, keywords);
 	}
 
 	/**

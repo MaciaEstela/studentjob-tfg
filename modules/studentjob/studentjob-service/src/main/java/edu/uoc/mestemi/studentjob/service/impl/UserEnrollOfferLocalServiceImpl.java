@@ -46,7 +46,7 @@ public class UserEnrollOfferLocalServiceImpl
 		UserEnrollOfferPK userEnrollOfferPK = new UserEnrollOfferPK(userId, offerId);
 		
 		UserEnrollOffer userEnrollOffer = createUserEnrollOffer(userEnrollOfferPK);
-		userEnrollOffer.setGroupId(groupId);
+		userEnrollOffer.setGroupId(group.getGroupId());
 		userEnrollOffer.setCompanyId(group.getCompanyId());
 		userEnrollOffer.setCreateDate(serviceContext.getCreateDate(new Date()));
 	

@@ -1,0 +1,112 @@
+ <%-- Generate socialMediaNetwork view  URL. --%>
+
+ <portlet:renderURL var="editSocialMediaNetworkURL">
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_SOCIALMEDIANETWORK_ADMIN %>" />
+	<portlet:param name="redirect" value="${currentURL}" />
+	<portlet:param name="socialMediaNetworkId" value="${entry.socialMediaNetworkId}" />
+ </portlet:renderURL>
+
+ <c:choose>
+
+	<%-- Descriptive (list) view --%>
+
+	<c:when
+		test='${socialMediaNetworksManagementToolbarDisplayContext.getDisplayStyle().equals("descriptive")}'>
+
+		<%-- User --%>
+
+		<liferay-ui:search-container-column-user 
+			showDetails="<%=false%>"
+			userId="<%=entry.getUserId()%>" 
+		/>
+
+		<liferay-ui:search-container-column-text colspan="<%=2%>">
+
+			<%
+				String modifiedDateDescription =
+					LanguageUtil.getTimeDescription(
+							request, System.currentTimeMillis() 
+							- entry.getModifiedDate().getTime(), true);
+			%>
+
+			<h5 class="text-default">
+				<liferay-ui:message
+					arguments="<%=new String[] {entry.getUserName(), modifiedDateDescription}%>"
+					key="x-modified-x-ago" />
+			</h5>
+
+			<h4>
+				<aui:a href="${editSocialMediaNetworkURL}">
+					${entry.getName()}
+				</aui:a>
+			</h4>
+
+		</liferay-ui:search-container-column-text>
+
+		<liferay-ui:search-container-column-jsp
+			path="/socialMediaNetwork/admin/entry_actions.jsp" />
+	</c:when>
+
+	<%-- Card view  --%>
+
+	<c:when
+		test='${socialMediaNetworksManagementToolbarDisplayContext.getDisplayStyle().equals("icon")}'>
+
+		<%
+			row.setCssClass("lfr-asset-item");
+		%>
+
+		<liferay-ui:search-container-column-text>
+
+			<%-- Vertical card. --%>
+
+			<liferay-frontend:icon-vertical-card
+				actionJsp="/socialMediaNetwork/admin/entry_actions.jsp"
+				actionJspServletContext="<%= application %>" 
+				icon="cards2" resultRow="${row}"
+				title="${entry.getName()}" 
+				url="${editSocialMediaNetworkURL}">
+
+				<liferay-frontend:vertical-card-sticker-bottom>
+					<liferay-ui:user-portrait 
+						cssClass="sticker sticker-bottom"
+						userId="${entry.userId}" 
+					/>
+				</liferay-frontend:vertical-card-sticker-bottom>
+				
+			</liferay-frontend:icon-vertical-card>
+		</liferay-ui:search-container-column-text>
+	</c:when>
+
+	<%-- Table view --%>
+
+	<c:otherwise>
+
+		<liferay-ui:search-container-column-text 
+			href="${editSocialMediaNetworkURL}" 
+			name="name" 
+			value="<%= entry.getName() %>" 
+		/>
+
+		<liferay-ui:search-container-column-text 
+			href="${editSocialMediaNetworkURL}" 
+			name="baseURL" 
+			value="<%= entry.getBaseURL() %>" 
+		/>
+
+		<liferay-ui:search-container-column-user 
+			name="author" 
+			userId="${entry.userId}" 
+		/>
+
+		<liferay-ui:search-container-column-date 
+			name="create-date"
+			property="createDate" 
+		/>
+
+		<liferay-ui:search-container-column-jsp 
+			name="actions"
+			path="/socialMediaNetwork/admin/entry_actions.jsp" 
+		/>
+	</c:otherwise>
+ </c:choose>

@@ -63,7 +63,7 @@ public class DegreeAreaCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -79,6 +79,8 @@ public class DegreeAreaCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append("}");
@@ -116,6 +118,13 @@ public class DegreeAreaCacheModel
 			degreeAreaImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		if (userName == null) {
+			degreeAreaImpl.setUserName("");
+		}
+		else {
+			degreeAreaImpl.setUserName(userName);
+		}
+
 		if (name == null) {
 			degreeAreaImpl.setName("");
 		}
@@ -141,6 +150,7 @@ public class DegreeAreaCacheModel
 		userId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		userName = objectInput.readUTF();
 		name = objectInput.readUTF();
 	}
 
@@ -163,6 +173,13 @@ public class DegreeAreaCacheModel
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		if (userName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -178,6 +195,7 @@ public class DegreeAreaCacheModel
 	public long userId;
 	public long createDate;
 	public long modifiedDate;
+	public String userName;
 	public String name;
 
 }

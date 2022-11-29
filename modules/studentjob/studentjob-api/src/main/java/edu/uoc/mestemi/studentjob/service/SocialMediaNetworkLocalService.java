@@ -300,6 +300,11 @@ public interface SocialMediaNetworkLocalService
 		long groupId, int start, int end,
 		OrderByComparator<SocialMediaNetwork> orderByComparator);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMediaNetwork> getSocialMediaNetworksByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<SocialMediaNetwork> orderByComparator);
+
 	/**
 	 * Returns all the social media networks matching the UUID and company.
 	 *

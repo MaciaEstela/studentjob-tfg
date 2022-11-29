@@ -23,8 +23,10 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.Degree;
+import edu.uoc.mestemi.studentjob.model.DegreeArea;
 
 import java.util.List;
 import java.util.Locale;
@@ -64,6 +66,31 @@ public interface DegreeService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Degree getDegree(long degreeId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<DegreeArea> getDegreeAreasByDegreeId(long degreeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Long> getDegreeAreasIdsByDegreeId(long degreeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByGroupId(long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Degree> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Degree> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getDegreesCountByKeywords(long groupId, String keywords);
 
 	/**
 	 * Returns the OSGi service identifier.

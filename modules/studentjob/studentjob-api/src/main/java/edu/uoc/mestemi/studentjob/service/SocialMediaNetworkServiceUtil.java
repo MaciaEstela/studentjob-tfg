@@ -15,8 +15,11 @@
 package edu.uoc.mestemi.studentjob.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
+
+import java.util.List;
 
 /**
  * Provides the remote service utility for SocialMediaNetwork. This utility wraps
@@ -67,6 +70,42 @@ public class SocialMediaNetworkServiceUtil {
 		throws PortalException {
 
 		return getService().getSocialMediaNetwork(socialMediaNetworkId);
+	}
+
+	public static List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId) {
+
+		return getService().getSocialMediaNetworksByGroupId(groupId);
+	}
+
+	public static List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getSocialMediaNetworksByGroupId(
+			groupId, start, end);
+	}
+
+	public static List<SocialMediaNetwork> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<SocialMediaNetwork> orderByComparator) {
+
+		return getService().getSocialMediaNetworksByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<SocialMediaNetwork> getSocialMediaNetworksByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<SocialMediaNetwork> orderByComparator) {
+
+		return getService().getSocialMediaNetworksByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	public static long getSocialMediaNetworksCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getSocialMediaNetworksCountByKeywords(
+			groupId, keywords);
 	}
 
 	public static SocialMediaNetwork updateSocialMediaNetwork(

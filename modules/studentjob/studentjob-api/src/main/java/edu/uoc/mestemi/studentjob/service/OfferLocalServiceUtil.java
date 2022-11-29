@@ -63,14 +63,14 @@ public class OfferLocalServiceUtil {
 	}
 
 	public static Offer addOffer(
-			long groupId, long regionId, Map<java.util.Locale, String> nameMap,
+			long groupId, long regionId, Map<java.util.Locale, String> titleMap,
 			Map<java.util.Locale, String> descriptionMap, String preference,
 			List<Long> degreeIds,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().addOffer(
-			groupId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			groupId, regionId, titleMap, descriptionMap, preference, degreeIds,
 			serviceContext);
 	}
 
@@ -305,10 +305,14 @@ public class OfferLocalServiceUtil {
 		return getService().getDegreePrimaryKeys(offerId);
 	}
 
-	public static List<Offer> getDegreesByGroupId(
-		long groupId, int start, int end) {
+	public static List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByOfferId(long offerId) {
 
-		return getService().getDegreesByGroupId(groupId, start, end);
+		return getService().getDegreesByOfferId(offerId);
+	}
+
+	public static List<Long> getDegreesIdsByOfferId(long offerId) {
+		return getService().getDegreesIdsByOfferId(offerId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
@@ -371,11 +375,25 @@ public class OfferLocalServiceUtil {
 	}
 
 	public static List<Offer> getOffersByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getOffersByGroupId(groupId, start, end);
+	}
+
+	public static List<Offer> getOffersByGroupId(
 		long groupId, int start, int end,
 		OrderByComparator<Offer> orderByComparator) {
 
 		return getService().getOffersByGroupId(
 			groupId, start, end, orderByComparator);
+	}
+
+	public static List<Offer> getOffersByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Offer> orderByComparator) {
+
+		return getService().getOffersByKeywords(
+			groupId, keywords, start, end, orderByComparator);
 	}
 
 	/**
@@ -453,14 +471,14 @@ public class OfferLocalServiceUtil {
 	}
 
 	public static Offer updateOffer(
-			long offerId, long regionId, Map<java.util.Locale, String> nameMap,
+			long offerId, long regionId, Map<java.util.Locale, String> titleMap,
 			Map<java.util.Locale, String> descriptionMap, String preference,
 			List<Long> degreeIds,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().updateOffer(
-			offerId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			offerId, regionId, titleMap, descriptionMap, preference, degreeIds,
 			serviceContext);
 	}
 

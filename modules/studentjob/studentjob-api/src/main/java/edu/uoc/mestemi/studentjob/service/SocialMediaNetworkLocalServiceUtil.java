@@ -348,6 +348,14 @@ public class SocialMediaNetworkLocalServiceUtil {
 			groupId, start, end, orderByComparator);
 	}
 
+	public static List<SocialMediaNetwork> getSocialMediaNetworksByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<SocialMediaNetwork> orderByComparator) {
+
+		return getService().getSocialMediaNetworksByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the social media networks matching the UUID and company.
 	 *

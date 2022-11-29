@@ -16,6 +16,7 @@
 		<column name="userId" type="long" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
+		<column name="userName" type="String" />
 		
 		<!-- Other fields -->
 		<column name="name" type="String" />
@@ -194,7 +195,6 @@
 		<column name="groupId" type="long" />
 
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
@@ -202,13 +202,13 @@
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
-		<column name="name" type="String" localized="true"/>
+		<column name="title" type="String" localized="true"/>
 		<column name="preference" type="String" />
 		<column name="description" type="String" localized="true"/>
 		
 		<!-- Order -->
 		<order by="asc">
-			<order-column name="name" />
+			<order-column name="title" />
 		</order>
 
 		<!-- Finder methods -->
@@ -241,6 +241,7 @@
 		<column name="userId" type="long" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
+		<column name="userName" type="String" />
 		
 		<!-- Other fields -->
 		<column name="name" type="String" localized="true"/>
@@ -274,7 +275,6 @@
 		<column name="groupId" type="long" />
 
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />

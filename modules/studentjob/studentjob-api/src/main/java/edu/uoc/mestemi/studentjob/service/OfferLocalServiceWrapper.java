@@ -62,14 +62,14 @@ public class OfferLocalServiceWrapper
 	@Override
 	public edu.uoc.mestemi.studentjob.model.Offer addOffer(
 			long groupId, long regionId,
-			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> titleMap,
 			java.util.Map<java.util.Locale, String> descriptionMap,
 			String preference, java.util.List<Long> degreeIds,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _offerLocalService.addOffer(
-			groupId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			groupId, regionId, titleMap, descriptionMap, preference, degreeIds,
 			serviceContext);
 	}
 
@@ -357,10 +357,15 @@ public class OfferLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
-		getDegreesByGroupId(long groupId, int start, int end) {
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByOfferId(long offerId) {
 
-		return _offerLocalService.getDegreesByGroupId(groupId, start, end);
+		return _offerLocalService.getDegreesByOfferId(offerId);
+	}
+
+	@Override
+	public java.util.List<Long> getDegreesIdsByOfferId(long offerId) {
+		return _offerLocalService.getDegreesIdsByOfferId(offerId);
 	}
 
 	@Override
@@ -437,6 +442,13 @@ public class OfferLocalServiceWrapper
 
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByGroupId(long groupId, int start, int end) {
+
+		return _offerLocalService.getOffersByGroupId(groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
 		getOffersByGroupId(
 			long groupId, int start, int end,
 			com.liferay.portal.kernel.util.OrderByComparator
@@ -444,6 +456,17 @@ public class OfferLocalServiceWrapper
 
 		return _offerLocalService.getOffersByGroupId(
 			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
+
+		return _offerLocalService.getOffersByKeywords(
+			groupId, keywords, start, end, orderByComparator);
 	}
 
 	/**
@@ -535,14 +558,14 @@ public class OfferLocalServiceWrapper
 	@Override
 	public edu.uoc.mestemi.studentjob.model.Offer updateOffer(
 			long offerId, long regionId,
-			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> titleMap,
 			java.util.Map<java.util.Locale, String> descriptionMap,
 			String preference, java.util.List<Long> degreeIds,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _offerLocalService.updateOffer(
-			offerId, regionId, nameMap, descriptionMap, preference, degreeIds,
+			offerId, regionId, titleMap, descriptionMap, preference, degreeIds,
 			serviceContext);
 	}
 

@@ -62,6 +62,7 @@ public class CompanyProfileLocalServiceImpl
 		CompanyProfile companyProfile = createCompanyProfile(companyProfileId);
 		
 		companyProfile.setCompanyId(group.getCompanyId());
+		companyProfile.setGroupId(group.getGroupId());
 		companyProfile.setCreateDate(serviceContext.getCreateDate(new Date()));
 		companyProfile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		companyProfile.setUserId(userId);
@@ -133,6 +134,8 @@ public class CompanyProfileLocalServiceImpl
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("title", "%" + keywords + "%"));
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("description", "%" + keywords + "%"));
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("sector", "%" + keywords + "%"));
+			
+			dynamicQuery.add(disjunctionQuery);
 		}
 		
 		return dynamicQuery;

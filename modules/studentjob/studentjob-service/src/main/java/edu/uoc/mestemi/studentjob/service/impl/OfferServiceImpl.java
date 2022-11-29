@@ -17,10 +17,12 @@ package edu.uoc.mestemi.studentjob.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.base.OfferServiceBaseImpl;
 
@@ -38,17 +40,17 @@ import org.osgi.service.component.annotations.Component;
 )
 public class OfferServiceImpl extends OfferServiceBaseImpl {
 	
-	public Offer addOffer(long groupId, long regionId, Map<Locale, String> nameMap, Map<Locale, String> descriptionMap, String preference, 
+	public Offer addOffer(long groupId, long regionId, Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String preference, 
 			List<Long> degreeIds, ServiceContext serviceContext) throws PortalException {
 		
-		return offerLocalService.addOffer(groupId, regionId, nameMap, descriptionMap, preference, degreeIds, serviceContext);
+		return offerLocalService.addOffer(groupId, regionId, titleMap, descriptionMap, preference, degreeIds, serviceContext);
 	}
 	
-	public Offer updateOffer(long offerId, long regionId, Map<Locale, String> nameMap, Map<Locale, String> descriptionMap, String preference, 
+	public Offer updateOffer(long offerId, long regionId, Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String preference, 
 			List<Long> degreeIds, ServiceContext serviceContext) 
 					throws PortalException {
 		
-		return offerLocalService.updateOffer(offerId, regionId, nameMap, descriptionMap, preference, degreeIds, serviceContext);
+		return offerLocalService.updateOffer(offerId, regionId, titleMap, descriptionMap, preference, degreeIds, serviceContext);
 	}
 	
 	public Offer deleteOffer(long offerId) throws PortalException {
@@ -58,4 +60,45 @@ public class OfferServiceImpl extends OfferServiceBaseImpl {
 	public Offer getOffer(long offerId) throws PortalException {
 		return offerLocalService.getOffer(offerId);
 	}
+	
+	public List<Offer> getOffersByGroupId(long groupId) {
+		return offerLocalService.getOffersByGroupId(groupId);
+	}
+	
+	public List<Offer> getOffersByGroupId(long groupId, int start, int end) {
+		return offerLocalService.getOffersByGroupId(groupId, start, end);
+	}
+	
+	public List<Long> getDegreesIdsByOfferId(long offerId){
+		return offerLocalService.getDegreesIdsByOfferId(offerId);
+	}
+	
+	public List<Degree> getDegreesByOfferId(long offerId){
+		return offerLocalService.getDegreesByOfferId(offerId);
+	}
+	
+	public List<Offer> getOffersByGroupId(long groupId, int start, int end, 
+			OrderByComparator<Offer> orderByComparator) {
+		return offerLocalService.getOffersByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	public List<Offer> getOffersByKeywords(long groupId, String keywords, int start, 
+			int end, OrderByComparator<Offer> orderByComparator) {
+		return offerLocalService.getOffersByKeywords(groupId, keywords, start, end, orderByComparator);
+	}
+	
+	public long getOffersCountByKeywords(long groupId, String keywords) {
+		return offerLocalService.getOffersCountByKeywords(groupId, keywords);
+	}
+	
+	@Override
+	public Offer addOffer(Offer offer) {
+		return offerLocalService.addOffer(offer);
+	}
+	
+	@Override
+	public Offer updateOffer(Offer offer) {
+		return offerLocalService.updateOffer(offer);
+	}
+	
 }
