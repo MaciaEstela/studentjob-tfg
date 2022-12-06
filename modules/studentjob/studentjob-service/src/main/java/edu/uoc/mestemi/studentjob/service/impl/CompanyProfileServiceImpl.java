@@ -17,11 +17,14 @@ package edu.uoc.mestemi.studentjob.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
+import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.service.base.CompanyProfileServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -38,12 +41,13 @@ import org.osgi.service.component.annotations.Component;
 )
 public class CompanyProfileServiceImpl extends CompanyProfileServiceBaseImpl {
 	
-	public CompanyProfile addCompanyProfile(long groupId, long regionId, boolean active, 
+	public CompanyProfile addCompanyProfile(long groupId, long userId, long regionId, boolean active, 
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, 
-			Map<Locale, String> sectorMap, String website, ServiceContext serviceContext) throws PortalException {
+			Map<Locale, String> sectorMap, String website, List<SocialMedia> socialMedias, 
+			ServiceContext serviceContext) throws PortalException {
 		
-		return companyProfileLocalService.addCompanyProfile(groupId, 
-				regionId, active, titleMap, descriptionMap, email, sectorMap, website, serviceContext);
+		return companyProfileLocalService.addCompanyProfile(groupId, userId,
+				regionId, active, titleMap, descriptionMap, email, sectorMap, website, socialMedias, serviceContext);
 	}
 	
 	public CompanyProfile updateCompanyProfile(long companyProfileId, long regionId, boolean active, 
@@ -59,8 +63,35 @@ public class CompanyProfileServiceImpl extends CompanyProfileServiceBaseImpl {
 		return companyProfileLocalService.deleteCompanyProfile(companyProfileId);
 	}
 	
+	public CompanyProfile getCompanyProfileByGroupId(long groupId, long userId) {
+		return companyProfileLocalService.getCompanyProfileByGroupId(groupId, userId);
+	}
+	
 	public CompanyProfile getCompanyProfile(long companyProfileId) throws PortalException {
 		return companyProfileLocalService.getCompanyProfile(companyProfileId);
 	}
 	
+	public List<CompanyProfile> getCompanyProfilesByGroupId(long groupId) {
+		return companyProfileLocalService.getCompanyProfilesByGroupId(groupId);
+	}
+	
+	public List<CompanyProfile> getCompanyProfilesByGroupId(long groupId, int start, int end) {
+		return companyProfileLocalService.getCompanyProfilesByGroupId(groupId, start, end);
+	}
+	
+	public List<CompanyProfile> getCompanyProfilesByGroupId(long groupId, int start, int end, 
+			OrderByComparator<CompanyProfile> orderByComparator) {
+		return companyProfileLocalService.getCompanyProfilesByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	public List<CompanyProfile> getCompanyProfilesByKeywords(long groupId, String keywords, int start, 
+			int end, OrderByComparator<CompanyProfile> orderByComparator) {
+		return companyProfileLocalService.getCompanyProfilesByKeywords(
+				groupId, keywords, start, end, orderByComparator);
+	}
+	
+	public long getCompanyProfilesCountByKeywords(long groupId, String keywords) {
+		return companyProfileLocalService.getCompanyProfilesCountByKeywords(
+				groupId, keywords);
+	}
 }

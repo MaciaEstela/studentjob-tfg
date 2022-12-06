@@ -904,6 +904,106 @@ public class SocialMediaUtil {
 	}
 
 	/**
+	 * Returns the social media where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63; or throws a <code>NoSuchSocialMediaException</code> if it could not be found.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the matching social media
+	 * @throws NoSuchSocialMediaException if a matching social media could not be found
+	 */
+	public static SocialMedia
+			findByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				long groupId, String className, long classPK,
+				long socialMediaNetworkId)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException {
+
+		return getPersistence().
+			findByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+	}
+
+	/**
+	 * Returns the social media where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the matching social media, or <code>null</code> if a matching social media could not be found
+	 */
+	public static SocialMedia
+		fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+			long groupId, String className, long classPK,
+			long socialMediaNetworkId) {
+
+		return getPersistence().
+			fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+	}
+
+	/**
+	 * Returns the social media where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching social media, or <code>null</code> if a matching social media could not be found
+	 */
+	public static SocialMedia
+		fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+			long groupId, String className, long classPK,
+			long socialMediaNetworkId, boolean useFinderCache) {
+
+		return getPersistence().
+			fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId,
+				useFinderCache);
+	}
+
+	/**
+	 * Removes the social media where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the social media that was removed
+	 */
+	public static SocialMedia
+			removeByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				long groupId, String className, long classPK,
+				long socialMediaNetworkId)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException {
+
+		return getPersistence().
+			removeByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+	}
+
+	/**
+	 * Returns the number of social medias where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the number of matching social medias
+	 */
+	public static int
+		countByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+			long groupId, String className, long classPK,
+			long socialMediaNetworkId) {
+
+		return getPersistence().
+			countByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+	}
+
+	/**
 	 * Caches the social media in the entity cache if it is enabled.
 	 *
 	 * @param socialMedia the social media

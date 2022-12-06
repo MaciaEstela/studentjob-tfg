@@ -76,6 +76,13 @@
 			<finder-column name="classPK" />
 		</finder>
 		
+		<finder return-type="SocialMedia" name="GroupIdAndClassNameAndClassPKAndSocialMediaNetworkId">
+			<finder-column name="groupId" />
+			<finder-column name="className" />
+			<finder-column name="classPK" />
+			<finder-column name="socialMediaNetworkId" />
+		</finder>
+		
 		<!-- References -->
 		
 
@@ -116,6 +123,11 @@
 		<!-- Finder methods -->
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId"></finder-column>
+		</finder>
+		
+		<finder name="GroupIdAndUserId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="userId"></finder-column>
 		</finder>
 		
 		<!-- References -->
@@ -172,6 +184,11 @@
 		<!-- Finder methods -->
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId"></finder-column>
+		</finder>
+		
+		<finder name="GroupIdAndUserId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="userId"></finder-column>
 		</finder>
 		
 		<!-- References -->

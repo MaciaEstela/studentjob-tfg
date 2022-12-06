@@ -32,6 +32,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
+import edu.uoc.mestemi.studentjob.model.SocialMedia;
+import edu.uoc.mestemi.studentjob.service.SocialMediaLocalService;
 import edu.uoc.mestemi.studentjob.service.base.CompanyProfileLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -47,13 +49,13 @@ import org.osgi.service.component.annotations.Reference;
 public class CompanyProfileLocalServiceImpl
 	extends CompanyProfileLocalServiceBaseImpl {
 	
-	public CompanyProfile addCompanyProfile(long groupId, long regionId, boolean active, 
+	public CompanyProfile addCompanyProfile(long groupId, long userId, long regionId, boolean active, 
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, 
-			Map<Locale, String> sectorMap, String website, ServiceContext serviceContext) throws PortalException {
+			Map<Locale, String> sectorMap, String website, List<SocialMedia> socialMedias, 
+			ServiceContext serviceContext) throws PortalException {
 		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
-		long userId = serviceContext.getUserId();
 		User user = userLocalService.getUser(userId);
 		
 		// Generate companyprofile primary key
@@ -75,6 +77,10 @@ public class CompanyProfileLocalServiceImpl
 		companyProfile.setEmail(email);
 		companyProfile.setSectorMap(sectorMap);
 		companyProfile.setWebsite(website);
+
+		for (SocialMedia socialMedia : socialMedias) {
+			socialMediaLocalService.addSocialMedia(socialMedia);
+		}
 		
 		return super.addCompanyProfile(companyProfile);
 	}
@@ -107,6 +113,10 @@ public class CompanyProfileLocalServiceImpl
 	
 	public List<CompanyProfile> getCompanyProfilesByGroupId(long groupId, int start, int end) {
 		return companyProfilePersistence.findByGroupId(groupId, start, end);
+	}
+	
+	public CompanyProfile getCompanyProfileByGroupId(long groupId, long userId) {
+		return companyProfilePersistence.findByGroupIdAndUserId(groupId, userId).get(0);
 	}
 	
 	public List<CompanyProfile> getCompanyProfilesByGroupId(long groupId, int start, int end, 
@@ -154,4 +164,6 @@ public class CompanyProfileLocalServiceImpl
 	@Reference
 	GroupLocalService groupLocalService;
 	
+	@Reference
+	SocialMediaLocalService socialMediaLocalService;
 }

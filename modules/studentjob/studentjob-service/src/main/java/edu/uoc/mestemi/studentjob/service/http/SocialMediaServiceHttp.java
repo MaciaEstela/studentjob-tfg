@@ -52,8 +52,9 @@ import edu.uoc.mestemi.studentjob.service.SocialMediaServiceUtil;
 public class SocialMediaServiceHttp {
 
 	public static edu.uoc.mestemi.studentjob.model.SocialMedia addSocialMedia(
-			HttpPrincipal httpPrincipal, long groupId, long socialMediaId,
-			String socialURL, String className, long classPK,
+			HttpPrincipal httpPrincipal, long groupId,
+			long socialMediaNetworkId, String socialURL, String className,
+			long classPK,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -63,7 +64,7 @@ public class SocialMediaServiceHttp {
 				_addSocialMediaParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, socialMediaId, socialURL, className,
+				methodKey, groupId, socialMediaNetworkId, socialURL, className,
 				classPK, serviceContext);
 
 			Object returnObj = null;
@@ -217,6 +218,190 @@ public class SocialMediaServiceHttp {
 		}
 	}
 
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(
+			HttpPrincipal httpPrincipal, long groupId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaServiceUtil.class, "getSocialMediaNetworksByGroupId",
+				_getSocialMediaNetworksByGroupIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.SocialMedia>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaServiceUtil.class, "getSocialMediaNetworksByGroupId",
+				_getSocialMediaNetworksByGroupIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.SocialMedia>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.SocialMedia>
+					orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaServiceUtil.class, "getSocialMediaNetworksByGroupId",
+				_getSocialMediaNetworksByGroupIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.SocialMedia>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupIdAndClass(
+			HttpPrincipal httpPrincipal, long groupId, String className,
+			long classPK) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaServiceUtil.class,
+				"getSocialMediaNetworksByGroupIdAndClass",
+				_getSocialMediaNetworksByGroupIdAndClassParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, className, classPK);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.SocialMedia>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.SocialMedia
+			getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				HttpPrincipal httpPrincipal, long groupId, String className,
+				long classPK, long socialMediaNetworkId)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SocialMediaServiceUtil.class,
+				"getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId",
+				_getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkIdParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, className, classPK, socialMediaNetworkId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						edu.uoc.mestemi.studentjob.exception.
+							NoSuchSocialMediaException) {
+
+					throw (edu.uoc.mestemi.studentjob.exception.
+						NoSuchSocialMediaException)exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.SocialMedia)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		SocialMediaServiceHttp.class);
 
@@ -234,5 +419,25 @@ public class SocialMediaServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getSocialMediaParameterTypes3 =
 		new Class[] {long.class};
+	private static final Class<?>[]
+		_getSocialMediaNetworksByGroupIdParameterTypes4 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getSocialMediaNetworksByGroupIdParameterTypes5 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getSocialMediaNetworksByGroupIdParameterTypes6 = new Class[] {
+			long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getSocialMediaNetworksByGroupIdAndClassParameterTypes7 = new Class[] {
+			long.class, String.class, long.class
+		};
+	private static final Class<?>[]
+		_getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkIdParameterTypes8 =
+			new Class[] {long.class, String.class, long.class, long.class};
 
 }

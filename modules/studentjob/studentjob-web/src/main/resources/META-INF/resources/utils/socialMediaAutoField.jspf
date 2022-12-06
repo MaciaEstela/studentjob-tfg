@@ -1,0 +1,72 @@
+<div id="<portlet:namespace />socialmedia-fields-container">
+	<div class="lfr-form-row ">
+		<%-- Region field. --%>
+			<aui:select data-element="socialMediaNetwork" name="socialMediaNetwork-index-0" label="form.socialmedia.label">
+				<c:forEach items="${socialMediaNetworks}" var="socialMediaNetwork">
+					<aui:option label="${socialMediaNetwork.getName()}" value="${socialMediaNetwork.getSocialMediaNetworkId()}"/>
+				</c:forEach>
+			</aui:select>
+			<aui:input data-element="socialMediaURL" type="text" label="form.generic.link.label" name="socialMediaUrl-index-0"/>
+	</div>
+</div>
+<div class="socialmedia-add-btn-wrapper">
+	<a class="btn btn-primary" id="<portlet:namespace />add-socialmedia">
+		Añadir
+	</a>
+</div>
+<aui:script use="liferay-auto-fields">
+	new Liferay.AutoFields({
+		contentBox: '#<portlet:namespace />socialmedia-fields-container',
+		fieldIndexes: '<portlet:namespace />socialMedias',
+		on: {
+			'clone': function(event) {
+				if (document.querySelectorAll('#<portlet:namespace />socialmedia-fields-container .lfr-form-row').length >= 5+1){
+					event.row.remove();
+				}
+			},
+			'delete': function(event) {
+				// delete event is broken
+				console.log('Delete event');
+				console.log(event);
+			}
+		},
+	}).render();
+</aui:script>
+
+
+<script type="text/javascript"> 
+AUI().ready('aui-module', function(A){
+	document.getElementById("<portlet:namespace />socialmedia-fields-container").addEventListener("click", function(e){
+		let target = e.target;
+		
+		if (target.classList.contains("delete-row") || target.parentElement.classList.contains("delete-row")){
+			target.closest(".lfr-form-row").remove();
+		}
+	});
+	
+	document.getElementById("<portlet:namespace />add-socialmedia").addEventListener("click", function(e){
+		let formRows = document.querySelectorAll('#<portlet:namespace />socialmedia-fields-container .lfr-form-row');
+		formRows[formRows.length - 1].getElementsByClassName("add-row")[0].click();
+	});
+	
+	let socialMediasList = ${socialMediasList};
+	console.log(socialMediasList)
+	socialMediasList.forEach((element, index) => {
+		let formRow = document.querySelectorAll('#<portlet:namespace />socialmedia-fields-container .lfr-form-row')[0];
+		if (index == 0) {
+			formRow.querySelectorAll('[data-element="socialMediaURL"]')[0].value = element.url;
+			formRow.querySelectorAll('[data-element="socialMediaNetwork"]')[0].value = element.networkId;
+		} else {
+			let clone = formRow.cloneNode(true);
+			clone.querySelectorAll('[data-element="socialMediaURL"]')[0].setAttribute("value", element.url);
+			clone.querySelectorAll('[data-element="socialMediaNetwork"]')[0].setAttribute("value", element.networkId);
+			clone.querySelectorAll('[data-element="socialMediaNetwork"] option').forEach((option, optionIndex) => {
+				option.removeAttribute("selected");
+				if (element.networkId == option.value)
+					option.setAttribute("selected", "true")
+			});
+			formRow.insertAdjacentHTML('afterend', clone.outerHTML.replaceAll("index-0", "index-" + index));
+		}
+	});
+});
+</script>

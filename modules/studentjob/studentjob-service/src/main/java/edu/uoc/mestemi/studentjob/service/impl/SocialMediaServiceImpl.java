@@ -17,7 +17,11 @@ package edu.uoc.mestemi.studentjob.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
+import java.util.List;
+
+import edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.service.base.SocialMediaServiceBaseImpl;
 
@@ -35,11 +39,11 @@ import org.osgi.service.component.annotations.Component;
 )
 public class SocialMediaServiceImpl extends SocialMediaServiceBaseImpl {
 	
-	public SocialMedia addSocialMedia(long groupId, long socialMediaId, String socialURL, String className, 
+	public SocialMedia addSocialMedia(long groupId, long socialMediaNetworkId, String socialURL, String className, 
 			long classPK, ServiceContext serviceContext) throws PortalException {
 		
 		return socialMediaLocalService.addSocialMedia(groupId, 
-				socialMediaId, socialURL, className, classPK, serviceContext);
+				socialMediaNetworkId, socialURL, className, classPK, serviceContext);
 	}
 	
 	public SocialMedia updateSocialMedia(long socialMediaId, String socialURL, ServiceContext serviceContext) 
@@ -53,5 +57,28 @@ public class SocialMediaServiceImpl extends SocialMediaServiceBaseImpl {
 	
 	public SocialMedia getSocialMedia(long socialMediaId) throws PortalException {
 		return socialMediaLocalService.getSocialMedia(socialMediaId);
+	}
+	
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId) {
+		return socialMediaLocalService.getSocialMediaNetworksByGroupId(groupId);
+	}
+	
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId, int start, int end) {
+		return socialMediaLocalService.getSocialMediaNetworksByGroupId(groupId, start, end);
+	}
+	
+	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId, int start, int end, 
+			OrderByComparator<SocialMedia> orderByComparator) {
+		return socialMediaLocalService.getSocialMediaNetworksByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	public List<SocialMedia> getSocialMediaNetworksByGroupIdAndClass(long groupId, String className, long classPK) {
+		return socialMediaLocalService.getSocialMediaNetworksByGroupIdAndClass(groupId, className, classPK);
+	}
+	
+	public SocialMedia getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+			long groupId, String className, long classPK, long socialMediaNetworkId) throws NoSuchSocialMediaException {
+		return socialMediaLocalService.getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
 	}
 }

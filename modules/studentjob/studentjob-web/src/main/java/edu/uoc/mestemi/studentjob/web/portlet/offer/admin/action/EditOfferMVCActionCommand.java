@@ -7,8 +7,10 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +29,7 @@ import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
+import edu.uoc.mestemi.studentjob.web.util.StudentJobUtil;
 
 /**
  * MVC Action Command for editing offers.
@@ -51,9 +54,14 @@ public class EditOfferMVCActionCommand extends BaseMVCActionCommand {
 		ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
+		ThemeDisplay themeDisplay =
+				(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		
 		ServiceContext serviceContext =
 			ServiceContextFactory.getInstance(Offer.class.getName(), actionRequest);
 
+		long companyId = themeDisplay.getCompanyId();
+		
 		// Get parameters from the request.
 
 		long offerId = ParamUtil.getLong(actionRequest, "offerId");
@@ -61,7 +69,10 @@ public class EditOfferMVCActionCommand extends BaseMVCActionCommand {
 		Map<Locale, String> titleMap =
 				LocalizationUtil.getLocalizationMap(actionRequest, "title");
 			
-		long regionId = ParamUtil.getLong(actionRequest, "region");
+		String regionCode = ParamUtil.getString(actionRequest, "region");
+		long regionId = StudentJobUtil.getRegionId(
+				StudentJobUtil.getCountryIdByCode(companyId, "ESP"), 
+				regionCode);
 		
 		Map<Locale, String> descriptionMap =
 			LocalizationUtil.getLocalizationMap(actionRequest, "description");

@@ -38,7 +38,7 @@ public class StudentProfileServiceWrapper
 
 	@Override
 	public edu.uoc.mestemi.studentjob.model.StudentProfile addStudentProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			java.util.Map<java.util.Locale, String> titleMap,
 			java.util.Map<java.util.Locale, String> descriptionMap,
 			String email, String preference, long curriculumId,
@@ -47,7 +47,7 @@ public class StudentProfileServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _studentProfileService.addStudentProfile(
-			groupId, regionId, active, titleMap, descriptionMap, email,
+			groupId, userId, regionId, active, titleMap, descriptionMap, email,
 			preference, curriculumId, degreeIds, serviceContext);
 	}
 

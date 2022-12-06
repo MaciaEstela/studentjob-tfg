@@ -339,6 +339,18 @@ public class SocialMediaLocalServiceWrapper
 	}
 
 	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMedia
+			getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				long groupId, String className, long classPK,
+				long socialMediaNetworkId)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException {
+
+		return _socialMediaLocalService.
+			getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+	}
+
+	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
 		getSocialMediaNetworksByGroupId(long groupId) {
 
@@ -364,6 +376,15 @@ public class SocialMediaLocalServiceWrapper
 
 		return _socialMediaLocalService.getSocialMediaNetworksByGroupId(
 			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupIdAndClass(
+			long groupId, String className, long classPK) {
+
+		return _socialMediaLocalService.getSocialMediaNetworksByGroupIdAndClass(
+			groupId, className, classPK);
 	}
 
 	/**

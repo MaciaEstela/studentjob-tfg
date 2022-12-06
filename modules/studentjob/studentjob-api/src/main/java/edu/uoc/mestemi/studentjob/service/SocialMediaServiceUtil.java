@@ -15,8 +15,11 @@
 package edu.uoc.mestemi.studentjob.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
+
+import java.util.List;
 
 /**
  * Provides the remote service utility for SocialMedia. This utility wraps
@@ -38,13 +41,13 @@ public class SocialMediaServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.SocialMediaServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static SocialMedia addSocialMedia(
-			long groupId, long socialMediaId, String socialURL,
+			long groupId, long socialMediaNetworkId, String socialURL,
 			String className, long classPK,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().addSocialMedia(
-			groupId, socialMediaId, socialURL, className, classPK,
+			groupId, socialMediaNetworkId, socialURL, className, classPK,
 			serviceContext);
 	}
 
@@ -67,6 +70,45 @@ public class SocialMediaServiceUtil {
 		throws PortalException {
 
 		return getService().getSocialMedia(socialMediaId);
+	}
+
+	public static SocialMedia
+			getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				long groupId, String className, long classPK,
+				long socialMediaNetworkId)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException {
+
+		return getService().
+			getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+	}
+
+	public static List<SocialMedia> getSocialMediaNetworksByGroupId(
+		long groupId) {
+
+		return getService().getSocialMediaNetworksByGroupId(groupId);
+	}
+
+	public static List<SocialMedia> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getSocialMediaNetworksByGroupId(
+			groupId, start, end);
+	}
+
+	public static List<SocialMedia> getSocialMediaNetworksByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<SocialMedia> orderByComparator) {
+
+		return getService().getSocialMediaNetworksByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<SocialMedia> getSocialMediaNetworksByGroupIdAndClass(
+		long groupId, String className, long classPK) {
+
+		return getService().getSocialMediaNetworksByGroupIdAndClass(
+			groupId, className, classPK);
 	}
 
 	public static SocialMedia updateSocialMedia(

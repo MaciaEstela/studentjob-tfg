@@ -44,11 +44,11 @@ import org.osgi.service.component.annotations.Component;
 )
 public class StudentProfileServiceImpl extends StudentProfileServiceBaseImpl {
 	
-	public StudentProfile addStudentProfile(long groupId, long regionId, boolean active, 
+	public StudentProfile addStudentProfile(long groupId, long userId, long regionId, boolean active, 
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, String preference, 
 			long curriculumId, List<Long> degreeIds, ServiceContext serviceContext) throws PortalException {
 		
-		return studentProfileLocalService.addStudentProfile(groupId, regionId, active, 
+		return studentProfileLocalService.addStudentProfile(groupId, userId, regionId, active, 
 				titleMap, descriptionMap, email, preference, curriculumId, degreeIds, serviceContext);
 	}
 	

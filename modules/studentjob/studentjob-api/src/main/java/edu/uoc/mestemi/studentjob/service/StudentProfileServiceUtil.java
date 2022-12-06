@@ -41,7 +41,7 @@ public class StudentProfileServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.StudentProfileServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static StudentProfile addStudentProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			Map<java.util.Locale, String> titleMap,
 			Map<java.util.Locale, String> descriptionMap, String email,
 			String preference, long curriculumId, List<Long> degreeIds,
@@ -49,7 +49,7 @@ public class StudentProfileServiceUtil {
 		throws PortalException {
 
 		return getService().addStudentProfile(
-			groupId, regionId, active, titleMap, descriptionMap, email,
+			groupId, userId, regionId, active, titleMap, descriptionMap, email,
 			preference, curriculumId, degreeIds, serviceContext);
 	}
 

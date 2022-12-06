@@ -56,7 +56,7 @@ public interface StudentProfileService extends BaseService {
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.StudentProfileServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the student profile remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link StudentProfileServiceUtil} if injection and service tracking are not available.
 	 */
 	public StudentProfile addStudentProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String email, String preference, long curriculumId,
 			List<Long> degreeIds, ServiceContext serviceContext)

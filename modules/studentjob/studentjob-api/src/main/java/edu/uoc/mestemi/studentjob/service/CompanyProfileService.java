@@ -23,9 +23,12 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
+import edu.uoc.mestemi.studentjob.model.SocialMedia;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -55,10 +58,10 @@ public interface CompanyProfileService extends BaseService {
 	 * Never modify this interface directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.CompanyProfileServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the company profile remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CompanyProfileServiceUtil} if injection and service tracking are not available.
 	 */
 	public CompanyProfile addCompanyProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String email, Map<Locale, String> sectorMap, String website,
-			ServiceContext serviceContext)
+			List<SocialMedia> socialMedias, ServiceContext serviceContext)
 		throws PortalException;
 
 	public CompanyProfile deleteCompanyProfile(long companyProfileId)
@@ -67,6 +70,30 @@ public interface CompanyProfileService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CompanyProfile getCompanyProfile(long companyProfileId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CompanyProfile getCompanyProfileByGroupId(long groupId, long userId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords);
 
 	/**
 	 * Returns the OSGi service identifier.

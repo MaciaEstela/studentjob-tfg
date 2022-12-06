@@ -49,13 +49,12 @@ import org.osgi.service.component.annotations.Reference;
 public class StudentProfileLocalServiceImpl
 	extends StudentProfileLocalServiceBaseImpl {
 	
-	public StudentProfile addStudentProfile(long groupId, long regionId, boolean active, 
+	public StudentProfile addStudentProfile(long groupId, long userId, long regionId, boolean active, 
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, String preference, 
 			long curriculumId, List<Long> degreeIds, ServiceContext serviceContext) throws PortalException {
 		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
-		long userId = serviceContext.getUserId();
 		User user = userLocalService.getUser(userId);
 		
 		// Generate companyprofile primary key

@@ -22,4 +22,8 @@ public class StudentjobPortletKeys {
 	
 	public static final String STUDENTJOB_SOCIALMEDIA_ADMIN = 
 			"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_SOCIALMEDIA_ADMIN";
+	
+	public static final String STUDENTJOB_COMPANYPROFILE_USER = 
+			"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_COMPANYPROFILE_USER";
+	
 }

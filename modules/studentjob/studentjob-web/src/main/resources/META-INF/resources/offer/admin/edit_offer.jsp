@@ -40,16 +40,32 @@
 				</aui:input>
 
 				<%-- Preference field. --%>
-
-				<aui:input name="preference">
-					<aui:validator name="required" />
-				</aui:input>
+				<aui:select name="preference" label="offer.region">
+					<c:forEach items="${preferences}" var="preference">
+						<c:choose>
+							<c:when test="${offer.getPreference() == preference}">
+								<aui:option selected="true" label="${preference}" value="${preference}"/>
+							</c:when>
+							<c:otherwise>
+								<aui:option label="${preference}" value="${preference}"/>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</aui:select>
 
 				<%-- Description field. --%>
-
-				<aui:input name="description">
-					<aui:validator name="required" />
-				</aui:input>
+				<div class="alloy-editor-container">
+					<liferay-ui:input-localized
+						contents="Descripción"
+						label="Descripción"
+						xml="${offer.getDescription()}"
+						type="editor"
+						cssClass="studentjob-ckeditor"
+						editorName="ckeditor"
+						name="description"
+						toolbarSet="studentsimple"
+						showSource="false" />
+				</div>
 
 				<%-- Region field. --%>
 				<aui:select name="region" label="offer.region">

@@ -15,9 +15,11 @@
 package edu.uoc.mestemi.studentjob.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,16 +42,17 @@ public class CompanyProfileServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>edu.uoc.mestemi.studentjob.service.impl.CompanyProfileServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static CompanyProfile addCompanyProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			Map<java.util.Locale, String> titleMap,
 			Map<java.util.Locale, String> descriptionMap, String email,
 			Map<java.util.Locale, String> sectorMap, String website,
+			List<edu.uoc.mestemi.studentjob.model.SocialMedia> socialMedias,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().addCompanyProfile(
-			groupId, regionId, active, titleMap, descriptionMap, email,
-			sectorMap, website, serviceContext);
+			groupId, userId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, socialMedias, serviceContext);
 	}
 
 	public static CompanyProfile deleteCompanyProfile(long companyProfileId)
@@ -62,6 +65,47 @@ public class CompanyProfileServiceUtil {
 		throws PortalException {
 
 		return getService().getCompanyProfile(companyProfileId);
+	}
+
+	public static CompanyProfile getCompanyProfileByGroupId(
+		long groupId, long userId) {
+
+		return getService().getCompanyProfileByGroupId(groupId, userId);
+	}
+
+	public static List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId) {
+
+		return getService().getCompanyProfilesByGroupId(groupId);
+	}
+
+	public static List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getCompanyProfilesByGroupId(groupId, start, end);
+	}
+
+	public static List<CompanyProfile> getCompanyProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator) {
+
+		return getService().getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<CompanyProfile> getCompanyProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator) {
+
+		return getService().getCompanyProfilesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	public static long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getCompanyProfilesCountByKeywords(
+			groupId, keywords);
 	}
 
 	/**

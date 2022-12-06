@@ -1,0 +1,4 @@
+Bundle-Name: studentjob-ckeditor-hook
+Bundle-SymbolicName: studentjob.ckeditor.hook
+Bundle-Version: 1.0.0
+Export-Package: studentjob.ckeditor.hook.constants

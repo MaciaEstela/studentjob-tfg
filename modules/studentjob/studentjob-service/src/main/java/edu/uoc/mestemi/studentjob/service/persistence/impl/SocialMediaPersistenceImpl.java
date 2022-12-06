@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -2582,6 +2584,357 @@ public class SocialMediaPersistenceImpl
 		_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPK_CLASSPK_2 =
 			"socialMedia.classPK = ?";
 
+	private FinderPath
+		_finderPathFetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId;
+	private FinderPath
+		_finderPathCountByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId;
+
+	/**
+	 * Returns the social media where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63; or throws a <code>NoSuchSocialMediaException</code> if it could not be found.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the matching social media
+	 * @throws NoSuchSocialMediaException if a matching social media could not be found
+	 */
+	@Override
+	public SocialMedia
+			findByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				long groupId, String className, long classPK,
+				long socialMediaNetworkId)
+		throws NoSuchSocialMediaException {
+
+		SocialMedia socialMedia =
+			fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+
+		if (socialMedia == null) {
+			StringBundler sb = new StringBundler(10);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("groupId=");
+			sb.append(groupId);
+
+			sb.append(", className=");
+			sb.append(className);
+
+			sb.append(", classPK=");
+			sb.append(classPK);
+
+			sb.append(", socialMediaNetworkId=");
+			sb.append(socialMediaNetworkId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchSocialMediaException(sb.toString());
+		}
+
+		return socialMedia;
+	}
+
+	/**
+	 * Returns the social media where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the matching social media, or <code>null</code> if a matching social media could not be found
+	 */
+	@Override
+	public SocialMedia
+		fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+			long groupId, String className, long classPK,
+			long socialMediaNetworkId) {
+
+		return fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+			groupId, className, classPK, socialMediaNetworkId, true);
+	}
+
+	/**
+	 * Returns the social media where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching social media, or <code>null</code> if a matching social media could not be found
+	 */
+	@Override
+	public SocialMedia
+		fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+			long groupId, String className, long classPK,
+			long socialMediaNetworkId, boolean useFinderCache) {
+
+		className = Objects.toString(className, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {
+				groupId, className, classPK, socialMediaNetworkId
+			};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId,
+				finderArgs);
+		}
+
+		if (result instanceof SocialMedia) {
+			SocialMedia socialMedia = (SocialMedia)result;
+
+			if ((groupId != socialMedia.getGroupId()) ||
+				!Objects.equals(className, socialMedia.getClassName()) ||
+				(classPK != socialMedia.getClassPK()) ||
+				(socialMediaNetworkId !=
+					socialMedia.getSocialMediaNetworkId())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(6);
+
+			sb.append(_SQL_SELECT_SOCIALMEDIA_WHERE);
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_GROUPID_2);
+
+			boolean bindClassName = false;
+
+			if (className.isEmpty()) {
+				sb.append(
+					_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSNAME_3);
+			}
+			else {
+				bindClassName = true;
+
+				sb.append(
+					_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSNAME_2);
+			}
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSPK_2);
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_SOCIALMEDIANETWORKID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(groupId);
+
+				if (bindClassName) {
+					queryPos.add(className);
+				}
+
+				queryPos.add(classPK);
+
+				queryPos.add(socialMediaNetworkId);
+
+				List<SocialMedia> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId,
+							finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {
+									groupId, className, classPK,
+									socialMediaNetworkId
+								};
+							}
+
+							_log.warn(
+								"SocialMediaPersistenceImpl.fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(long, String, long, long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					SocialMedia socialMedia = list.get(0);
+
+					result = socialMedia;
+
+					cacheResult(socialMedia);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (SocialMedia)result;
+		}
+	}
+
+	/**
+	 * Removes the social media where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the social media that was removed
+	 */
+	@Override
+	public SocialMedia
+			removeByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				long groupId, String className, long classPK,
+				long socialMediaNetworkId)
+		throws NoSuchSocialMediaException {
+
+		SocialMedia socialMedia =
+			findByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+
+		return remove(socialMedia);
+	}
+
+	/**
+	 * Returns the number of social medias where groupId = &#63; and className = &#63; and classPK = &#63; and socialMediaNetworkId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param className the class name
+	 * @param classPK the class pk
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the number of matching social medias
+	 */
+	@Override
+	public int countByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+		long groupId, String className, long classPK,
+		long socialMediaNetworkId) {
+
+		className = Objects.toString(className, "");
+
+		FinderPath finderPath =
+			_finderPathCountByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId;
+
+		Object[] finderArgs = new Object[] {
+			groupId, className, classPK, socialMediaNetworkId
+		};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(5);
+
+			sb.append(_SQL_COUNT_SOCIALMEDIA_WHERE);
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_GROUPID_2);
+
+			boolean bindClassName = false;
+
+			if (className.isEmpty()) {
+				sb.append(
+					_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSNAME_3);
+			}
+			else {
+				bindClassName = true;
+
+				sb.append(
+					_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSNAME_2);
+			}
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSPK_2);
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_SOCIALMEDIANETWORKID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(groupId);
+
+				if (bindClassName) {
+					queryPos.add(className);
+				}
+
+				queryPos.add(classPK);
+
+				queryPos.add(socialMediaNetworkId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_GROUPID_2 =
+			"socialMedia.groupId = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSNAME_2 =
+			"socialMedia.className = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSNAME_3 =
+			"(socialMedia.className IS NULL OR socialMedia.className = '') AND ";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_CLASSPK_2 =
+			"socialMedia.classPK = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_SOCIALMEDIANETWORKID_2 =
+			"socialMedia.socialMediaNetworkId = ?";
+
 	public SocialMediaPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -2610,6 +2963,14 @@ public class SocialMediaPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {socialMedia.getUuid(), socialMedia.getGroupId()},
+			socialMedia);
+
+		finderCache.putResult(
+			_finderPathFetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId,
+			new Object[] {
+				socialMedia.getGroupId(), socialMedia.getClassName(),
+				socialMedia.getClassPK(), socialMedia.getSocialMediaNetworkId()
+			},
 			socialMedia);
 	}
 
@@ -2691,6 +3052,20 @@ public class SocialMediaPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, socialMediaModelImpl);
+
+		args = new Object[] {
+			socialMediaModelImpl.getGroupId(),
+			socialMediaModelImpl.getClassName(),
+			socialMediaModelImpl.getClassPK(),
+			socialMediaModelImpl.getSocialMediaNetworkId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId,
+			args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId,
+			args, socialMediaModelImpl);
 	}
 
 	/**
@@ -3254,6 +3629,32 @@ public class SocialMediaPersistenceImpl
 				Long.class.getName()
 			},
 			new String[] {"groupId", "className", "classPK"}, false);
+
+		_finderPathFetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId =
+			new FinderPath(
+				FINDER_CLASS_NAME_ENTITY,
+				"fetchByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId",
+				new String[] {
+					Long.class.getName(), String.class.getName(),
+					Long.class.getName(), Long.class.getName()
+				},
+				new String[] {
+					"groupId", "className", "classPK", "socialMediaNetworkId"
+				},
+				true);
+
+		_finderPathCountByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId =
+			new FinderPath(
+				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+				"countByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId",
+				new String[] {
+					Long.class.getName(), String.class.getName(),
+					Long.class.getName(), Long.class.getName()
+				},
+				new String[] {
+					"groupId", "className", "classPK", "socialMediaNetworkId"
+				},
+				false);
 
 		_setSocialMediaUtilPersistence(this);
 	}

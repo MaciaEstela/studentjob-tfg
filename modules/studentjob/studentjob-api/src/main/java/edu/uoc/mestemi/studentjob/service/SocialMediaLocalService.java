@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
 
 import java.io.Serializable;
@@ -268,6 +269,13 @@ public interface SocialMediaLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SocialMedia
+			getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				long groupId, String className, long classPK,
+				long socialMediaNetworkId)
+		throws NoSuchSocialMediaException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -278,6 +286,10 @@ public interface SocialMediaLocalService
 	public List<SocialMedia> getSocialMediaNetworksByGroupId(
 		long groupId, int start, int end,
 		OrderByComparator<SocialMedia> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMedia> getSocialMediaNetworksByGroupIdAndClass(
+		long groupId, String className, long classPK);
 
 	/**
 	 * Returns a range of all the social medias.

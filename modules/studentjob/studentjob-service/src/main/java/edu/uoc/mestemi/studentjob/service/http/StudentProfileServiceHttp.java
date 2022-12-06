@@ -53,8 +53,8 @@ public class StudentProfileServiceHttp {
 
 	public static edu.uoc.mestemi.studentjob.model.StudentProfile
 			addStudentProfile(
-				HttpPrincipal httpPrincipal, long groupId, long regionId,
-				boolean active,
+				HttpPrincipal httpPrincipal, long groupId, long userId,
+				long regionId, boolean active,
 				java.util.Map<java.util.Locale, String> titleMap,
 				java.util.Map<java.util.Locale, String> descriptionMap,
 				String email, String preference, long curriculumId,
@@ -68,8 +68,9 @@ public class StudentProfileServiceHttp {
 				_addStudentProfileParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, regionId, active, titleMap, descriptionMap,
-				email, preference, curriculumId, degreeIds, serviceContext);
+				methodKey, groupId, userId, regionId, active, titleMap,
+				descriptionMap, email, preference, curriculumId, degreeIds,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -234,9 +235,9 @@ public class StudentProfileServiceHttp {
 
 	private static final Class<?>[] _addStudentProfileParameterTypes0 =
 		new Class[] {
-			long.class, long.class, boolean.class, java.util.Map.class,
-			java.util.Map.class, String.class, String.class, long.class,
-			java.util.List.class,
+			long.class, long.class, long.class, boolean.class,
+			java.util.Map.class, java.util.Map.class, String.class,
+			String.class, long.class, java.util.List.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateStudentProfileParameterTypes1 =

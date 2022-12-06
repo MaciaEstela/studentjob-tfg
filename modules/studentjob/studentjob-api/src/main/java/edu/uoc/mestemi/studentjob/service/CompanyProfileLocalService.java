@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
+import edu.uoc.mestemi.studentjob.model.SocialMedia;
 
 import java.io.Serializable;
 
@@ -82,10 +83,10 @@ public interface CompanyProfileLocalService
 	public CompanyProfile addCompanyProfile(CompanyProfile companyProfile);
 
 	public CompanyProfile addCompanyProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String email, Map<Locale, String> sectorMap, String website,
-			ServiceContext serviceContext)
+			List<SocialMedia> socialMedias, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -237,6 +238,9 @@ public interface CompanyProfileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CompanyProfile getCompanyProfile(long companyProfileId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CompanyProfile getCompanyProfileByGroupId(long groupId, long userId);
 
 	/**
 	 * Returns the company profile matching the UUID and group.

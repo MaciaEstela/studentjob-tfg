@@ -36,13 +36,13 @@ public class SocialMediaServiceWrapper
 
 	@Override
 	public edu.uoc.mestemi.studentjob.model.SocialMedia addSocialMedia(
-			long groupId, long socialMediaId, String socialURL,
+			long groupId, long socialMediaNetworkId, String socialURL,
 			String className, long classPK,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _socialMediaService.addSocialMedia(
-			groupId, socialMediaId, socialURL, className, classPK,
+			groupId, socialMediaNetworkId, socialURL, className, classPK,
 			serviceContext);
 	}
 
@@ -70,6 +70,54 @@ public class SocialMediaServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _socialMediaService.getSocialMedia(socialMediaId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.SocialMedia
+			getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				long groupId, String className, long classPK,
+				long socialMediaNetworkId)
+		throws edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException {
+
+		return _socialMediaService.
+			getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(long groupId) {
+
+		return _socialMediaService.getSocialMediaNetworksByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(long groupId, int start, int end) {
+
+		return _socialMediaService.getSocialMediaNetworksByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.SocialMedia>
+					orderByComparator) {
+
+		return _socialMediaService.getSocialMediaNetworksByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMediaNetworksByGroupIdAndClass(
+			long groupId, String className, long classPK) {
+
+		return _socialMediaService.getSocialMediaNetworksByGroupIdAndClass(
+			groupId, className, classPK);
 	}
 
 	@Override

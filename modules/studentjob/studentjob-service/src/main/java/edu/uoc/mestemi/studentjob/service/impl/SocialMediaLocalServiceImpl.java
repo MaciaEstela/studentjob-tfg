@@ -25,6 +25,8 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Date;
 import java.util.List;
+
+import edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException;
 import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkLocalService;
@@ -100,6 +102,16 @@ public class SocialMediaLocalServiceImpl
 	public List<SocialMedia> getSocialMediaNetworksByGroupId(long groupId, int start, int end, 
 			OrderByComparator<SocialMedia> orderByComparator) {
 		return socialMediaPersistence.findByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	public List<SocialMedia> getSocialMediaNetworksByGroupIdAndClass(long groupId, String className, long classPK) {
+		return socialMediaPersistence.findByGroupIdAndClassNameAndClassPK(groupId, className, classPK);
+	}
+	
+	public SocialMedia getSocialMediaNetworkByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+			long groupId, String className, long classPK, long socialMediaNetworkId) throws NoSuchSocialMediaException {
+		return socialMediaPersistence.findByGroupIdAndClassNameAndClassPKAndSocialMediaNetworkId(
+				groupId, className, classPK, socialMediaNetworkId);
 	}
 	
 	@Override

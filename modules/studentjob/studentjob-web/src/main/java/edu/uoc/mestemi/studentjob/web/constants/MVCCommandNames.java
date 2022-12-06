@@ -26,4 +26,6 @@ public class MVCCommandNames {
 	public static final String EDIT_SOCIALMEDIANETWORK_ADMIN = "/studentjob/socialmedianetwork/admin/edit";
 	public static final String LIST_SOCIALMEDIANETWORK_ADMIN = "/studentjob/socialmedianetwork/admin/view";
 	
+	public static final String EDIT_COMPANYPROFILE_USER = "/studentjob/companyoprofile/edit";
+	
 }

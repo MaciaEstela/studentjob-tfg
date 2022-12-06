@@ -56,17 +56,19 @@ public class CompanyProfileLocalServiceWrapper
 
 	@Override
 	public edu.uoc.mestemi.studentjob.model.CompanyProfile addCompanyProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			java.util.Map<java.util.Locale, String> titleMap,
 			java.util.Map<java.util.Locale, String> descriptionMap,
 			String email, java.util.Map<java.util.Locale, String> sectorMap,
 			String website,
+			java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+				socialMedias,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _companyProfileLocalService.addCompanyProfile(
-			groupId, regionId, active, titleMap, descriptionMap, email,
-			sectorMap, website, serviceContext);
+			groupId, userId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, socialMedias, serviceContext);
 	}
 
 	/**
@@ -288,6 +290,14 @@ public class CompanyProfileLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _companyProfileLocalService.getCompanyProfile(companyProfileId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.CompanyProfile
+		getCompanyProfileByGroupId(long groupId, long userId) {
+
+		return _companyProfileLocalService.getCompanyProfileByGroupId(
+			groupId, userId);
 	}
 
 	/**

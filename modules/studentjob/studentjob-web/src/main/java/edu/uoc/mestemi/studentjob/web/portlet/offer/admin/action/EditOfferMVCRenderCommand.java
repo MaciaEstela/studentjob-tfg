@@ -26,7 +26,7 @@ import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
-
+import edu.uoc.mestemi.studentjob.web.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 import edu.uoc.mestemi.studentjob.web.util.StudentJobUtil;
 
@@ -96,6 +96,7 @@ public class EditOfferMVCRenderCommand implements MVCRenderCommand {
 		
 		// Set offer to the request attributes.
 		renderRequest.setAttribute("regions", regions);
+		renderRequest.setAttribute("preferences", StudentjobConstants.JOB_PREFERENCE);
 		renderRequest.setAttribute("degrees", degrees);
 		renderRequest.setAttribute("offer", offer);
 		renderRequest.setAttribute("currentOfferDegreesIds", currentOfferDegreesIds);

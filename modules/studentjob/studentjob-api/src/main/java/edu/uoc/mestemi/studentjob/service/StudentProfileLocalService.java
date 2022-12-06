@@ -79,7 +79,7 @@ public interface StudentProfileLocalService
 		long degreeId, long[] studentProfileIds);
 
 	public StudentProfile addStudentProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String email, String preference, long curriculumId,
 			List<Long> degreeIds, ServiceContext serviceContext)

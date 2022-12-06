@@ -38,17 +38,19 @@ public class CompanyProfileServiceWrapper
 
 	@Override
 	public edu.uoc.mestemi.studentjob.model.CompanyProfile addCompanyProfile(
-			long groupId, long regionId, boolean active,
+			long groupId, long userId, long regionId, boolean active,
 			java.util.Map<java.util.Locale, String> titleMap,
 			java.util.Map<java.util.Locale, String> descriptionMap,
 			String email, java.util.Map<java.util.Locale, String> sectorMap,
 			String website,
+			java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+				socialMedias,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _companyProfileService.addCompanyProfile(
-			groupId, regionId, active, titleMap, descriptionMap, email,
-			sectorMap, website, serviceContext);
+			groupId, userId, regionId, active, titleMap, descriptionMap, email,
+			sectorMap, website, socialMedias, serviceContext);
 	}
 
 	@Override
@@ -65,6 +67,61 @@ public class CompanyProfileServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _companyProfileService.getCompanyProfile(companyProfileId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.CompanyProfile
+		getCompanyProfileByGroupId(long groupId, long userId) {
+
+		return _companyProfileService.getCompanyProfileByGroupId(
+			groupId, userId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByGroupId(long groupId) {
+
+		return _companyProfileService.getCompanyProfilesByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByGroupId(long groupId, int start, int end) {
+
+		return _companyProfileService.getCompanyProfilesByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+					orderByComparator) {
+
+		return _companyProfileService.getCompanyProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+					orderByComparator) {
+
+		return _companyProfileService.getCompanyProfilesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	@Override
+	public long getCompanyProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return _companyProfileService.getCompanyProfilesCountByKeywords(
+			groupId, keywords);
 	}
 
 	/**

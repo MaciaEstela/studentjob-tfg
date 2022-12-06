@@ -25,3 +25,8 @@
 test-results
 /bundlescopia
 **/test-mvc
+/modules/test-service
+/modules/test-mvc
+/modules/studentjob-rest
+/modules/autofields-js-override-web
+/modules/frontend-js-aui-web-override

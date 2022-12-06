@@ -53,12 +53,14 @@ public class CompanyProfileServiceHttp {
 
 	public static edu.uoc.mestemi.studentjob.model.CompanyProfile
 			addCompanyProfile(
-				HttpPrincipal httpPrincipal, long groupId, long regionId,
-				boolean active,
+				HttpPrincipal httpPrincipal, long groupId, long userId,
+				long regionId, boolean active,
 				java.util.Map<java.util.Locale, String> titleMap,
 				java.util.Map<java.util.Locale, String> descriptionMap,
 				String email, java.util.Map<java.util.Locale, String> sectorMap,
 				String website,
+				java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+					socialMedias,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -68,8 +70,9 @@ public class CompanyProfileServiceHttp {
 				_addCompanyProfileParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, regionId, active, titleMap, descriptionMap,
-				email, sectorMap, website, serviceContext);
+				methodKey, groupId, userId, regionId, active, titleMap,
+				descriptionMap, email, sectorMap, website, socialMedias,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -189,6 +192,39 @@ public class CompanyProfileServiceHttp {
 	}
 
 	public static edu.uoc.mestemi.studentjob.model.CompanyProfile
+		getCompanyProfileByGroupId(
+			HttpPrincipal httpPrincipal, long groupId, long userId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CompanyProfileServiceUtil.class, "getCompanyProfileByGroupId",
+				_getCompanyProfileByGroupIdParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, userId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.CompanyProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.CompanyProfile
 			getCompanyProfile(
 				HttpPrincipal httpPrincipal, long companyProfileId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -196,7 +232,7 @@ public class CompanyProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CompanyProfileServiceUtil.class, "getCompanyProfile",
-				_getCompanyProfileParameterTypes3);
+				_getCompanyProfileParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyProfileId);
@@ -229,14 +265,194 @@ public class CompanyProfileServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+			getCompanyProfilesByGroupId(
+				HttpPrincipal httpPrincipal, long groupId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CompanyProfileServiceUtil.class, "getCompanyProfilesByGroupId",
+				_getCompanyProfilesByGroupIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.CompanyProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+			getCompanyProfilesByGroupId(
+				HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CompanyProfileServiceUtil.class, "getCompanyProfilesByGroupId",
+				_getCompanyProfilesByGroupIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.CompanyProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+			getCompanyProfilesByGroupId(
+				HttpPrincipal httpPrincipal, long groupId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+						orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CompanyProfileServiceUtil.class, "getCompanyProfilesByGroupId",
+				_getCompanyProfilesByGroupIdParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.CompanyProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+			getCompanyProfilesByKeywords(
+				HttpPrincipal httpPrincipal, long groupId, String keywords,
+				int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+						orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CompanyProfileServiceUtil.class, "getCompanyProfilesByKeywords",
+				_getCompanyProfilesByKeywordsParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.CompanyProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long getCompanyProfilesCountByKeywords(
+		HttpPrincipal httpPrincipal, long groupId, String keywords) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CompanyProfileServiceUtil.class,
+				"getCompanyProfilesCountByKeywords",
+				_getCompanyProfilesCountByKeywordsParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CompanyProfileServiceHttp.class);
 
 	private static final Class<?>[] _addCompanyProfileParameterTypes0 =
 		new Class[] {
-			long.class, long.class, boolean.class, java.util.Map.class,
-			java.util.Map.class, String.class, java.util.Map.class,
-			String.class, com.liferay.portal.kernel.service.ServiceContext.class
+			long.class, long.class, long.class, boolean.class,
+			java.util.Map.class, java.util.Map.class, String.class,
+			java.util.Map.class, String.class, java.util.List.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateCompanyProfileParameterTypes1 =
 		new Class[] {
@@ -246,7 +462,29 @@ public class CompanyProfileServiceHttp {
 		};
 	private static final Class<?>[] _deleteCompanyProfileParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCompanyProfileParameterTypes3 =
+	private static final Class<?>[] _getCompanyProfileByGroupIdParameterTypes3 =
+		new Class[] {long.class, long.class};
+	private static final Class<?>[] _getCompanyProfileParameterTypes4 =
 		new Class[] {long.class};
+	private static final Class<?>[]
+		_getCompanyProfilesByGroupIdParameterTypes5 = new Class[] {long.class};
+	private static final Class<?>[]
+		_getCompanyProfilesByGroupIdParameterTypes6 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getCompanyProfilesByGroupIdParameterTypes7 = new Class[] {
+			long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getCompanyProfilesByKeywordsParameterTypes8 = new Class[] {
+			long.class, String.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getCompanyProfilesCountByKeywordsParameterTypes9 = new Class[] {
+			long.class, String.class
+		};
 
 }

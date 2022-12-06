@@ -534,6 +534,161 @@ public interface StudentProfilePersistence
 	public int countByGroupId(long groupId);
 
 	/**
+	 * Returns all the student profiles where groupId = &#63; and userId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @return the matching student profiles
+	 */
+	public java.util.List<StudentProfile> findByGroupIdAndUserId(
+		long groupId, long userId);
+
+	/**
+	 * Returns a range of all the student profiles where groupId = &#63; and userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StudentProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of student profiles
+	 * @param end the upper bound of the range of student profiles (not inclusive)
+	 * @return the range of matching student profiles
+	 */
+	public java.util.List<StudentProfile> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the student profiles where groupId = &#63; and userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StudentProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of student profiles
+	 * @param end the upper bound of the range of student profiles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching student profiles
+	 */
+	public java.util.List<StudentProfile> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<StudentProfile>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the student profiles where groupId = &#63; and userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StudentProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of student profiles
+	 * @param end the upper bound of the range of student profiles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching student profiles
+	 */
+	public java.util.List<StudentProfile> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<StudentProfile>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first student profile in the ordered set where groupId = &#63; and userId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching student profile
+	 * @throws NoSuchStudentProfileException if a matching student profile could not be found
+	 */
+	public StudentProfile findByGroupIdAndUserId_First(
+			long groupId, long userId,
+			com.liferay.portal.kernel.util.OrderByComparator<StudentProfile>
+				orderByComparator)
+		throws NoSuchStudentProfileException;
+
+	/**
+	 * Returns the first student profile in the ordered set where groupId = &#63; and userId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching student profile, or <code>null</code> if a matching student profile could not be found
+	 */
+	public StudentProfile fetchByGroupIdAndUserId_First(
+		long groupId, long userId,
+		com.liferay.portal.kernel.util.OrderByComparator<StudentProfile>
+			orderByComparator);
+
+	/**
+	 * Returns the last student profile in the ordered set where groupId = &#63; and userId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching student profile
+	 * @throws NoSuchStudentProfileException if a matching student profile could not be found
+	 */
+	public StudentProfile findByGroupIdAndUserId_Last(
+			long groupId, long userId,
+			com.liferay.portal.kernel.util.OrderByComparator<StudentProfile>
+				orderByComparator)
+		throws NoSuchStudentProfileException;
+
+	/**
+	 * Returns the last student profile in the ordered set where groupId = &#63; and userId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching student profile, or <code>null</code> if a matching student profile could not be found
+	 */
+	public StudentProfile fetchByGroupIdAndUserId_Last(
+		long groupId, long userId,
+		com.liferay.portal.kernel.util.OrderByComparator<StudentProfile>
+			orderByComparator);
+
+	/**
+	 * Returns the student profiles before and after the current student profile in the ordered set where groupId = &#63; and userId = &#63;.
+	 *
+	 * @param studentProfileId the primary key of the current student profile
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next student profile
+	 * @throws NoSuchStudentProfileException if a student profile with the primary key could not be found
+	 */
+	public StudentProfile[] findByGroupIdAndUserId_PrevAndNext(
+			long studentProfileId, long groupId, long userId,
+			com.liferay.portal.kernel.util.OrderByComparator<StudentProfile>
+				orderByComparator)
+		throws NoSuchStudentProfileException;
+
+	/**
+	 * Removes all the student profiles where groupId = &#63; and userId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 */
+	public void removeByGroupIdAndUserId(long groupId, long userId);
+
+	/**
+	 * Returns the number of student profiles where groupId = &#63; and userId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @return the number of matching student profiles
+	 */
+	public int countByGroupIdAndUserId(long groupId, long userId);
+
+	/**
 	 * Caches the student profile in the entity cache if it is enabled.
 	 *
 	 * @param studentProfile the student profile
