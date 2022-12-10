@@ -14,4 +14,6 @@ public class StudentjobRegisterConstants {
 	public static final String CMD = "cmd";
 	
 	public static final String USER_CREATOR_SCREENNAME = "STUDENTJOBCREATOR";
+	
+	public static final String EMAIL_SENDER = "noreply@mestemiuoc.com";
 }

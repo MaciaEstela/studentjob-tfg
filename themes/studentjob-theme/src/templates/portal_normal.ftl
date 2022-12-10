@@ -9,6 +9,10 @@
 
 	<meta content="initial-scale=1.0, width=device-width" name="viewport" />
 
+	<script src="${javascript_folder}/jquery-3.3.1.slim.min.js" defer></script>
+	<script src="${javascript_folder}/popper.min.js" defer></script>
+	<script src="${javascript_folder}/bootstrap.min.js" defer></script>
+	
 	<@liferay_util["include"] page=top_head_include />
 </head>
 
@@ -20,32 +24,12 @@
 
 <@liferay.control_menu />
 
-<div class="container-fluid position-relative" id="wrapper">
+<div class="studentjob-wrapper" id="wrapper">
 	<header id="banner" role="banner">
-		<div id="heading">
-			<div aria-level="1" class="site-title" role="heading">
-				<a class="${logo_css_class}" href="${site_default_url}" title="<@liferay.language_format arguments="${site_name}" key="go-to-x" />">
-					<img alt="${logo_description}" height="${site_logo_height}" src="${site_logo}" width="${site_logo_width}" />
-				</a>
-
-				<#if show_site_name>
-					<span class="site-name" title="<@liferay.language_format arguments="${site_name}" key="go-to-x" />">
-						${site_name}
-					</span>
-				</#if>
-			</div>
-		</div>
-
-		<#if !is_signed_in>
-			<a data-redirect="${is_login_redirect_required?string}" href="${sign_in_url}" id="sign-in" rel="nofollow">${sign_in_text}</a>
-		</#if>
-
-		<#if has_navigation && is_setup_complete>
-			<#include "${full_templates_path}/navigation.ftl" />
-		</#if>
+		<#include "${full_templates_path}/header.ftl" />
 	</header>
 
-	<section id="content">
+	<section id="content" class="container-fluid position-relative">
 		<h2 class="hide-accessible sr-only" role="heading" aria-level="1">${the_title}</h2>
 
 		<#if selectable>
@@ -61,13 +45,10 @@
 		</#if>
 	</section>
 
+
+
 	<footer id="footer" role="contentinfo">
-		<p class="powered-by">
-			<@liferay.language_format
-				arguments='<a href="http://www.liferay.com" rel="external">Liferay</a>'
-				key="powered-by-x"
-			/>
-		</p>
+		<#include "${full_templates_path}/footer.ftl" />
 	</footer>
 </div>
 

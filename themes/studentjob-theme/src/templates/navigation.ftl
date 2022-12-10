@@ -1,42 +1,70 @@
 <nav aria-label="<@liferay.language key="site-pages" />" class="${nav_css_class}" id="navigation" role="navigation">
-	<ul role="menubar">
-		<#list nav_items as nav_item>
-			<#assign
-				nav_item_attr_has_popup = ""
-				nav_item_css_class = ""
-				nav_item_layout = nav_item.getLayout()
-			/>
-
-			<#if nav_item.isSelected()>
+	<div aria-level="1" class="site-title" role="heading">
+        <a class="${logo_css_class}" href="${site_default_url}" title="<@liferay.language_format arguments="${site_name}" key="go-to-x" />">
+            <img alt="Studentjob Logo" class="logo" src="${images_folder}/studentjob-dark.png" />
+        </a>
+    </div>
+	<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<div class="navbar-hamburger">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+	</button>
+	<div class="collapse navbar-collapse main-navbar" id="navbarNav">
+		<ul role="menubar" class="navbar-nav">
+			<#list nav_items as nav_item>
 				<#assign
-					nav_item_attr_has_popup = "aria-haspopup='true'"
-					nav_item_css_class = "selected"
+					nav_item_attr_has_popup = ""
+					nav_item_attr_dropdown = ""
+					nav_item_css_class = " nav-item"
+					nav_item_layout = nav_item.getLayout()
+					nav_item_link_css_class = " nav-link"
+					nav_item_url = nav_item.getURL()
 				/>
-			</#if>
 
-			<li class="${nav_item_css_class}" id="layout_${nav_item.getLayoutId()}" role="presentation">
-				<a ${nav_item_attr_has_popup} href="${nav_item.getURL()}" ${nav_item.getTarget()} role="menuitem"><span><@liferay_theme["layout-icon"] layout=nav_item_layout /> ${nav_item.getName()}</span></a>
+				<#if nav_item.isSelected()>
+					<#assign
+						nav_item_attr_has_popup = "aria-haspopup='true'"
+						nav_item_link_css_class = nav_item_link_css_class + " active"
+					/>
+				</#if>
 
 				<#if nav_item.hasChildren()>
-					<ul class="child-menu" role="menu">
-						<#list nav_item.getChildren() as nav_child>
-							<#assign
-								nav_child_css_class = ""
-							/>
-
-							<#if nav_item.isSelected()>
-								<#assign
-									nav_child_css_class = "selected"
-								/>
-							</#if>
-
-							<li class="${nav_child_css_class}" id="layout_${nav_child.getLayoutId()}" role="presentation">
-								<a href="${nav_child.getURL()}" ${nav_child.getTarget()} role="menuitem">${nav_child.getName()}</a>
-							</li>
-						</#list>
-					</ul>
+					<#assign
+						nav_item_css_class = nav_item_css_class + " dropdown"
+						nav_item_link_css_class = nav_item_link_css_class + " dropdown-toggle"
+						nav_item_attr_dropdown = "role='button' data-toggle='dropdown' aria-expanded='false'"
+						nav_item_url = "#"
+					/>
 				</#if>
-			</li>
-		</#list>
-	</ul>
+
+				<li class="${nav_item_css_class}" id="layout_${nav_item.getLayoutId()}" role="presentation">
+					<a ${nav_item_attr_has_popup} ${nav_item_attr_dropdown} class="${nav_item_link_css_class}" href="${nav_item_url}" ${nav_item.getTarget()} role="menuitem">
+						<i class="icon icon-desktop"></i>
+						<span><@liferay_theme["layout-icon"] layout=nav_item_layout /> ${nav_item.getName()}</span>
+					</a>
+
+					<#if nav_item.hasChildren()>
+						<div class="dropdown-menu">
+							<#list nav_item.getChildren() as nav_child>
+								<#assign
+									nav_child_css_class = ""
+								/>
+
+								<#if nav_item.isSelected()>
+									<#assign
+										nav_child_css_class = "selected"
+									/>
+								</#if>
+								<a href="${nav_child.getURL()}" ${nav_child.getTarget()} class="dropdown-item ${nav_child_css_class}" role="menuitem">
+									${nav_child.getName()}
+								</a>
+							</#list>
+						</div>
+					</#if>
+				</li>
+			</#list>
+		</ul>
+	</div>
 </nav>

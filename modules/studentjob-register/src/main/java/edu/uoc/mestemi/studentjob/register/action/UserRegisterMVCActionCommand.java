@@ -1,15 +1,19 @@
 package edu.uoc.mestemi.studentjob.register.action;
 
 import com.liferay.headless.admin.user.dto.v1_0.UserAccount;
+import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.reader.service.AccountLocalService;
 import com.liferay.mail.reader.service.AccountLocalServiceUtil;
 import com.liferay.mail.reader.service.persistence.AccountUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.UserEmailAddressException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.language.UTF8Control;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.Ticket;
 import com.liferay.portal.kernel.model.TicketConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserConstants;
@@ -22,22 +26,28 @@ import com.liferay.portal.kernel.service.TicketLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
@@ -48,6 +58,7 @@ import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterConstants
 import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKeys;
 import edu.uoc.mestemi.studentjob.register.portlet.StudentjobRegisterPortlet;
 import edu.uoc.mestemi.studentjob.register.util.RegisterUtil;
+import edu.uoc.mestemi.studentjob.register.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalService;
 
@@ -252,7 +263,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				new ServiceContext()
 			);
 			
-			_ticketLocalService.addTicket(
+			Ticket ticket = _ticketLocalService.addTicket(
 					companyId,
 					User.class.getName(),
 					user.getPrimaryKey(),
@@ -261,6 +272,12 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 					new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(72)), 
 					new ServiceContext()
 				);
+			
+			try {
+				sendRegisterEmail(actionRequest, userTypePrefix, email, themeDisplay.getLocale(), ticket.getKey(), user.getScreenName());
+			} catch (Exception e) {
+				log.error("Cant send user mail register", e);
+			} 
 			
 //			user.setStatus(WorkflowConstants.STATUS_INACTIVE);
 		}
@@ -288,7 +305,47 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		return null;
 	}
 	
-	private void sendRegisterEmail(ActionRequest actionRequest, String userType) {
+	private void sendRegisterEmail(ActionRequest actionRequest, String userTypePrefix, String email, Locale locale, String token, String screenName) throws TemplateException, MalformedURLException {
+		ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", locale, UTF8Control.INSTANCE);
+		PortletContext portletContext = actionRequest.getPortletContext();
+				
+		Map<String,Object> params = new HashMap<>();
+		TemplateProcessor templateProcessor = null;
+		String subject = LanguageUtil.get(resourceBundle, "mail.subject." + userTypePrefix);
+		
+		params.put("title", LanguageUtil.get(resourceBundle, "mail.title"));
+		params.put("preview", LanguageUtil.get(resourceBundle, "mail.text.preview"));
+		params.put("text1", LanguageUtil.get(resourceBundle, "mail.text.1"));
+		params.put("text2", LanguageUtil.get(resourceBundle, "mail.text.2" + userTypePrefix));
+		params.put("confirm", LanguageUtil.get(resourceBundle, "mail.text.confirm"));
+		params.put("contactus", LanguageUtil.get(resourceBundle, "mail.text.contactus"));
+		params.put("footer1", LanguageUtil.get(resourceBundle, "mail.text.footer1"));
+		params.put("footer2", LanguageUtil.get(resourceBundle, "mail.text.footer2"));
+		params.put("footer3", LanguageUtil.get(resourceBundle, "mail.text.footer3"));
+		params.put("gotoportal", LanguageUtil.get(resourceBundle, "mail.text.gotoportal"));
+		params.put("visualizeurl", LanguageUtil.get(resourceBundle, "mail.text.visualizeurl"));
+		
+		params.put("contactmail", "contact@mestemiuoc.com");
+		params.put("siteurl", "https://mestemiuoc.com");
+		params.put("preferencesUrl", "https://mestemiuoc.com/sjobadmin/settings");
+		params.put("confirmUrl", "https://mestemiuoc.com/sjobadmin/validate");
+		
+		
+		
+		templateProcessor = new TemplateProcessor(
+				portletContext.getResource("/mails/register4.ftl").getPath());
+		
+		try {
+			RegisterUtil.sendMailMessage(
+					StudentjobRegisterConstants.EMAIL_SENDER, 
+					email, 
+					subject,
+					templateProcessor.process(params)
+				);
+			
+		} catch (AddressException e) {
+			log.error("Wrong format mail adress", e);
+		}
 	}
 	
 	@Reference
