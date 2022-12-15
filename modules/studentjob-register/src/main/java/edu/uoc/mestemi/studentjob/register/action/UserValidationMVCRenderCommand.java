@@ -7,15 +7,11 @@ import com.liferay.portal.kernel.model.Ticket;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.TicketLocalService;
-import com.liferay.portal.kernel.service.TicketLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-
-import java.util.Date;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -30,7 +26,7 @@ import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKe
 import edu.uoc.mestemi.studentjob.register.portlet.StudentjobRegisterPortlet;
 
 /**
- * MVC Render for Student and Company User Register
+ * MVC Render for Student and Company User Validation
  * 
  * @author Macia Estela (mestemi@uoc.edu)
  */
@@ -45,7 +41,7 @@ import edu.uoc.mestemi.studentjob.register.portlet.StudentjobRegisterPortlet;
 public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(StudentjobRegisterPortlet.class);
-	private static final String viewJSP = "/validate.jsp";
+	private static final String VIEW_JSP = "/validate.jsp";
 	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
@@ -73,7 +69,7 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 			log.error("Can't validate ticket with ticket key " + token + " and user " + screenName, e);
 		}
 		
-		return viewJSP;
+		return VIEW_JSP;
 	}
 	
 	@Reference

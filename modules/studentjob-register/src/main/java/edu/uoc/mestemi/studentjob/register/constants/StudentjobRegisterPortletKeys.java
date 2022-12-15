@@ -1,7 +1,7 @@
 package edu.uoc.mestemi.studentjob.register.constants;
 
 /**
- * @author macia
+ * @author Macia Estela (mestemi@uoc.edu)
  */
 public class StudentjobRegisterPortletKeys {
 

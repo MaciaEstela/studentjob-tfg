@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder;
 import com.liferay.portal.kernel.service.RegionLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -36,13 +37,13 @@ import org.osgi.service.component.annotations.Reference;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 import edu.uoc.mestemi.studentjob.web.dto.OfferDTO;
 import edu.uoc.mestemi.studentjob.web.util.StudentJobUtil;
-import edu.uoc.mestemi.studentjob.web.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.DegreeAreaService;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileService;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferService;
+import edu.uoc.mestemi.studentjob.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobConstants;
 
@@ -134,9 +135,10 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 					OfferDTO offerDTO = StudentJobUtil.getOfferDTOByOffer(offer, themeDisplay, portletURL); 
 					
 					TemplateProcessor templateProcessor = new TemplateProcessor(
-							portletContext.getResource("/offer/public/card.jspf").getPath());
+							portletContext.getResource("/offer/public/card.jspf").getPath()
+						);
 					params.put("offer", offerDTO);
-					offersHTML.append(templateProcessor.process(params));
+					offersHTML.append(templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL));
 					
 				} catch (PortalException e) {
 					log.error("Cant transform Offer with id " + offer.getOfferId() + " to a OfferDTO Object", e);

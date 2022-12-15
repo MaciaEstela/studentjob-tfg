@@ -1,10 +1,5 @@
 package edu.uoc.mestemi.studentjob.register.action;
 
-import com.liferay.headless.admin.user.dto.v1_0.UserAccount;
-import com.liferay.mail.kernel.model.MailMessage;
-import com.liferay.mail.reader.service.AccountLocalService;
-import com.liferay.mail.reader.service.AccountLocalServiceUtil;
-import com.liferay.mail.reader.service.persistence.AccountUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.UserEmailAddressException;
@@ -12,44 +7,33 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.language.UTF8Control;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Ticket;
 import com.liferay.portal.kernel.model.TicketConstants;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.model.UserConstants;
-import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.TicketLocalService;
-import com.liferay.portal.kernel.service.TicketLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -58,9 +42,10 @@ import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterConstants
 import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKeys;
 import edu.uoc.mestemi.studentjob.register.portlet.StudentjobRegisterPortlet;
 import edu.uoc.mestemi.studentjob.register.util.RegisterUtil;
-import edu.uoc.mestemi.studentjob.register.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalService;
+import edu.uoc.mestemi.studentjob.util.TemplateProcessor;
+import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 
 /**
  * MVC Render for Student and Company User Register
@@ -78,7 +63,6 @@ import edu.uoc.mestemi.studentjob.service.StudentProfileLocalService;
 public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(StudentjobRegisterPortlet.class);
-	private static final String viewJSP = "/view.jsp";
 	
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
@@ -86,9 +70,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		
 		actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.RENDER_REGISTER);
 		
-		if (false) {
-			SessionErrors.add(actionRequest, "error.form-validation");
-		}
+		// TODO: ERROR IF FORM VALIDATION FAILS
 		
 		String registerType = ParamUtil.getString(actionRequest,  "registerType", StringPool.BLANK);
 		
@@ -105,16 +87,9 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			log.error("Error on registering duplicated user email " + studentEmail, uea);
 			SessionErrors.add(actionRequest, "error.user.email-duplicated");
 		} catch (Exception e) {
-//			SessionErrors.add(, clazz);
-			e.printStackTrace();
+			log.error("Error on register user", e);
 		}
 		
-		
-		HttpServletRequest httpServletRequest = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(actionRequest));
-		
-		httpServletRequest.getParameter("userName");
-		
-//		actionResponse.getRenderParameters().setValue("redirectURL", "");
 		sendRedirect(actionRequest, actionResponse);
 	}
 
@@ -215,7 +190,6 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		} else {
 			SessionErrors.add(actionRequest, "error.user.create");
 		}
-		
 	}
 	
 	/**
@@ -235,7 +209,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		String password = ParamUtil.getString(actionRequest, userTypePrefix + "Password", StringPool.BLANK);
 		String repeatPassword = ParamUtil.getString(actionRequest, userTypePrefix + "RepeatPassword", StringPool.BLANK);
 		
-		User adminUser = getAdminUser();
+		User adminUser = UserManagementUtil.getAdminUser(companyId);
 		User user = null;
 		if (adminUser != null) {
 			
@@ -283,30 +257,11 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				log.error("Cant send user mail register", e);
 			} 
 			
+			// TODO: Set Status inactive when create a new User until verification
 //			user.setStatus(WorkflowConstants.STATUS_INACTIVE);
 		}
 			
 		return user;
-	}
-	
-	/**
-	 * Get an User with Administrator role
-	 *
-	 * @return User
-	 */
-	private  User getAdminUser() {
-		final long companyId = PortalUtil.getDefaultCompanyId();
-		
-		try {
-			Role role = RegisterUtil.getRoleById(companyId, RoleConstants.ADMINISTRATOR);
-			List<User> adminUsers = _userLocalService.getRoleUsers(role.getRoleId());
-			if (!adminUsers.isEmpty()) {
-				return adminUsers.get(0);
-			}
-		} catch (final Exception e) {
-			log.error("Error obtaining admin user", e);
-		}
-		return null;
 	}
 	
 	private void sendRegisterEmail(ActionRequest actionRequest, String userTypePrefix, String email, Locale locale, String token, String screenName, String userName) throws TemplateException, MalformedURLException {
@@ -343,9 +298,8 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 					StudentjobRegisterConstants.EMAIL_SENDER, 
 					email, 
 					subject,
-					templateProcessor.process(params)
+					templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL)
 				);
-			
 		} catch (AddressException e) {
 			log.error("Wrong format mail adress", e);
 		}

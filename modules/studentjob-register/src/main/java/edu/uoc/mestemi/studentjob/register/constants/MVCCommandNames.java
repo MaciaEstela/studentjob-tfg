@@ -1,5 +1,8 @@
 package edu.uoc.mestemi.studentjob.register.constants;
 
+/**
+ * @author Macia Estela (mestemi@uoc.edu)
+ */
 public class MVCCommandNames {
 	
 	private MVCCommandNames() { }

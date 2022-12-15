@@ -1,8 +1,7 @@
-package edu.uoc.mestemi.studentjob.web.util;
+package edu.uoc.mestemi.studentjob.util;
 
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
 import com.liferay.portal.kernel.template.Template;
-import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.template.TemplateManagerUtil;
 import com.liferay.portal.kernel.template.URLTemplateResource;
@@ -19,15 +18,16 @@ public class TemplateProcessor {
 	}
 	
 	/**
-	 * Return and add an ExpandoTable if not exists
+	 * Process a template and returns HTML code
 	 *
-	 * @param params		params to include in template
+	 * @param params			params to include in template
+	 * @param templateType		template type defined by TemplateConstants
 	 *
 	 * @return String processed template in HTML code
 	 */
-	public String process(final Map<String, Object> params) throws TemplateException {
+	public String process(final Map<String, Object> params, String templateType) throws TemplateException {
 		final Template template = TemplateManagerUtil.getTemplate(
-				TemplateConstants.LANG_TYPE_FTL, 
+				templateType, 
 				urlTemplateResource, 
 				false
 			);
@@ -46,5 +46,6 @@ public class TemplateProcessor {
 		
 		return unsyncStringWriter.toString();
 	}
-
+	
+	
 }
