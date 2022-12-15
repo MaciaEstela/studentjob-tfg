@@ -469,6 +469,20 @@ public class OfferLocalServiceWrapper
 			groupId, keywords, start, end, orderByComparator);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
+
+		return _offerLocalService.
+			getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId,
+				start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the offers matching the UUID and company.
 	 *
@@ -517,6 +531,16 @@ public class OfferLocalServiceWrapper
 	@Override
 	public long getOffersCountByKeywords(long groupId, String keywords) {
 		return _offerLocalService.getOffersCountByKeywords(groupId, keywords);
+	}
+
+	@Override
+	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+		long groupId, String keywords, String preference, long regionId,
+		long degreeId, long newestId) {
+
+		return _offerLocalService.
+			getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId);
 	}
 
 	/**

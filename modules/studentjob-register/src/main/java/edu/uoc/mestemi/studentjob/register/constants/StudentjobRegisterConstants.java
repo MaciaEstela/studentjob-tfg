@@ -7,6 +7,7 @@ public class StudentjobRegisterConstants {
 	public static final String USER_EMAIL_OFFERS = "userMailOffers";
 	public static final String USER_NIF = "userNif";
 	public static final String USER_PHONE = "userPhone";
+	public static final String USER_COMPANY_EXPANDO = "userCompany";
 	
 	public static final String USER_STUDENT = "student";
 	public static final String USER_COMPANY = "company";

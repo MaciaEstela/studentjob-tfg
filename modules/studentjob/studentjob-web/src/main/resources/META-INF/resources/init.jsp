@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
@@ -37,6 +38,9 @@
 <%@ page import="edu.uoc.mestemi.studentjob.model.CompanyProfile"%>
 <%@ page import="edu.uoc.mestemi.studentjob.model.Offer"%>
 <%@ page import="edu.uoc.mestemi.studentjob.web.util.SocialMediaFormDTO"%>
+<%@ page import="edu.uoc.mestemi.studentjob.web.dto.OfferDTO"%>
+
+
 
 
 <liferay-frontend:defineObjects />

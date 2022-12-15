@@ -11,6 +11,12 @@ public class StudentjobPortletKeys {
 	public static final String STUDENTJOB_OFFER_ADMIN = 
 		"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_OFFER_ADMIN";
 	
+	public static final String STUDENTJOB_OFFER_USER = 
+			"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_OFFER_USER";
+	
+	public static final String STUDENTJOB_VIEW_COMPANYPROFILE_USER = 
+			"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_VIEW_COMPANYPROFILE_USER";
+	
 	public static final String STUDENTJOB_DEGREEAREA_ADMIN = 
 			"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_DEGREEAREA_ADMIN";
 
@@ -25,5 +31,8 @@ public class StudentjobPortletKeys {
 	
 	public static final String STUDENTJOB_COMPANYPROFILE_USER = 
 			"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_COMPANYPROFILE_USER";
+	
+	public static final String STUDENTJOB_STUDENTPROFILE_USER = 
+			"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_STUDENTPROFILE_USER";
 	
 }

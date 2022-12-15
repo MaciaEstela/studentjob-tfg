@@ -16,17 +16,16 @@ package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import edu.uoc.mestemi.studentjob.model.Degree;
-import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.base.StudentProfileServiceBaseImpl;
 
@@ -65,7 +64,41 @@ public class StudentProfileServiceImpl extends StudentProfileServiceBaseImpl {
 		return studentProfileLocalService.deleteStudentProfile(studentProfileId);
 	}
 	
-	public StudentProfile getStudentProfile(long socialMediaId) throws PortalException {
-		return studentProfileLocalService.getStudentProfile(socialMediaId);
+	public StudentProfile getStudentProfile(long studentProfileId) throws PortalException {
+		return studentProfileLocalService.getStudentProfile(studentProfileId);
+	}
+	
+	public StudentProfile getStudentProfileByGroupIdAndUserId(long groupId, long userId) {
+		return studentProfileLocalService.getStudentProfileByGroupIdAndUserId(groupId, userId);
+	}
+	
+	public List<StudentProfile> getStudentProfilesByGroupId(long groupId) {
+		return studentProfileLocalService.getStudentProfilesByGroupId(groupId);
+	}
+	
+	public List<StudentProfile> getStudentProfilesByGroupId(long groupId, int start, int end) {
+		return studentProfileLocalService.getStudentProfilesByGroupId(groupId, start, end);
+	}
+	
+	public List<Degree> getDegreesByOfferId(long studentProfileId){
+		return studentProfileLocalService.getDegreesByOfferId(studentProfileId);
+	}
+	
+	public List<Long> getDegreesIdsByOfferId(long studentProfileId){
+		return studentProfileLocalService.getDegreesIdsByOfferId(studentProfileId);
+	}
+	
+	public List<StudentProfile> getStudentProfilesByGroupId(long groupId, int start, int end, 
+			OrderByComparator<StudentProfile> orderByComparator) {
+		return studentProfileLocalService.getStudentProfilesByGroupId(groupId, start, end, orderByComparator);
+	}
+	
+	public List<StudentProfile> getStudentProfilesByKeywords(long groupId, String keywords, int start, 
+			int end, OrderByComparator<StudentProfile> orderByComparator) {
+		return studentProfileLocalService.getStudentProfilesByKeywords(groupId, keywords, start, end, orderByComparator);
+	}
+	
+	public long getStudentProfilesCountByKeywords(long groupId, String keywords) {
+		return studentProfileLocalService.getStudentProfilesCountByKeywords(groupId, keywords);
 	}
 }

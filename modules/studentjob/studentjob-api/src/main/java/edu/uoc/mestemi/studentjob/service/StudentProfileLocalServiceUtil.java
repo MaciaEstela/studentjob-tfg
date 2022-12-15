@@ -298,41 +298,6 @@ public class StudentProfileLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static List<StudentProfile> getCompanyProfilesByGroupId(
-		long groupId) {
-
-		return getService().getCompanyProfilesByGroupId(groupId);
-	}
-
-	public static List<StudentProfile> getCompanyProfilesByGroupId(
-		long groupId, int start, int end) {
-
-		return getService().getCompanyProfilesByGroupId(groupId, start, end);
-	}
-
-	public static List<StudentProfile> getCompanyProfilesByGroupId(
-		long groupId, int start, int end,
-		OrderByComparator<StudentProfile> orderByComparator) {
-
-		return getService().getCompanyProfilesByGroupId(
-			groupId, start, end, orderByComparator);
-	}
-
-	public static List<StudentProfile> getCompanyProfilesByKeywords(
-		long groupId, String keywords, int start, int end,
-		OrderByComparator<StudentProfile> orderByComparator) {
-
-		return getService().getCompanyProfilesByKeywords(
-			groupId, keywords, start, end, orderByComparator);
-	}
-
-	public static long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords) {
-
-		return getService().getCompanyProfilesCountByKeywords(
-			groupId, keywords);
-	}
-
 	/**
 	 * Returns the degreeIds of the degrees associated with the student profile.
 	 *
@@ -341,6 +306,16 @@ public class StudentProfileLocalServiceUtil {
 	 */
 	public static long[] getDegreePrimaryKeys(long studentProfileId) {
 		return getService().getDegreePrimaryKeys(studentProfileId);
+	}
+
+	public static List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByOfferId(long studentProfileId) {
+
+		return getService().getDegreesByOfferId(studentProfileId);
+	}
+
+	public static List<Long> getDegreesIdsByOfferId(long studentProfileId) {
+		return getService().getDegreesIdsByOfferId(studentProfileId);
 	}
 
 	public static List<StudentProfile> getDegreeStudentProfiles(long degreeId) {
@@ -411,6 +386,13 @@ public class StudentProfileLocalServiceUtil {
 		return getService().getStudentProfile(studentProfileId);
 	}
 
+	public static StudentProfile getStudentProfileByGroupIdAndUserId(
+		long groupId, long userId) {
+
+		return getService().getStudentProfileByGroupIdAndUserId(
+			groupId, userId);
+	}
+
 	/**
 	 * Returns the student profile matching the UUID and group.
 	 *
@@ -439,6 +421,34 @@ public class StudentProfileLocalServiceUtil {
 	 */
 	public static List<StudentProfile> getStudentProfiles(int start, int end) {
 		return getService().getStudentProfiles(start, end);
+	}
+
+	public static List<StudentProfile> getStudentProfilesByGroupId(
+		long groupId) {
+
+		return getService().getStudentProfilesByGroupId(groupId);
+	}
+
+	public static List<StudentProfile> getStudentProfilesByGroupId(
+		long groupId, int start, int end) {
+
+		return getService().getStudentProfilesByGroupId(groupId, start, end);
+	}
+
+	public static List<StudentProfile> getStudentProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getService().getStudentProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	public static List<StudentProfile> getStudentProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getService().getStudentProfilesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
 	}
 
 	/**
@@ -480,6 +490,13 @@ public class StudentProfileLocalServiceUtil {
 	 */
 	public static int getStudentProfilesCount() {
 		return getService().getStudentProfilesCount();
+	}
+
+	public static long getStudentProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getStudentProfilesCountByKeywords(
+			groupId, keywords);
 	}
 
 	public static boolean hasDegreeStudentProfile(

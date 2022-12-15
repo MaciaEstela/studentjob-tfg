@@ -70,8 +70,7 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 				
 			}
 		} catch (PortalException e) {
-			log.error("Can't validate ticket with ticket key " + token + " and user " + screenName);
-			e.printStackTrace();
+			log.error("Can't validate ticket with ticket key " + token + " and user " + screenName, e);
 		}
 		
 		return viewJSP;

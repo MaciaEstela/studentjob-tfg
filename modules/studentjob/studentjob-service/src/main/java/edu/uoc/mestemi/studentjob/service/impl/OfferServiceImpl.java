@@ -91,6 +91,19 @@ public class OfferServiceImpl extends OfferServiceBaseImpl {
 		return offerLocalService.getOffersCountByKeywords(groupId, keywords);
 	}
 	
+	public List<Offer> getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId,String keywords, String preference,
+			long regionId, long degreeId, long newestId, int start, 
+			int end, OrderByComparator<Offer> orderByComparator) {
+		return offerLocalService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(groupId, keywords, 
+				preference, regionId, degreeId, newestId, start, end, orderByComparator);
+	}
+	
+	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, String keywords, String preference,
+			long regionId, long degreeId, long newestId) {
+		return offerLocalService.getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(groupId, 
+				keywords, preference, regionId, degreeId, newestId);
+	}
+	
 	@Override
 	public Offer addOffer(Offer offer) {
 		return offerLocalService.addOffer(offer);

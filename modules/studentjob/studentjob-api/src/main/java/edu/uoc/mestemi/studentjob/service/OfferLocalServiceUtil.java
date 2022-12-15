@@ -396,6 +396,18 @@ public class OfferLocalServiceUtil {
 			groupId, keywords, start, end, orderByComparator);
 	}
 
+	public static List<Offer>
+		getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId, int start, int end,
+			OrderByComparator<Offer> orderByComparator) {
+
+		return getService().
+			getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId,
+				start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the offers matching the UUID and company.
 	 *
@@ -438,6 +450,16 @@ public class OfferLocalServiceUtil {
 
 	public static long getOffersCountByKeywords(long groupId, String keywords) {
 		return getService().getOffersCountByKeywords(groupId, keywords);
+	}
+
+	public static long
+		getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId) {
+
+		return getService().
+			getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId);
 	}
 
 	/**

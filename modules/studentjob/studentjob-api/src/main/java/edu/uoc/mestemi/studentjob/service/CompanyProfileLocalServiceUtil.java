@@ -261,10 +261,11 @@ public class CompanyProfileLocalServiceUtil {
 		return getService().getCompanyProfile(companyProfileId);
 	}
 
-	public static CompanyProfile getCompanyProfileByGroupId(
+	public static CompanyProfile getCompanyProfileByGroupIdAndUserId(
 		long groupId, long userId) {
 
-		return getService().getCompanyProfileByGroupId(groupId, userId);
+		return getService().getCompanyProfileByGroupIdAndUserId(
+			groupId, userId);
 	}
 
 	/**

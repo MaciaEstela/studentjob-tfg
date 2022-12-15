@@ -15,8 +15,11 @@
 package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.Conjunction;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactory;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
@@ -151,6 +154,18 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 				getKeywordSearchDynamicQuery(groupId, keywords));
 	}
 	
+	public List<Offer> getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, String keywords, String preference,
+			long regionId, long degreeId, long newestId, int start, int end, OrderByComparator<Offer> orderByComparator) {
+		return offerPersistence.findWithDynamicQuery(
+				getKeywordSearchDynamicQuery(groupId, keywords, preference, regionId, degreeId, newestId), start, end, orderByComparator);
+	}
+	
+	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, String keywords, String preference,
+			long regionId, long degreeId, long newestId) {
+		return offerPersistence.countWithDynamicQuery(
+				getKeywordSearchDynamicQuery(groupId, keywords, preference, regionId, degreeId, newestId));
+	}
+	
 	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords) {
 		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
 		
@@ -162,6 +177,47 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 			
 			dynamicQuery.add(disjunctionQuery);
 		}
+		
+		return dynamicQuery;
+	}
+	
+	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords, 
+			String preference, long regionId, long degreeId, long newestId) {
+		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
+		Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
+		Conjunction conjunctionQuery = RestrictionsFactoryUtil.conjunction();
+		
+		if (Validator.isNotNull(keywords)) {
+			disjunctionQuery.add(RestrictionsFactoryUtil.like("title", "%" + keywords + "%"));
+			disjunctionQuery.add(RestrictionsFactoryUtil.like("description", "%" + keywords + "%"));
+			conjunctionQuery.add(disjunctionQuery);
+		}
+		
+		if (Validator.isNotNull(newestId) && newestId != 0) {
+			System.out.println("newestID es " + newestId);
+			conjunctionQuery.add(RestrictionsFactoryUtil.le("offerId", newestId));
+		}
+		
+		if (Validator.isNotNull(preference) && !preference.isEmpty()) {
+			conjunctionQuery.add(RestrictionsFactoryUtil.like("preference", "%" + preference + "%"));
+		}
+		
+		if (Validator.isNotNull(regionId) && regionId != 0) {
+			conjunctionQuery.add(RestrictionsFactoryUtil.like("regionId", regionId));
+		}
+		
+		if (Validator.isNotNull(degreeId) && degreeId != 0) {
+			List<Offer> allOffersDegree = getDegreeOffers(degreeId);
+			List<Long> offersIds = new ArrayList<>();
+			
+			for (Offer offer : allOffersDegree) {
+				offersIds.add(offer.getOfferId());
+			}
+			
+			conjunctionQuery.add(RestrictionsFactoryUtil.in("offerId", offersIds));
+		}
+		
+		dynamicQuery.add(conjunctionQuery);
 		
 		return dynamicQuery;
 	}

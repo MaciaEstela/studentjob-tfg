@@ -451,13 +451,89 @@ public class OfferServiceHttp {
 		}
 	}
 
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			HttpPrincipal httpPrincipal, long groupId, String keywords,
+			String preference, long regionId, long degreeId, long newestId,
+			int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class,
+				"getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId",
+				_getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeIdParameterTypes11);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, preference, regionId, degreeId,
+				newestId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Offer>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long
+		getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			HttpPrincipal httpPrincipal, long groupId, String keywords,
+			String preference, long regionId, long degreeId, long newestId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class,
+				"getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId",
+				_getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeIdParameterTypes12);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, preference, regionId, degreeId,
+				newestId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static edu.uoc.mestemi.studentjob.model.Offer addOffer(
 		HttpPrincipal httpPrincipal,
 		edu.uoc.mestemi.studentjob.model.Offer offer) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				OfferServiceUtil.class, "addOffer", _addOfferParameterTypes11);
+				OfferServiceUtil.class, "addOffer", _addOfferParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, offer);
 
@@ -489,7 +565,7 @@ public class OfferServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				OfferServiceUtil.class, "updateOffer",
-				_updateOfferParameterTypes12);
+				_updateOfferParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, offer);
 
@@ -552,10 +628,23 @@ public class OfferServiceHttp {
 		};
 	private static final Class<?>[] _getOffersCountByKeywordsParameterTypes10 =
 		new Class[] {long.class, String.class};
-	private static final Class<?>[] _addOfferParameterTypes11 = new Class[] {
+	private static final Class<?>[]
+		_getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeIdParameterTypes11 =
+			new Class[] {
+				long.class, String.class, String.class, long.class, long.class,
+				long.class, int.class, int.class,
+				com.liferay.portal.kernel.util.OrderByComparator.class
+			};
+	private static final Class<?>[]
+		_getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeIdParameterTypes12 =
+			new Class[] {
+				long.class, String.class, String.class, long.class, long.class,
+				long.class
+			};
+	private static final Class<?>[] _addOfferParameterTypes13 = new Class[] {
 		edu.uoc.mestemi.studentjob.model.Offer.class
 	};
-	private static final Class<?>[] _updateOfferParameterTypes12 = new Class[] {
+	private static final Class<?>[] _updateOfferParameterTypes14 = new Class[] {
 		edu.uoc.mestemi.studentjob.model.Offer.class
 	};
 

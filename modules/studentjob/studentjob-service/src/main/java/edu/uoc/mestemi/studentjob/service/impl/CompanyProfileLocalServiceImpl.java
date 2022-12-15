@@ -17,6 +17,7 @@ package edu.uoc.mestemi.studentjob.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
@@ -115,7 +116,7 @@ public class CompanyProfileLocalServiceImpl
 		return companyProfilePersistence.findByGroupId(groupId, start, end);
 	}
 	
-	public CompanyProfile getCompanyProfileByGroupId(long groupId, long userId) {
+	public CompanyProfile getCompanyProfileByGroupIdAndUserId(long groupId, long userId) {
 		return companyProfilePersistence.findByGroupIdAndUserId(groupId, userId).get(0);
 	}
 	
@@ -146,6 +147,13 @@ public class CompanyProfileLocalServiceImpl
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("sector", "%" + keywords + "%"));
 			
 			dynamicQuery.add(disjunctionQuery);
+			
+//			DynamicQuery dynamicUser = DynamicQueryFactoryUtil.forClass(User.class, User.class.getClassLoader());
+//			Disjunction disjunctionQueryUser  = RestrictionsFactoryUtil.disjunction();
+//			if (keywords.contains(" ")) {
+//				String[] splittedKeywords = keywords.split(" ");
+//				
+//			}
 		}
 		
 		return dynamicQuery;

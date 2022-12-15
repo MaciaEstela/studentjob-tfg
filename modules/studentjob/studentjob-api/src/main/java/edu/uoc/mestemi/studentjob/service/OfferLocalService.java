@@ -330,6 +330,12 @@ public interface OfferLocalService
 		long groupId, String keywords, int start, int end,
 		OrderByComparator<Offer> orderByComparator);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+		long groupId, String keywords, String preference, long regionId,
+		long degreeId, long newestId, int start, int end,
+		OrderByComparator<Offer> orderByComparator);
+
 	/**
 	 * Returns all the offers matching the UUID and company.
 	 *
@@ -365,6 +371,11 @@ public interface OfferLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getOffersCountByKeywords(long groupId, String keywords);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+		long groupId, String keywords, String preference, long regionId,
+		long degreeId, long newestId);
 
 	/**
 	 * Returns the OSGi service identifier.

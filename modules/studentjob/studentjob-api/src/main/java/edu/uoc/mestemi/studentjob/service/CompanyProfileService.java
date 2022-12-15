@@ -72,7 +72,8 @@ public interface CompanyProfileService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CompanyProfile getCompanyProfileByGroupId(long groupId, long userId);
+	public CompanyProfile getCompanyProfileByGroupIdAndUserId(
+		long groupId, long userId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CompanyProfile> getCompanyProfilesByGroupId(long groupId);

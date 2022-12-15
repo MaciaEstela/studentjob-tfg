@@ -78,6 +78,8 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 					StudentjobRegisterConstants.USER_NIF, expandoTable, ExpandoColumnConstants.STRING, StringPool.BLANK);
 			addExpandoColumn(companyId, className, tableName, 
 					StudentjobRegisterConstants.USER_PHONE, expandoTable, ExpandoColumnConstants.STRING, StringPool.BLANK);
+			addExpandoColumn(companyId, className, tableName, 
+					StudentjobRegisterConstants.USER_COMPANY_EXPANDO, expandoTable, ExpandoColumnConstants.STRING, StringPool.BLANK);
 		}
 		
 	}

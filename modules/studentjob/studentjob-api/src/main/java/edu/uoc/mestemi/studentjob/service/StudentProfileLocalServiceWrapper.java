@@ -348,53 +348,6 @@ public class StudentProfileLocalServiceWrapper
 		return _studentProfileLocalService.getActionableDynamicQuery();
 	}
 
-	@Override
-	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
-		getCompanyProfilesByGroupId(long groupId) {
-
-		return _studentProfileLocalService.getCompanyProfilesByGroupId(groupId);
-	}
-
-	@Override
-	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
-		getCompanyProfilesByGroupId(long groupId, int start, int end) {
-
-		return _studentProfileLocalService.getCompanyProfilesByGroupId(
-			groupId, start, end);
-	}
-
-	@Override
-	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
-		getCompanyProfilesByGroupId(
-			long groupId, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<edu.uoc.mestemi.studentjob.model.StudentProfile>
-					orderByComparator) {
-
-		return _studentProfileLocalService.getCompanyProfilesByGroupId(
-			groupId, start, end, orderByComparator);
-	}
-
-	@Override
-	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
-		getCompanyProfilesByKeywords(
-			long groupId, String keywords, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<edu.uoc.mestemi.studentjob.model.StudentProfile>
-					orderByComparator) {
-
-		return _studentProfileLocalService.getCompanyProfilesByKeywords(
-			groupId, keywords, start, end, orderByComparator);
-	}
-
-	@Override
-	public long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords) {
-
-		return _studentProfileLocalService.getCompanyProfilesCountByKeywords(
-			groupId, keywords);
-	}
-
 	/**
 	 * Returns the degreeIds of the degrees associated with the student profile.
 	 *
@@ -404,6 +357,20 @@ public class StudentProfileLocalServiceWrapper
 	@Override
 	public long[] getDegreePrimaryKeys(long studentProfileId) {
 		return _studentProfileLocalService.getDegreePrimaryKeys(
+			studentProfileId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByOfferId(long studentProfileId) {
+
+		return _studentProfileLocalService.getDegreesByOfferId(
+			studentProfileId);
+	}
+
+	@Override
+	public java.util.List<Long> getDegreesIdsByOfferId(long studentProfileId) {
+		return _studentProfileLocalService.getDegreesIdsByOfferId(
 			studentProfileId);
 	}
 
@@ -493,6 +460,14 @@ public class StudentProfileLocalServiceWrapper
 		return _studentProfileLocalService.getStudentProfile(studentProfileId);
 	}
 
+	@Override
+	public edu.uoc.mestemi.studentjob.model.StudentProfile
+		getStudentProfileByGroupIdAndUserId(long groupId, long userId) {
+
+		return _studentProfileLocalService.getStudentProfileByGroupIdAndUserId(
+			groupId, userId);
+	}
+
 	/**
 	 * Returns the student profile matching the UUID and group.
 	 *
@@ -526,6 +501,45 @@ public class StudentProfileLocalServiceWrapper
 		getStudentProfiles(int start, int end) {
 
 		return _studentProfileLocalService.getStudentProfiles(start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getStudentProfilesByGroupId(long groupId) {
+
+		return _studentProfileLocalService.getStudentProfilesByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getStudentProfilesByGroupId(long groupId, int start, int end) {
+
+		return _studentProfileLocalService.getStudentProfilesByGroupId(
+			groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getStudentProfilesByGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>
+					orderByComparator) {
+
+		return _studentProfileLocalService.getStudentProfilesByGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getStudentProfilesByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>
+					orderByComparator) {
+
+		return _studentProfileLocalService.getStudentProfilesByKeywords(
+			groupId, keywords, start, end, orderByComparator);
 	}
 
 	/**
@@ -573,6 +587,14 @@ public class StudentProfileLocalServiceWrapper
 	@Override
 	public int getStudentProfilesCount() {
 		return _studentProfileLocalService.getStudentProfilesCount();
+	}
+
+	@Override
+	public long getStudentProfilesCountByKeywords(
+		long groupId, String keywords) {
+
+		return _studentProfileLocalService.getStudentProfilesCountByKeywords(
+			groupId, keywords);
 	}
 
 	@Override

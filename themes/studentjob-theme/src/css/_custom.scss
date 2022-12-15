@@ -5,7 +5,7 @@
 @import "liferay-font-awesome/scss/font-awesome";
 @import "liferay-font-awesome/scss/glyphicons";
 
-@import url(https://fonts.googleapis.com/css?family=Cookie|Raleway|Rancho|Croissant+One|Pacifico:300,700,400);
+@import url(https://fonts.googleapis.com/css?family=Cookie|Oswald|Raleway|Rancho|Croissant+One|Pacifico|Quicksand:300,700,400);
 
 
 
@@ -15,220 +15,20 @@
 
 /* This file allows you to override default styles in one central location for easier upgrade and maintenance. */
 
+@import "scss_var";
 
 .studentjob-body{
-    .studentjob-wrapper{
-
-        .portlet-layout{
-            .portlet-header{
-                display: none;
-            }
-        }
-
-        .heading{
-            background-color: #193A6F;
-
-            .navbar{
-                padding: 1rem;
-                gap: 50px;
-                align-items: center;
-            }
-
-            .logo{
-                width: 250px;
-                height: auto;
-            }
-
-            .navbar-toggler{
-                &:not(.collapsed){
-                    .navbar-hamburger{
-                        .line:nth-child(2){
-                            opacity: 0;
-                        }
-                          
-                        .line:nth-child(1){
-                            -webkit-transform: translateY(13px) rotate(45deg);
-                            -ms-transform: translateY(13px) rotate(45deg);
-                            -o-transform: translateY(13px) rotate(45deg);
-                            transform: translateY(13px) rotate(45deg);
-                        }
-                          
-                        .line:nth-child(3){
-                            -webkit-transform: translateY(-13px) rotate(-45deg);
-                            -ms-transform: translateY(-13px) rotate(-45deg);
-                            -o-transform: translateY(-13px) rotate(-45deg);
-                            transform: translateY(-13px) rotate(-45deg);
-                        }
-                    }
-                }
-
-                
-                .navbar-hamburger .line{
-                    width: 50px;
-                    height: 5px;
-                    background-color: #ecf0f1;
-                    display: block;
-                    margin: 8px auto;
-                    -webkit-transition: all 0.3s ease-in-out;
-                    -o-transition: all 0.3s ease-in-out;
-                    transition: all 0.3s ease-in-out;
-                    }
-            }
-
-            .main-navbar{
-                .nav-item{
-                    .nav-link{
-                        display: flex;
-                        align-items: center;
-                        gap: 10px;
-                        color: #FDFEFF;
-                        padding: 10px 30px 10px 30px;
-                        font-size: 15px;
-                        margin-left: 14px;
-                        text-transform: uppercase;
-                        font-weight: 700;
-
-                        &.active{
-                            border-bottom: 2px solid white;
-
-                            .icon{
-                                color: #F98125;
-                            }
-                        }
-
-                        &:hover{
-                            .icon{
-                                color: #F98125;
-                            }
-
-                            span{
-                                color: #FB9B50;
-                            }
-                        }
-
-                        .icon{
-                            font-size: 18px;
-                            color: #FFF;
-                        }
-                    }
-                }
-            }
-        }
-
-        .footer{
-            background-color: #11224D;
-            color: #fff;
-
-            .copyright{
-                text-align: center;
-
-                .copyright__link{
-                    color: #f9f900;
-                }
-            }
-        }
-
-        .register-container{
-            .input-text-wrapper {
-                border-bottom: 1px solid #333;
-                display: block;
-                font-size: 1.25em;
-                margin-bottom: 0.5em;
-
-                .field{
-                    border: none;
-                    color: #495057;
-                    display: block;
-                    font-size: 1rem;
-                    font-weight: 400;
-                    height: 2.375rem;
-                    line-height: 1.5;
-                    min-width: 0;
-                    padding: 0.375rem 0.75rem 0.375rem 0.75rem;
-                    width: 100%;
-                }
-            }
-
-            .control-label{
-                max-width: 100%;
-                margin-bottom: 5px;
-                font-weight: 700;
-                display: block;
-                font-size: 0.9rem;
-                font-weight: bold;
-                padding-left: 0.5em;
-                text-transform: uppercase;
-
-                &.input-checkbox-wrapper{
-                    display: flex;
-                    margin-bottom: 0px;
-
-                    input {
-                        -moz-appearance: none;
-                        -webkit-appearance: none;
-                        -o-appearance: none;
-                        appearance: none;
-                        height: 1em;
-                        min-width: 2em;
-                        border-radius: 1em;
-                        box-shadow: inset -1em 0px 0px 0px rgba(192, 192, 192, 1);
-                        background-color: white;
-                        border: 1px solid rgba(192, 192, 192, 1);
-                        outline: none;
-                        -webkit-transition: 0.2s;
-                        transition: 0.2s;
-                        margin-top: 3px;
-                      }
-                      
-                    input:checked {
-                        box-shadow: inset 1em 0px 0px 0px rgb(26, 134, 17);
-                        border: 1px solid rgba(33, 150, 243, 1);
-                    }
-                }
-            }
-
-            .nav-register{
-                align-items: center;
-                justify-content: center;
-                gap: 80px;
-                padding-bottom: 50px;
-
-                .nav-link{
-                    font-family: 'Cookie';
-                    padding: 0px 30px 0px 30px;
-                    background: none;
-                    border: none;
-                    font-size: 70px;
-                    color: #11224D;
-
-                    &.active{
-                        border-bottom: 3px solid #11224D;
-                        font-weight: 700;
-                    }
-                }
-            }
-
-            .btn-submit {
-                padding: 13px 0;
-                border: 3px solid #333;
-                color: #333;
-                font-weight: 700;
-                text-transform: uppercase;
-                font-size: 17px;
-                letter-spacing: 3px;
-                transition: all .2s ease-in-out;
-                padding: 15px 30px;
-                
-                &:hover {
-                  background: #333;
-                  border: 1px solid #333;
-                  color: #fefefe;
-                  border-radius: 30px;
-                }
-            }
+    @import "modules/footer";
+    @import "modules/header";
+    @import "modules/register";
+    @import "modules/offers";
+    @import "modules/companyprofile";
+    @import "modules/utils";
 
 
-              
+    .offers-layout {
+        .portlet-column-only.col-md-12{
+            padding: 0 !important;
         }
     }
 }

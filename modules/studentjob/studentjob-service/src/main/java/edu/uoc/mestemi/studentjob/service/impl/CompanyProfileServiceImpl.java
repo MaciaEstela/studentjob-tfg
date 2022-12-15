@@ -63,8 +63,8 @@ public class CompanyProfileServiceImpl extends CompanyProfileServiceBaseImpl {
 		return companyProfileLocalService.deleteCompanyProfile(companyProfileId);
 	}
 	
-	public CompanyProfile getCompanyProfileByGroupId(long groupId, long userId) {
-		return companyProfileLocalService.getCompanyProfileByGroupId(groupId, userId);
+	public CompanyProfile getCompanyProfileByGroupIdAndUserId(long groupId, long userId) {
+		return companyProfileLocalService.getCompanyProfileByGroupIdAndUserId(groupId, userId);
 	}
 	
 	public CompanyProfile getCompanyProfile(long companyProfileId) throws PortalException {

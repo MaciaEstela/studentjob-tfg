@@ -192,13 +192,14 @@ public class CompanyProfileServiceHttp {
 	}
 
 	public static edu.uoc.mestemi.studentjob.model.CompanyProfile
-		getCompanyProfileByGroupId(
+		getCompanyProfileByGroupIdAndUserId(
 			HttpPrincipal httpPrincipal, long groupId, long userId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CompanyProfileServiceUtil.class, "getCompanyProfileByGroupId",
-				_getCompanyProfileByGroupIdParameterTypes3);
+				CompanyProfileServiceUtil.class,
+				"getCompanyProfileByGroupIdAndUserId",
+				_getCompanyProfileByGroupIdAndUserIdParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, userId);
@@ -462,8 +463,10 @@ public class CompanyProfileServiceHttp {
 		};
 	private static final Class<?>[] _deleteCompanyProfileParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCompanyProfileByGroupIdParameterTypes3 =
-		new Class[] {long.class, long.class};
+	private static final Class<?>[]
+		_getCompanyProfileByGroupIdAndUserIdParameterTypes3 = new Class[] {
+			long.class, long.class
+		};
 	private static final Class<?>[] _getCompanyProfileParameterTypes4 =
 		new Class[] {long.class};
 	private static final Class<?>[]

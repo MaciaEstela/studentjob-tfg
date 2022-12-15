@@ -1,0 +1,24 @@
+<a href="${offer.getViewURL()}" class="offers-cards__item">
+	<div class="offers-cards__top">
+		<div class="offers-cards__image-wrapper">
+			<img alt="${offer.getCompany()} Logo" class="offers-cards__image" src="${offer.getLogoURL()}">
+		</div>
+		<div class="offers-cards__title-wrapper">
+			<h2 class="offers-cards__title">
+				${offer.getTitle()}
+			</h2>
+		</div>
+	</div>
+	<div class="offers-cards__top-info-wrapper">
+		<span class="offers-cards__company-name">${offer.getCompany()}</span>
+		<span>${offer.getPreference()}</span>
+	</div>
+	<div class="offers-cards__description-wrapper">
+		<p class="offers-cards__description">
+			${offer.getDescription()}
+		</p>
+		<div class="offers-cards__time">
+			${offer.getCreateString()}
+		</div>
+	</div>
+</a>

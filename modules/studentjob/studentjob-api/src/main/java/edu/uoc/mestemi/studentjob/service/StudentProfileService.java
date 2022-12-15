@@ -23,7 +23,9 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
+import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 
 import java.util.List;
@@ -65,6 +67,12 @@ public interface StudentProfileService extends BaseService {
 	public StudentProfile deleteStudentProfile(long studentProfileId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByOfferId(long studentProfileId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Long> getDegreesIdsByOfferId(long studentProfileId);
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -73,8 +81,33 @@ public interface StudentProfileService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public StudentProfile getStudentProfile(long socialMediaId)
+	public StudentProfile getStudentProfile(long studentProfileId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public StudentProfile getStudentProfileByGroupIdAndUserId(
+		long groupId, long userId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getStudentProfilesCountByKeywords(
+		long groupId, String keywords);
 
 	public StudentProfile updateStudentProfile(
 			long studentProfileId, long regionId, boolean active,

@@ -294,9 +294,9 @@ public class CompanyProfileLocalServiceWrapper
 
 	@Override
 	public edu.uoc.mestemi.studentjob.model.CompanyProfile
-		getCompanyProfileByGroupId(long groupId, long userId) {
+		getCompanyProfileByGroupIdAndUserId(long groupId, long userId) {
 
-		return _companyProfileLocalService.getCompanyProfileByGroupId(
+		return _companyProfileLocalService.getCompanyProfileByGroupIdAndUserId(
 			groupId, userId);
 	}
 

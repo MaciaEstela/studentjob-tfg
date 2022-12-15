@@ -1,0 +1,20 @@
+<liferay-portlet:actionURL var="addStudentUserURL" name="<%= MVCCommandNames.ACTION_REGISTER %>">
+	<liferay-portlet:param name="registerType" value="<%=StudentjobRegisterConstants.USER_STUDENT%>"/>
+</liferay-portlet:actionURL>
+
+<aui:form name="studentuserform" method="post" action="${addStudentUserURL}">
+	<aui:input name="studentName" type="text" label="form.register.name"/>
+	<aui:input name="studentSurname" type="text" label="form.register.surname"/>
+	<aui:input name="studentEmail" type="text" value="@uoc.edu" label="form.register.email"/>
+	<aui:input name="studentPassword" type="password" label="form.register.password"/>
+	<aui:input name="studentRepeatPassword" type="password" label="form.register.repeat-password"/>
+	<aui:input name="studentOfferAlerts" type="checkbox" wrapperCssClass="control-label" label="form.register.student.alert"/>
+	
+	<div class="row mt-5">
+		<div class="col-12 text-center">
+			<button class="btn-submit" type="submit" id="<portlet:namespace />submitButtonStudent">
+				<liferay-ui:message key="form.register.signup" />
+			</button>
+		</div>
+	</div>
+</aui:form>

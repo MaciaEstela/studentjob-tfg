@@ -11,6 +11,13 @@ public class MVCCommandNames {
 	public static final String EDIT_OFFER_ADMIN = "/studentjob/offer/admin/edit";
 	public static final String LIST_OFFER_ADMIN = "/studentjob/offer/admin/view";
 	
+	public static final String LIST_OFFER_PUBLIC = "/studentjob/offer/public/list";
+	public static final String VIEW_DETAIL_PUBLIC = "/studentjob/offer/public/view-detail";
+	public static final String OFFER_PUBLIC_RESOURCE_COMMAND = "/studentjob/offer/public/resource";
+	public static final String OFFER_PUBLIC_RESOURCE_COMMAND_GET_OFFERS = "getOffers";
+	public static final String OFFER_PUBLIC_RESOURCE_COMMAND_AUX_DATA = "auxdataOffers";
+	public static final String OFFER_PUBLIC_RESOURCE_COMMAND_ENROLL = "enroll";
+	
 	public static final String ADD_DEGREEAREA_ADMIN = "/studentjob/degreeArea/admin/add";
 	public static final String DELETE_DEGREEAREA_ADMIN = "/studentjob/degreeArea/admin/delete";
 	public static final String EDIT_DEGREEAREA_ADMIN = "/studentjob/degreeArea/admin/edit";
@@ -27,5 +34,11 @@ public class MVCCommandNames {
 	public static final String LIST_SOCIALMEDIANETWORK_ADMIN = "/studentjob/socialmedianetwork/admin/view";
 	
 	public static final String EDIT_COMPANYPROFILE_USER = "/studentjob/companyoprofile/edit";
+	public static final String VIEW_COMPANYPROFILE_PUBLIC = "/studentjob/companyprofile/public/view";
+	public static final String LIST_COMPANYPROFILE_PUBLIC = "/studentjob/companyprofile/public/list";
 	
+	
+	public static final String EDIT_STUDENTPROFILE_USER = "/studentjob/studentoprofile/edit";
+	public static final String VIEW_STUDENTPROFILE_PUBLIC = "/studentjob/studentprofile/public/view";
+	public static final String LIST_STUDENTPROFILE_PUBLIC = "/studentjob/studentprofile/public/list";
 }

@@ -191,7 +191,8 @@ public class StudentProfileServiceHttp {
 	}
 
 	public static edu.uoc.mestemi.studentjob.model.StudentProfile
-			getStudentProfile(HttpPrincipal httpPrincipal, long socialMediaId)
+			getStudentProfile(
+				HttpPrincipal httpPrincipal, long studentProfileId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -200,7 +201,7 @@ public class StudentProfileServiceHttp {
 				_getStudentProfileParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, socialMediaId);
+				methodKey, studentProfileId);
 
 			Object returnObj = null;
 
@@ -220,6 +221,285 @@ public class StudentProfileServiceHttp {
 			}
 
 			return (edu.uoc.mestemi.studentjob.model.StudentProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static edu.uoc.mestemi.studentjob.model.StudentProfile
+		getStudentProfileByGroupIdAndUserId(
+			HttpPrincipal httpPrincipal, long groupId, long userId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class,
+				"getStudentProfileByGroupIdAndUserId",
+				_getStudentProfileByGroupIdAndUserIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, userId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.StudentProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.StudentProfile>
+			getStudentProfilesByGroupId(
+				HttpPrincipal httpPrincipal, long groupId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "getStudentProfilesByGroupId",
+				_getStudentProfilesByGroupIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.StudentProfile>
+			getStudentProfilesByGroupId(
+				HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "getStudentProfilesByGroupId",
+				_getStudentProfilesByGroupIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
+		getDegreesByOfferId(
+			HttpPrincipal httpPrincipal, long studentProfileId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "getDegreesByOfferId",
+				_getDegreesByOfferIdParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, studentProfileId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<edu.uoc.mestemi.studentjob.model.Degree>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<Long> getDegreesIdsByOfferId(
+		HttpPrincipal httpPrincipal, long studentProfileId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "getDegreesIdsByOfferId",
+				_getDegreesIdsByOfferIdParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, studentProfileId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<Long>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.StudentProfile>
+			getStudentProfilesByGroupId(
+				HttpPrincipal httpPrincipal, long groupId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<edu.uoc.mestemi.studentjob.model.StudentProfile>
+						orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "getStudentProfilesByGroupId",
+				_getStudentProfilesByGroupIdParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.StudentProfile>
+			getStudentProfilesByKeywords(
+				HttpPrincipal httpPrincipal, long groupId, String keywords,
+				int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<edu.uoc.mestemi.studentjob.model.StudentProfile>
+						orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class, "getStudentProfilesByKeywords",
+				_getStudentProfilesByKeywordsParameterTypes10);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long getStudentProfilesCountByKeywords(
+		HttpPrincipal httpPrincipal, long groupId, String keywords) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class,
+				"getStudentProfilesCountByKeywords",
+				_getStudentProfilesCountByKeywordsParameterTypes11);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -251,5 +531,33 @@ public class StudentProfileServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getStudentProfileParameterTypes3 =
 		new Class[] {long.class};
+	private static final Class<?>[]
+		_getStudentProfileByGroupIdAndUserIdParameterTypes4 = new Class[] {
+			long.class, long.class
+		};
+	private static final Class<?>[]
+		_getStudentProfilesByGroupIdParameterTypes5 = new Class[] {long.class};
+	private static final Class<?>[]
+		_getStudentProfilesByGroupIdParameterTypes6 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[] _getDegreesByOfferIdParameterTypes7 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getDegreesIdsByOfferIdParameterTypes8 =
+		new Class[] {long.class};
+	private static final Class<?>[]
+		_getStudentProfilesByGroupIdParameterTypes9 = new Class[] {
+			long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getStudentProfilesByKeywordsParameterTypes10 = new Class[] {
+			long.class, String.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getStudentProfilesCountByKeywordsParameterTypes11 = new Class[] {
+			long.class, String.class
+		};
 
 }

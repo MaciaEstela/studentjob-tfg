@@ -18,7 +18,7 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.display-category=category.studentjob",
 		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.instanceable=false",
-		"javax.portlet.display-name=Studentjob CompanyProfile User",
+		"javax.portlet.display-name=Studentjob StudentProfile User",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/degreearea/admin/view.jsp",
 		"javax.portlet.name=" + StudentjobPortletKeys.STUDENTJOB_COMPANYPROFILE_USER,

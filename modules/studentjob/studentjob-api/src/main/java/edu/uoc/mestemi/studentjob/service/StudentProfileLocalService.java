@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 
 import java.io.Serializable;
@@ -251,27 +252,6 @@ public interface StudentProfileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<StudentProfile> getCompanyProfilesByGroupId(long groupId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<StudentProfile> getCompanyProfilesByGroupId(
-		long groupId, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<StudentProfile> getCompanyProfilesByGroupId(
-		long groupId, int start, int end,
-		OrderByComparator<StudentProfile> orderByComparator);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<StudentProfile> getCompanyProfilesByKeywords(
-		long groupId, String keywords, int start, int end,
-		OrderByComparator<StudentProfile> orderByComparator);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords);
-
 	/**
 	 * Returns the degreeIds of the degrees associated with the student profile.
 	 *
@@ -280,6 +260,12 @@ public interface StudentProfileLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long[] getDegreePrimaryKeys(long studentProfileId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Degree> getDegreesByOfferId(long studentProfileId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Long> getDegreesIdsByOfferId(long studentProfileId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<StudentProfile> getDegreeStudentProfiles(long degreeId);
@@ -329,6 +315,10 @@ public interface StudentProfileLocalService
 	public StudentProfile getStudentProfile(long studentProfileId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public StudentProfile getStudentProfileByGroupIdAndUserId(
+		long groupId, long userId);
+
 	/**
 	 * Returns the student profile matching the UUID and group.
 	 *
@@ -355,6 +345,23 @@ public interface StudentProfileLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<StudentProfile> getStudentProfiles(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByGroupId(
+		long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<StudentProfile> orderByComparator);
 
 	/**
 	 * Returns all the student profiles matching the UUID and company.
@@ -389,6 +396,10 @@ public interface StudentProfileLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getStudentProfilesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getStudentProfilesCountByKeywords(
+		long groupId, String keywords);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public boolean hasDegreeStudentProfile(

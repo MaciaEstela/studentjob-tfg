@@ -1,0 +1,95 @@
+.portlet-layout{
+    .portlet-header{
+        display: none;
+    }
+}
+
+.heading{
+    background-color: $blue-2;
+
+    .navbar{
+        padding: 1rem;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .logo{
+        width: 250px;
+        height: auto;
+    }
+
+    .navbar-toggler{
+        &:not(.collapsed){
+            .navbar-hamburger{
+                .line:nth-child(2){
+                    opacity: 0;
+                }
+                    
+                .line:nth-child(1){
+                    -webkit-transform: translateY(13px) rotate(45deg);
+                    -ms-transform: translateY(13px) rotate(45deg);
+                    -o-transform: translateY(13px) rotate(45deg);
+                    transform: translateY(13px) rotate(45deg);
+                }
+                    
+                .line:nth-child(3){
+                    -webkit-transform: translateY(-13px) rotate(-45deg);
+                    -ms-transform: translateY(-13px) rotate(-45deg);
+                    -o-transform: translateY(-13px) rotate(-45deg);
+                    transform: translateY(-13px) rotate(-45deg);
+                }
+            }
+        }
+
+        
+        .navbar-hamburger .line{
+            width: 50px;
+            height: 5px;
+            background-color: #ecf0f1;
+            display: block;
+            margin: 8px auto;
+            -webkit-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            }
+    }
+
+    .main-navbar{
+        .nav-item{
+            .nav-link{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #FDFEFF;
+                padding: 10px 30px 10px 30px;
+                font-size: 15px;
+                margin-left: 14px;
+                text-transform: uppercase;
+                font-weight: 700;
+
+                &.active{
+                    border-bottom: 2px solid $white;
+
+                    .icon{
+                        color: $orange-1;
+                    }
+                }
+
+                &:hover{
+                    .icon{
+                        color: $orange-1;
+                    }
+
+                    span{
+                        color: $orange-2;
+                    }
+                }
+
+                .icon{
+                    font-size: 18px;
+                    color: $white;
+                }
+            }
+        }
+    }
+}

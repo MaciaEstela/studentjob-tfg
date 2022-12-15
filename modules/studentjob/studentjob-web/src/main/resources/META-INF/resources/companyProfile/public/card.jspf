@@ -1,0 +1,17 @@
+<a href="${companyProfile.getViewURL()}" class="companyprofile-cards__item col-6 col-md-3">
+	<div class="companyprofile-cards__top">
+		<div class="companyprofile-cards__image-wrapper">
+			<img alt="${companyProfile.getName()} Logo" class="companyprofile-cards__image" src="${companyProfile.getLogoURL()}">
+		</div>
+		<div class="companyprofile-cards__title-wrapper text-center">
+			<span class="companyprofile-cards__title">
+				${companyProfile.getName()}
+			</span>
+		</div>
+		<div class="companyprofile-cards__subtitle-wrapper text-center">
+			<span class="companyprofile-cards__subtitle">
+				${companyProfile.getSector()}
+			</span>
+		</div>
+	</div>
+</a>

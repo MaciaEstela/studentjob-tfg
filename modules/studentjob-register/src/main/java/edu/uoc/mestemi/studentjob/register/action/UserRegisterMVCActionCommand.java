@@ -102,7 +102,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			}
 		} catch (UserEmailAddressException uea) {
 			String studentEmail = ParamUtil.getString(actionRequest, registerType + "Email", StringPool.BLANK);
-			log.error("Error on registering duplicated user email " + studentEmail);
+			log.error("Error on registering duplicated user email " + studentEmail, uea);
 			SessionErrors.add(actionRequest, "error.user.email-duplicated");
 		} catch (Exception e) {
 //			SessionErrors.add(, clazz);
@@ -130,6 +130,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		boolean userReceiveOffers = ParamUtil.getBoolean(actionRequest, userTypePrefix + "OfferAlerts", false);
 		String userNif= ParamUtil.getString(actionRequest, userTypePrefix + "Nif", StringPool.BLANK);
 		String userPhone = ParamUtil.getString(actionRequest, userTypePrefix + "Phone", StringPool.BLANK);
+		String userCompany = ParamUtil.getString(actionRequest, userTypePrefix + "Company", StringPool.BLANK);
 
 		User user = createUser(actionRequest, themeDisplay, userTypePrefix);
 		long groupId = themeDisplay.getScopeGroupId();
@@ -145,6 +146,9 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			
 			user.getExpandoBridge().setAttribute(
 					StudentjobRegisterConstants.USER_PHONE, userPhone, false);
+			
+			user.getExpandoBridge().setAttribute(
+					StudentjobRegisterConstants.USER_COMPANY_EXPANDO, userCompany, false);
 			
 			user.setAgreedToTermsOfUse(true);
 			
@@ -274,7 +278,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				);
 			
 			try {
-				sendRegisterEmail(actionRequest, userTypePrefix, email, themeDisplay.getLocale(), ticket.getKey(), user.getScreenName());
+				sendRegisterEmail(actionRequest, userTypePrefix, email, themeDisplay.getLocale(), ticket.getKey(), user.getScreenName(), user.getFirstName());
 			} catch (Exception e) {
 				log.error("Cant send user mail register", e);
 			} 
@@ -305,7 +309,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		return null;
 	}
 	
-	private void sendRegisterEmail(ActionRequest actionRequest, String userTypePrefix, String email, Locale locale, String token, String screenName) throws TemplateException, MalformedURLException {
+	private void sendRegisterEmail(ActionRequest actionRequest, String userTypePrefix, String email, Locale locale, String token, String screenName, String userName) throws TemplateException, MalformedURLException {
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", locale, UTF8Control.INSTANCE);
 		PortletContext portletContext = actionRequest.getPortletContext();
 				
@@ -324,16 +328,15 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		params.put("footer3", LanguageUtil.get(resourceBundle, "mail.text.footer3"));
 		params.put("gotoportal", LanguageUtil.get(resourceBundle, "mail.text.gotoportal"));
 		params.put("visualizeurl", LanguageUtil.get(resourceBundle, "mail.text.visualizeurl"));
+		params.put("username", userName);
 		
 		params.put("contactmail", "contact@mestemiuoc.com");
 		params.put("siteurl", "https://mestemiuoc.com");
 		params.put("preferencesUrl", "https://mestemiuoc.com/sjobadmin/settings");
-		params.put("confirmUrl", "https://mestemiuoc.com/sjobadmin/validate");
-		
-		
+		params.put("confirmUrl", "http://localhost:8080/validate?token=" + token + "&user=" + screenName);
 		
 		templateProcessor = new TemplateProcessor(
-				portletContext.getResource("/mails/register4.ftl").getPath());
+				portletContext.getResource("/mails/registerMail.ftl").getPath());
 		
 		try {
 			RegisterUtil.sendMailMessage(

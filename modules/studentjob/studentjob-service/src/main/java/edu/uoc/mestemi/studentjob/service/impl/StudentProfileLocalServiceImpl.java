@@ -26,11 +26,15 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalService;
@@ -115,28 +119,40 @@ public class StudentProfileLocalServiceImpl
 		return studentProfile;
 	}
 	
-	public List<StudentProfile> getCompanyProfilesByGroupId(long groupId) {
+	public List<StudentProfile> getStudentProfilesByGroupId(long groupId) {
 		return studentProfilePersistence.findByGroupId(groupId);
 	}
 	
-	public List<StudentProfile> getCompanyProfilesByGroupId(long groupId, int start, int end) {
+	public List<StudentProfile> getStudentProfilesByGroupId(long groupId, int start, int end) {
 		return studentProfilePersistence.findByGroupId(groupId, start, end);
 	}
 	
-	public List<StudentProfile> getCompanyProfilesByGroupId(long groupId, int start, int end, 
+	public List<StudentProfile> getStudentProfilesByGroupId(long groupId, int start, int end, 
 			OrderByComparator<StudentProfile> orderByComparator) {
 		return studentProfilePersistence.findByGroupId(groupId, start, end, orderByComparator);
 	}
 	
-	public List<StudentProfile> getCompanyProfilesByKeywords(long groupId, String keywords, int start, 
+	public StudentProfile getStudentProfileByGroupIdAndUserId(long groupId, long userId) {
+		return studentProfilePersistence.findByGroupIdAndUserId(groupId, userId).get(0);
+	}
+	
+	public List<StudentProfile> getStudentProfilesByKeywords(long groupId, String keywords, int start, 
 			int end, OrderByComparator<StudentProfile> orderByComparator) {
 		return studentProfilePersistence.findWithDynamicQuery(
 				getKeywordSearchDynamicQuery(groupId, keywords), start, end, orderByComparator);
 	}
 	
-	public long getCompanyProfilesCountByKeywords(long groupId, String keywords) {
+	public long getStudentProfilesCountByKeywords(long groupId, String keywords) {
 		return studentProfilePersistence.countWithDynamicQuery(
 				getKeywordSearchDynamicQuery(groupId, keywords));
+	}
+	
+	public List<Degree> getDegreesByOfferId(long studentProfileId){
+		return degreeLocalService.getStudentProfileDegrees(studentProfileId);
+	}
+	
+	public List<Long> getDegreesIdsByOfferId(long studentProfileId){
+		return Arrays.stream(studentProfilePersistence.getDegreePrimaryKeys(studentProfileId)).boxed().collect(Collectors.toList());
 	}
 	
 	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords) {

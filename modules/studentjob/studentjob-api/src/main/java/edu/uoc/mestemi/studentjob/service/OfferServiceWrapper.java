@@ -118,8 +118,32 @@ public class OfferServiceWrapper
 	}
 
 	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
+
+		return _offerService.
+			getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId,
+				start, end, orderByComparator);
+	}
+
+	@Override
 	public long getOffersCountByKeywords(long groupId, String keywords) {
 		return _offerService.getOffersCountByKeywords(groupId, keywords);
+	}
+
+	@Override
+	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+		long groupId, String keywords, String preference, long regionId,
+		long degreeId, long newestId) {
+
+		return _offerService.
+			getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId);
 	}
 
 	/**

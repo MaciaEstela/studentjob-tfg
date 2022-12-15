@@ -240,7 +240,8 @@ public interface CompanyProfileLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CompanyProfile getCompanyProfileByGroupId(long groupId, long userId);
+	public CompanyProfile getCompanyProfileByGroupIdAndUserId(
+		long groupId, long userId);
 
 	/**
 	 * Returns the company profile matching the UUID and group.

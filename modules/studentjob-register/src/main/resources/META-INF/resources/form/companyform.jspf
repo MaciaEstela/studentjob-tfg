@@ -1,0 +1,25 @@
+<liferay-portlet:actionURL var="addCompanyUserURL" name="<%=MVCCommandNames.ACTION_REGISTER%>">
+	<liferay-portlet:param name="registerType" value="<%=StudentjobRegisterConstants.USER_COMPANY%>"/>
+</liferay-portlet:actionURL>
+
+<aui:form name="companyuserform" method="post" action="${addCompanyUserURL}">
+	<aui:input name="selectedService" type="hidden" value="${selectedService}" />
+	
+	<aui:input name="companyNif" type="text" label="form.register.company.nif"/>
+	<aui:input name="companyName" type="text" label="form.register.name"/>
+	<aui:input name="companySurname" type="text" label="form.register.surname"/>
+	<aui:input name="companyCompany" type="text" label="form.register.company.company"/>
+	<aui:input name="companyPhone" type="text" label="form.register.phone"/>
+	<aui:input name="companyEmail" type="text" label="form.register.email"/>
+	<aui:input name="companyPassword" type="password" label="form.register.password"/>
+	<aui:input name="companyRepeatPassword" type="password" label="form.register.repeat-password"/>
+	<aui:input name="companyOfferAlerts" type="checkbox" wrapperCssClass="control-label" label="form.register.company.alert"/>
+	
+	<div class="row mt-5">
+		<div class="col-12 text-center">
+			<button class="btn-submit" type="submit" id="<portlet:namespace />submitButtonCompany">
+				<liferay-ui:message key="form.register.signup" />
+			</button>
+		</div>
+	</div>
+</aui:form>
