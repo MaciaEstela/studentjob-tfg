@@ -13,7 +13,7 @@ import java.util.Map;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author macia
+ * @author Macia Estela (mestemi@uoc.edu)
  */
 @Component(
 	property = {
@@ -26,15 +26,14 @@ import org.osgi.service.component.annotations.Component;
 
 	service = EditorConfigContributor.class
 )
+
+// https://help.liferay.com/hc/en-us/articles/360029527932-CKEditor-Plugin-Reference-Guide
+// https://help.liferay.com/hc/en-us/articles/360017882652-Modifying-an-Editor-s-Configuration
 public class StudentjobCkeditorHookPortlet extends BaseEditorConfigContributor {
 
 	@Override
 	public void populateConfigJSONObject(JSONObject jsonObject, Map<String, Object> inputEditorTaglibAttributes,
 			ThemeDisplay themeDisplay, RequestBackedPortletURLFactory requestBackedPortletURLFactory) {
-		
-		// https://help.liferay.com/hc/en-us/articles/360029527932-CKEditor-Plugin-Reference-Guide
-		// https://help.liferay.com/hc/en-us/articles/360017882652-Modifying-an-Editor-s-Configuration
-		System.out.println("into populateConfigJSONObject");
 		
 		jsonObject.put("allowedContent", false);
 		jsonObject.put("extraPlugins","autolink,colordialog,stylescombo,addimages,justify,lfrpopup,media");
