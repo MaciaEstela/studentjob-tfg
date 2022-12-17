@@ -3,7 +3,6 @@ package edu.uoc.mestemi.studentjob.web.portlet.admin.socialmedianetwork.action;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.service.RegionService;
@@ -12,7 +11,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -21,14 +19,12 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaNetworkException;
-import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkService;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
-import edu.uoc.mestemi.studentjob.web.util.StudentJobUtil;
 
 /**
  * MVC Command for showing edit socialMediaNetwork view.
@@ -62,10 +58,10 @@ public class EditSocialMediaNetworkMVCRenderCommand implements MVCRenderCommand 
 				socialMediaNetwork = _socialMediaNetworkService.getSocialMediaNetwork(socialMediaNetworkId);
 			}
 			catch (NoSuchSocialMediaNetworkException nsoe) {
-				log.error("Can't find data for SocialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId + " - Message: " + nsoe.getMessage());
+				log.error("Can't find data for SocialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId, nsoe);
 			}
 			catch (PortalException pe) {
-				log.error("Error on rendering data for SocialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId + " - Message: " + pe.getMessage());
+				log.error("Error on rendering data for SocialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId, pe);
 			}
 		}
 
@@ -90,13 +86,4 @@ public class EditSocialMediaNetworkMVCRenderCommand implements MVCRenderCommand 
 
 	@Reference
 	private SocialMediaNetworkService _socialMediaNetworkService;
-	
-	@Reference
-	private RegionService _regionService;
-	
-	@Reference
-	private CountryService _countryService;
-	
-	@Reference
-	private DegreeService _degreeService;
 }

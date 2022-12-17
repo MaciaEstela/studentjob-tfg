@@ -48,7 +48,7 @@ public class DeleteSocialMediaNetworkMVCActionCommand extends BaseMVCActionComma
 			_socialMediaNetworkService.deleteSocialMediaNetwork(socialMediaNetworkId);
 		}
 		catch (PortalException pe) {
-			log.error("Error deleting socialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId + " - Message: " + pe.getMessage());
+			log.error("Error deleting socialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId, pe);
 		}
 	}
 

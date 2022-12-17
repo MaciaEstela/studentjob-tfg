@@ -451,6 +451,18 @@ public class StudentProfileLocalServiceUtil {
 			groupId, keywords, start, end, orderByComparator);
 	}
 
+	public static List<StudentProfile>
+		getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId, int start, int end,
+			OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getService().
+			getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId,
+				start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the student profiles matching the UUID and company.
 	 *
@@ -497,6 +509,16 @@ public class StudentProfileLocalServiceUtil {
 
 		return getService().getStudentProfilesCountByKeywords(
 			groupId, keywords);
+	}
+
+	public static long
+		getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId) {
+
+		return getService().
+			getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId);
 	}
 
 	public static boolean hasDegreeStudentProfile(

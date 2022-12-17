@@ -14,10 +14,17 @@
 				<p><liferay-ui:message key="validate.error.text2" /> <a href="contact@mestemiuoc.com">contact@mestemiuoc.com</a></p>
 			</div>
 		</c:when>
-		<c:otherwise>	
+		<c:when test="${(validated == true && manualApprovement == false)}">
 			<h1 class="validate__header--ok text-center text-success font-weight-bold"><liferay-ui:message key="validate.ok.header" /></h1>
 			<div class="validate__text--ok mt-5">
 				<p><liferay-ui:message key="validate.ok.text1" /></p>
+				<p><liferay-ui:message key="validate.ok.text2" /> <a href="contact@mestemiuoc.com">contact@mestemiuoc.com</a></p>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<h1 class="validate__header--ok text-center text-success font-weight-bold"><liferay-ui:message key="validate.ok.header" /></h1>
+			<div class="validate__text--ok mt-5">
+				<p><liferay-ui:message key="validate.ok.text1-company" /></p>
 				<p><liferay-ui:message key="validate.ok.text2" /> <a href="contact@mestemiuoc.com">contact@mestemiuoc.com</a></p>
 			</div>
 		</c:otherwise>

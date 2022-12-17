@@ -2,7 +2,7 @@
 
  <%-- Generate add / edit action URL and set name. --%>
 
-<portlet:actionURL var="companyProfileActionURL" name="<%=MVCCommandNames.EDIT_COMPANYPROFILE_USER %>">
+<portlet:actionURL var="companyProfileActionURL" name="<%=MVCCommandNames.EDIT_COMPANYPROFILE_ADMIN_ACTION %>">
 	<portlet:param name="redirect" value="${param.redirect}" />
 </portlet:actionURL>
 

@@ -20,15 +20,16 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.exception.NoSuchOfferException;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
+import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
+import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
-import edu.uoc.mestemi.studentjob.web.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
-import edu.uoc.mestemi.studentjob.web.util.StudentJobUtil;
 
 /**
  * MVC Command for showing edit offer view.
@@ -82,15 +83,7 @@ public class EditOfferMVCRenderCommand implements MVCRenderCommand {
 
 		portletDisplay.setURLBack(redirect);
 
-		List<Region> regions = null;
-		
-		
-		try {
-			regions = StudentJobUtil.getRegionsByCountryA3(companyId, "ESP", true);
-		} catch (PortalException e) {
-			log.error("Error on loading Regions  - Message: " + e.getMessage());
-		}
-
+		List<Region> regions = ProvinceUtil.getRegionsByCountryA3(companyId, CountryA3Constants.SPAIN, true);
 		List<Degree> degrees = _degreeService.getDegreesByGroupId(groupId);
 		List<Long> currentOfferDegreesIds = _offerService.getDegreesIdsByOfferId(offerId);
 		

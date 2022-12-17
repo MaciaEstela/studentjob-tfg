@@ -12,7 +12,6 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.math.BigInteger;
 import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -23,9 +22,8 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.model.Degree;
-import edu.uoc.mestemi.studentjob.service.DegreeLocalServiceUtil;
-import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 
@@ -97,15 +95,17 @@ public class ViewDegreeMVCRenderCommand implements MVCRenderCommand {
 		int end = start + delta;
 
 		String orderByCol =
-			ParamUtil.getString(renderRequest, "orderByCol", "name");
+			ParamUtil.getString(renderRequest, 
+					StudentjobConstants.ORDER_BY_COL, StudentjobConstants.ORDER_NAME);
+		
 		String orderByType =
-			ParamUtil.getString(renderRequest, "orderByType", "asc");
+			ParamUtil.getString(renderRequest, 
+					StudentjobConstants.ORDER_BY_TYPE, StudentjobConstants.ORDER_ASC);
 
 		// Create comparator
-
 		OrderByComparator<Degree> comparator =
 			OrderByComparatorFactoryUtil.create(
-				"Degree", orderByCol, !("asc").equals(orderByType));
+				"Degree", orderByCol, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 

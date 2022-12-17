@@ -66,11 +66,11 @@ public class EditSocialMediaNetworkMVCActionCommand extends BaseMVCActionCommand
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (SocialMediaNetworkValidationException ove) {
-			log.error("Error validating SocialMediaNetwork edit with socialMediaNetworkId " + socialMediaNetworkId + " - Message: " + ove.getMessage());
+			log.error("Error validating SocialMediaNetwork edit with socialMediaNetworkId " + socialMediaNetworkId, ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_SOCIALMEDIANETWORK_ADMIN);
 		}
 		catch (PortalException pe) {
-			log.error("Error editing SocialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId + " - Message: " + pe.getMessage());
+			log.error("Error editing SocialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId, pe);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_SOCIALMEDIANETWORK_ADMIN);
 		}
 	}

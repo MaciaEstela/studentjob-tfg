@@ -11,20 +11,35 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserGroupRoleLocalServiceUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import javax.portlet.Portlet;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterConstants;
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKeys;
 import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 
@@ -66,17 +81,38 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 		
 		if (expandoTable != null) {
 			addExpandoColumn(companyId, className, tableName, 
-					StudentjobRegisterConstants.USER_EMAIL_OFFERS, expandoTable, 
+					StudentjobConstants.USER_EMAIL_OFFERS, expandoTable, 
 					ExpandoColumnConstants.BOOLEAN, false);
 			addExpandoColumn(companyId, className, tableName, 
-					StudentjobRegisterConstants.USER_NIF, expandoTable, 
+					StudentjobConstants.USER_NIF, expandoTable, 
 					ExpandoColumnConstants.STRING, StringPool.BLANK);
 			addExpandoColumn(companyId, className, tableName, 
-					StudentjobRegisterConstants.USER_PHONE, expandoTable, 
+					StudentjobConstants.USER_PHONE, expandoTable, 
 					ExpandoColumnConstants.STRING, StringPool.BLANK);
 			addExpandoColumn(companyId, className, tableName, 
-					StudentjobRegisterConstants.USER_COMPANY_EXPANDO, expandoTable, 
+					StudentjobConstants.USER_COMPANY_EXPANDO, expandoTable, 
 					ExpandoColumnConstants.STRING, StringPool.BLANK);
+		}
+
+		
+		try {
+			Map<Locale, String> roleStudentMap = new HashMap<>();
+			roleStudentMap.put(LocaleUtil.getDefault(), "Student Role");
+			
+			Map<Locale, String> roleCompanyMap = new HashMap<>();
+			roleCompanyMap.put(LocaleUtil.getDefault(), "Company Role");
+			
+			
+			Role studentRole = createRole(companyId, StudentjobConstants.STUDENT_ROLE, roleStudentMap);
+			UserGroup studentGroup = createGroup(companyId, StudentjobConstants.STUDENT_GROUP);
+			GroupLocalServiceUtil.addRoleGroup(studentRole.getRoleId(), studentGroup.getGroupId());
+			
+			Role companyRole = createRole(companyId, StudentjobConstants.COMPANY_ROLE, roleCompanyMap);
+			UserGroup companyGroup = createGroup(companyId, StudentjobConstants.COMPANY_GROUP);
+			GroupLocalServiceUtil.addRoleGroup(companyRole.getRoleId(), companyGroup.getGroupId());
+			
+		} catch (PortalException e) {
+			log.error(e);
 		}
 		
 	}
@@ -172,6 +208,61 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * Create the role or return it if already exists one with this roleName
+	 * 
+	 * @param companyId
+	 * @param roleName
+	 * @param titleMap
+	 */
+	private Role createRole(long companyId, String roleName, Map<Locale, String> titleMap) throws PortalException {
+		Role role = null;
+		try {
+			role = RoleLocalServiceUtil.getRole(companyId, roleName); 
+		} catch (PortalException e) {
+			log.error("Role with name " + roleName + " doesn't exist");
+			role = RoleLocalServiceUtil.addRole(
+					UserManagementUtil.getAdminUser(companyId).getUserId(), 
+					null, 
+					0, 
+					roleName, 
+					titleMap, 
+					titleMap, 
+					RoleConstants.TYPE_REGULAR, 
+					null, 
+					new ServiceContext());
+		}
+		
+		return role;
+	}
+	
+	/**
+	 * Create the user group or return it if already exists one with this groupName
+	 * 
+	 * @param companyId
+	 * @param groupName
+	 */
+	private UserGroup createGroup(long companyId, String groupName) throws PortalException {
+		UserGroup userGroup = null;
+		try {
+			userGroup = UserGroupLocalServiceUtil.getUserGroup(companyId, groupName);
+		} catch (PortalException e) {
+			log.error("Group with name " + groupName + " doesn't exist");
+			
+			userGroup = UserGroupLocalServiceUtil.addUserGroup(
+					UserManagementUtil.getAdminUser(companyId).getUserId(), 
+					companyId, 
+					groupName, 
+					groupName, 
+					new ServiceContext()
+				);
+		}
+		
+		return userGroup;
+	}
+	
 	
 	@Reference
 	ExpandoColumnLocalService _expandoColumnLocalService;

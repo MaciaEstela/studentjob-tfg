@@ -20,9 +20,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
 import edu.uoc.mestemi.studentjob.service.DegreeAreaService;
-import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 
 /**
@@ -79,15 +79,15 @@ public class ViewDegreeAreasMVCRenderCommand implements MVCRenderCommand {
 		int end = start + delta;
 
 		String orderByCol =
-			ParamUtil.getString(renderRequest, "orderByCol", "name");
+			ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_COL, StudentjobConstants.ORDER_NAME);
 		String orderByType =
-			ParamUtil.getString(renderRequest, "orderByType", "asc");
+			ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_TYPE, StudentjobConstants.ORDER_ASC);
 
 		// Create comparator
 
 		OrderByComparator<DegreeArea> comparator =
 			OrderByComparatorFactoryUtil.create(
-				"DegreeArea", orderByCol, !("asc").equals(orderByType));
+				"DegreeArea", orderByCol, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
@@ -134,7 +134,4 @@ public class ViewDegreeAreasMVCRenderCommand implements MVCRenderCommand {
 	
 	@Reference
 	protected DegreeAreaService _degreeAreaService;
-	
-	@Reference
-	protected DegreeService _degreeService;
 }

@@ -20,7 +20,7 @@
 
 <%@ page import="edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKeys"%>
 <%@ page import="edu.uoc.mestemi.studentjob.register.constants.MVCCommandNames"%>
-<%@ page import="edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterConstants"%>
+<%@ page import="edu.uoc.mestemi.studentjob.constants.StudentjobConstants"%>
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>

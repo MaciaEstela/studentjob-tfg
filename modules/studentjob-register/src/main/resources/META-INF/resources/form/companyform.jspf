@@ -1,5 +1,5 @@
 <liferay-portlet:actionURL var="addCompanyUserURL" name="<%=MVCCommandNames.ACTION_REGISTER%>">
-	<liferay-portlet:param name="registerType" value="<%=StudentjobRegisterConstants.USER_COMPANY%>"/>
+	<liferay-portlet:param name="registerType" value="<%=StudentjobConstants.USER_COMPANY%>"/>
 </liferay-portlet:actionURL>
 
 <aui:form name="companyuserform" method="post" action="${addCompanyUserURL}">

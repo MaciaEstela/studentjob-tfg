@@ -11,8 +11,8 @@ public class MVCCommandNames {
 	public static final String EDIT_OFFER_ADMIN = "/studentjob/offer/admin/edit";
 	public static final String LIST_OFFER_ADMIN = "/studentjob/offer/admin/view";
 	
-	public static final String LIST_OFFER_PUBLIC = "/studentjob/offer/public/list";
-	public static final String VIEW_DETAIL_PUBLIC = "/studentjob/offer/public/view-detail";
+	public static final String LIST_OFFER_USER = "/studentjob/offer/public/list";
+	public static final String VIEW_DETAIL_USER = "/studentjob/offer/public/view-detail";
 	public static final String OFFER_PUBLIC_RESOURCE_COMMAND = "/studentjob/offer/public/resource";
 	public static final String OFFER_PUBLIC_RESOURCE_COMMAND_GET_OFFERS = "getOffers";
 	public static final String OFFER_PUBLIC_RESOURCE_COMMAND_AUX_DATA = "auxdataOffers";
@@ -33,12 +33,16 @@ public class MVCCommandNames {
 	public static final String EDIT_SOCIALMEDIANETWORK_ADMIN = "/studentjob/socialmedianetwork/admin/edit";
 	public static final String LIST_SOCIALMEDIANETWORK_ADMIN = "/studentjob/socialmedianetwork/admin/view";
 	
-	public static final String EDIT_COMPANYPROFILE_USER = "/studentjob/companyoprofile/edit";
-	public static final String VIEW_COMPANYPROFILE_PUBLIC = "/studentjob/companyprofile/public/view";
-	public static final String LIST_COMPANYPROFILE_PUBLIC = "/studentjob/companyprofile/public/list";
+	public static final String EDIT_COMPANYPROFILE_ADMIN_RENDER = "/studentjob/companyoprofile/edit";
+	public static final String EDIT_COMPANYPROFILE_ADMIN_ACTION = "/studentjob/companyoprofile/edit/action";
+	public static final String VIEW_COMPANYPROFILE_USER = "/studentjob/companyprofile/public/view";
+	public static final String LIST_COMPANYPROFILE_USER = "/studentjob/companyprofile/public/list";
 	
-	
-	public static final String EDIT_STUDENTPROFILE_USER = "/studentjob/studentoprofile/edit";
-	public static final String VIEW_STUDENTPROFILE_PUBLIC = "/studentjob/studentprofile/public/view";
-	public static final String LIST_STUDENTPROFILE_PUBLIC = "/studentjob/studentprofile/public/list";
+	public static final String EDIT_STUDENTPROFILE_ADMIN_ACTION = "/studentjob/studentoprofile/edit/action";
+	public static final String EDIT_STUDENTPROFILE_ADMIN_RENDER = "/studentjob/studentoprofile/edit";
+	public static final String VIEW_STUDENTPROFILE_USER = "/studentjob/studentprofile/public/view";
+	public static final String LIST_STUDENTPROFILE_USER = "/studentjob/studentprofile/public/list";
+	public static final String STUDENTPROFILE_PUBLIC_RESOURCE_COMMAND = "/studentjob/studentprofile/public/resource";
+	public static final String STUDENTPROFILE_PUBLIC_RESOURCE_COMMAND_GET_STUDENTS = "getStudents";
+	public static final String STUDENTPROFILE_PUBLIC_RESOURCE_COMMAND_AUX_DATA = "auxdataStudents";
 }

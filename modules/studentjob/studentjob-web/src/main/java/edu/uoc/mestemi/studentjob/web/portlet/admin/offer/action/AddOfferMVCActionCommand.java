@@ -5,7 +5,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -28,9 +27,10 @@ import org.osgi.service.component.annotations.Reference;
 import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.OfferService;
+import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
+import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
-import edu.uoc.mestemi.studentjob.web.util.StudentJobUtil;
 
 /**
  * MVC Action Command for adding offers.
@@ -73,8 +73,8 @@ public class AddOfferMVCActionCommand extends BaseMVCActionCommand {
 		String preference = ParamUtil.getString(actionRequest, "preference");
 		
 		String regionCode = ParamUtil.getString(actionRequest, "region");
-		long countryId = StudentJobUtil.getCountryIdByCode(themeDisplay.getCompanyId(), "ESP");
-		long regionId = StudentJobUtil.getRegionId(countryId, regionCode);
+		long countryId = ProvinceUtil.getCountryIdByCode(themeDisplay.getCompanyId(), CountryA3Constants.SPAIN);
+		long regionId = ProvinceUtil.getRegionId(countryId, regionCode);
 		
 		long[] degreesId = ParamUtil.getLongValues(actionRequest, "degree");
 		List<Long> degreesIdList = Arrays.stream(degreesId).boxed().collect(Collectors.toList());
@@ -88,19 +88,15 @@ public class AddOfferMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (OfferValidationException ove) {
-			log.error("Error validating new Offer - Message: " + ove.getMessage());
+			log.error("Error validating new Offer", ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_OFFER_ADMIN);
 		}
 		catch (PortalException pe) {
-			log.error("Error creating a new Offer - Message: " + pe.getMessage());
+			log.error("Error creating a new Offer", pe);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_OFFER_ADMIN);
 		}
 	}
 
 	@Reference
 	protected OfferService _offerService;
-	
-	@Reference
-	protected RegionService _regionService;
-
 }

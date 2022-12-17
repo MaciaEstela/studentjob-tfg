@@ -65,11 +65,11 @@ public class EditDegreeAreaMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (DegreeAreaValidationException ove) {
-			log.error("Error validating DegreeArea edit with degreeAreaId " + degreeAreaId + " - Message: " + ove.getMessage());
+			log.error("Error validating DegreeArea edit with degreeAreaId " + degreeAreaId, ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_DEGREEAREA_ADMIN);
 		}
 		catch (PortalException pe) {
-			log.error("Error editing DegreeArea with degreeAreaId " + degreeAreaId + " - Message: " + pe.getMessage());
+			log.error("Error editing DegreeArea with degreeAreaId " + degreeAreaId, pe);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_DEGREEAREA_ADMIN);
 		}
 	}

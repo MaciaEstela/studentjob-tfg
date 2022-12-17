@@ -120,11 +120,33 @@ public class StudentProfileServiceUtil {
 			groupId, keywords, start, end, orderByComparator);
 	}
 
+	public static List<StudentProfile>
+		getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId, int start, int end,
+			OrderByComparator<StudentProfile> orderByComparator) {
+
+		return getService().
+			getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId,
+				start, end, orderByComparator);
+	}
+
 	public static long getStudentProfilesCountByKeywords(
 		long groupId, String keywords) {
 
 		return getService().getStudentProfilesCountByKeywords(
 			groupId, keywords);
+	}
+
+	public static long
+		getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId) {
+
+		return getService().
+			getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId);
 	}
 
 	public static StudentProfile updateStudentProfile(

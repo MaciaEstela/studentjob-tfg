@@ -25,6 +25,7 @@ import java.util.List;
 import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 
@@ -126,7 +127,8 @@ public class DegreesManagementToolbarDisplayContext
 	@Override
 	public String getOrderByCol() {
 
-		return ParamUtil.getString(httpServletRequest, "orderByCol", "name");
+		return ParamUtil.getString(httpServletRequest, 
+				StudentjobConstants.ORDER_BY_COL, StudentjobConstants.ORDER_NAME);
 	}
 
 	/**
@@ -137,7 +139,8 @@ public class DegreesManagementToolbarDisplayContext
 	@Override
 	public String getOrderByType() {
 
-		return ParamUtil.getString(httpServletRequest, "orderByType", "asc");
+		return ParamUtil.getString(httpServletRequest, 
+				StudentjobConstants.ORDER_BY_TYPE, StudentjobConstants.ORDER_ASC);
 	}
 
 	/**
@@ -154,9 +157,9 @@ public class DegreesManagementToolbarDisplayContext
 			).setNavigation(
 				ParamUtil.getString(httpServletRequest, "navigation", "entries")
 			).setParameter(
-				"orderByCol", getOrderByCol()
+				StudentjobConstants.ORDER_BY_COL, getOrderByCol()
 			).setParameter(
-				"orderByType", getOrderByType()
+				StudentjobConstants.ORDER_BY_TYPE, getOrderByType()
 			).buildString();
 	}
 
@@ -179,12 +182,14 @@ public class DegreesManagementToolbarDisplayContext
 		}
 
 		String orderByCol =
-			ParamUtil.getString(httpServletRequest, "orderByCol", "name");
+			ParamUtil.getString(httpServletRequest, 
+					StudentjobConstants.ORDER_BY_COL, StudentjobConstants.ORDER_NAME);
 		String orderByType =
-			ParamUtil.getString(httpServletRequest, "orderByType", "asc");
+			ParamUtil.getString(httpServletRequest, 
+					StudentjobConstants.ORDER_BY_TYPE, StudentjobConstants.ORDER_ASC);
 
-		portletURL.setParameter("orderByCol", orderByCol);
-		portletURL.setParameter("orderByType", orderByType);
+		portletURL.setParameter(StudentjobConstants.ORDER_BY_COL, orderByCol);
+		portletURL.setParameter(StudentjobConstants.ORDER_BY_TYPE, orderByType);
 
 		int cur =
 			ParamUtil.getInteger(httpServletRequest, SearchContainer.DEFAULT_CUR_PARAM);
@@ -213,16 +218,16 @@ public class DegreesManagementToolbarDisplayContext
 				 dropdownItem -> {
 					 dropdownItem.setActive("name".equals(getOrderByCol()));
 					 dropdownItem.setHref(
-						 _getCurrentSortingURL(), "orderByCol", "name");
+						 _getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL, StudentjobConstants.ORDER_NAME);
 					 dropdownItem.setLabel(
 						 LanguageUtil.get(httpServletRequest, "name"));
 				 }
 			).add(dropdownItem -> {
 				dropdownItem.setActive(
-						"createDate".equals(getOrderByCol()));
+						StudentjobConstants.ORDER_CREATE_DATE.equals(getOrderByCol()));
 					dropdownItem.setHref(
-						_getCurrentSortingURL(), "orderByCol",
-						"createDate");
+						_getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL,
+						StudentjobConstants.ORDER_CREATE_DATE);
 					dropdownItem.setLabel(
 						LanguageUtil.get(httpServletRequest, "create-date"));
 			}

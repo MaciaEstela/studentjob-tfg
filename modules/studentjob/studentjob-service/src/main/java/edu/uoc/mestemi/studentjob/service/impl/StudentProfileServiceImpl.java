@@ -98,6 +98,19 @@ public class StudentProfileServiceImpl extends StudentProfileServiceBaseImpl {
 		return studentProfileLocalService.getStudentProfilesByKeywords(groupId, keywords, start, end, orderByComparator);
 	}
 	
+	public List<StudentProfile> getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, 
+			String keywords, String preference, long regionId, long degreeId, 
+			long newestId, int start, int end, OrderByComparator<StudentProfile> orderByComparator) {
+		return studentProfileLocalService.getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(groupId, 
+				keywords, preference, regionId, degreeId, newestId, start, end, orderByComparator);
+	}
+	
+	public long getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, 
+			String keywords, String preference,	long regionId, long degreeId, long newestId) {
+		return studentProfileLocalService.getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(groupId, 
+				keywords, preference, regionId, degreeId, newestId);
+	}
+	
 	public long getStudentProfilesCountByKeywords(long groupId, String keywords) {
 		return studentProfileLocalService.getStudentProfilesCountByKeywords(groupId, keywords);
 	}

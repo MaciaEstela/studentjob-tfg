@@ -3,16 +3,12 @@ package edu.uoc.mestemi.studentjob.web.portlet.admin.degreearea.action;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.service.CountryService;
-import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -21,14 +17,11 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.exception.NoSuchDegreeAreaException;
-import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
-import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.DegreeAreaService;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
-import edu.uoc.mestemi.studentjob.web.util.StudentJobUtil;
 
 /**
  * MVC Command for showing edit degreeArea view.
@@ -62,10 +55,10 @@ public class EditDegreeAreaMVCRenderCommand implements MVCRenderCommand {
 				degreeArea = _degreeAreaService.getDegreeArea(degreeAreaId);
 			}
 			catch (NoSuchDegreeAreaException nsoe) {
-				log.error("Can't find data for DegreeArea with degreeAreaId " + degreeAreaId + " - Message: " + nsoe.getMessage());
+				log.error("Can't find data for DegreeArea with degreeAreaId " + degreeAreaId, nsoe);
 			}
 			catch (PortalException pe) {
-				log.error("Error on rendering data for DegreeArea with degreeAreaId " + degreeAreaId + " - Message: " + pe.getMessage());
+				log.error("Error on rendering data for DegreeArea with degreeAreaId " + degreeAreaId, pe);
 			}
 		}
 
@@ -90,13 +83,4 @@ public class EditDegreeAreaMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private DegreeAreaService _degreeAreaService;
-	
-	@Reference
-	private RegionService _regionService;
-	
-	@Reference
-	private CountryService _countryService;
-	
-	@Reference
-	private DegreeService _degreeService;
 }

@@ -8,6 +8,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.TicketLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -21,9 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.register.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKeys;
 import edu.uoc.mestemi.studentjob.register.portlet.StudentjobRegisterPortlet;
+import edu.uoc.mestemi.studentjob.register.util.RegisterUtil;
 
 /**
  * MVC Render for Student and Company User Validation
@@ -47,7 +50,8 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-
+		long companyId = themeDisplay.getCompanyId();
+		
 		HttpServletRequest httpReq = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(renderRequest));		
 		String token = httpReq.getParameter("token");
 		String screenName = httpReq.getParameter("user");
@@ -60,11 +64,21 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 					themeDisplay.getCompanyId(), screenName);
 			
 			if (ticket.getClassPK() == user.getPrimaryKey()) {
-				user.setStatus(WorkflowConstants.STATUS_APPROVED);
-				_userLocalService.updateUser(user);
-				renderRequest.setAttribute("validated", true);
+				user.setEmailAddressVerified(true);
+				boolean manualApprovement = true;
 				
+				if (UserLocalServiceUtil.hasGroupUser(
+						RegisterUtil.getUserGroup(companyId, StudentjobConstants.STUDENT_GROUP).getGroupId(), 
+						user.getUserId())) {
+					user.setStatus(WorkflowConstants.STATUS_APPROVED);
+					manualApprovement = false;
+				}
+				_userLocalService.updateUser(user);
+				
+				renderRequest.setAttribute("manualApprovement", manualApprovement);
+				renderRequest.setAttribute("validated", true);
 			}
+			
 		} catch (PortalException e) {
 			log.error("Can't validate ticket with ticket key " + token + " and user " + screenName, e);
 		}

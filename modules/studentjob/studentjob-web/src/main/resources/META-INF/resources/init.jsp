@@ -22,7 +22,7 @@
 
 <%@ page import="edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys"%>
 <%@ page import="edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames"%>
-<%@ page import="edu.uoc.mestemi.studentjob.web.constants.StudentjobConstants"%>
+<%@ page import="edu.uoc.mestemi.studentjob.constants.StudentjobConstants"%>
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
@@ -37,10 +37,8 @@
 <%@ page import="edu.uoc.mestemi.studentjob.model.StudentProfile"%>
 <%@ page import="edu.uoc.mestemi.studentjob.model.CompanyProfile"%>
 <%@ page import="edu.uoc.mestemi.studentjob.model.Offer"%>
-<%@ page import="edu.uoc.mestemi.studentjob.web.util.SocialMediaFormDTO"%>
-<%@ page import="edu.uoc.mestemi.studentjob.web.dto.OfferDTO"%>
-
-
+<%@ page import="edu.uoc.mestemi.studentjob.dto.SocialMediaFormDTO"%>
+<%@ page import="edu.uoc.mestemi.studentjob.dto.OfferDTO"%>
 
 
 <liferay-frontend:defineObjects />

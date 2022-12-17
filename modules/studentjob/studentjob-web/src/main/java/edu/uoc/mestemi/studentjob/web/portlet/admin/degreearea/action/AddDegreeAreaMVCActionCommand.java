@@ -5,7 +5,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -67,19 +66,16 @@ public class AddDegreeAreaMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (DegreeAreaValidationException ove) {
-			log.error("Error validating new DegreeArea - Message: " + ove.getMessage());
+			log.error("Error validating new DegreeArea", ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_DEGREEAREA_ADMIN);
 		}
 		catch (PortalException pe) {
-			log.error("Error creating a new DegreeArea - Message: " + pe.getMessage());
+			log.error("Error creating a new DegreeArea", pe);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_DEGREEAREA_ADMIN);
 		}
 	}
 
 	@Reference
 	protected DegreeAreaService _degreeAreaService;
-	
-	@Reference
-	protected RegionService _regionService;
 
 }

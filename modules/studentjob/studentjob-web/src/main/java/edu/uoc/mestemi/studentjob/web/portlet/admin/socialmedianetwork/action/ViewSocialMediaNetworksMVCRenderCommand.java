@@ -20,9 +20,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkService;
-import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 
 /**
@@ -79,15 +79,15 @@ public class ViewSocialMediaNetworksMVCRenderCommand implements MVCRenderCommand
 		int end = start + delta;
 
 		String orderByCol =
-			ParamUtil.getString(renderRequest, "orderByCol", "name");
+			ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_COL, StudentjobConstants.ORDER_NAME);
 		String orderByType =
-			ParamUtil.getString(renderRequest, "orderByType", "asc");
+			ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_TYPE, StudentjobConstants.ORDER_ASC);
 
 		// Create comparator
 
 		OrderByComparator<SocialMediaNetwork> comparator =
 			OrderByComparatorFactoryUtil.create(
-				"SocialMediaNetwork", orderByCol, !("asc").equals(orderByType));
+				"SocialMediaNetwork", orderByCol, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
@@ -134,7 +134,4 @@ public class ViewSocialMediaNetworksMVCRenderCommand implements MVCRenderCommand
 	
 	@Reference
 	protected SocialMediaNetworkService _socialMediaNetworkService;
-	
-	@Reference
-	protected DegreeService _degreeService;
 }

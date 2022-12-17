@@ -1,5 +1,5 @@
 <liferay-portlet:actionURL var="addStudentUserURL" name="<%= MVCCommandNames.ACTION_REGISTER %>">
-	<liferay-portlet:param name="registerType" value="<%=StudentjobRegisterConstants.USER_STUDENT%>"/>
+	<liferay-portlet:param name="registerType" value="<%=StudentjobConstants.USER_STUDENT%>"/>
 </liferay-portlet:actionURL>
 
 <aui:form name="studentuserform" method="post" action="${addStudentUserURL}">

@@ -137,11 +137,37 @@ public class StudentProfileServiceWrapper
 	}
 
 	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>
+					orderByComparator) {
+
+		return _studentProfileService.
+			getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId,
+				start, end, orderByComparator);
+	}
+
+	@Override
 	public long getStudentProfilesCountByKeywords(
 		long groupId, String keywords) {
 
 		return _studentProfileService.getStudentProfilesCountByKeywords(
 			groupId, keywords);
+	}
+
+	@Override
+	public long
+		getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long groupId, String keywords, String preference, long regionId,
+			long degreeId, long newestId) {
+
+		return _studentProfileService.
+			getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				groupId, keywords, preference, regionId, degreeId, newestId);
 	}
 
 	@Override

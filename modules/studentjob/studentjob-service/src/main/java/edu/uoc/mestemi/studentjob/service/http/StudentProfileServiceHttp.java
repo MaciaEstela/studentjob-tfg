@@ -477,6 +477,84 @@ public class StudentProfileServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.StudentProfile>
+			getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				HttpPrincipal httpPrincipal, long groupId, String keywords,
+				String preference, long regionId, long degreeId, long newestId,
+				int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<edu.uoc.mestemi.studentjob.model.StudentProfile>
+						orderByComparator) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class,
+				"getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId",
+				_getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeIdParameterTypes11);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, preference, regionId, degreeId,
+				newestId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.StudentProfile>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long
+		getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			HttpPrincipal httpPrincipal, long groupId, String keywords,
+			String preference, long regionId, long degreeId, long newestId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StudentProfileServiceUtil.class,
+				"getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId",
+				_getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeIdParameterTypes12);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, keywords, preference, regionId, degreeId,
+				newestId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static long getStudentProfilesCountByKeywords(
 		HttpPrincipal httpPrincipal, long groupId, String keywords) {
 
@@ -484,7 +562,7 @@ public class StudentProfileServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				StudentProfileServiceUtil.class,
 				"getStudentProfilesCountByKeywords",
-				_getStudentProfilesCountByKeywordsParameterTypes11);
+				_getStudentProfilesCountByKeywordsParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, keywords);
@@ -556,7 +634,20 @@ public class StudentProfileServiceHttp {
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getStudentProfilesCountByKeywordsParameterTypes11 = new Class[] {
+		_getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeIdParameterTypes11 =
+			new Class[] {
+				long.class, String.class, String.class, long.class, long.class,
+				long.class, int.class, int.class,
+				com.liferay.portal.kernel.util.OrderByComparator.class
+			};
+	private static final Class<?>[]
+		_getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeIdParameterTypes12 =
+			new Class[] {
+				long.class, String.class, String.class, long.class, long.class,
+				long.class
+			};
+	private static final Class<?>[]
+		_getStudentProfilesCountByKeywordsParameterTypes13 = new Class[] {
 			long.class, String.class
 		};
 

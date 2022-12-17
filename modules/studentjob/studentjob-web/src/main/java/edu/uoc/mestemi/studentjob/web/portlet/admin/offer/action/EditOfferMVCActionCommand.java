@@ -27,9 +27,10 @@ import org.osgi.service.component.annotations.Reference;
 import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.OfferService;
+import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
+import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
-import edu.uoc.mestemi.studentjob.web.util.StudentJobUtil;
 
 /**
  * MVC Action Command for editing offers.
@@ -70,8 +71,8 @@ public class EditOfferMVCActionCommand extends BaseMVCActionCommand {
 				LocalizationUtil.getLocalizationMap(actionRequest, "title");
 			
 		String regionCode = ParamUtil.getString(actionRequest, "region");
-		long regionId = StudentJobUtil.getRegionId(
-				StudentJobUtil.getCountryIdByCode(companyId, "ESP"), 
+		long regionId = ProvinceUtil.getRegionId(
+				ProvinceUtil.getCountryIdByCode(companyId, CountryA3Constants.SPAIN), 
 				regionCode);
 		
 		Map<Locale, String> descriptionMap =

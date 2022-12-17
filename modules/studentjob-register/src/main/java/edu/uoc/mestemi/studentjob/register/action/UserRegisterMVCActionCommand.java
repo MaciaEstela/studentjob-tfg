@@ -15,6 +15,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.TicketLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateException;
@@ -37,14 +38,14 @@ import javax.portlet.PortletContext;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.register.constants.MVCCommandNames;
-import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterConstants;
 import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKeys;
 import edu.uoc.mestemi.studentjob.register.portlet.StudentjobRegisterPortlet;
 import edu.uoc.mestemi.studentjob.register.util.RegisterUtil;
+import edu.uoc.mestemi.studentjob.register.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalService;
-import edu.uoc.mestemi.studentjob.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 
 /**
@@ -75,9 +76,9 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		String registerType = ParamUtil.getString(actionRequest,  "registerType", StringPool.BLANK);
 		
 		try {
-			if (registerType.equals(StudentjobRegisterConstants.USER_STUDENT)) {
+			if (registerType.equals(StudentjobConstants.USER_STUDENT)) {
 				registerStudentUser(actionRequest, themeDisplay);
-			} else if (registerType.equals(StudentjobRegisterConstants.USER_COMPANY)) {
+			} else if (registerType.equals(StudentjobConstants.USER_COMPANY)) {
 				registerCompanyUser(actionRequest, themeDisplay);
 			} else {
 				SessionErrors.add(actionRequest, "error.user.invalid-type");
@@ -101,7 +102,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 	 */
 	private void registerCompanyUser(ActionRequest actionRequest, ThemeDisplay themeDisplay) throws PortalException {
 		
-		String userTypePrefix = StudentjobRegisterConstants.USER_COMPANY;
+		String userTypePrefix = StudentjobConstants.USER_COMPANY;
 		boolean userReceiveOffers = ParamUtil.getBoolean(actionRequest, userTypePrefix + "OfferAlerts", false);
 		String userNif= ParamUtil.getString(actionRequest, userTypePrefix + "Nif", StringPool.BLANK);
 		String userPhone = ParamUtil.getString(actionRequest, userTypePrefix + "Phone", StringPool.BLANK);
@@ -114,16 +115,16 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			log.info("Company User created with ID " + user.getUserId());
 
 			user.getExpandoBridge().setAttribute(
-					StudentjobRegisterConstants.USER_EMAIL_OFFERS, userReceiveOffers, false);
+					StudentjobConstants.USER_EMAIL_OFFERS, userReceiveOffers, false);
 			
 			user.getExpandoBridge().setAttribute(
-					StudentjobRegisterConstants.USER_NIF, userNif, false);
+					StudentjobConstants.USER_NIF, userNif, false);
 			
 			user.getExpandoBridge().setAttribute(
-					StudentjobRegisterConstants.USER_PHONE, userPhone, false);
+					StudentjobConstants.USER_PHONE, userPhone, false);
 			
 			user.getExpandoBridge().setAttribute(
-					StudentjobRegisterConstants.USER_COMPANY_EXPANDO, userCompany, false);
+					StudentjobConstants.USER_COMPANY_EXPANDO, userCompany, false);
 			
 			user.setAgreedToTermsOfUse(true);
 			
@@ -156,7 +157,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 	 */
 	private void registerStudentUser(ActionRequest actionRequest, ThemeDisplay themeDisplay) throws PortalException {
 		
-		String userTypePrefix = StudentjobRegisterConstants.USER_STUDENT;
+		String userTypePrefix = StudentjobConstants.USER_STUDENT;
 		boolean userReceiveOffers = ParamUtil.getBoolean(actionRequest, userTypePrefix + "OfferAlerts", false);
 
 		User user = createUser(actionRequest, themeDisplay, userTypePrefix);
@@ -166,7 +167,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			log.info("Student User created with ID " + user.getUserId());
 			
 			user.getExpandoBridge().setAttribute(
-					StudentjobRegisterConstants.USER_EMAIL_OFFERS, userReceiveOffers, false);
+					StudentjobConstants.USER_EMAIL_OFFERS, userReceiveOffers, false);
 			
 			user.setAgreedToTermsOfUse(true);
 			
@@ -241,6 +242,16 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				new ServiceContext()
 			);
 			
+			if (userTypePrefix.equals(StudentjobConstants.USER_COMPANY)) {
+				UserLocalServiceUtil.addGroupUser(
+						RegisterUtil.getUserGroup(companyId, StudentjobConstants.COMPANY_GROUP).getGroupId(), 
+						user.getUserId());
+			} else { //(userTypePrefix.equals(StudentjobConstants.USER_STUDENT)) {
+				UserLocalServiceUtil.addGroupUser(
+						RegisterUtil.getUserGroup(companyId, StudentjobConstants.STUDENT_GROUP).getGroupId(), 
+						user.getUserId());
+			}
+			
 			Ticket ticket = _ticketLocalService.addTicket(
 					companyId,
 					User.class.getName(),
@@ -295,7 +306,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		
 		try {
 			RegisterUtil.sendMailMessage(
-					StudentjobRegisterConstants.EMAIL_SENDER, 
+					StudentjobConstants.EMAIL_SENDER, 
 					email, 
 					subject,
 					templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL)

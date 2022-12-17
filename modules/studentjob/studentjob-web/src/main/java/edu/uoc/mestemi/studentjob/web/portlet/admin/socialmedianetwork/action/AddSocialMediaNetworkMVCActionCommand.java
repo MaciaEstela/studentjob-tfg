@@ -67,19 +67,15 @@ public class AddSocialMediaNetworkMVCActionCommand extends BaseMVCActionCommand 
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (SocialMediaNetworkValidationException ove) {
-			log.error("Error validating new SocialMediaNetwork - Message: " + ove.getMessage());
+			log.error("Error validating new SocialMediaNetwork", ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_SOCIALMEDIANETWORK_ADMIN);
 		}
 		catch (PortalException pe) {
-			log.error("Error creating a new SocialMediaNetwork - Message: " + pe.getMessage());
+			log.error("Error creating a new SocialMediaNetwork", pe);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_SOCIALMEDIANETWORK_ADMIN);
 		}
 	}
 
 	@Reference
 	protected SocialMediaNetworkService _socialMediaNetworkService;
-	
-	@Reference
-	protected RegionService _regionService;
-
 }

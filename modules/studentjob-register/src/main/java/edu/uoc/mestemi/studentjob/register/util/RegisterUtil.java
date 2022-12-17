@@ -2,6 +2,10 @@ package edu.uoc.mestemi.studentjob.register.util;
 
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailServiceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.UserGroup;
+import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
+
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
@@ -40,6 +44,10 @@ public class RegisterUtil {
 		mailMessage.setTo(to);
 		
 		MailServiceUtil.sendEmail(mailMessage);
+	}
+	
+	public static UserGroup getUserGroup(long companyId, String groupName) throws PortalException {
+		return UserGroupLocalServiceUtil.getUserGroup(companyId, groupName);
 	}
 
 }

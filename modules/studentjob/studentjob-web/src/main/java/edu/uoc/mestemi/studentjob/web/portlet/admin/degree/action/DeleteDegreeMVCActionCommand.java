@@ -48,7 +48,7 @@ public class DeleteDegreeMVCActionCommand extends BaseMVCActionCommand {
 			_degreeService.deleteDegree(degreeId);
 		}
 		catch (PortalException pe) {
-			log.error("Error deleting degree with degreeId " + degreeId + " - Message: " + pe.getMessage());
+			log.error("Error deleting degree with degreeId " + degreeId, pe);
 		}
 	}
 
