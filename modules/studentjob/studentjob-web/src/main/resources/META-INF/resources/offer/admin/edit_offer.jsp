@@ -8,14 +8,14 @@
 			<portlet:param name="redirect" value="${param.redirect}" />
 		</portlet:actionURL>
 
-		<c:set var="editTitle" value="edit-offer"/>
+		<c:set var="editTitle" value="studentjob.offers.edit-title"/>
 	</c:when>
 	<c:otherwise>
 		<portlet:actionURL var="offerActionURL" name="<%=MVCCommandNames.ADD_OFFER_ADMIN %>">
 			<portlet:param name="redirect" value="${param.redirect}" />
 		</portlet:actionURL>
 
-		<c:set var="editTitle" value="add-offer"/>
+		<c:set var="editTitle" value="studentjob.offers.create-title"/>
 	</c:otherwise>
  </c:choose>
 
@@ -35,12 +35,11 @@
 
 				<%-- Title field. --%>
 
-				<aui:input name="title">
-
+				<aui:input name="title" label="studentjob.offers.form.title" required="true">
 				</aui:input>
 
 				<%-- Preference field. --%>
-				<aui:select name="preference" label="offer.region">
+				<aui:select name="preference" label="studentjob.offers.form.preference" required="true">
 					<c:forEach items="${preferences}" var="preference">
 						<c:choose>
 							<c:when test="${offer.getPreference() == preference}">
@@ -54,10 +53,11 @@
 				</aui:select>
 
 				<%-- Description field. --%>
-				<div class="alloy-editor-container">
+				<label class="control-label">
+					<liferay-ui:message key="studentjob.offers.form.description" />
+				</label>
+				<div class="alloy-editor-container" required="true">
 					<liferay-ui:input-localized
-						contents="Descripción"
-						label="Descripción"
 						xml="${offer.getDescription()}"
 						type="editor"
 						cssClass="studentjob-ckeditor"
@@ -68,7 +68,7 @@
 				</div>
 
 				<%-- Region field. --%>
-				<aui:select name="region" label="offer.region">
+				<aui:select name="region" label="studentjob.offers.form.region" required="true">
 					<c:forEach items="${regions}" var="region">
 						<c:choose>
 							<c:when test="${region.getRegionId() == offer.getRegionId()}">
@@ -82,7 +82,7 @@
 				</aui:select>
 				
 				<%-- Degree field. --%>
-				<aui:select name="degree" label="offer.degree" multiple="true">
+				<aui:select name="degree" label="studentjob.offers.form.degree" multiple="true" required="true">
 					<c:forEach items="${degrees}" var="degree">
 						<c:choose>
 							<c:when test="${currentOfferDegreesIds.contains(degree.getDegreeId())}">
@@ -99,10 +99,20 @@
 
 		<%--Buttons. --%>
 
-		<aui:button-row>
+		<aui:button-row cssClass="mt-5 d-flex justify-content-center">
 			<aui:button cssClass="btn btn-primary" type="submit" />
-			<aui:button cssClass="btn btn-secondary" onClick="${param.redirect}" type="cancel" />
+			<aui:button cssClass="ml-3 btn btn-secondary" onClick="${param.redirect}" type="cancel" />
 		</aui:button-row>
 	</aui:form>
+</div>
 
- </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.js"></script>
+
+<script type="text/javascript">
+AUI().ready('aui-module', function(A){
+	new SlimSelect({
+		select: '#<portlet:namespace />degree'
+	});
+});
+</script>

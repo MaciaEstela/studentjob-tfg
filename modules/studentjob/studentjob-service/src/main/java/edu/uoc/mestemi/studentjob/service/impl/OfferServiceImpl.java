@@ -18,6 +18,8 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -82,26 +84,26 @@ public class OfferServiceImpl extends OfferServiceBaseImpl {
 		return offerLocalService.getOffersByGroupId(groupId, start, end, orderByComparator);
 	}
 	
-	public List<Offer> getOffersByKeywords(long groupId, String keywords, int start, 
+	public List<Offer> getOffersByKeywords(long groupId, long userId, String keywords, int workflowStatus, int start, 
 			int end, OrderByComparator<Offer> orderByComparator) {
-		return offerLocalService.getOffersByKeywords(groupId, keywords, start, end, orderByComparator);
+		return offerLocalService.getOffersByKeywords(groupId, userId, keywords, workflowStatus, start, end, orderByComparator);
 	}
 	
-	public long getOffersCountByKeywords(long groupId, String keywords) {
-		return offerLocalService.getOffersCountByKeywords(groupId, keywords);
+	public long getOffersCountByKeywords(long groupId, long userId, String keywords, int workflowStatus) {
+		return offerLocalService.getOffersCountByKeywords(groupId, userId, keywords, workflowStatus);
 	}
 	
-	public List<Offer> getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId,String keywords, String preference,
-			long regionId, long degreeId, long newestId, int start, 
+	public List<Offer> getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, long userId, String keywords, String preference,
+			long regionId, long degreeId, int workflowStatus, long newestId, int start, 
 			int end, OrderByComparator<Offer> orderByComparator) {
-		return offerLocalService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(groupId, keywords, 
-				preference, regionId, degreeId, newestId, start, end, orderByComparator);
+		return offerLocalService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(groupId, userId, keywords, 
+				preference, regionId, degreeId, workflowStatus, newestId, start, end, orderByComparator);
 	}
 	
-	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, String keywords, String preference,
-			long regionId, long degreeId, long newestId) {
-		return offerLocalService.getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(groupId, 
-				keywords, preference, regionId, degreeId, newestId);
+	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, long userId, String keywords, String preference,
+			long regionId, long degreeId, int workflowStatus, long newestId) {
+		return offerLocalService.getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(groupId, userId,
+				keywords, preference, regionId, degreeId, workflowStatus, newestId);
 	}
 	
 	@Override
@@ -112,6 +114,18 @@ public class OfferServiceImpl extends OfferServiceBaseImpl {
 	@Override
 	public Offer updateOffer(Offer offer) {
 		return offerLocalService.updateOffer(offer);
+	}
+	
+	public Offer expireOffer(Offer offer) {
+		return offerLocalService.expireOffer(offer);
+	}
+	
+	public Offer expireOffer(long offerId) {
+		try {
+			return offerLocalService.expireOffer(offerId);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 }

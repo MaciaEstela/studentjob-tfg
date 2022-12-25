@@ -84,14 +84,14 @@ public class CompanyProfileServiceImpl extends CompanyProfileServiceBaseImpl {
 		return companyProfileLocalService.getCompanyProfilesByGroupId(groupId, start, end, orderByComparator);
 	}
 	
-	public List<CompanyProfile> getCompanyProfilesByKeywords(long groupId, String keywords, int start, 
+	public List<CompanyProfile> getCompanyProfilesByKeywords(long groupId, String keywords, boolean onlyActives, int start, 
 			int end, OrderByComparator<CompanyProfile> orderByComparator) {
 		return companyProfileLocalService.getCompanyProfilesByKeywords(
-				groupId, keywords, start, end, orderByComparator);
+				groupId, keywords, onlyActives, start, end, orderByComparator);
 	}
 	
-	public long getCompanyProfilesCountByKeywords(long groupId, String keywords) {
+	public long getCompanyProfilesCountByKeywords(long groupId, String keywords, boolean onlyActives) {
 		return companyProfileLocalService.getCompanyProfilesCountByKeywords(
-				groupId, keywords);
+				groupId, keywords, onlyActives);
 	}
 }

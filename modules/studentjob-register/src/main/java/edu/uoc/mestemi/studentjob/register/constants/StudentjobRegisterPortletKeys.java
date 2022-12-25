@@ -12,4 +12,7 @@ public class StudentjobRegisterPortletKeys {
 
 	public static final String STUDENTJOB_REGISTER_VALIDATE =
 			"uoc_mestemi_studentjob_register_StudentjobRegisterValidatePortlet";
+	
+	public static final String STUDENTJOB_MY_ACCOUNT =
+			"uoc_mestemi_studentjob_register_MyAccount";
 }

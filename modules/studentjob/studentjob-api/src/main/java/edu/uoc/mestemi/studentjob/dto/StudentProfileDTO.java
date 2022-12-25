@@ -17,8 +17,11 @@ public class StudentProfileDTO {
 	private String phone;
 	private String viewURL;
 	
+	
+
 	public StudentProfileDTO(String name, String surname, List<String> degrees, String title, String province,
-			String jobPreference, String cvUrl, String portraitUrl, String viewURL) {
+			String jobPreference, String cvUrl, String portraitUrl, String description, String email, String phone,
+			String viewURL) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -28,6 +31,9 @@ public class StudentProfileDTO {
 		this.jobPreference = jobPreference;
 		this.cvUrl = cvUrl;
 		this.portraitUrl = portraitUrl;
+		this.description = description;
+		this.email = email;
+		this.phone = phone;
 		this.viewURL = viewURL;
 	}
 

@@ -110,7 +110,7 @@ public class ViewPublicStudentsMVCRenderCommand implements MVCRenderCommand {
 
 		
 		List<StudentProfile> students =_studentProfileService.getStudentProfilesByKeywords(
-				groupId, keywords, 0, StudentjobConstants.STUDENTS_OFFSET, comparator);
+				groupId, keywords, true, 0, StudentjobConstants.STUDENTS_OFFSET, comparator);
 		
 		List<StudentProfileDTO> studentProfilesDTO = new ArrayList<>();
 		
@@ -141,7 +141,7 @@ public class ViewPublicStudentsMVCRenderCommand implements MVCRenderCommand {
 					"StudentProfile", orderByColCreated, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 		
 		List<StudentProfile> studentProfilesCreated = _studentProfileService.getStudentProfilesByKeywords(
-				groupId, keywords, 0, 1,
+				groupId, keywords, true, 0, 1,
 				comparatorCreated);
 		
 		if (!studentProfilesCreated.isEmpty()) {
@@ -151,7 +151,7 @@ public class ViewPublicStudentsMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("newestStudentProfileId", newestStudentProfileId);
 		
 		renderRequest.setAttribute(
-			"studentProfileCount", _studentProfileService.getStudentProfilesCountByKeywords(groupId, keywords));
+			"studentProfileCount", _studentProfileService.getStudentProfilesCountByKeywords(groupId, keywords, true));
 	}
 
 	@Reference

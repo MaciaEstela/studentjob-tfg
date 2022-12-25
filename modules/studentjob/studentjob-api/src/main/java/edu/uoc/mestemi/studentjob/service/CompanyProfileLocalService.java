@@ -284,7 +284,7 @@ public interface CompanyProfileLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CompanyProfile> getCompanyProfilesByKeywords(
-		long groupId, String keywords, int start, int end,
+		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<CompanyProfile> orderByComparator);
 
 	/**
@@ -323,7 +323,7 @@ public interface CompanyProfileLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords);
+		long groupId, String keywords, boolean onlyActives);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(

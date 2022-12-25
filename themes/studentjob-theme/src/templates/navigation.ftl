@@ -21,6 +21,7 @@
 					nav_item_layout = nav_item.getLayout()
 					nav_item_link_css_class = " nav-link"
 					nav_item_url = nav_item.getURL()
+					layoutIcon = ""
 				/>
 
 				<#if nav_item.isSelected()>
@@ -38,10 +39,21 @@
 						nav_item_url = "#"
 					/>
 				</#if>
+
+				<#attempt>
+					<#if nav_item.getLayout().getExpandoBridge().hasAttribute("layoutIcon") == true>
+						<#assign
+							layoutIcon = nav_item.getLayout().getExpandoBridge().getAttribute("layoutIcon")
+						/>
+					</#if>
+				<#recover>
+				</#attempt>
 				<#if nav_item.getName() != "my-profile">
 					<li class="${nav_item_css_class}" id="layout_${nav_item.getLayoutId()}" role="presentation">
 						<a ${nav_item_attr_has_popup} ${nav_item_attr_dropdown} class="${nav_item_link_css_class}" href="${nav_item_url}" ${nav_item.getTarget()} role="menuitem">
-							<i class="icon icon-desktop"></i>
+							<#if layoutIcon != ''>
+								<i class="icon ${layoutIcon}"></i>
+							</#if>
 							<span><@liferay_theme["layout-icon"] layout=nav_item_layout /> ${nav_item.getName()}</span>
 						</a>
 
@@ -67,25 +79,42 @@
 				</#if>
 			</#list>
 		</ul>
-		<div class="my-profile dropdown">
-			<a class="my-profile__item"  type="button" id="dropdownMyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<div class="my-profile__img-wrapper">
-					<img class="my-profile__img" src="${user.getPortraitURL(themeDisplay)}" alt="User logo"/>
-				</div>
-				<div class="dropdown-menu" aria-labelledby="dropdownMyProfile">
-					<div href="#" class="my-profile__title">${user_name}</div>
-					<#list nav_items as nav_item>
-						<#if nav_item.getName() == "my-profile">
-							<#list nav_item.getChildren() as nav_child>
-								<a href="${nav_child.getURL()}" ${nav_child.getTarget()} class="dropdown-item" role="menuitem">
-									${nav_child.getName()}
-								</a>
-							</#list>
-						</#if>
-					</#list>
-					<a class="dropdown-item" href="/c/portal/logout">Cerrar sesión</a>
-				</div>
-			</a>
+		<div class="header-lang-selector d-flex justify-content-end">
+			 <@liferay_portlet["runtime"]
+				instanceId="header-lang"
+				portletName="com_liferay_site_navigation_language_web_portlet_SiteNavigationLanguagePortlet"
+			/>
 		</div>
+		<#if is_signed_in>
+			<div class="my-profile dropdown">
+				<a class="my-profile__item"  type="button" id="dropdownMyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div class="my-profile__img-wrapper">
+						<img class="my-profile__img" src="${user.getPortraitURL(themeDisplay)}" alt="User logo"/>
+					</div>
+					<div class="dropdown-menu" aria-labelledby="dropdownMyProfile">
+						<div href="#" class="my-profile__title">${user_name}</div>
+						<#list nav_items as nav_item>
+							<#if nav_item.getName() == "my-profile">
+								<#list nav_item.getChildren() as nav_child>
+									<a href="${nav_child.getURL()}" ${nav_child.getTarget()} class="dropdown-item" role="menuitem">
+										${nav_child.getName()}
+									</a>
+								</#list>
+							</#if>
+						</#list>
+						<a class="dropdown-item" href="/c/portal/logout"><@liferay.language key="disconnect" /></a>
+					</div>
+				</a>
+			</div>
+		<#else>
+			<div class="log-buttons d-flex justify-content-center pr-md-7 pr-0 pt-5 pt-md-0">
+				<a href="/register" class="btn log-buttons__register">
+					<@liferay.language key="create-account" />
+				</a>
+				<a href="/login" class="btn log-buttons__login">
+					<@liferay.language key="action.LOGIN" />
+				</a>
+			</div>
+		</#if>
 	</div>
 </nav>

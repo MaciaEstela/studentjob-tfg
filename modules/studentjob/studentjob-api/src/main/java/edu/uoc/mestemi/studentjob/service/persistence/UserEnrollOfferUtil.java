@@ -354,194 +354,468 @@ public class UserEnrollOfferUtil {
 	}
 
 	/**
-	 * Returns all the user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns all the user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @return the matching user enroll offers
 	 */
-	public static List<UserEnrollOffer> findByUuid_C(
-		String uuid, long companyId) {
+	public static List<UserEnrollOffer> findByGroupIdAndUserId(
+		long groupId, long userId) {
 
-		return getPersistence().findByUuid_C(uuid, companyId);
+		return getPersistence().findByGroupIdAndUserId(groupId, userId);
 	}
 
 	/**
-	 * Returns a range of all the user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns a range of all the user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
 	 * </p>
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of user enroll offers
 	 * @param end the upper bound of the range of user enroll offers (not inclusive)
 	 * @return the range of matching user enroll offers
 	 */
-	public static List<UserEnrollOffer> findByUuid_C(
-		String uuid, long companyId, int start, int end) {
+	public static List<UserEnrollOffer> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end) {
 
-		return getPersistence().findByUuid_C(uuid, companyId, start, end);
+		return getPersistence().findByGroupIdAndUserId(
+			groupId, userId, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
 	 * </p>
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of user enroll offers
 	 * @param end the upper bound of the range of user enroll offers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching user enroll offers
 	 */
-	public static List<UserEnrollOffer> findByUuid_C(
-		String uuid, long companyId, int start, int end,
+	public static List<UserEnrollOffer> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end,
 		OrderByComparator<UserEnrollOffer> orderByComparator) {
 
-		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator);
+		return getPersistence().findByGroupIdAndUserId(
+			groupId, userId, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
 	 * </p>
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of user enroll offers
 	 * @param end the upper bound of the range of user enroll offers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching user enroll offers
 	 */
-	public static List<UserEnrollOffer> findByUuid_C(
-		String uuid, long companyId, int start, int end,
+	public static List<UserEnrollOffer> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end,
 		OrderByComparator<UserEnrollOffer> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator, useFinderCache);
+		return getPersistence().findByGroupIdAndUserId(
+			groupId, userId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Returns the first user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching user enroll offer
 	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
 	 */
-	public static UserEnrollOffer findByUuid_C_First(
-			String uuid, long companyId,
+	public static UserEnrollOffer findByGroupIdAndUserId_First(
+			long groupId, long userId,
 			OrderByComparator<UserEnrollOffer> orderByComparator)
 		throws edu.uoc.mestemi.studentjob.exception.
 			NoSuchUserEnrollOfferException {
 
-		return getPersistence().findByUuid_C_First(
-			uuid, companyId, orderByComparator);
+		return getPersistence().findByGroupIdAndUserId_First(
+			groupId, userId, orderByComparator);
 	}
 
 	/**
-	 * Returns the first user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
 	 */
-	public static UserEnrollOffer fetchByUuid_C_First(
-		String uuid, long companyId,
+	public static UserEnrollOffer fetchByGroupIdAndUserId_First(
+		long groupId, long userId,
 		OrderByComparator<UserEnrollOffer> orderByComparator) {
 
-		return getPersistence().fetchByUuid_C_First(
-			uuid, companyId, orderByComparator);
+		return getPersistence().fetchByGroupIdAndUserId_First(
+			groupId, userId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching user enroll offer
 	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
 	 */
-	public static UserEnrollOffer findByUuid_C_Last(
-			String uuid, long companyId,
+	public static UserEnrollOffer findByGroupIdAndUserId_Last(
+			long groupId, long userId,
 			OrderByComparator<UserEnrollOffer> orderByComparator)
 		throws edu.uoc.mestemi.studentjob.exception.
 			NoSuchUserEnrollOfferException {
 
-		return getPersistence().findByUuid_C_Last(
-			uuid, companyId, orderByComparator);
+		return getPersistence().findByGroupIdAndUserId_Last(
+			groupId, userId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
 	 */
-	public static UserEnrollOffer fetchByUuid_C_Last(
-		String uuid, long companyId,
+	public static UserEnrollOffer fetchByGroupIdAndUserId_Last(
+		long groupId, long userId,
 		OrderByComparator<UserEnrollOffer> orderByComparator) {
 
-		return getPersistence().fetchByUuid_C_Last(
-			uuid, companyId, orderByComparator);
+		return getPersistence().fetchByGroupIdAndUserId_Last(
+			groupId, userId, orderByComparator);
 	}
 
 	/**
-	 * Returns the user enroll offers before and after the current user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the user enroll offers before and after the current user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
 	 * @param userEnrollOfferPK the primary key of the current user enroll offer
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next user enroll offer
 	 * @throws NoSuchUserEnrollOfferException if a user enroll offer with the primary key could not be found
 	 */
-	public static UserEnrollOffer[] findByUuid_C_PrevAndNext(
+	public static UserEnrollOffer[] findByGroupIdAndUserId_PrevAndNext(
 			edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK
 				userEnrollOfferPK,
-			String uuid, long companyId,
+			long groupId, long userId,
 			OrderByComparator<UserEnrollOffer> orderByComparator)
 		throws edu.uoc.mestemi.studentjob.exception.
 			NoSuchUserEnrollOfferException {
 
-		return getPersistence().findByUuid_C_PrevAndNext(
-			userEnrollOfferPK, uuid, companyId, orderByComparator);
+		return getPersistence().findByGroupIdAndUserId_PrevAndNext(
+			userEnrollOfferPK, groupId, userId, orderByComparator);
 	}
 
 	/**
-	 * Removes all the user enroll offers where uuid = &#63; and companyId = &#63; from the database.
+	 * Removes all the user enroll offers where groupId = &#63; and userId = &#63; from the database.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 */
-	public static void removeByUuid_C(String uuid, long companyId) {
-		getPersistence().removeByUuid_C(uuid, companyId);
+	public static void removeByGroupIdAndUserId(long groupId, long userId) {
+		getPersistence().removeByGroupIdAndUserId(groupId, userId);
 	}
 
 	/**
-	 * Returns the number of user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns the number of user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @return the number of matching user enroll offers
 	 */
-	public static int countByUuid_C(String uuid, long companyId) {
-		return getPersistence().countByUuid_C(uuid, companyId);
+	public static int countByGroupIdAndUserId(long groupId, long userId) {
+		return getPersistence().countByGroupIdAndUserId(groupId, userId);
+	}
+
+	/**
+	 * Returns the user enroll offer where groupId = &#63; and userId = &#63; and offerId = &#63; or throws a <code>NoSuchUserEnrollOfferException</code> if it could not be found.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @return the matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer findByGroupIdAndUserIdAndOfferId(
+			long groupId, long userId, long offerId)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchUserEnrollOfferException {
+
+		return getPersistence().findByGroupIdAndUserIdAndOfferId(
+			groupId, userId, offerId);
+	}
+
+	/**
+	 * Returns the user enroll offer where groupId = &#63; and userId = &#63; and offerId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer fetchByGroupIdAndUserIdAndOfferId(
+		long groupId, long userId, long offerId) {
+
+		return getPersistence().fetchByGroupIdAndUserIdAndOfferId(
+			groupId, userId, offerId);
+	}
+
+	/**
+	 * Returns the user enroll offer where groupId = &#63; and userId = &#63; and offerId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer fetchByGroupIdAndUserIdAndOfferId(
+		long groupId, long userId, long offerId, boolean useFinderCache) {
+
+		return getPersistence().fetchByGroupIdAndUserIdAndOfferId(
+			groupId, userId, offerId, useFinderCache);
+	}
+
+	/**
+	 * Removes the user enroll offer where groupId = &#63; and userId = &#63; and offerId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @return the user enroll offer that was removed
+	 */
+	public static UserEnrollOffer removeByGroupIdAndUserIdAndOfferId(
+			long groupId, long userId, long offerId)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchUserEnrollOfferException {
+
+		return getPersistence().removeByGroupIdAndUserIdAndOfferId(
+			groupId, userId, offerId);
+	}
+
+	/**
+	 * Returns the number of user enroll offers where groupId = &#63; and userId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @return the number of matching user enroll offers
+	 */
+	public static int countByGroupIdAndUserIdAndOfferId(
+		long groupId, long userId, long offerId) {
+
+		return getPersistence().countByGroupIdAndUserIdAndOfferId(
+			groupId, userId, offerId);
+	}
+
+	/**
+	 * Returns all the user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @return the matching user enroll offers
+	 */
+	public static List<UserEnrollOffer> findByGroupIdAndOfferId(
+		long groupId, long offerId) {
+
+		return getPersistence().findByGroupIdAndOfferId(groupId, offerId);
+	}
+
+	/**
+	 * Returns a range of all the user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @return the range of matching user enroll offers
+	 */
+	public static List<UserEnrollOffer> findByGroupIdAndOfferId(
+		long groupId, long offerId, int start, int end) {
+
+		return getPersistence().findByGroupIdAndOfferId(
+			groupId, offerId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching user enroll offers
+	 */
+	public static List<UserEnrollOffer> findByGroupIdAndOfferId(
+		long groupId, long offerId, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return getPersistence().findByGroupIdAndOfferId(
+			groupId, offerId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching user enroll offers
+	 */
+	public static List<UserEnrollOffer> findByGroupIdAndOfferId(
+		long groupId, long offerId, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByGroupIdAndOfferId(
+			groupId, offerId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer findByGroupIdAndOfferId_First(
+			long groupId, long offerId,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchUserEnrollOfferException {
+
+		return getPersistence().findByGroupIdAndOfferId_First(
+			groupId, offerId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer fetchByGroupIdAndOfferId_First(
+		long groupId, long offerId,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return getPersistence().fetchByGroupIdAndOfferId_First(
+			groupId, offerId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer findByGroupIdAndOfferId_Last(
+			long groupId, long offerId,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchUserEnrollOfferException {
+
+		return getPersistence().findByGroupIdAndOfferId_Last(
+			groupId, offerId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer fetchByGroupIdAndOfferId_Last(
+		long groupId, long offerId,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return getPersistence().fetchByGroupIdAndOfferId_Last(
+			groupId, offerId, orderByComparator);
+	}
+
+	/**
+	 * Returns the user enroll offers before and after the current user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param userEnrollOfferPK the primary key of the current user enroll offer
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a user enroll offer with the primary key could not be found
+	 */
+	public static UserEnrollOffer[] findByGroupIdAndOfferId_PrevAndNext(
+			edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK
+				userEnrollOfferPK,
+			long groupId, long offerId,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchUserEnrollOfferException {
+
+		return getPersistence().findByGroupIdAndOfferId_PrevAndNext(
+			userEnrollOfferPK, groupId, offerId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the user enroll offers where groupId = &#63; and offerId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 */
+	public static void removeByGroupIdAndOfferId(long groupId, long offerId) {
+		getPersistence().removeByGroupIdAndOfferId(groupId, offerId);
+	}
+
+	/**
+	 * Returns the number of user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @return the number of matching user enroll offers
+	 */
+	public static int countByGroupIdAndOfferId(long groupId, long offerId) {
+		return getPersistence().countByGroupIdAndOfferId(groupId, offerId);
 	}
 
 	/**

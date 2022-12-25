@@ -18,13 +18,15 @@ public class StudentjobConstants {
 	public static final String USER_PHONE = "userPhone";
 	public static final String USER_COMPANY_EXPANDO = "userCompany";
 	
+	public static final String LAYOUT_ICON = "layoutIcon";
+	
 	public static final String USER_STUDENT = "student";
 	public static final String USER_COMPANY = "company";
 	
 	public static final String EMAIL_SENDER = "noreply@mestemiuoc.com";
 	
-	public static final String ORDER_BY_COL = "createDate";
-	public static final String ORDER_BY_TYPE = "createDate";
+	public static final String ORDER_BY_COL = "orderByCol";
+	public static final String ORDER_BY_TYPE = "orderByType";
 	
 	public static final String ORDER_CREATE_DATE = "createDate";
 	public static final String ORDER_MODIFIED_DATE = "modifiedDate";

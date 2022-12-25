@@ -21,6 +21,9 @@ import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.util.Date;
+import java.util.List;
+
+import edu.uoc.mestemi.studentjob.exception.NoSuchUserEnrollOfferException;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.base.UserEnrollOfferLocalServiceBaseImpl;
 import edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK;
@@ -47,10 +50,29 @@ public class UserEnrollOfferLocalServiceImpl
 		
 		UserEnrollOffer userEnrollOffer = createUserEnrollOffer(userEnrollOfferPK);
 		userEnrollOffer.setGroupId(group.getGroupId());
-		userEnrollOffer.setCompanyId(group.getCompanyId());
 		userEnrollOffer.setCreateDate(serviceContext.getCreateDate(new Date()));
 	
 		return super.addUserEnrollOffer(userEnrollOffer);
+	}
+	
+	public UserEnrollOffer getUserEnrollOffer(long groupId, long userId, long offerId) {
+		try {
+			return userEnrollOfferPersistence.findByGroupIdAndUserIdAndOfferId(groupId, userId, offerId);
+		} catch (NoSuchUserEnrollOfferException e) {
+			return null;
+		}
+	}
+	
+	public List<UserEnrollOffer> getUserEnrollOffers(long groupId, long offerId){
+		return userEnrollOfferPersistence.findByGroupIdAndOfferId(groupId, offerId);
+	}
+
+	public List<UserEnrollOffer> getUserEnrolledOffers(long groupId, long userId){
+		return userEnrollOfferPersistence.findByGroupIdAndUserId(groupId, userId);
+	}
+	
+	public int getUserEnrolledOffersCount(long groupId, long userId){
+		return userEnrollOfferPersistence.countByGroupIdAndOfferId(groupId, userId);
 	}
 	
 	@Override

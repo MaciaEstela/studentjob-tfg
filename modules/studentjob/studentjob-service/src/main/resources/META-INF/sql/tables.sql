@@ -57,6 +57,7 @@ create table SJob_Offer (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	status INTEGER,
 	title STRING null,
 	preference VARCHAR(75) null,
 	description STRING null
@@ -128,7 +129,6 @@ create table SJob_UserEnrollOffer (
 	userId LONG not null,
 	offerId LONG not null,
 	groupId LONG,
-	companyId LONG,
 	createDate DATE null,
 	primary key (userId, offerId)
 );

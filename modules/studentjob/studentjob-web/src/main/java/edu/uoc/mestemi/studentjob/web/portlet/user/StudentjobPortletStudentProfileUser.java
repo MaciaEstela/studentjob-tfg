@@ -15,7 +15,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"javax.portlet.version=3.0",
-		"com.liferay.portlet.display-category=category.studentjob",
+		"com.liferay.portlet.display-category=category.studentjob.public",
 		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.instanceable=false",
 		"javax.portlet.display-name=LIST Studentjob STUDENTPROFILE User",

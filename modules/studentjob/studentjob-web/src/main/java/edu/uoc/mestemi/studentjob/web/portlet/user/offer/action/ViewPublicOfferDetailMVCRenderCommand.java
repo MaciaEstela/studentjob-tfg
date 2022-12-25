@@ -22,7 +22,10 @@ import edu.uoc.mestemi.studentjob.dto.OfferDTO;
 import edu.uoc.mestemi.studentjob.exception.NoSuchOfferException;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
+import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.OfferService;
+import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalService;
+import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 import edu.uoc.mestemi.studentjob.web.portlet.util.DTOUtil;
@@ -48,11 +51,16 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
-
+		
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		
 		Offer offer = null;
 
 		long offerId = ParamUtil.getLong(renderRequest, "offerId", 0);
-
+		long userId = themeDisplay.getUserId();
+		long groupId = themeDisplay.getScopeGroupId();
+		
 		if (offerId > 0) {
 			try {
 				// Call the service to get the offer for show
@@ -69,9 +77,7 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 		if (offer == null) {
 			return ""; // TODO: Return 404
 		}
-		
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
 		
 		OfferDTO offerDTO = null;
 		String province = StringPool.BLANK;
@@ -87,6 +93,9 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 		} catch (PortalException e) {
 			log.error("Error on get OfferDTO for offerID " + offer.getOfferId(), e);
 		}
+		
+		UserEnrollOffer userEnrollOffer = UserEnrollOfferLocalServiceUtil.getUserEnrollOffer(groupId, userId, offerId);
+		renderRequest.setAttribute("enrolled", userEnrollOffer != null);
 		
 		List<Degree> currentOfferDegrees = _offerService.getDegreesByOfferId(offer.getOfferId());
 		// Set offer to the request attributes.

@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.model.TicketConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.TicketLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -46,6 +47,7 @@ import edu.uoc.mestemi.studentjob.register.util.RegisterUtil;
 import edu.uoc.mestemi.studentjob.register.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalService;
+import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 
 /**
@@ -175,7 +177,9 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			
 			Map<Locale, String> emptyLocale = new HashMap<>();
 			
-			_studentProfileLocalService.addStudentProfile(
+			StudentProfileLocalServiceUtil.getStudentProfiles(0, 10);
+			
+			StudentProfileLocalServiceUtil.addStudentProfile(
 					groupId,
 					user.getUserId(),
 					0,
@@ -243,12 +247,12 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			);
 			
 			if (userTypePrefix.equals(StudentjobConstants.USER_COMPANY)) {
-				UserLocalServiceUtil.addGroupUser(
-						RegisterUtil.getUserGroup(companyId, StudentjobConstants.COMPANY_GROUP).getGroupId(), 
+				UserLocalServiceUtil.addRoleUser(
+						RoleLocalServiceUtil.getRole(companyId, StudentjobConstants.COMPANY_ROLE).getRoleId(), 
 						user.getUserId());
 			} else { //(userTypePrefix.equals(StudentjobConstants.USER_STUDENT)) {
-				UserLocalServiceUtil.addGroupUser(
-						RegisterUtil.getUserGroup(companyId, StudentjobConstants.STUDENT_GROUP).getGroupId(), 
+				UserLocalServiceUtil.addRoleUser(
+						RoleLocalServiceUtil.getRole(companyId, StudentjobConstants.STUDENT_ROLE).getRoleId(), 
 						user.getUserId());
 			}
 			

@@ -223,6 +223,20 @@ public interface OfferModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the status of this offer.
+	 *
+	 * @return the status of this offer
+	 */
+	public Integer getStatus();
+
+	/**
+	 * Sets the status of this offer.
+	 *
+	 * @param status the status of this offer
+	 */
+	public void setStatus(Integer status);
+
+	/**
 	 * Returns the title of this offer.
 	 *
 	 * @return the title of this offer

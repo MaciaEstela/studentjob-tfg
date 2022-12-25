@@ -1,7 +1,7 @@
 <%@ include file="/init.jsp" %>
 
  <portlet:renderURL var="viewCompanyProfileURL">
-	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_COMPANYPROFILE_PUBLIC %>" />
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_COMPANYPROFILE_USER %>" />
 	<portlet:param name="redirect" value="${currentURL}" />
 	<portlet:param name="userId" value="${offer.getUserId()}" />
  </portlet:renderURL>
@@ -11,6 +11,19 @@
 	<liferay-portlet:param name="offerId" value="${offer.getOfferId()}" />
 </portlet:resourceURL>
 
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<div id="successEnroll" class="mt-3 mb-3" style="display:none;">
+				<clay:stripe
+					dismissible="<%= true %>"
+					displayType="success"
+					message="studentjob.offers.success-enrollment"
+				/>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="col-12 mt-7 mb-5">
 	<div class="container offer-detail ">
 		<div class="offer-detail__header row">
@@ -25,16 +38,28 @@
 				</h1>
 			</div>
 			<div class="offer-detail__inscription-wrapper col-12 col-md-5">
-				<a href="${enrollUserURL}" class="offer-detail__inscription-btn">
-					<liferay-ui:message key="studentjob.offers.enrollment" />
-				</a>
+			
+				<c:choose>
+					<c:when test = "${enrolled}">
+						<span class="alert alert-warning">
+							<liferay-ui:message key="studentjob.offers.already-enrolled" />
+						</span>
+					</c:when>
+					<c:otherwise>
+						<a id="enrollUserBtn" href="javascript:void(0);" class="offer-detail__inscription-btn">
+							<liferay-ui:message key="studentjob.offers.enrollment" />
+						</a>
+					</c:otherwise>
+				</c:choose>
+			
+
 			</div>
 			<div class="col-12 col-l-5 offer-detail__extra">
 				<div class="offer-detail__company-name">
 					${offerDTO.getCompany()}
 				</div>
 				<div class="offer-detail__preference">
-					<liferay-ui:message key="studentjob.offers.preference.${offer.getPreference()}" />
+					<liferay-ui:message key="studentjob.preference.${offer.getPreference()}" />
 				</div>
 				<div class="offer-detail__location">
 					${province}
@@ -67,3 +92,26 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	AUI().ready('aui-module', function(A){
+		function enrollOffer(){
+			AUI().use('aui-io-request', function(A){
+				A.io.request('${enrollUserURL}', {
+					method: 'post',
+					on: {
+						success: function() {
+							if (this.get('responseData') && this.get('responseData') == "ok"){
+								document.getElementById("successEnroll").style.display = "block"; 
+							} else {
+								console.log("Error on enrollment");
+							}
+						}
+					}
+				});
+			});
+		}
+		
+		document.getElementById("enrollUserBtn").addEventListener("click", enrollOffer); 
+	});
+</script>

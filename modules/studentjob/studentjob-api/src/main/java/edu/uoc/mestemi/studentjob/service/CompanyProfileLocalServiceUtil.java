@@ -319,11 +319,11 @@ public class CompanyProfileLocalServiceUtil {
 	}
 
 	public static List<CompanyProfile> getCompanyProfilesByKeywords(
-		long groupId, String keywords, int start, int end,
+		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<CompanyProfile> orderByComparator) {
 
 		return getService().getCompanyProfilesByKeywords(
-			groupId, keywords, start, end, orderByComparator);
+			groupId, keywords, onlyActives, start, end, orderByComparator);
 	}
 
 	/**
@@ -368,10 +368,10 @@ public class CompanyProfileLocalServiceUtil {
 	}
 
 	public static long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords) {
+		long groupId, String keywords, boolean onlyActives) {
 
 		return getService().getCompanyProfilesCountByKeywords(
-			groupId, keywords);
+			groupId, keywords, onlyActives);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery

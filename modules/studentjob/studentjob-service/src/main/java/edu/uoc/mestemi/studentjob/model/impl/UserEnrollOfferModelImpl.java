@@ -72,7 +72,7 @@ public class UserEnrollOfferModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"userId", Types.BIGINT},
 		{"offerId", Types.BIGINT}, {"groupId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"createDate", Types.TIMESTAMP}
+		{"createDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -83,12 +83,11 @@ public class UserEnrollOfferModelImpl
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("offerId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_UserEnrollOffer (uuid_ VARCHAR(75) null,userId LONG not null,offerId LONG not null,groupId LONG,companyId LONG,createDate DATE null,primary key (userId, offerId))";
+		"create table SJob_UserEnrollOffer (uuid_ VARCHAR(75) null,userId LONG not null,offerId LONG not null,groupId LONG,createDate DATE null,primary key (userId, offerId))";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table SJob_UserEnrollOffer";
@@ -109,33 +108,25 @@ public class UserEnrollOfferModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long COMPANYID_COLUMN_BITMASK = 1L;
+	public static final long GROUPID_COLUMN_BITMASK = 1L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long GROUPID_COLUMN_BITMASK = 2L;
+	public static final long OFFERID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 4L;
+	public static final long USERID_COLUMN_BITMASK = 4L;
 
 	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *		#getColumnBitmask(String)}
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long USERID_COLUMN_BITMASK = 8L;
-
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *		#getColumnBitmask(String)}
-	 */
-	@Deprecated
-	public static final long OFFERID_COLUMN_BITMASK = 16L;
+	public static final long UUID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -266,11 +257,6 @@ public class UserEnrollOfferModelImpl
 			"groupId",
 			(BiConsumer<UserEnrollOffer, Long>)UserEnrollOffer::setGroupId);
 		attributeGetterFunctions.put(
-			"companyId", UserEnrollOffer::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId",
-			(BiConsumer<UserEnrollOffer, Long>)UserEnrollOffer::setCompanyId);
-		attributeGetterFunctions.put(
 			"createDate", UserEnrollOffer::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
@@ -342,6 +328,15 @@ public class UserEnrollOfferModelImpl
 	public void setUserUuid(String userUuid) {
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalUserId() {
+		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("userId"));
+	}
+
 	@JSON
 	@Override
 	public long getOfferId() {
@@ -355,6 +350,15 @@ public class UserEnrollOfferModelImpl
 		}
 
 		_offerId = offerId;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalOfferId() {
+		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("offerId"));
 	}
 
 	@JSON
@@ -379,31 +383,6 @@ public class UserEnrollOfferModelImpl
 	@Deprecated
 	public long getOriginalGroupId() {
 		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("groupId"));
-	}
-
-	@JSON
-	@Override
-	public long getCompanyId() {
-		return _companyId;
-	}
-
-	@Override
-	public void setCompanyId(long companyId) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_companyId = companyId;
-	}
-
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *             #getColumnOriginalValue(String)}
-	 */
-	@Deprecated
-	public long getOriginalCompanyId() {
-		return GetterUtil.getLong(
-			this.<Long>getColumnOriginalValue("companyId"));
 	}
 
 	@JSON
@@ -468,7 +447,6 @@ public class UserEnrollOfferModelImpl
 		userEnrollOfferImpl.setUserId(getUserId());
 		userEnrollOfferImpl.setOfferId(getOfferId());
 		userEnrollOfferImpl.setGroupId(getGroupId());
-		userEnrollOfferImpl.setCompanyId(getCompanyId());
 		userEnrollOfferImpl.setCreateDate(getCreateDate());
 
 		userEnrollOfferImpl.resetOriginalValues();
@@ -488,8 +466,6 @@ public class UserEnrollOfferModelImpl
 			this.<Long>getColumnOriginalValue("offerId"));
 		userEnrollOfferImpl.setGroupId(
 			this.<Long>getColumnOriginalValue("groupId"));
-		userEnrollOfferImpl.setCompanyId(
-			this.<Long>getColumnOriginalValue("companyId"));
 		userEnrollOfferImpl.setCreateDate(
 			this.<Date>getColumnOriginalValue("createDate"));
 
@@ -575,8 +551,6 @@ public class UserEnrollOfferModelImpl
 		userEnrollOfferCacheModel.offerId = getOfferId();
 
 		userEnrollOfferCacheModel.groupId = getGroupId();
-
-		userEnrollOfferCacheModel.companyId = getCompanyId();
 
 		Date createDate = getCreateDate();
 
@@ -683,7 +657,6 @@ public class UserEnrollOfferModelImpl
 	private long _userId;
 	private long _offerId;
 	private long _groupId;
-	private long _companyId;
 	private Date _createDate;
 
 	public <T> T getColumnValue(String columnName) {
@@ -719,7 +692,6 @@ public class UserEnrollOfferModelImpl
 		_columnOriginalValues.put("userId", _userId);
 		_columnOriginalValues.put("offerId", _offerId);
 		_columnOriginalValues.put("groupId", _groupId);
-		_columnOriginalValues.put("companyId", _companyId);
 		_columnOriginalValues.put("createDate", _createDate);
 	}
 
@@ -752,9 +724,7 @@ public class UserEnrollOfferModelImpl
 
 		columnBitmasks.put("groupId", 8L);
 
-		columnBitmasks.put("companyId", 16L);
-
-		columnBitmasks.put("createDate", 32L);
+		columnBitmasks.put("createDate", 16L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

@@ -20,7 +20,9 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.util.Date;
+import java.util.List;
 
+import edu.uoc.mestemi.studentjob.exception.NoSuchUserEnrollOfferException;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.base.UserEnrollOfferServiceBaseImpl;
 import edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK;
@@ -47,5 +49,21 @@ public class UserEnrollOfferServiceImpl extends UserEnrollOfferServiceBaseImpl {
 	public UserEnrollOffer deleteEnrollOffer(long offerId, long userId) throws PortalException {
 		return userEnrollOfferLocalService.deleteUserEnrollOffer(
 				new UserEnrollOfferPK(userId, offerId));
+	}
+	
+	public UserEnrollOffer getUserEnrollOffer(long groupId, long userId, long offerId) {
+		return userEnrollOfferLocalService.getUserEnrollOffer(groupId, userId, offerId);
+	}
+	
+	public List<UserEnrollOffer> getUserEnrollOffers(long groupId, long offerId){
+		return userEnrollOfferLocalService.getUserEnrollOffers(groupId, offerId);
+	}
+
+	public List<UserEnrollOffer> getUserEnrolledOffers(long groupId, long userId){
+		return userEnrollOfferLocalService.getUserEnrolledOffers(groupId, userId);
+	}
+	
+	public int getUserEnrolledOffersCount(long groupId, long userId){
+		return userEnrollOfferLocalService.getUserEnrolledOffersCount(groupId, userId);
 	}
 }

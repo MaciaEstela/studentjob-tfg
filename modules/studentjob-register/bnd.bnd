@@ -1,4 +1,15 @@
 Bundle-Name: studentjob-register
 Bundle-SymbolicName: edu.uoc.mestemi.studentjob.register
 Bundle-Version: 1.0.0
-Export-Package: edu.uoc.mestemi.studentjob.register.constants
+Export-Package: \
+	edu.uoc.mestemi.studentjob.constants,\
+	edu.uoc.mestemi.studentjob.dto,\
+	edu.uoc.mestemi.studentjob.exception,\
+	edu.uoc.mestemi.studentjob.model,\
+	edu.uoc.mestemi.studentjob.register.action,\
+	edu.uoc.mestemi.studentjob.register.constants,\
+	edu.uoc.mestemi.studentjob.register.portlet,\
+	edu.uoc.mestemi.studentjob.register.util,\
+	edu.uoc.mestemi.studentjob.service,\
+	edu.uoc.mestemi.studentjob.service.persistence,\
+	edu.uoc.mestemi.studentjob.util

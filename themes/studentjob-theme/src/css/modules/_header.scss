@@ -54,6 +54,31 @@
             }
     }
 
+    .header-lang-selector{
+        .portlet-content{
+            background-color: transparent;
+        }
+
+        .language-entry-short-text{
+            padding: 0;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+    
+            &:not(:last-child)::after{
+                content: '|';
+                padding-right: 10px;
+                padding-left: 10px;
+                font-weight: normal;
+            }
+        }
+
+        span.language-entry-short-text{
+            font-weight: bold;
+        }
+        
+    }
+
     .main-navbar{
         .nav-item{
             .nav-link{

@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.List;
 import javax.portlet.PortletException;
@@ -79,11 +80,17 @@ public class ViewOffersMVCRenderCommand implements MVCRenderCommand {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = start + delta;
 
+		long groupId = themeDisplay.getScopeGroupId();
+		long userId = themeDisplay.getUserId();
+		
 		String orderByCol =
 			ParamUtil.getString(renderRequest, "orderByCol", "title");
 		String orderByType =
 			ParamUtil.getString(renderRequest, "orderByType", "asc");
-
+		
+		int workflowStatus =
+				ParamUtil.getInteger(renderRequest, "filterByStatus", WorkflowConstants.STATUS_APPROVED);
+		
 		// Create comparator
 
 		OrderByComparator<Offer> comparator =
@@ -94,14 +101,14 @@ public class ViewOffersMVCRenderCommand implements MVCRenderCommand {
 
 		// Call the service to get the list of offers.
 		List<Offer> offers =_offerService.getOffersByKeywords(
-				themeDisplay.getScopeGroupId(), keywords, start, end,
+				groupId, userId, keywords, workflowStatus, start, end,
 				comparator);
 		
 		// Set request attributes.
 		renderRequest.setAttribute("offers", offers);
 		renderRequest.setAttribute(
 			"offerCount", _offerService.getOffersCountByKeywords(
-				themeDisplay.getScopeGroupId(), keywords));
+				groupId, userId, keywords, workflowStatus));
 	}
 
 	/**

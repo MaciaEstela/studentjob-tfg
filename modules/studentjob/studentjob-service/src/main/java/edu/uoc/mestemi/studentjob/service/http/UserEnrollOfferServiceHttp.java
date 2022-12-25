@@ -135,6 +135,141 @@ public class UserEnrollOfferServiceHttp {
 		}
 	}
 
+	public static edu.uoc.mestemi.studentjob.model.UserEnrollOffer
+		getUserEnrollOffer(
+			HttpPrincipal httpPrincipal, long groupId, long userId,
+			long offerId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEnrollOfferServiceUtil.class, "getUserEnrollOffer",
+				_getUserEnrollOfferParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, userId, offerId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.UserEnrollOffer)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.UserEnrollOffer> getUserEnrollOffers(
+			HttpPrincipal httpPrincipal, long groupId, long offerId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEnrollOfferServiceUtil.class, "getUserEnrollOffers",
+				_getUserEnrollOffersParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, offerId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>
+			getUserEnrolledOffers(
+				HttpPrincipal httpPrincipal, long groupId, long userId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEnrollOfferServiceUtil.class, "getUserEnrolledOffers",
+				_getUserEnrolledOffersParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, userId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static int getUserEnrolledOffersCount(
+		HttpPrincipal httpPrincipal, long groupId, long userId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEnrollOfferServiceUtil.class, "getUserEnrolledOffersCount",
+				_getUserEnrolledOffersCountParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, userId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		UserEnrollOfferServiceHttp.class);
 
@@ -144,6 +279,14 @@ public class UserEnrollOfferServiceHttp {
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _deleteEnrollOfferParameterTypes1 =
+		new Class[] {long.class, long.class};
+	private static final Class<?>[] _getUserEnrollOfferParameterTypes2 =
+		new Class[] {long.class, long.class, long.class};
+	private static final Class<?>[] _getUserEnrollOffersParameterTypes3 =
+		new Class[] {long.class, long.class};
+	private static final Class<?>[] _getUserEnrolledOffersParameterTypes4 =
+		new Class[] {long.class, long.class};
+	private static final Class<?>[] _getUserEnrolledOffersCountParameterTypes5 =
 		new Class[] {long.class, long.class};
 
 }

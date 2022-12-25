@@ -63,6 +63,18 @@ public class OfferServiceWrapper
 	}
 
 	@Override
+	public edu.uoc.mestemi.studentjob.model.Offer expireOffer(long offerId) {
+		return _offerService.expireOffer(offerId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.Offer expireOffer(
+		edu.uoc.mestemi.studentjob.model.Offer offer) {
+
+		return _offerService.expireOffer(offer);
+	}
+
+	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.Degree>
 		getDegreesByOfferId(long offerId) {
 
@@ -109,41 +121,48 @@ public class OfferServiceWrapper
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
 		getOffersByKeywords(
-			long groupId, String keywords, int start, int end,
+			long groupId, long userId, String keywords, int workflowStatus,
+			int start, int end,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
 
 		return _offerService.getOffersByKeywords(
-			groupId, keywords, start, end, orderByComparator);
+			groupId, userId, keywords, workflowStatus, start, end,
+			orderByComparator);
 	}
 
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
 		getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId, int start, int end,
+			long groupId, long userId, String keywords, String preference,
+			long regionId, long degreeId, int workflowStatus, long newestId,
+			int start, int end,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<edu.uoc.mestemi.studentjob.model.Offer> orderByComparator) {
 
 		return _offerService.
 			getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-				groupId, keywords, preference, regionId, degreeId, newestId,
-				start, end, orderByComparator);
+				groupId, userId, keywords, preference, regionId, degreeId,
+				workflowStatus, newestId, start, end, orderByComparator);
 	}
 
 	@Override
-	public long getOffersCountByKeywords(long groupId, String keywords) {
-		return _offerService.getOffersCountByKeywords(groupId, keywords);
+	public long getOffersCountByKeywords(
+		long groupId, long userId, String keywords, int workflowStatus) {
+
+		return _offerService.getOffersCountByKeywords(
+			groupId, userId, keywords, workflowStatus);
 	}
 
 	@Override
 	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-		long groupId, String keywords, String preference, long regionId,
-		long degreeId, long newestId) {
+		long groupId, long userId, String keywords, String preference,
+		long regionId, long degreeId, int workflowStatus, long newestId) {
 
 		return _offerService.
 			getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-				groupId, keywords, preference, regionId, degreeId, newestId);
+				groupId, userId, keywords, preference, regionId, degreeId,
+				workflowStatus, newestId);
 	}
 
 	/**

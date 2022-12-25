@@ -51,6 +51,7 @@ public class OfferWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("status", getStatus());
 		attributes.put("title", getTitle());
 		attributes.put("preference", getPreference());
 		attributes.put("description", getDescription());
@@ -112,6 +113,12 @@ public class OfferWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
 		}
 
 		String title = (String)attributes.get("title");
@@ -302,6 +309,16 @@ public class OfferWrapper
 	@Override
 	public long getRegionId() {
 		return model.getRegionId();
+	}
+
+	/**
+	 * Returns the status of this offer.
+	 *
+	 * @return the status of this offer
+	 */
+	@Override
+	public Integer getStatus() {
+		return model.getStatus();
 	}
 
 	/**
@@ -585,6 +602,16 @@ public class OfferWrapper
 	@Override
 	public void setRegionId(long regionId) {
 		model.setRegionId(regionId);
+	}
+
+	/**
+	 * Sets the status of this offer.
+	 *
+	 * @param status the status of this offer
+	 */
+	@Override
+	public void setStatus(Integer status) {
+		model.setStatus(status);
 	}
 
 	/**

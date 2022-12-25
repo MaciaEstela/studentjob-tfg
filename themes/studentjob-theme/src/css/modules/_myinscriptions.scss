@@ -1,0 +1,31 @@
+.my-inscriptions-cards{
+
+    &__item{
+        border: 1px solid #dedede;
+        padding: 15px;
+        background-color: #e0f0de;
+        border-radius: 10px;
+        position: relative;
+
+        &--expired{
+            background-color: #f0acac;
+        }
+    }
+
+    &__top{
+        height: 100%;
+    }
+
+    &__image-wrapper{
+        position: absolute;
+        top: -40px;
+        left: -30px;
+    }
+
+    &__image{
+        border-radius: 50%;
+        border: 1px solid #dedede;
+        width: 75px;
+        height: 75px;
+    }
+}

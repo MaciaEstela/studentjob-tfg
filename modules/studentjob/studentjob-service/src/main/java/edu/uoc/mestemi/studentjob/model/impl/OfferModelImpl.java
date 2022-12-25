@@ -84,8 +84,9 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		{"regionId", Types.BIGINT}, {"groupId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"title", Types.VARCHAR},
-		{"preference", Types.VARCHAR}, {"description", Types.VARCHAR}
+		{"modifiedDate", Types.TIMESTAMP}, {"status", Types.INTEGER},
+		{"title", Types.VARCHAR}, {"preference", Types.VARCHAR},
+		{"description", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -101,13 +102,14 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("preference", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SJob_Offer (uuid_ VARCHAR(75) null,offerId LONG not null primary key,regionId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title STRING null,preference VARCHAR(75) null,description STRING null)";
+		"create table SJob_Offer (uuid_ VARCHAR(75) null,offerId LONG not null primary key,regionId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,status INTEGER,title STRING null,preference VARCHAR(75) null,description STRING null)";
 
 	public static final String TABLE_SQL_DROP = "drop table SJob_Offer";
 
@@ -289,6 +291,9 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		attributeGetterFunctions.put("modifiedDate", Offer::getModifiedDate);
 		attributeSetterBiConsumers.put(
 			"modifiedDate", (BiConsumer<Offer, Date>)Offer::setModifiedDate);
+		attributeGetterFunctions.put("status", Offer::getStatus);
+		attributeSetterBiConsumers.put(
+			"status", (BiConsumer<Offer, Integer>)Offer::setStatus);
 		attributeGetterFunctions.put("title", Offer::getTitle);
 		attributeSetterBiConsumers.put(
 			"title", (BiConsumer<Offer, String>)Offer::setTitle);
@@ -498,6 +503,21 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		}
 
 		_modifiedDate = modifiedDate;
+	}
+
+	@JSON
+	@Override
+	public Integer getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(Integer status) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_status = status;
 	}
 
 	@JSON
@@ -900,6 +920,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		offerImpl.setUserName(getUserName());
 		offerImpl.setCreateDate(getCreateDate());
 		offerImpl.setModifiedDate(getModifiedDate());
+		offerImpl.setStatus(getStatus());
 		offerImpl.setTitle(getTitle());
 		offerImpl.setPreference(getPreference());
 		offerImpl.setDescription(getDescription());
@@ -924,6 +945,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 			this.<Date>getColumnOriginalValue("createDate"));
 		offerImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
+		offerImpl.setStatus(this.<Integer>getColumnOriginalValue("status"));
 		offerImpl.setTitle(this.<String>getColumnOriginalValue("title"));
 		offerImpl.setPreference(
 			this.<String>getColumnOriginalValue("preference"));
@@ -1046,6 +1068,12 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		}
 		else {
 			offerCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
+
+		Integer status = getStatus();
+
+		if (status != null) {
+			offerCacheModel.status = status;
 		}
 
 		offerCacheModel.title = getTitle();
@@ -1172,6 +1200,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private Integer _status;
 	private String _title;
 	private String _titleCurrentLanguageId;
 	private String _preference;
@@ -1216,6 +1245,7 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("status", _status);
 		_columnOriginalValues.put("title", _title);
 		_columnOriginalValues.put("preference", _preference);
 		_columnOriginalValues.put("description", _description);
@@ -1260,11 +1290,13 @@ public class OfferModelImpl extends BaseModelImpl<Offer> implements OfferModel {
 
 		columnBitmasks.put("modifiedDate", 256L);
 
-		columnBitmasks.put("title", 512L);
+		columnBitmasks.put("status", 512L);
 
-		columnBitmasks.put("preference", 1024L);
+		columnBitmasks.put("title", 1024L);
 
-		columnBitmasks.put("description", 2048L);
+		columnBitmasks.put("preference", 2048L);
+
+		columnBitmasks.put("description", 4096L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

@@ -21,12 +21,23 @@
 		<aui:fieldset-group markupView="lexicon">
 
 			<aui:fieldset>
-				<aui:input name="title">
+				<aui:input label="studentjob.companyprofile.form.title" name="title">
 				</aui:input>
 				
+				<aui:input label="studentjob.companyprofile.form.email" name="email">
+				</aui:input>
+				
+				<aui:input label="studentjob.companyprofile.form.sector" name="sector">
+				</aui:input>
+				
+				<aui:input label="studentjob.companyprofile.form.website" name="website">
+				</aui:input>
+				
+				<label class="control-label">
+					<liferay-ui:message key="studentjob.companyprofile.form.description" />
+				</label>
 				<div class="alloy-editor-container">
 					<liferay-ui:input-localized
-						contents="Descripción"
 						xml="${companyProfile.getDescription()}"
 						type="editor"
 						cssClass="studentjob-ckeditor"
@@ -36,17 +47,8 @@
 						showSource="false" />
 				</div>
 				
-				<aui:input name="email">
-				</aui:input>
-				
-				<aui:input name="sector">
-				</aui:input>
-				
-				<aui:input name="website">
-				</aui:input>
-				
 				<%-- Region field. --%>
-				<aui:select name="region" label="offer.region">
+				<aui:select name="region" label="studentjob.companyprofile.form.region">
 					<c:forEach items="${regions}" var="region">
 						<c:choose>
 							<c:when test="${region.getRegionId() == companyProfile.getRegionId()}">
@@ -62,15 +64,15 @@
 				<%-- SocialMedia field. --%>
 				 <%@ include file="/utils/socialMedia.jspf"%>
 
-				<aui:input name="active" type="checkbox" value="${companyProfile.isActive()}"/>
+				<aui:input name="active" label="studentjob.companyprofile.form.active" type="checkbox" value="${companyProfile.isActive()}"/>
 			</aui:fieldset>
 		</aui:fieldset-group>
 
 		<%--Buttons. --%>
 
-		<aui:button-row>
+		<aui:button-row cssClass="mt-5 d-flex justify-content-center">
 			<aui:button cssClass="btn btn-primary" type="submit" />
-			<aui:button cssClass="btn btn-secondary" onClick="${param.redirect}" type="cancel" />
+			<aui:button cssClass="ml-3 btn btn-secondary" onClick="${param.redirect}" type="cancel" />
 		</aui:button-row>
 	</aui:form>
 

@@ -13,6 +13,9 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
+import com.liferay.portal.kernel.model.LayoutTypePortlet;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
@@ -23,13 +26,18 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalServiceUtil;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserGroupRoleLocalServiceUtil;
+import com.liferay.portal.kernel.service.persistence.LayoutFriendlyURLUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -65,10 +73,11 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 	
 	@Activate
 	public void onActivate() {
-		log.info("Module " + StudentjobRegisterPortletKeys.STUDENTJOB_REGISTER + " started");
+		log.info("Module " + StudentjobRegisterPortletKeys.STUDENTJOB_REGISTER + " started ");
 		String companyWebId = "uoc.edu";
 		long companyId = 0;
 		
+		log.info("ON ACTIVATE");
 		try {
 			companyId = CompanyLocalServiceUtil.getCompanyByWebId(companyWebId).getCompanyId();
 		} catch (PortalException e) {
@@ -94,7 +103,18 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 					ExpandoColumnConstants.STRING, StringPool.BLANK);
 		}
 
+		String layoutModelClass = Layout.class.getName();
 		
+		ExpandoTable expandoTableLayout = addExpandoTable(companyId, Layout.class.getName(), tableName);
+		
+		if (expandoTableLayout != null) {
+			addExpandoColumn(companyId, layoutModelClass, 
+					tableName, StudentjobConstants.LAYOUT_ICON, 
+					expandoTableLayout, ExpandoColumnConstants.STRING, StringPool.BLANK);
+		}
+		
+		long studentRoleId = 0;
+		long companyRoleId = 0;
 		try {
 			Map<Locale, String> roleStudentMap = new HashMap<>();
 			roleStudentMap.put(LocaleUtil.getDefault(), "Student Role");
@@ -102,15 +122,15 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 			Map<Locale, String> roleCompanyMap = new HashMap<>();
 			roleCompanyMap.put(LocaleUtil.getDefault(), "Company Role");
 			
-			
 			Role studentRole = createRole(companyId, StudentjobConstants.STUDENT_ROLE, roleStudentMap);
 			UserGroup studentGroup = createGroup(companyId, StudentjobConstants.STUDENT_GROUP);
 			GroupLocalServiceUtil.addRoleGroup(studentRole.getRoleId(), studentGroup.getGroupId());
+			studentRoleId = studentRole.getRoleId();
 			
 			Role companyRole = createRole(companyId, StudentjobConstants.COMPANY_ROLE, roleCompanyMap);
 			UserGroup companyGroup = createGroup(companyId, StudentjobConstants.COMPANY_GROUP);
 			GroupLocalServiceUtil.addRoleGroup(companyRole.getRoleId(), companyGroup.getGroupId());
-			
+			companyRoleId = companyRole.getRoleId();
 		} catch (PortalException e) {
 			log.error(e);
 		}
@@ -200,9 +220,14 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 	private void setExpandoColumnPermissions(long companyId, ExpandoColumn expandoColumn) {
 		try {
 			Role guest = UserManagementUtil.getRoleById(companyId, RoleConstants.GUEST);
+			Role userRole = UserManagementUtil.getRoleById(companyId, RoleConstants.USER);
 			String[] actionsR = new String[] { ActionKeys.VIEW };
+			String[] actionsU = new String[] { ActionKeys.UPDATE };
 			_resourcePermissionLocalService.setResourcePermissions(companyId, ExpandoColumn.class.getName(), 
 					ResourceConstants.SCOPE_INDIVIDUAL, Long.toString(expandoColumn.getPrimaryKey()), guest.getRoleId(), actionsR);
+			
+			_resourcePermissionLocalService.setResourcePermissions(companyId, ExpandoColumn.class.getName(), 
+					ResourceConstants.SCOPE_INDIVIDUAL, Long.toString(expandoColumn.getPrimaryKey()), userRole.getRoleId(), actionsU);
 		} catch (Exception e) {
 			log.error("Error setting Guest Role on Expando Column " + expandoColumn.getName());
 			e.printStackTrace();

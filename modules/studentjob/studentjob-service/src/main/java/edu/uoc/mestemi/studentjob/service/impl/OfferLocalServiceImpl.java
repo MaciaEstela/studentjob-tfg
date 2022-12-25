@@ -14,6 +14,7 @@
 
 package edu.uoc.mestemi.studentjob.service.impl;
 
+import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Conjunction;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
@@ -28,6 +29,7 @@ import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -81,6 +83,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		offer.setRegionId(regionId);
 		offer.setPreference(preference);
 		offer.setDescriptionMap(descriptionMap);
+		offer.setStatus(WorkflowConstants.STATUS_APPROVED);
 		
 		for (long degreeId : degreeIds) {
 			addDegreeOffer(degreeId, offerId);
@@ -143,31 +146,39 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		return offerPersistence.findByGroupId(groupId, start, end, orderByComparator);
 	}
 	
-	public List<Offer> getOffersByKeywords(long groupId, String keywords, int start, 
+	public List<Offer> getOffersByKeywords(long groupId, long userId, String keywords, int workflowStatus, int start,  
 			int end, OrderByComparator<Offer> orderByComparator) {
 		return offerPersistence.findWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords), start, end, orderByComparator);
+				getKeywordSearchDynamicQuery(groupId, userId, keywords, workflowStatus), start, end, orderByComparator);
 	}
 	
-	public long getOffersCountByKeywords(long groupId, String keywords) {
+	public long getOffersCountByKeywords(long groupId, long userId, String keywords, int workflowStatus) {
 		return offerPersistence.countWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords));
+				getKeywordSearchDynamicQuery(groupId, userId, keywords, workflowStatus));
 	}
 	
-	public List<Offer> getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, String keywords, String preference,
-			long regionId, long degreeId, long newestId, int start, int end, OrderByComparator<Offer> orderByComparator) {
+	public List<Offer> getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, long userId, String keywords, String preference,
+			long regionId, long degreeId, int workflowStatus, long newestId, int start, int end, OrderByComparator<Offer> orderByComparator) {
 		return offerPersistence.findWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords, preference, regionId, degreeId, newestId), start, end, orderByComparator);
+				getKeywordSearchDynamicQuery(groupId, userId, keywords, preference, regionId, degreeId, workflowStatus, newestId), start, end, orderByComparator);
 	}
 	
-	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, String keywords, String preference,
-			long regionId, long degreeId, long newestId) {
+	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, long userId, String keywords, String preference,
+			long regionId, long degreeId, int workflowStatus, long newestId) {
 		return offerPersistence.countWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords, preference, regionId, degreeId, newestId));
+				getKeywordSearchDynamicQuery(groupId, userId, keywords, preference, regionId, degreeId, workflowStatus, newestId));
 	}
 	
-	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords) {
+	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, long userId, String keywords, int workflowStatus) {
 		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
+		
+		if (userId != 0) {
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("userId", userId));
+		}
+		
+		if (workflowStatus != WorkflowConstants.STATUS_ANY) {
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("status", workflowStatus));
+		}
 		
 		if (Validator.isNotNull(keywords)) {
 			Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
@@ -181,11 +192,19 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		return dynamicQuery;
 	}
 	
-	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords, 
-			String preference, long regionId, long degreeId, long newestId) {
+	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, long userId, String keywords, 
+			String preference, long regionId, long degreeId, int workflowStatus, long newestId) {
 		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
 		Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
 		Conjunction conjunctionQuery = RestrictionsFactoryUtil.conjunction();
+		
+		if (userId != 0) {
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("userId", userId));
+		}
+		
+		if (workflowStatus != WorkflowConstants.STATUS_ANY) {
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("status", workflowStatus));
+		}
 		
 		if (Validator.isNotNull(keywords)) {
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("title", "%" + keywords + "%"));
@@ -194,7 +213,6 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		}
 		
 		if (Validator.isNotNull(newestId) && newestId != 0) {
-			System.out.println("newestID es " + newestId);
 			conjunctionQuery.add(RestrictionsFactoryUtil.le("offerId", newestId));
 		}
 		
@@ -230,6 +248,21 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	@Override
 	public Offer updateOffer(Offer offer) {
 		throw new UnsupportedOperationException("Not supported");
+	}
+	
+	public Offer expireOffer(Offer offer) {
+		offer.setStatus(WorkflowConstants.STATUS_EXPIRED);
+		offerPersistence.update(offer);
+		return offer;
+	}
+	
+	public Offer expireOffer(long offerId) {
+		try {
+			Offer offer = getOffer(offerId);
+			return expireOffer(offer);
+		} catch (PortalException e) {
+			return null;
+		}
 	}
 	
 	@Reference

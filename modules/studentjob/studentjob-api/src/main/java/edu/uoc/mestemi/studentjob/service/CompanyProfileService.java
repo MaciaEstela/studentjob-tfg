@@ -89,12 +89,12 @@ public interface CompanyProfileService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CompanyProfile> getCompanyProfilesByKeywords(
-		long groupId, String keywords, int start, int end,
+		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<CompanyProfile> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords);
+		long groupId, String keywords, boolean onlyActives);
 
 	/**
 	 * Returns the OSGi service identifier.

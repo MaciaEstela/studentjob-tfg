@@ -1,0 +1,164 @@
+@keyframes float {
+    0% {
+        transform: translatey(0px);
+    }
+    50% {
+        transform: translatey(-30px);
+    }
+    100% {
+        transform: translatey(0px);
+    }
+}
+
+/* The typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+  }
+
+.studentjob-home{
+    background-color: #f9f8f2;
+    padding-bottom: 30px;
+
+    &__home{
+        background-color: #f9f8f2;
+        padding: 30px 10px 30px 10px;
+    }
+
+    &__wrapper{
+        border-radius: 0% 0% 50% 50%;
+        background-color: #dedede57;
+        padding-top: 150px;
+        padding-bottom: 150px;
+    }
+
+    &__right{
+        display: flex;
+        justify-content: start;
+    }
+
+    &__img-1{
+        width: 80%;
+        height: 400px;
+        align-self: end;
+    }
+
+    &__img-2{
+        position: absolute;
+        width: 40%;
+        left: 50%;
+    }
+
+    &__main-header{
+        font-size: 70px;
+        font-family: "Oswald";
+        font-weight: 900;
+        padding: 15px;
+        letter-spacing: 5px;
+
+        @media screen and (max-width: $lg) {
+            font-size: 40px;
+        }
+    }
+
+    &__floating-image{
+        transform: translatey(0px);
+        animation: float 5s ease-in-out infinite;
+    }
+
+    &__buttons{
+        margin-top: 40px;
+    }
+
+    &__img-1-wrapper{
+        align-self: end;
+    }
+
+    &__btn-1-wrapper{
+        text-align: center;
+    }
+
+    &__btn-2-wrapper{
+        text-align: center;
+    }
+
+    &__btn-1{
+        border: .2rem solid #0f866c;
+        background-color: #0f866c;
+        color: #fff;
+        font-size: 25px;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover{
+            background-color: transparent;
+            color: #000;
+            border-color: #F98125;
+        }
+    }
+
+    &__btn-2{
+        border: .2rem solid #0f866c;
+        background-color: transparent;
+        color: black;
+        font-size: 25px;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover{
+            background-color: #0f866c;
+            color: #fff;
+        }
+    }
+
+    &__terms{
+        margin-top: 30px;
+        font-size: 12px;
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+}
+
+.studentjob-home-users{
+    background-color: #F98125BA;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    &__students{
+        text-align: center;
+        font-family: "Oswald";
+    }
+
+    &__companies{
+        text-align: center;
+        font-family: "Oswald";
+    }
+
+    &__count{
+        font-size: 60px;
+        font-family: "Quicksand";
+    }
+
+    &__role{
+        font-size: 30px;
+    }
+
+    &__text{
+        font-size: 20px;
+    }
+
+    &__logo{
+        width: 100px;
+        height: 100px;
+    }
+}

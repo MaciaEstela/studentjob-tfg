@@ -1,0 +1,47 @@
+<portlet:resourceURL id="<%= MVCCommandNames.MYINSCRIPTIONS_RESOURCE_COMMAND %>" var="cancelEnrollmentURL" >
+	<liferay-portlet:param name="cmd" value="<%= MVCCommandNames.MYINSCRIPTIONS_CANCEL_INSCRIPTION_USER %>" />
+	<liferay-portlet:param name="offerId" value="${myInscription.getOfferId()}" />
+</portlet:resourceURL>
+
+<div class="my-inscriptions-cards__item-wrapper col-12 col-md-4 mt-6">
+	<c:choose>
+		<c:when test="${myInscription.isActiveOffer()}">
+			<div class="my-inscriptions-cards__item">
+		</c:when>
+		<c:otherwise>
+			<div class="my-inscriptions-cards__item my-inscriptions-cards__item--expired">
+		</c:otherwise>
+	</c:choose>
+	
+		<div class="my-inscriptions-cards__image-wrapper">
+			<img alt="${myInscription.getCompanyName()} Logo" class="my-inscriptions-cards__image" src="${myInscription.getCompanyLogo()}">
+		</div>
+		<div class="my-inscriptions-cards__top row">
+			<div class="my-inscriptions-cards__title-wrapper col-12">
+				<h2 class="my-inscriptions-cards__title mt-2">
+					${myInscription.getOfferTitle()}
+				</h2>
+			</div>
+		</div>
+		<div class="my-inscriptions-cards__bottom row mt-3">
+			<div class="my-inscriptions-cards__company-name-wrapper text-center col-12  col-md-4">
+				<span class="my-inscriptions-cards__company-name">
+					${myInscription.getCompanyName()}
+				</span>
+			</div>
+			<div class="my-inscriptions-cards__ago-wrapper text-center col-12 col-md-8">
+				<span class="my-inscriptions-cards__ago">
+					${myInscription.getAgoString()}
+				</span>
+			</div>
+			
+			<c:if test="${myInscription.isActiveOffer()}">
+				<div class="my-inscriptions-cards__button-wrapper text-center col-12 pt-3">
+					<a id="inscription-${myInscription.getOfferId()}" href="javascript:void(0);" onclick="cancelInscription('<%=cancelEnrollmentURL %>', 'inscription-${myInscription.getOfferId()}');" class="btn btn-danger my-inscriptions-cards__button">
+						<liferay-ui:message key="studentjob.myinscriptions.cancel-inscription" />
+					</a>
+				</div>
+			</c:if>
+		</div>
+	</div>
+</div>

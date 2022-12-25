@@ -65,6 +65,34 @@ public class UserEnrollOfferServiceWrapper
 	}
 
 	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>
+		getUserEnrolledOffers(long groupId, long userId) {
+
+		return _userEnrollOfferService.getUserEnrolledOffers(groupId, userId);
+	}
+
+	@Override
+	public int getUserEnrolledOffersCount(long groupId, long userId) {
+		return _userEnrollOfferService.getUserEnrolledOffersCount(
+			groupId, userId);
+	}
+
+	@Override
+	public edu.uoc.mestemi.studentjob.model.UserEnrollOffer getUserEnrollOffer(
+		long groupId, long userId, long offerId) {
+
+		return _userEnrollOfferService.getUserEnrollOffer(
+			groupId, userId, offerId);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>
+		getUserEnrollOffers(long groupId, long offerId) {
+
+		return _userEnrollOfferService.getUserEnrollOffers(groupId, offerId);
+	}
+
+	@Override
 	public UserEnrollOfferService getWrappedService() {
 		return _userEnrollOfferService;
 	}

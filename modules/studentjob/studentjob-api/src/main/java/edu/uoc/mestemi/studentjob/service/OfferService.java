@@ -67,6 +67,10 @@ public interface OfferService extends BaseService {
 
 	public Offer deleteOffer(long offerId) throws PortalException;
 
+	public Offer expireOffer(long offerId);
+
+	public Offer expireOffer(Offer offer);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Degree> getDegreesByOfferId(long offerId);
 
@@ -89,22 +93,23 @@ public interface OfferService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Offer> getOffersByKeywords(
-		long groupId, String keywords, int start, int end,
-		OrderByComparator<Offer> orderByComparator);
+		long groupId, long userId, String keywords, int workflowStatus,
+		int start, int end, OrderByComparator<Offer> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Offer> getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-		long groupId, String keywords, String preference, long regionId,
-		long degreeId, long newestId, int start, int end,
-		OrderByComparator<Offer> orderByComparator);
+		long groupId, long userId, String keywords, String preference,
+		long regionId, long degreeId, int workflowStatus, long newestId,
+		int start, int end, OrderByComparator<Offer> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long getOffersCountByKeywords(long groupId, String keywords);
+	public long getOffersCountByKeywords(
+		long groupId, long userId, String keywords, int workflowStatus);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-		long groupId, String keywords, String preference, long regionId,
-		long degreeId, long newestId);
+		long groupId, long userId, String keywords, String preference,
+		long regionId, long degreeId, int workflowStatus, long newestId);
 
 	/**
 	 * Returns the OSGi service identifier.

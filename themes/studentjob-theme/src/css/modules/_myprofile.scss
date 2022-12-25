@@ -1,5 +1,13 @@
 .my-profile{
     
+    display: flex;
+    justify-content: end;
+    padding-right: 200px;
+
+    @media screen and (max-width: $md) {
+        padding-right: 0px;    
+    }
+    
     &__title{
         text-align: center;
         padding: 5px;
@@ -12,6 +20,15 @@
 
     &__img{
         border-radius: 50%;
-        width: 100%;
+        background-color: #fff;
+        border: 1px solid #d7d71d;
+        width: 50px;
+        height: 50px;
+    }
+
+    .dropdown-menu{
+        left: auto;
+        padding-left: 1px;
+        padding-right: 1px;
     }
 }

@@ -8,18 +8,18 @@
 			<portlet:param name="redirect" value="${param.redirect}" />
 		</portlet:actionURL>
 
-		<c:set var="editTitle" value="edit-degree"/>
+		<c:set var="editTitle" value="studentjob.degree.admin.edit"/>
 	</c:when>
 	<c:otherwise>
 		<portlet:actionURL var="degreeActionURL" name="<%=MVCCommandNames.ADD_DEGREE_ADMIN %>">
 			<portlet:param name="redirect" value="${param.redirect}" />
 		</portlet:actionURL>
 
-		<c:set var="editTitle" value="add-degree"/>
+		<c:set var="editTitle" value="studentjob.degree.admin.create"/>
 	</c:otherwise>
  </c:choose>
 
- <div class="container-fluid-1280 edit-degree">
+ <div class="container edit-degree">
 
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 
@@ -65,3 +65,14 @@
 	</aui:form>
 
  </div>
+ 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.js"></script>
+
+<script type="text/javascript">
+AUI().ready('aui-module', function(A){
+	new SlimSelect({
+		select: '#<portlet:namespace />degreeArea'
+	});
+});
+</script>

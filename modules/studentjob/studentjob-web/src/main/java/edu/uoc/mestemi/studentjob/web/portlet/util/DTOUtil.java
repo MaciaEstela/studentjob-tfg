@@ -20,12 +20,16 @@ import java.util.ResourceBundle;
 
 import org.jsoup.Jsoup;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
+import edu.uoc.mestemi.studentjob.dto.MyInscriptionDTO;
 import edu.uoc.mestemi.studentjob.dto.OfferDTO;
 import edu.uoc.mestemi.studentjob.dto.StudentProfileDTO;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
+import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CommonUtilities;
 import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 
@@ -110,8 +114,6 @@ public class DTOUtil {
 			degreesString.add(degree.getName(locale));
 		}
 		
-		
-		
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", locale, UTF8Control.INSTANCE);
 
 		Region region = RegionLocalServiceUtil.getRegion(studentProfile.getRegionId());
@@ -125,11 +127,63 @@ public class DTOUtil {
 				LanguageUtil.get(resourceBundle, "studentjob.preference." + studentProfile.getPreference()), 
 				DocumentLibraryUtil.getFileDownloadURL(themeDisplay, studentProfile.getCurriculumId()), 
 				user.getPortraitURL(themeDisplay),
+				studentProfile.getDescription(locale), 
+				studentProfile.getEmail(), 
+				(String) user.getExpandoBridge().getAttribute(StudentjobConstants.USER_PHONE), 
 				portletURL
 			);
-		System.out.println("studentProfileDTO.getDegrees() " + studentProfileDTO.getDegrees().size());
 		
 		return studentProfileDTO;
+	}
+	
+	public static MyInscriptionDTO getMyInscriptionDTO(UserEnrollOffer userEnrollOffer, ThemeDisplay themeDisplay) throws PortalException {
+		long offerId = userEnrollOffer.getOfferId();
+		long userId = themeDisplay.getUserId();
+		Locale locale = themeDisplay.getLocale();
+		
+		Offer offer = OfferLocalServiceUtil.getOffer(offerId);
+		User companyUser = UserLocalServiceUtil.getUser(offer.getUserId());
+		
+		MyInscriptionDTO myInscriptionDTO = null;
+		
+		long differenceMinutes = CommonUtilities.getDifferenceMinutes(userEnrollOffer.getCreateDate(), new Date());
+		
+		ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", locale, UTF8Control.INSTANCE);
+		String agoText = StringPool.BLANK;
+		
+		if (differenceMinutes < 60) {
+			if (differenceMinutes == 1) {
+				agoText = LanguageUtil.format(resourceBundle, "studentjob.myinscriptions.created.minute-ago", differenceMinutes);	
+			} else {
+				agoText = LanguageUtil.format(resourceBundle, "studentjob.myinscriptions.created.minutes-ago", differenceMinutes);
+			}
+		} else if (differenceMinutes >= 60 && differenceMinutes < (48*60)) {
+			int hours = (int) differenceMinutes / 60;
+			if (hours == 1) {
+				agoText = LanguageUtil.format(resourceBundle, "studentjob.myinscriptions.created.hour-ago", hours);
+			} else {
+				agoText = LanguageUtil.format(resourceBundle, "studentjob.myinscriptions.created.hours-ago", hours);
+			}
+		} else if (differenceMinutes >= (48*60)){
+			int days = (int) differenceMinutes / 60 / 24;
+			if (days == 1) {
+				agoText = LanguageUtil.format(resourceBundle, "studentjob.myinscriptions.created.day-ago", days);
+			} else {
+				agoText = LanguageUtil.format(resourceBundle, "studentjob.myinscriptions.created.days-ago", days);
+			}
+		}
+		
+		myInscriptionDTO = new MyInscriptionDTO(
+				userId, 
+				offerId, 
+				companyUser.getPortraitURL(themeDisplay), 
+				offer.getTitle(locale),
+				(String) companyUser.getExpandoBridge().getAttribute("userCompany"), 
+				agoText, 
+				true
+			);
+		
+		return myInscriptionDTO;
 	}
 	
 }

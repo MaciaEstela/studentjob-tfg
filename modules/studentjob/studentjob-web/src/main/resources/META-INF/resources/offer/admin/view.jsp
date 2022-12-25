@@ -2,7 +2,7 @@
 
 <div class="container-fluid-1280">
 
-	<h1>AAAAAAAA <liferay-ui:message key="offers" /></h1>
+	<h1><liferay-ui:message key="studentjob.offers.admin-title" /></h1>
 
 	<%-- Clay management toolbar. --%>
 
@@ -17,7 +17,7 @@
 	<%-- Search container. --%>
 
 	<liferay-ui:search-container 
-		emptyResultsMessage="no-offers"
+		emptyResultsMessage="studentjob.offers.form.no-offers"
 		id="offerEntries"
 		iteratorURL="${portletURL}" 
 		total="${offerCount}">

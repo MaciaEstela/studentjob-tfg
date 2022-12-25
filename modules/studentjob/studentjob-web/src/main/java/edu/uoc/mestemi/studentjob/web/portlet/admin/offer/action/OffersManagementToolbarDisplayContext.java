@@ -7,6 +7,7 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemListBuilder;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItemList;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -19,6 +20,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.List;
 
@@ -128,6 +130,10 @@ public class OffersManagementToolbarDisplayContext
 		return ParamUtil.getString(httpServletRequest, "orderByCol", "title");
 	}
 
+	public int getFilterStatus() {
+		return ParamUtil.getInteger(httpServletRequest, "filterByStatus", WorkflowConstants.STATUS_APPROVED);
+	}
+	
 	/**
 	* Returns the sort type (ascending / descending).
 	* 
@@ -195,9 +201,30 @@ public class OffersManagementToolbarDisplayContext
 		return new ViewTypeItemList(portletURL.buildPortletURL(), getDisplayStyle()) {
 			private static final long serialVersionUID = 1L;
 			{
-				addCardViewTypeItem(); addListViewTypeItem(); addTableViewTypeItem();
+				addTableViewTypeItem();
 			}
 		};
+	}
+
+	
+	
+	
+	@Override
+	public List<DropdownItem> getFilterDropdownItems() {
+		return DropdownItemListBuilder.addGroup(
+				dropdownGroupItem -> {
+					dropdownGroupItem.setDropdownItems(
+						getFilterNavigationDropdownItems());
+					dropdownGroupItem.setLabel(
+						LanguageUtil.get(httpServletRequest, "filter-by-status"));
+				}
+			).addGroup(
+				dropdownGroupItem -> {
+					dropdownGroupItem.setDropdownItems(getOrderByDropdownItems());
+					dropdownGroupItem.setLabel(
+						LanguageUtil.get(httpServletRequest, "order-by"));
+				}
+			).build();
 	}
 
 	/**
@@ -226,7 +253,38 @@ public class OffersManagementToolbarDisplayContext
 						LanguageUtil.get(httpServletRequest, "create-date"));
 			}
 		).build();
-		
+	}
+
+	@Override
+	protected List<DropdownItem> getFilterNavigationDropdownItems() {
+		return DropdownItemListBuilder.add(
+				dropdownItem -> {
+					dropdownItem.setActive(
+							WorkflowConstants.STATUS_ANY  == getFilterStatus());
+					dropdownItem.setHref(_getCurrentSortingURL(), "filterByStatus",
+							WorkflowConstants.STATUS_ANY);
+					dropdownItem.setLabel(
+							LanguageUtil.get(httpServletRequest, "all"));
+				}
+			).add(
+				dropdownItem -> {
+					dropdownItem.setActive(
+							WorkflowConstants.STATUS_APPROVED  == getFilterStatus());
+					dropdownItem.setHref(_getCurrentSortingURL(), "filterByStatus",
+							WorkflowConstants.STATUS_APPROVED);
+					dropdownItem.setLabel(
+							LanguageUtil.get(httpServletRequest, "active"));
+				}
+			).add(
+				dropdownItem -> {
+					dropdownItem.setActive(
+							WorkflowConstants.STATUS_EXPIRED  == getFilterStatus());
+					dropdownItem.setHref(_getCurrentSortingURL(), "filterByStatus",
+							WorkflowConstants.STATUS_EXPIRED);
+					dropdownItem.setLabel(
+							LanguageUtil.get(httpServletRequest, "inactive"));
+				}
+			).build();
 	}
 
 	/**

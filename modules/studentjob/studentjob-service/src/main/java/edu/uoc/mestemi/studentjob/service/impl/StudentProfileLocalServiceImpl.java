@@ -136,15 +136,15 @@ public class StudentProfileLocalServiceImpl
 		return studentProfilePersistence.findByGroupIdAndUserId(groupId, userId).get(0);
 	}
 	
-	public List<StudentProfile> getStudentProfilesByKeywords(long groupId, String keywords, int start, 
+	public List<StudentProfile> getStudentProfilesByKeywords(long groupId, String keywords, boolean onlyActives, int start, 
 			int end, OrderByComparator<StudentProfile> orderByComparator) {
 		return studentProfilePersistence.findWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords), start, end, orderByComparator);
+				getKeywordSearchDynamicQuery(groupId, keywords, onlyActives), start, end, orderByComparator);
 	}
 	
-	public long getStudentProfilesCountByKeywords(long groupId, String keywords) {
+	public long getStudentProfilesCountByKeywords(long groupId, String keywords, boolean onlyActives) {
 		return studentProfilePersistence.countWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords));
+				getKeywordSearchDynamicQuery(groupId, keywords, onlyActives));
 	}
 	
 	public List<Degree> getDegreesByOfferId(long studentProfileId){
@@ -156,21 +156,25 @@ public class StudentProfileLocalServiceImpl
 	}
 	
 	public List<StudentProfile> getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, 
-			String keywords, String preference, long regionId, long degreeId, 
+			String keywords, String preference, long regionId, long degreeId, boolean onlyActives,  
 			long newestId, int start, int end, OrderByComparator<StudentProfile> orderByComparator) {
 		return studentProfilePersistence.findWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords, preference, regionId, degreeId, newestId), 
+				getKeywordSearchDynamicQuery(groupId, keywords, preference, regionId, degreeId, onlyActives, newestId), 
 				start, end, orderByComparator);
 	}
 	
 	public long getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, 
-			String keywords, String preference,	long regionId, long degreeId, long newestId) {
+			String keywords, String preference,	long regionId, long degreeId, boolean onlyActives, long newestId) {
 		return studentProfilePersistence.countWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords, preference, regionId, degreeId, newestId));
+				getKeywordSearchDynamicQuery(groupId, keywords, preference, regionId, degreeId, onlyActives, newestId));
 	}
 	
-	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords) {
+	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords, boolean onlyActives) {
 		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
+		
+		if (onlyActives) {
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("active", true));
+		}
 		
 		if (Validator.isNotNull(keywords)) {
 			Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
@@ -185,11 +189,15 @@ public class StudentProfileLocalServiceImpl
 	}
 	
 	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords, 
-			String preference, long regionId, long degreeId, long newestId) {
+			String preference, long regionId, long degreeId, boolean onlyActives, long newestId) {
 		
 		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
 		Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
 		Conjunction conjunctionQuery = RestrictionsFactoryUtil.conjunction();
+		
+		if (onlyActives) {
+			conjunctionQuery.add(RestrictionsFactoryUtil.eq("active", true));
+		}
 		
 		if (Validator.isNotNull(keywords)) {
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("title", "%" + keywords + "%"));

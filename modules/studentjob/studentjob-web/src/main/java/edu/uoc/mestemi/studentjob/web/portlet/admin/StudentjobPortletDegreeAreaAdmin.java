@@ -17,6 +17,7 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.version=3.0",
 		"com.liferay.portlet.display-category=category.studentjob",
 		"com.liferay.portlet.header-portlet-css=/css/main.css",
+		"com.liferay.portlet.header-portlet-javascript=/html/Jquery_Grid/js/test.js",
 		"com.liferay.portlet.instanceable=false",
 		"javax.portlet.display-name=Studentjob DegreeArea Admin",
 		"javax.portlet.init-param.template-path=/",

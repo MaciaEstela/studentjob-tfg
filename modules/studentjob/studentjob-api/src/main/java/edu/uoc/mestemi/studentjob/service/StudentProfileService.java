@@ -102,25 +102,25 @@ public interface StudentProfileService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<StudentProfile> getStudentProfilesByKeywords(
-		long groupId, String keywords, int start, int end,
+		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<StudentProfile> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<StudentProfile>
 		getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId, int start, int end,
-			OrderByComparator<StudentProfile> orderByComparator);
+			long degreeId, boolean onlyActives, long newestId, int start,
+			int end, OrderByComparator<StudentProfile> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getStudentProfilesCountByKeywords(
-		long groupId, String keywords);
+		long groupId, String keywords, boolean onlyActives);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long
 		getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId);
+			long degreeId, boolean onlyActives, long newestId);
 
 	public StudentProfile updateStudentProfile(
 			long studentProfileId, long regionId, boolean active,

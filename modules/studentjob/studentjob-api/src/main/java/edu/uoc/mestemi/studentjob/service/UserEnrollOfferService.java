@@ -21,9 +21,12 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
+
+import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -64,5 +67,20 @@ public interface UserEnrollOfferService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserEnrollOffer> getUserEnrolledOffers(
+		long groupId, long userId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getUserEnrolledOffersCount(long groupId, long userId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public UserEnrollOffer getUserEnrollOffer(
+		long groupId, long userId, long offerId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserEnrollOffer> getUserEnrollOffers(
+		long groupId, long offerId);
 
 }

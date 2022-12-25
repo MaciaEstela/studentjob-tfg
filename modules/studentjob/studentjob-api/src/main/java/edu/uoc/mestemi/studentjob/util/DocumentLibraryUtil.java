@@ -13,6 +13,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
@@ -116,6 +117,10 @@ public class DocumentLibraryUtil {
 						folder.getCompanyId(),
 						RoleConstants.GUEST);
 
+				Role userRole = RoleLocalServiceUtil.getRole(
+						folder.getCompanyId(),
+						RoleConstants.USER);
+				
 				PermissionThreadLocal.setPermissionChecker(
 						PermissionCheckerFactoryUtil.create(adminUser));
 				
@@ -126,6 +131,18 @@ public class DocumentLibraryUtil {
 						String.valueOf(folder.getPrimaryKey()),
 						guestRole.getRoleId(),
 						new String[0]
+					);
+				
+				String[] viewAccess = new String[1];
+				viewAccess[0] = ActionKeys.VIEW;
+				
+				ResourcePermissionServiceUtil.setIndividualResourcePermissions(
+						groupId,
+						folder.getCompanyId(),
+						Folder.class.getName(),
+						String.valueOf(folder.getPrimaryKey()),
+						userRole.getRoleId(),
+						viewAccess
 					);
 				
 			} catch (PortalException e1) {

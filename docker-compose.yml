@@ -35,7 +35,7 @@ services:
       - LIFERAY_REDIRECT_PERIOD_URL_PERIOD_SECURITY_PERIOD_MODE= domain
     ports:
       - "127.0.0.1:11312:11311"
-      - "127.0.0.1:8085:8080"
+      - "8085:8080"
       - "127.0.0.1:9000:9000"
     volumes:
       - type: volume

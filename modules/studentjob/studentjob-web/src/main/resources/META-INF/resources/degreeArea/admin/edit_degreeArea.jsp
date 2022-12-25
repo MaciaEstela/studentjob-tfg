@@ -8,18 +8,18 @@
 			<portlet:param name="redirect" value="${param.redirect}" />
 		</portlet:actionURL>
 
-		<c:set var="editTitle" value="edit-degreeArea"/>
+		<c:set var="editTitle" value="studentjob.degreeArea.admin.edit"/>
 	</c:when>
 	<c:otherwise>
 		<portlet:actionURL var="degreeAreaActionURL" name="<%=MVCCommandNames.ADD_DEGREEAREA_ADMIN %>">
 			<portlet:param name="redirect" value="${param.redirect}" />
 		</portlet:actionURL>
 
-		<c:set var="editTitle" value="add-degreeArea"/>
+		<c:set var="editTitle" value="studentjob.degreeArea.admin.create"/>
 	</c:otherwise>
  </c:choose>
 
- <div class="container-fluid-1280 edit-degreeArea">
+ <div class="container edit-degreeArea">
 
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 
@@ -44,7 +44,7 @@
 
 		<%--Buttons. --%>
 
-		<aui:button-row>
+		<aui:button-row cssClass="mt-5">
 			<aui:button cssClass="btn btn-primary" type="submit" />
 			<aui:button cssClass="btn btn-secondary" onClick="${param.redirect}" type="cancel" />
 		</aui:button-row>

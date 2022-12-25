@@ -107,21 +107,22 @@ public class CompanyProfileServiceWrapper
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
 		getCompanyProfilesByKeywords(
-			long groupId, String keywords, int start, int end,
+			long groupId, String keywords, boolean onlyActives, int start,
+			int end,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<edu.uoc.mestemi.studentjob.model.CompanyProfile>
 					orderByComparator) {
 
 		return _companyProfileService.getCompanyProfilesByKeywords(
-			groupId, keywords, start, end, orderByComparator);
+			groupId, keywords, onlyActives, start, end, orderByComparator);
 	}
 
 	@Override
 	public long getCompanyProfilesCountByKeywords(
-		long groupId, String keywords) {
+		long groupId, String keywords, boolean onlyActives) {
 
 		return _companyProfileService.getCompanyProfilesCountByKeywords(
-			groupId, keywords);
+			groupId, keywords, onlyActives);
 	}
 
 	/**

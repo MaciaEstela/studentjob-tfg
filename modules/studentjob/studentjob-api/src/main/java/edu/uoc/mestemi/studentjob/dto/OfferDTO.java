@@ -9,7 +9,6 @@ public class OfferDTO {
 	private String createString;
 	private String viewURL;
 	
-	
 	public OfferDTO(String title, String company, String logoURL, String preference, String description, 
 			String createString, String viewURL) {
 		super();

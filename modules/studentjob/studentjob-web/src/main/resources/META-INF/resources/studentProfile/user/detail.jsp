@@ -3,59 +3,56 @@
 <div class="studentprofile-detail__header">
 	<div class="container">
 		<div class="row">
-			<div class="studentprofile-detail__main-info col-12">
-				<div class="row">
-					<div class="col-md-8 col-12 text-center text-md-left">
-						<div class="studentprofile-detail__image-wrapper-responsive">
-							<img class="studentprofile-detail__image d-block d-md-none position-static" alt="Logo" src="${logo}">
+				<div class="studentprofile-detail__main-info col-12 pt-5 pb-5">
+					<div class="row">
+						<div class="studentprofile-detail__image-wrapper col-md-3 col-3">
+							<img class="studentprofile-detail__image" alt="Logo" src="${studentProfileDTO.getPortraitUrl()}">
 						</div>
-						<h1 class="studentprofile-detail__title">
-							${studentName}
-						</h1>
-						<div class="studentprofile-detail__student-name">
-							${studentProfile.getTitle(locale)}
+						<div class="studentprofile-detail__info-wrapper col-md-6 col-9">
+							<h1 class="studentprofile-detail__name">
+								${studentProfileDTO.getName()} ${studentProfileDTO.getSurname()}
+							</h1>
+							<h2 class="studentprofile-detail__title">
+								${studentProfileDTO.getTitle()}
+							</h2>
+							<div class="studentprofile-detail__degrees-wrapper d-flex">
+								<c:forEach items="${studentProfileDTO.getDegrees()}" var="degree">
+									<div class="studentprofile-detail__degree">
+										${degree}
+									</div>
+								</c:forEach>
+							</div>
+							<div class="studentprofile-detail__contact-wrapper">
+								<div class="studentprofile-detail__preference">
+									<i class="icon icon-laptop"></i>
+									${studentProfileDTO.getJobPreference()}
+								</div>
+								<div class="studentprofile-detail__province">
+									<i class="icon icon-location-arrow"></i>
+									${studentProfileDTO.getProvince()}
+								</div>
+								<div class="studentprofile-detail__email">
+									<i class="icon icon-inbox"></i>
+									<a href="mailto:${studentProfileDTO.getEmail()}">${studentProfileDTO.getEmail()}</a>
+								</div>
+							</div>
 						</div>
-						<div class="col-12 col-lg-4 my-5 my-lg-0 studentprofile-detail__inscription-wrapper">
-							<a href="${downloadCV}" class="studentprofile-detail__inscription-btn">
-								Descarregar CV
-							</a>
+						<div class="studentprofile-detail__contact-wrapper col-md-3 col-12">
+							<div class="studentprofile-detail__download-cv">
+								<a href="${studentProfileDTO.getCvUrl()}" class="btn btn-primary">Descargar CV</a>
+							</div>
+							<div class="studentprofile-detail__socialmedia">
+								
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="studentprofile-detail__info-items row">
-					<div class="studentprofile-detail__location col-12 col-lg-3 my-md-0 my-3">
-						<i class="icon icon-location-arrow"></i>
-						${province}
-					</div>
-					<div class="studentprofile-detail__website col-12 col-lg-3 my-md-0 my-3">
-						<i class="icon icon-laptop"></i>
-						<a href="${studentProfile.getPreference()}">${studentProfile.getPreference()}</a>
-					</div>
-					<div class="studentprofile-detail__email col-12 col-lg-3 my-md-0 my-3">
-						<i class="icon icon-inbox"></i>
-						<a href="mailto:${studentProfile.getEmail()}">${studentProfile.getEmail()}</a>
-					</div>
-					
-					<%-- Degree field. --%>
-					<c:if test="degrees.size() > 0">
-					<div class="studentprofile-detail__degrees">
-						<span>Estudios universitarios</span>
-						<ul class="studentprofile-detail__degrees-list">
-							<c:forEach items="${degrees}" var="degree">
-								<li class="studentprofile-detail__degrees-item">
-									${degree.getName(locale)}
-								</li>
-							</c:forEach>
-						</ul>
-					</div>
-					</c:if>
-				</div>
-				<div class="studentprofile-detail__content row">
+				<div class="studentprofile-detail__content row mt-5 mb-4">
 					<h2 class="studentprofile-detail__resume col-12">
-						<liferay-ui:message key="studentjob.studentprofile.resume" />
+						<liferay-ui:message key="studentjob.studentprofile.user.description" />
 					</h2>
 					<div class="studentprofile-detail__description col-12">
-						${studentProfile.getDescription(locale)}
+						${studentProfileDTO.getDescription()}
 					</div>
 				</div>
 			</div>

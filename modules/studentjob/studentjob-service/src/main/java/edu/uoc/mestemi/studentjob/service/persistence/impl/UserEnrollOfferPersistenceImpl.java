@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
@@ -37,6 +36,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -55,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -882,75 +883,77 @@ public class UserEnrollOfferPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 =
 		"userEnrollOffer.groupId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByUuid_C;
-	private FinderPath _finderPathWithoutPaginationFindByUuid_C;
-	private FinderPath _finderPathCountByUuid_C;
+	private FinderPath _finderPathWithPaginationFindByGroupIdAndUserId;
+	private FinderPath _finderPathWithoutPaginationFindByGroupIdAndUserId;
+	private FinderPath _finderPathCountByGroupIdAndUserId;
 
 	/**
-	 * Returns all the user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns all the user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @return the matching user enroll offers
 	 */
 	@Override
-	public List<UserEnrollOffer> findByUuid_C(String uuid, long companyId) {
-		return findByUuid_C(
-			uuid, companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<UserEnrollOffer> findByGroupIdAndUserId(
+		long groupId, long userId) {
+
+		return findByGroupIdAndUserId(
+			groupId, userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns a range of all the user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
 	 * </p>
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of user enroll offers
 	 * @param end the upper bound of the range of user enroll offers (not inclusive)
 	 * @return the range of matching user enroll offers
 	 */
 	@Override
-	public List<UserEnrollOffer> findByUuid_C(
-		String uuid, long companyId, int start, int end) {
+	public List<UserEnrollOffer> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end) {
 
-		return findByUuid_C(uuid, companyId, start, end, null);
+		return findByGroupIdAndUserId(groupId, userId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
 	 * </p>
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of user enroll offers
 	 * @param end the upper bound of the range of user enroll offers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching user enroll offers
 	 */
 	@Override
-	public List<UserEnrollOffer> findByUuid_C(
-		String uuid, long companyId, int start, int end,
+	public List<UserEnrollOffer> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end,
 		OrderByComparator<UserEnrollOffer> orderByComparator) {
 
-		return findByUuid_C(
-			uuid, companyId, start, end, orderByComparator, true);
+		return findByGroupIdAndUserId(
+			groupId, userId, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
 	 * </p>
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of user enroll offers
 	 * @param end the upper bound of the range of user enroll offers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -958,12 +961,10 @@ public class UserEnrollOfferPersistenceImpl
 	 * @return the ordered range of matching user enroll offers
 	 */
 	@Override
-	public List<UserEnrollOffer> findByUuid_C(
-		String uuid, long companyId, int start, int end,
+	public List<UserEnrollOffer> findByGroupIdAndUserId(
+		long groupId, long userId, int start, int end,
 		OrderByComparator<UserEnrollOffer> orderByComparator,
 		boolean useFinderCache) {
-
-		uuid = Objects.toString(uuid, "");
 
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -972,14 +973,14 @@ public class UserEnrollOfferPersistenceImpl
 			(orderByComparator == null)) {
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByUuid_C;
-				finderArgs = new Object[] {uuid, companyId};
+				finderPath = _finderPathWithoutPaginationFindByGroupIdAndUserId;
+				finderArgs = new Object[] {groupId, userId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByUuid_C;
+			finderPath = _finderPathWithPaginationFindByGroupIdAndUserId;
 			finderArgs = new Object[] {
-				uuid, companyId, start, end, orderByComparator
+				groupId, userId, start, end, orderByComparator
 			};
 		}
 
@@ -991,8 +992,8 @@ public class UserEnrollOfferPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (UserEnrollOffer userEnrollOffer : list) {
-					if (!uuid.equals(userEnrollOffer.getUuid()) ||
-						(companyId != userEnrollOffer.getCompanyId())) {
+					if ((groupId != userEnrollOffer.getGroupId()) ||
+						(userId != userEnrollOffer.getUserId())) {
 
 						list = null;
 
@@ -1015,18 +1016,9 @@ public class UserEnrollOfferPersistenceImpl
 
 			sb.append(_SQL_SELECT_USERENROLLOFFER_WHERE);
 
-			boolean bindUuid = false;
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERID_GROUPID_2);
 
-			if (uuid.isEmpty()) {
-				sb.append(_FINDER_COLUMN_UUID_C_UUID_3);
-			}
-			else {
-				bindUuid = true;
-
-				sb.append(_FINDER_COLUMN_UUID_C_UUID_2);
-			}
-
-			sb.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERID_USERID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -1047,11 +1039,9 @@ public class UserEnrollOfferPersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				if (bindUuid) {
-					queryPos.add(uuid);
-				}
+				queryPos.add(groupId);
 
-				queryPos.add(companyId);
+				queryPos.add(userId);
 
 				list = (List<UserEnrollOffer>)QueryUtil.list(
 					query, getDialect(), start, end);
@@ -1074,22 +1064,22 @@ public class UserEnrollOfferPersistenceImpl
 	}
 
 	/**
-	 * Returns the first user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching user enroll offer
 	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
 	 */
 	@Override
-	public UserEnrollOffer findByUuid_C_First(
-			String uuid, long companyId,
+	public UserEnrollOffer findByGroupIdAndUserId_First(
+			long groupId, long userId,
 			OrderByComparator<UserEnrollOffer> orderByComparator)
 		throws NoSuchUserEnrollOfferException {
 
-		UserEnrollOffer userEnrollOffer = fetchByUuid_C_First(
-			uuid, companyId, orderByComparator);
+		UserEnrollOffer userEnrollOffer = fetchByGroupIdAndUserId_First(
+			groupId, userId, orderByComparator);
 
 		if (userEnrollOffer != null) {
 			return userEnrollOffer;
@@ -1099,11 +1089,11 @@ public class UserEnrollOfferPersistenceImpl
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("uuid=");
-		sb.append(uuid);
+		sb.append("groupId=");
+		sb.append(groupId);
 
-		sb.append(", companyId=");
-		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
 
 		sb.append("}");
 
@@ -1111,20 +1101,20 @@ public class UserEnrollOfferPersistenceImpl
 	}
 
 	/**
-	 * Returns the first user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
 	 */
 	@Override
-	public UserEnrollOffer fetchByUuid_C_First(
-		String uuid, long companyId,
+	public UserEnrollOffer fetchByGroupIdAndUserId_First(
+		long groupId, long userId,
 		OrderByComparator<UserEnrollOffer> orderByComparator) {
 
-		List<UserEnrollOffer> list = findByUuid_C(
-			uuid, companyId, 0, 1, orderByComparator);
+		List<UserEnrollOffer> list = findByGroupIdAndUserId(
+			groupId, userId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1134,22 +1124,22 @@ public class UserEnrollOfferPersistenceImpl
 	}
 
 	/**
-	 * Returns the last user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching user enroll offer
 	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
 	 */
 	@Override
-	public UserEnrollOffer findByUuid_C_Last(
-			String uuid, long companyId,
+	public UserEnrollOffer findByGroupIdAndUserId_Last(
+			long groupId, long userId,
 			OrderByComparator<UserEnrollOffer> orderByComparator)
 		throws NoSuchUserEnrollOfferException {
 
-		UserEnrollOffer userEnrollOffer = fetchByUuid_C_Last(
-			uuid, companyId, orderByComparator);
+		UserEnrollOffer userEnrollOffer = fetchByGroupIdAndUserId_Last(
+			groupId, userId, orderByComparator);
 
 		if (userEnrollOffer != null) {
 			return userEnrollOffer;
@@ -1159,11 +1149,11 @@ public class UserEnrollOfferPersistenceImpl
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("uuid=");
-		sb.append(uuid);
+		sb.append("groupId=");
+		sb.append(groupId);
 
-		sb.append(", companyId=");
-		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
 
 		sb.append("}");
 
@@ -1171,26 +1161,26 @@ public class UserEnrollOfferPersistenceImpl
 	}
 
 	/**
-	 * Returns the last user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
 	 */
 	@Override
-	public UserEnrollOffer fetchByUuid_C_Last(
-		String uuid, long companyId,
+	public UserEnrollOffer fetchByGroupIdAndUserId_Last(
+		long groupId, long userId,
 		OrderByComparator<UserEnrollOffer> orderByComparator) {
 
-		int count = countByUuid_C(uuid, companyId);
+		int count = countByGroupIdAndUserId(groupId, userId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<UserEnrollOffer> list = findByUuid_C(
-			uuid, companyId, count - 1, count, orderByComparator);
+		List<UserEnrollOffer> list = findByGroupIdAndUserId(
+			groupId, userId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1200,22 +1190,20 @@ public class UserEnrollOfferPersistenceImpl
 	}
 
 	/**
-	 * Returns the user enroll offers before and after the current user enroll offer in the ordered set where uuid = &#63; and companyId = &#63;.
+	 * Returns the user enroll offers before and after the current user enroll offer in the ordered set where groupId = &#63; and userId = &#63;.
 	 *
 	 * @param userEnrollOfferPK the primary key of the current user enroll offer
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next user enroll offer
 	 * @throws NoSuchUserEnrollOfferException if a user enroll offer with the primary key could not be found
 	 */
 	@Override
-	public UserEnrollOffer[] findByUuid_C_PrevAndNext(
-			UserEnrollOfferPK userEnrollOfferPK, String uuid, long companyId,
+	public UserEnrollOffer[] findByGroupIdAndUserId_PrevAndNext(
+			UserEnrollOfferPK userEnrollOfferPK, long groupId, long userId,
 			OrderByComparator<UserEnrollOffer> orderByComparator)
 		throws NoSuchUserEnrollOfferException {
-
-		uuid = Objects.toString(uuid, "");
 
 		UserEnrollOffer userEnrollOffer = findByPrimaryKey(userEnrollOfferPK);
 
@@ -1226,14 +1214,14 @@ public class UserEnrollOfferPersistenceImpl
 
 			UserEnrollOffer[] array = new UserEnrollOfferImpl[3];
 
-			array[0] = getByUuid_C_PrevAndNext(
-				session, userEnrollOffer, uuid, companyId, orderByComparator,
+			array[0] = getByGroupIdAndUserId_PrevAndNext(
+				session, userEnrollOffer, groupId, userId, orderByComparator,
 				true);
 
 			array[1] = userEnrollOffer;
 
-			array[2] = getByUuid_C_PrevAndNext(
-				session, userEnrollOffer, uuid, companyId, orderByComparator,
+			array[2] = getByGroupIdAndUserId_PrevAndNext(
+				session, userEnrollOffer, groupId, userId, orderByComparator,
 				false);
 
 			return array;
@@ -1246,9 +1234,9 @@ public class UserEnrollOfferPersistenceImpl
 		}
 	}
 
-	protected UserEnrollOffer getByUuid_C_PrevAndNext(
-		Session session, UserEnrollOffer userEnrollOffer, String uuid,
-		long companyId, OrderByComparator<UserEnrollOffer> orderByComparator,
+	protected UserEnrollOffer getByGroupIdAndUserId_PrevAndNext(
+		Session session, UserEnrollOffer userEnrollOffer, long groupId,
+		long userId, OrderByComparator<UserEnrollOffer> orderByComparator,
 		boolean previous) {
 
 		StringBundler sb = null;
@@ -1264,18 +1252,9 @@ public class UserEnrollOfferPersistenceImpl
 
 		sb.append(_SQL_SELECT_USERENROLLOFFER_WHERE);
 
-		boolean bindUuid = false;
+		sb.append(_FINDER_COLUMN_GROUPIDANDUSERID_GROUPID_2);
 
-		if (uuid.isEmpty()) {
-			sb.append(_FINDER_COLUMN_UUID_C_UUID_3);
-		}
-		else {
-			bindUuid = true;
-
-			sb.append(_FINDER_COLUMN_UUID_C_UUID_2);
-		}
-
-		sb.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+		sb.append(_FINDER_COLUMN_GROUPIDANDUSERID_USERID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -1346,11 +1325,9 @@ public class UserEnrollOfferPersistenceImpl
 
 		QueryPos queryPos = QueryPos.getInstance(query);
 
-		if (bindUuid) {
-			queryPos.add(uuid);
-		}
+		queryPos.add(groupId);
 
-		queryPos.add(companyId);
+		queryPos.add(userId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
@@ -1372,16 +1349,16 @@ public class UserEnrollOfferPersistenceImpl
 	}
 
 	/**
-	 * Removes all the user enroll offers where uuid = &#63; and companyId = &#63; from the database.
+	 * Removes all the user enroll offers where groupId = &#63; and userId = &#63; from the database.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 */
 	@Override
-	public void removeByUuid_C(String uuid, long companyId) {
+	public void removeByGroupIdAndUserId(long groupId, long userId) {
 		for (UserEnrollOffer userEnrollOffer :
-				findByUuid_C(
-					uuid, companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				findByGroupIdAndUserId(
+					groupId, userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 					null)) {
 
 			remove(userEnrollOffer);
@@ -1389,19 +1366,17 @@ public class UserEnrollOfferPersistenceImpl
 	}
 
 	/**
-	 * Returns the number of user enroll offers where uuid = &#63; and companyId = &#63;.
+	 * Returns the number of user enroll offers where groupId = &#63; and userId = &#63;.
 	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param userId the user ID
 	 * @return the number of matching user enroll offers
 	 */
 	@Override
-	public int countByUuid_C(String uuid, long companyId) {
-		uuid = Objects.toString(uuid, "");
+	public int countByGroupIdAndUserId(long groupId, long userId) {
+		FinderPath finderPath = _finderPathCountByGroupIdAndUserId;
 
-		FinderPath finderPath = _finderPathCountByUuid_C;
-
-		Object[] finderArgs = new Object[] {uuid, companyId};
+		Object[] finderArgs = new Object[] {groupId, userId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
@@ -1410,18 +1385,9 @@ public class UserEnrollOfferPersistenceImpl
 
 			sb.append(_SQL_COUNT_USERENROLLOFFER_WHERE);
 
-			boolean bindUuid = false;
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERID_GROUPID_2);
 
-			if (uuid.isEmpty()) {
-				sb.append(_FINDER_COLUMN_UUID_C_UUID_3);
-			}
-			else {
-				bindUuid = true;
-
-				sb.append(_FINDER_COLUMN_UUID_C_UUID_2);
-			}
-
-			sb.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERID_USERID_2);
 
 			String sql = sb.toString();
 
@@ -1434,11 +1400,9 @@ public class UserEnrollOfferPersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				if (bindUuid) {
-					queryPos.add(uuid);
-				}
+				queryPos.add(groupId);
 
-				queryPos.add(companyId);
+				queryPos.add(userId);
 
 				count = (Long)query.uniqueResult();
 
@@ -1455,14 +1419,823 @@ public class UserEnrollOfferPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_C_UUID_2 =
-		"userEnrollOffer.uuid = ? AND ";
+	private static final String _FINDER_COLUMN_GROUPIDANDUSERID_GROUPID_2 =
+		"userEnrollOffer.groupId = ? AND ";
 
-	private static final String _FINDER_COLUMN_UUID_C_UUID_3 =
-		"(userEnrollOffer.uuid IS NULL OR userEnrollOffer.uuid = '') AND ";
+	private static final String _FINDER_COLUMN_GROUPIDANDUSERID_USERID_2 =
+		"userEnrollOffer.id.userId = ?";
 
-	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
-		"userEnrollOffer.companyId = ?";
+	private FinderPath _finderPathFetchByGroupIdAndUserIdAndOfferId;
+	private FinderPath _finderPathCountByGroupIdAndUserIdAndOfferId;
+
+	/**
+	 * Returns the user enroll offer where groupId = &#63; and userId = &#63; and offerId = &#63; or throws a <code>NoSuchUserEnrollOfferException</code> if it could not be found.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @return the matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer findByGroupIdAndUserIdAndOfferId(
+			long groupId, long userId, long offerId)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer = fetchByGroupIdAndUserIdAndOfferId(
+			groupId, userId, offerId);
+
+		if (userEnrollOffer == null) {
+			StringBundler sb = new StringBundler(8);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("groupId=");
+			sb.append(groupId);
+
+			sb.append(", userId=");
+			sb.append(userId);
+
+			sb.append(", offerId=");
+			sb.append(offerId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchUserEnrollOfferException(sb.toString());
+		}
+
+		return userEnrollOffer;
+	}
+
+	/**
+	 * Returns the user enroll offer where groupId = &#63; and userId = &#63; and offerId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer fetchByGroupIdAndUserIdAndOfferId(
+		long groupId, long userId, long offerId) {
+
+		return fetchByGroupIdAndUserIdAndOfferId(
+			groupId, userId, offerId, true);
+	}
+
+	/**
+	 * Returns the user enroll offer where groupId = &#63; and userId = &#63; and offerId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer fetchByGroupIdAndUserIdAndOfferId(
+		long groupId, long userId, long offerId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {groupId, userId, offerId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByGroupIdAndUserIdAndOfferId, finderArgs);
+		}
+
+		if (result instanceof UserEnrollOffer) {
+			UserEnrollOffer userEnrollOffer = (UserEnrollOffer)result;
+
+			if ((groupId != userEnrollOffer.getGroupId()) ||
+				(userId != userEnrollOffer.getUserId()) ||
+				(offerId != userEnrollOffer.getOfferId())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(5);
+
+			sb.append(_SQL_SELECT_USERENROLLOFFER_WHERE);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_GROUPID_2);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_USERID_2);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_OFFERID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(groupId);
+
+				queryPos.add(userId);
+
+				queryPos.add(offerId);
+
+				List<UserEnrollOffer> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByGroupIdAndUserIdAndOfferId,
+							finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {
+									groupId, userId, offerId
+								};
+							}
+
+							_log.warn(
+								"UserEnrollOfferPersistenceImpl.fetchByGroupIdAndUserIdAndOfferId(long, long, long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					UserEnrollOffer userEnrollOffer = list.get(0);
+
+					result = userEnrollOffer;
+
+					cacheResult(userEnrollOffer);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (UserEnrollOffer)result;
+		}
+	}
+
+	/**
+	 * Removes the user enroll offer where groupId = &#63; and userId = &#63; and offerId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @return the user enroll offer that was removed
+	 */
+	@Override
+	public UserEnrollOffer removeByGroupIdAndUserIdAndOfferId(
+			long groupId, long userId, long offerId)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer = findByGroupIdAndUserIdAndOfferId(
+			groupId, userId, offerId);
+
+		return remove(userEnrollOffer);
+	}
+
+	/**
+	 * Returns the number of user enroll offers where groupId = &#63; and userId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param userId the user ID
+	 * @param offerId the offer ID
+	 * @return the number of matching user enroll offers
+	 */
+	@Override
+	public int countByGroupIdAndUserIdAndOfferId(
+		long groupId, long userId, long offerId) {
+
+		FinderPath finderPath = _finderPathCountByGroupIdAndUserIdAndOfferId;
+
+		Object[] finderArgs = new Object[] {groupId, userId, offerId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_COUNT_USERENROLLOFFER_WHERE);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_GROUPID_2);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_USERID_2);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_OFFERID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(groupId);
+
+				queryPos.add(userId);
+
+				queryPos.add(offerId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_GROUPID_2 =
+			"userEnrollOffer.groupId = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_USERID_2 =
+			"userEnrollOffer.id.userId = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDUSERIDANDOFFERID_OFFERID_2 =
+			"userEnrollOffer.id.offerId = ?";
+
+	private FinderPath _finderPathWithPaginationFindByGroupIdAndOfferId;
+	private FinderPath _finderPathWithoutPaginationFindByGroupIdAndOfferId;
+	private FinderPath _finderPathCountByGroupIdAndOfferId;
+
+	/**
+	 * Returns all the user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @return the matching user enroll offers
+	 */
+	@Override
+	public List<UserEnrollOffer> findByGroupIdAndOfferId(
+		long groupId, long offerId) {
+
+		return findByGroupIdAndOfferId(
+			groupId, offerId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @return the range of matching user enroll offers
+	 */
+	@Override
+	public List<UserEnrollOffer> findByGroupIdAndOfferId(
+		long groupId, long offerId, int start, int end) {
+
+		return findByGroupIdAndOfferId(groupId, offerId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching user enroll offers
+	 */
+	@Override
+	public List<UserEnrollOffer> findByGroupIdAndOfferId(
+		long groupId, long offerId, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return findByGroupIdAndOfferId(
+			groupId, offerId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching user enroll offers
+	 */
+	@Override
+	public List<UserEnrollOffer> findByGroupIdAndOfferId(
+		long groupId, long offerId, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByGroupIdAndOfferId;
+				finderArgs = new Object[] {groupId, offerId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByGroupIdAndOfferId;
+			finderArgs = new Object[] {
+				groupId, offerId, start, end, orderByComparator
+			};
+		}
+
+		List<UserEnrollOffer> list = null;
+
+		if (useFinderCache) {
+			list = (List<UserEnrollOffer>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (UserEnrollOffer userEnrollOffer : list) {
+					if ((groupId != userEnrollOffer.getGroupId()) ||
+						(offerId != userEnrollOffer.getOfferId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(4);
+			}
+
+			sb.append(_SQL_SELECT_USERENROLLOFFER_WHERE);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDOFFERID_GROUPID_2);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDOFFERID_OFFERID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(UserEnrollOfferModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(groupId);
+
+				queryPos.add(offerId);
+
+				list = (List<UserEnrollOffer>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer findByGroupIdAndOfferId_First(
+			long groupId, long offerId,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer = fetchByGroupIdAndOfferId_First(
+			groupId, offerId, orderByComparator);
+
+		if (userEnrollOffer != null) {
+			return userEnrollOffer;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("groupId=");
+		sb.append(groupId);
+
+		sb.append(", offerId=");
+		sb.append(offerId);
+
+		sb.append("}");
+
+		throw new NoSuchUserEnrollOfferException(sb.toString());
+	}
+
+	/**
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer fetchByGroupIdAndOfferId_First(
+		long groupId, long offerId,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		List<UserEnrollOffer> list = findByGroupIdAndOfferId(
+			groupId, offerId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer findByGroupIdAndOfferId_Last(
+			long groupId, long offerId,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer = fetchByGroupIdAndOfferId_Last(
+			groupId, offerId, orderByComparator);
+
+		if (userEnrollOffer != null) {
+			return userEnrollOffer;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("groupId=");
+		sb.append(groupId);
+
+		sb.append(", offerId=");
+		sb.append(offerId);
+
+		sb.append("}");
+
+		throw new NoSuchUserEnrollOfferException(sb.toString());
+	}
+
+	/**
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer fetchByGroupIdAndOfferId_Last(
+		long groupId, long offerId,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		int count = countByGroupIdAndOfferId(groupId, offerId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<UserEnrollOffer> list = findByGroupIdAndOfferId(
+			groupId, offerId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the user enroll offers before and after the current user enroll offer in the ordered set where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param userEnrollOfferPK the primary key of the current user enroll offer
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a user enroll offer with the primary key could not be found
+	 */
+	@Override
+	public UserEnrollOffer[] findByGroupIdAndOfferId_PrevAndNext(
+			UserEnrollOfferPK userEnrollOfferPK, long groupId, long offerId,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer = findByPrimaryKey(userEnrollOfferPK);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			UserEnrollOffer[] array = new UserEnrollOfferImpl[3];
+
+			array[0] = getByGroupIdAndOfferId_PrevAndNext(
+				session, userEnrollOffer, groupId, offerId, orderByComparator,
+				true);
+
+			array[1] = userEnrollOffer;
+
+			array[2] = getByGroupIdAndOfferId_PrevAndNext(
+				session, userEnrollOffer, groupId, offerId, orderByComparator,
+				false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected UserEnrollOffer getByGroupIdAndOfferId_PrevAndNext(
+		Session session, UserEnrollOffer userEnrollOffer, long groupId,
+		long offerId, OrderByComparator<UserEnrollOffer> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(4);
+		}
+
+		sb.append(_SQL_SELECT_USERENROLLOFFER_WHERE);
+
+		sb.append(_FINDER_COLUMN_GROUPIDANDOFFERID_GROUPID_2);
+
+		sb.append(_FINDER_COLUMN_GROUPIDANDOFFERID_OFFERID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(UserEnrollOfferModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(groupId);
+
+		queryPos.add(offerId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						userEnrollOffer)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<UserEnrollOffer> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the user enroll offers where groupId = &#63; and offerId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 */
+	@Override
+	public void removeByGroupIdAndOfferId(long groupId, long offerId) {
+		for (UserEnrollOffer userEnrollOffer :
+				findByGroupIdAndOfferId(
+					groupId, offerId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(userEnrollOffer);
+		}
+	}
+
+	/**
+	 * Returns the number of user enroll offers where groupId = &#63; and offerId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @return the number of matching user enroll offers
+	 */
+	@Override
+	public int countByGroupIdAndOfferId(long groupId, long offerId) {
+		FinderPath finderPath = _finderPathCountByGroupIdAndOfferId;
+
+		Object[] finderArgs = new Object[] {groupId, offerId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_USERENROLLOFFER_WHERE);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDOFFERID_GROUPID_2);
+
+			sb.append(_FINDER_COLUMN_GROUPIDANDOFFERID_OFFERID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(groupId);
+
+				queryPos.add(offerId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_GROUPIDANDOFFERID_GROUPID_2 =
+		"userEnrollOffer.groupId = ? AND ";
+
+	private static final String _FINDER_COLUMN_GROUPIDANDOFFERID_OFFERID_2 =
+		"userEnrollOffer.id.offerId = ?";
 
 	public UserEnrollOfferPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
@@ -1494,6 +2267,14 @@ public class UserEnrollOfferPersistenceImpl
 			_finderPathFetchByUUID_G,
 			new Object[] {
 				userEnrollOffer.getUuid(), userEnrollOffer.getGroupId()
+			},
+			userEnrollOffer);
+
+		finderCache.putResult(
+			_finderPathFetchByGroupIdAndUserIdAndOfferId,
+			new Object[] {
+				userEnrollOffer.getGroupId(), userEnrollOffer.getUserId(),
+				userEnrollOffer.getOfferId()
 			},
 			userEnrollOffer);
 	}
@@ -1579,6 +2360,19 @@ public class UserEnrollOfferPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, userEnrollOfferModelImpl);
+
+		args = new Object[] {
+			userEnrollOfferModelImpl.getGroupId(),
+			userEnrollOfferModelImpl.getUserId(),
+			userEnrollOfferModelImpl.getOfferId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByGroupIdAndUserIdAndOfferId, args,
+			Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByGroupIdAndUserIdAndOfferId, args,
+			userEnrollOfferModelImpl);
 	}
 
 	/**
@@ -1597,8 +2391,6 @@ public class UserEnrollOfferPersistenceImpl
 		String uuid = _portalUUID.generate();
 
 		userEnrollOffer.setUuid(uuid);
-
-		userEnrollOffer.setCompanyId(CompanyThreadLocal.getCompanyId());
 
 		return userEnrollOffer;
 	}
@@ -2079,24 +2871,61 @@ public class UserEnrollOfferPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "groupId"}, false);
 
-		_finderPathWithPaginationFindByUuid_C = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
+		_finderPathWithPaginationFindByGroupIdAndUserId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupIdAndUserId",
 			new String[] {
-				String.class.getName(), Long.class.getName(),
+				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			},
-			new String[] {"uuid_", "companyId"}, true);
+			new String[] {"groupId", "userId"}, true);
 
-		_finderPathWithoutPaginationFindByUuid_C = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
-			new String[] {String.class.getName(), Long.class.getName()},
-			new String[] {"uuid_", "companyId"}, true);
+		_finderPathWithoutPaginationFindByGroupIdAndUserId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupIdAndUserId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"groupId", "userId"}, true);
 
-		_finderPathCountByUuid_C = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
-			new String[] {String.class.getName(), Long.class.getName()},
-			new String[] {"uuid_", "companyId"}, false);
+		_finderPathCountByGroupIdAndUserId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByGroupIdAndUserId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"groupId", "userId"}, false);
+
+		_finderPathFetchByGroupIdAndUserIdAndOfferId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByGroupIdAndUserIdAndOfferId",
+			new String[] {
+				Long.class.getName(), Long.class.getName(), Long.class.getName()
+			},
+			new String[] {"groupId", "userId", "offerId"}, true);
+
+		_finderPathCountByGroupIdAndUserIdAndOfferId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByGroupIdAndUserIdAndOfferId",
+			new String[] {
+				Long.class.getName(), Long.class.getName(), Long.class.getName()
+			},
+			new String[] {"groupId", "userId", "offerId"}, false);
+
+		_finderPathWithPaginationFindByGroupIdAndOfferId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupIdAndOfferId",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			},
+			new String[] {"groupId", "offerId"}, true);
+
+		_finderPathWithoutPaginationFindByGroupIdAndOfferId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findByGroupIdAndOfferId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"groupId", "offerId"}, true);
+
+		_finderPathCountByGroupIdAndOfferId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByGroupIdAndOfferId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"groupId", "offerId"}, false);
 
 		_setUserEnrollOfferUtilPersistence(this);
 	}

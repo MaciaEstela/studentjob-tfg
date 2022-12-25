@@ -113,40 +113,41 @@ public class StudentProfileServiceUtil {
 	}
 
 	public static List<StudentProfile> getStudentProfilesByKeywords(
-		long groupId, String keywords, int start, int end,
+		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<StudentProfile> orderByComparator) {
 
 		return getService().getStudentProfilesByKeywords(
-			groupId, keywords, start, end, orderByComparator);
+			groupId, keywords, onlyActives, start, end, orderByComparator);
 	}
 
 	public static List<StudentProfile>
 		getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId, int start, int end,
-			OrderByComparator<StudentProfile> orderByComparator) {
+			long degreeId, boolean onlyActives, long newestId, int start,
+			int end, OrderByComparator<StudentProfile> orderByComparator) {
 
 		return getService().
 			getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-				groupId, keywords, preference, regionId, degreeId, newestId,
-				start, end, orderByComparator);
+				groupId, keywords, preference, regionId, degreeId, onlyActives,
+				newestId, start, end, orderByComparator);
 	}
 
 	public static long getStudentProfilesCountByKeywords(
-		long groupId, String keywords) {
+		long groupId, String keywords, boolean onlyActives) {
 
 		return getService().getStudentProfilesCountByKeywords(
-			groupId, keywords);
+			groupId, keywords, onlyActives);
 	}
 
 	public static long
 		getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId) {
+			long degreeId, boolean onlyActives, long newestId) {
 
 		return getService().
 			getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-				groupId, keywords, preference, regionId, degreeId, newestId);
+				groupId, keywords, preference, regionId, degreeId, onlyActives,
+				newestId);
 	}
 
 	public static StudentProfile updateStudentProfile(

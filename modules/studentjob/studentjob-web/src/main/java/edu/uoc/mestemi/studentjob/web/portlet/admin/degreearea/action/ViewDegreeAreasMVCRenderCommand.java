@@ -85,6 +85,7 @@ public class ViewDegreeAreasMVCRenderCommand implements MVCRenderCommand {
 
 		// Create comparator
 
+		
 		OrderByComparator<DegreeArea> comparator =
 			OrderByComparatorFactoryUtil.create(
 				"DegreeArea", orderByCol, !(StudentjobConstants.ORDER_ASC).equals(orderByType));

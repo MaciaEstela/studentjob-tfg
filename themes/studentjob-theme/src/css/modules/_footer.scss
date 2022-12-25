@@ -9,4 +9,29 @@
             color: #f9f900;
         }
     }
+
+    .footer-content{
+
+        &__list{
+            list-style: none;
+            padding: 15px 0px 15px 0px;
+        }
+
+        &__list-link{
+            color: #fff;
+            text-decoration: none;
+
+            &:hover{
+                color: #dedede;
+            }
+        }
+
+        &__col-title{
+            font-weight: bold;
+            color: #dedede;
+            font-size: 20px;
+            border-bottom: 1px solid;
+            padding-bottom: 3px;
+        }
+    }
 }

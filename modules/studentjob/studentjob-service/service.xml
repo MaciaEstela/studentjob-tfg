@@ -144,9 +144,23 @@
 		<column name="offerId" type="long" primary="true" />
 		<!-- Group instance -->
 		<column name="groupId" type="long" />
-		
-		<column name="companyId" type="long" />
 		<column name="createDate" type="Date" />
+		
+		<finder name="GroupIdAndUserId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="userId"></finder-column>
+		</finder>
+		
+		<finder name="GroupIdAndUserIdAndOfferId" return-type="UserEnrollOffer">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="userId"></finder-column>
+			<finder-column name="offerId"></finder-column>
+		</finder>
+		
+		<finder name="GroupIdAndOfferId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="offerId"></finder-column>
+		</finder>
 	</entity>
 	
 	<!-- COMPANYPROFILE ENTITY -->
@@ -217,6 +231,7 @@
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
+		<column name="status" type="Integer" />
 
 		<!-- Other fields -->
 		<column name="title" type="String" localized="true"/>
@@ -232,7 +247,7 @@
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId"></finder-column>
 		</finder>
-		
+
 		<!-- References -->
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />

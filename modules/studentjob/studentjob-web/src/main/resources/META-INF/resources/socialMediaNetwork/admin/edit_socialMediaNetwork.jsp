@@ -8,18 +8,18 @@
 			<portlet:param name="redirect" value="${param.redirect}" />
 		</portlet:actionURL>
 
-		<c:set var="editTitle" value="edit-socialMediaNetwork"/>
+		<c:set var="editTitle" value="studentjob.socialMediaNetwork.admin.edit"/>
 	</c:when>
 	<c:otherwise>
 		<portlet:actionURL var="socialMediaNetworkActionURL" name="<%=MVCCommandNames.ADD_SOCIALMEDIANETWORK_ADMIN %>">
 			<portlet:param name="redirect" value="${param.redirect}" />
 		</portlet:actionURL>
 
-		<c:set var="editTitle" value="add-socialMediaNetwork"/>
+		<c:set var="editTitle" value="studentjob.socialMediaNetwork.admin.create"/>
 	</c:otherwise>
  </c:choose>
 
- <div class="container-fluid-1280 edit-socialMediaNetwork">
+ <div class="container edit-socialMediaNetwork">
 
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 

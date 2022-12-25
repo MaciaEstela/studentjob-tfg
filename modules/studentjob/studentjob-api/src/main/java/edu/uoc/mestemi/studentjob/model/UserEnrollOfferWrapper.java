@@ -46,7 +46,6 @@ public class UserEnrollOfferWrapper
 		attributes.put("userId", getUserId());
 		attributes.put("offerId", getOfferId());
 		attributes.put("groupId", getGroupId());
-		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
 
 		return attributes;
@@ -78,12 +77,6 @@ public class UserEnrollOfferWrapper
 			setGroupId(groupId);
 		}
 
-		Long companyId = (Long)attributes.get("companyId");
-
-		if (companyId != null) {
-			setCompanyId(companyId);
-		}
-
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
@@ -94,16 +87,6 @@ public class UserEnrollOfferWrapper
 	@Override
 	public UserEnrollOffer cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
-	}
-
-	/**
-	 * Returns the company ID of this user enroll offer.
-	 *
-	 * @return the company ID of this user enroll offer
-	 */
-	@Override
-	public long getCompanyId() {
-		return model.getCompanyId();
 	}
 
 	/**
@@ -181,16 +164,6 @@ public class UserEnrollOfferWrapper
 	@Override
 	public void persist() {
 		model.persist();
-	}
-
-	/**
-	 * Sets the company ID of this user enroll offer.
-	 *
-	 * @param companyId the company ID of this user enroll offer
-	 */
-	@Override
-	public void setCompanyId(long companyId) {
-		model.setCompanyId(companyId);
 	}
 
 	/**

@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +107,7 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		List<Offer> offers =_offerService.getOffersByKeywords(
-				groupId, keywords, 0, StudentjobConstants.OFFERS_OFFSET,
+				groupId, 0, keywords, WorkflowConstants.STATUS_APPROVED, 0, StudentjobConstants.OFFERS_OFFSET,
 				comparator);
 		
 //		List<Offer> offers =_offerService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
@@ -138,7 +139,7 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 					"Offer", orderByColCreated, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 		
 		List<Offer> offersCreated =_offerService.getOffersByKeywords(
-				themeDisplay.getScopeGroupId(), keywords, 0, 1,
+				themeDisplay.getScopeGroupId(), 0, keywords, WorkflowConstants.STATUS_APPROVED, 0, 1,
 				comparatorCreated);
 		
 		if (!offersCreated.isEmpty()) {
@@ -151,7 +152,7 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("offers", offers);
 		
 		renderRequest.setAttribute(
-			"offerCount", _offerService.getOffersCountByKeywords(groupId, keywords));
+			"offerCount", _offerService.getOffersCountByKeywords(groupId, 0, keywords, WorkflowConstants.STATUS_APPROVED));
 	}
 
 	@Reference

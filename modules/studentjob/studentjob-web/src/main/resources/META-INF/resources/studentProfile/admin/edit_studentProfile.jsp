@@ -6,7 +6,7 @@
 	<portlet:param name="redirect" value="${param.redirect}" />
 </portlet:actionURL>
 
-<c:set var="editTitle" value="edit-studentProfile"/>
+<c:set var="editTitle" value="studentjob.studentprofile.admin.edit"/>
 
 <div class="container-fluid-1280 edit-studentProfile">
 
@@ -21,12 +21,14 @@
 		<aui:fieldset-group markupView="lexicon">
 
 			<aui:fieldset>
-				<aui:input name="title">
+				<aui:input label="studentjob.studentprofile.form.title" name="title">
 				</aui:input>
 				
+				<label class="control-label">
+					<liferay-ui:message key="studentjob.studentprofile.form.description" />
+				</label>
 				<div class="alloy-editor-container">
 					<liferay-ui:input-localized
-						contents="Descripción"
 						xml="${studentProfile.getDescription()}"
 						type="editor"
 						cssClass="studentjob-ckeditor"
@@ -36,11 +38,11 @@
 						showSource="false" />
 				</div>
 				
-				<aui:input name="email">
+				<aui:input label="studentjob.studentprofile.form.email" name="email">
 				</aui:input>
 				
 				<%-- Preference field. --%>
-				<aui:select name="preference" label="offer.region">
+				<aui:select name="preference" label="studentjob.studentprofile.form.preference">
 					<c:forEach items="${preferences}" var="preference">
 						<c:choose>
 							<c:when test="${offer.getPreference() == preference}">
@@ -54,7 +56,7 @@
 				</aui:select>
 				
 				<%-- Region field. --%>
-				<aui:select name="region" label="offer.region">
+				<aui:select name="region" label="studentjob.studentprofile.form.region">
 					<c:forEach items="${regions}" var="region">
 						<c:choose>
 							<c:when test="${region.getRegionId() == studentProfile.getRegionId()}">
@@ -68,7 +70,7 @@
 				</aui:select>
 				
 				<%-- Degree field. --%>
-				<aui:select name="degree" label="offer.degree" multiple="true">
+				<aui:select name="degree" label="studentjob.studentprofile.form.degree" multiple="true">
 					<c:forEach items="${degrees}" var="degree">
 						<c:choose>
 							<c:when test="${currentStudentProfileDegreesIds.contains(degree.getDegreeId())}">
@@ -84,18 +86,28 @@
 				<%-- SocialMedia field. --%>
 				 <%@ include file="/utils/socialMedia.jspf"%>
 
-				<aui:input type="file" name="curriculum" label="studentprofile.curriculum"></aui:input>
-				<aui:input name="active" type="checkbox" value="${studentProfile.isActive()}"/>
+				<aui:input type="file" name="curriculum" label="studentjob.studentprofile.form.cv"></aui:input>
+				<aui:input name="active" type="checkbox" label="studentjob.studentprofile.form.active" value="${studentProfile.isActive()}"/>
 			</aui:fieldset>
 		</aui:fieldset-group>
 
 		<%--Buttons. --%>
 
-		<aui:button-row>
+		<aui:button-row cssClass="mt-5 d-flex justify-content-center">
 			<aui:button cssClass="btn btn-primary" type="submit" />
-			<aui:button cssClass="btn btn-secondary" onClick="${param.redirect}" type="cancel" />
+			<aui:button cssClass="ml-3 btn btn-secondary" onClick="${param.redirect}" type="cancel" />
 		</aui:button-row>
 	</aui:form>
-
 </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.js"></script>
+
+<script type="text/javascript">
+AUI().ready('aui-module', function(A){
+	new SlimSelect({
+		select: '#<portlet:namespace />degree'
+	});
+});
+</script>
 

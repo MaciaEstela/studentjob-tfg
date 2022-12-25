@@ -2,8 +2,6 @@
 
 <div class="container-fluid-1280">
 
-	<h1>AAAAAAAA <liferay-ui:message key="socialMediaNetworks" /></h1>
-
 	<%-- Clay management toolbar. --%>
 
 	<clay:management-toolbar
@@ -15,29 +13,29 @@
 	/>
 
 	<%-- Search container. --%>
-
-	<liferay-ui:search-container 
-		emptyResultsMessage="no-socialMediaNetworks"
-		id="socialMediaNetworkEntries"
-		iteratorURL="${portletURL}" 
-		total="${socialMediaNetworkCount}">
-
-		<liferay-ui:search-container-results results="${socialMediaNetworks}" />
-
-		<liferay-ui:search-container-row
-			className="edu.uoc.mestemi.studentjob.model.SocialMediaNetwork"
-			modelVar="entry">
-
-			<%@ include file="/socialMediaNetwork/admin/entry_search_columns.jspf" %>
-
-		</liferay-ui:search-container-row>
-
-		<%-- Iterator / Paging --%>
-
-		<liferay-ui:search-iterator 
-			displayStyle="${socialMediaNetworksManagementToolbarDisplayContext.getDisplayStyle()}"
-			markupView="lexicon" 
-		/>
-	</liferay-ui:search-container>
+	<div class="container">
+		<liferay-ui:search-container 
+			emptyResultsMessage="studentjob.socialMediaNetwork.admin.no-result"
+			id="socialMediaNetworkEntries"
+			iteratorURL="${portletURL}" 
+			total="${socialMediaNetworkCount}">
 	
+			<liferay-ui:search-container-results results="${socialMediaNetworks}" />
+	
+			<liferay-ui:search-container-row
+				className="edu.uoc.mestemi.studentjob.model.SocialMediaNetwork"
+				modelVar="entry">
+	
+				<%@ include file="/socialMediaNetwork/admin/entry_search_columns.jspf" %>
+	
+			</liferay-ui:search-container-row>
+	
+			<%-- Iterator / Paging --%>
+	
+			<liferay-ui:search-iterator 
+				displayStyle="${socialMediaNetworksManagementToolbarDisplayContext.getDisplayStyle()}"
+				markupView="lexicon" 
+			/>
+		</liferay-ui:search-container>
+	</div>
 </div>

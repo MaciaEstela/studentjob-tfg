@@ -61,6 +61,14 @@ public class OfferServiceUtil {
 		return getService().deleteOffer(offerId);
 	}
 
+	public static Offer expireOffer(long offerId) {
+		return getService().expireOffer(offerId);
+	}
+
+	public static Offer expireOffer(Offer offer) {
+		return getService().expireOffer(offer);
+	}
+
 	public static List<edu.uoc.mestemi.studentjob.model.Degree>
 		getDegreesByOfferId(long offerId) {
 
@@ -94,37 +102,42 @@ public class OfferServiceUtil {
 	}
 
 	public static List<Offer> getOffersByKeywords(
-		long groupId, String keywords, int start, int end,
-		OrderByComparator<Offer> orderByComparator) {
+		long groupId, long userId, String keywords, int workflowStatus,
+		int start, int end, OrderByComparator<Offer> orderByComparator) {
 
 		return getService().getOffersByKeywords(
-			groupId, keywords, start, end, orderByComparator);
+			groupId, userId, keywords, workflowStatus, start, end,
+			orderByComparator);
 	}
 
 	public static List<Offer>
 		getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId, int start, int end,
-			OrderByComparator<Offer> orderByComparator) {
+			long groupId, long userId, String keywords, String preference,
+			long regionId, long degreeId, int workflowStatus, long newestId,
+			int start, int end, OrderByComparator<Offer> orderByComparator) {
 
 		return getService().
 			getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-				groupId, keywords, preference, regionId, degreeId, newestId,
-				start, end, orderByComparator);
+				groupId, userId, keywords, preference, regionId, degreeId,
+				workflowStatus, newestId, start, end, orderByComparator);
 	}
 
-	public static long getOffersCountByKeywords(long groupId, String keywords) {
-		return getService().getOffersCountByKeywords(groupId, keywords);
+	public static long getOffersCountByKeywords(
+		long groupId, long userId, String keywords, int workflowStatus) {
+
+		return getService().getOffersCountByKeywords(
+			groupId, userId, keywords, workflowStatus);
 	}
 
 	public static long
 		getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId) {
+			long groupId, long userId, String keywords, String preference,
+			long regionId, long degreeId, int workflowStatus, long newestId) {
 
 		return getService().
 			getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-				groupId, keywords, preference, regionId, degreeId, newestId);
+				groupId, userId, keywords, preference, regionId, degreeId,
+				workflowStatus, newestId);
 	}
 
 	/**

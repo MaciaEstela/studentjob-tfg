@@ -18,6 +18,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 
+import java.util.List;
+
 /**
  * Provides the remote service utility for UserEnrollOffer. This utility wraps
  * <code>edu.uoc.mestemi.studentjob.service.impl.UserEnrollOfferServiceImpl</code> and is an
@@ -59,6 +61,28 @@ public class UserEnrollOfferServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static List<UserEnrollOffer> getUserEnrolledOffers(
+		long groupId, long userId) {
+
+		return getService().getUserEnrolledOffers(groupId, userId);
+	}
+
+	public static int getUserEnrolledOffersCount(long groupId, long userId) {
+		return getService().getUserEnrolledOffersCount(groupId, userId);
+	}
+
+	public static UserEnrollOffer getUserEnrollOffer(
+		long groupId, long userId, long offerId) {
+
+		return getService().getUserEnrollOffer(groupId, userId, offerId);
+	}
+
+	public static List<UserEnrollOffer> getUserEnrollOffers(
+		long groupId, long offerId) {
+
+		return getService().getUserEnrollOffers(groupId, offerId);
 	}
 
 	public static UserEnrollOfferService getService() {

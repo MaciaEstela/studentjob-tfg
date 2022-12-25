@@ -5,7 +5,7 @@
 @import "liferay-font-awesome/scss/font-awesome";
 @import "liferay-font-awesome/scss/glyphicons";
 
-@import url(https://fonts.googleapis.com/css?family=Cookie|Oswald|Raleway|Rancho|Croissant+One|Pacifico|Quicksand:300,700,400);
+@import url(https://fonts.googleapis.com/css?family=Cookie|Oswald|Raleway|Rancho|Croissant+One|Pacifico|Quicksand|Montserrat:300,700,400);
 
 
 
@@ -26,11 +26,44 @@
     @import "modules/utils";
     @import "modules/myprofile";
     @import "modules/studentprofile";
+    @import "modules/home";
+    @import "modules/myinscriptions";
 
 
     .offers-layout {
         .portlet-column-only.col-md-12{
             padding: 0 !important;
         }
+    }
+
+    .portlet{
+        margin-bottom: 0px;
+    }
+
+    .portlet-header{
+        display: none;
+    }
+
+    .log-buttons{
+        padding-right: 200px;
+
+       &__register{
+            background-color: #0f866c;
+            text-transform: uppercase;
+            color: #fff;
+            font-weight: 500;
+       }
+
+       &__login {
+            background-color: #fff;
+            text-transform: uppercase;
+            color: #212529;
+            font-weight: 500;
+            margin-left: 20px;
+       }
+    }
+
+    .input-localized-palette-container .dropdown-item-indicator-end{
+        position: static;
     }
 }

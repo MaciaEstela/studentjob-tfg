@@ -16,6 +16,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
@@ -55,7 +56,7 @@ import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 )
 public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 
-	private static final Log log = LogFactoryUtil.getLog(ViewPublicOffersMVCRenderCommand.class);
+	private static final Log log = LogFactoryUtil.getLog(ViewPublicOffersMVCResourceCommand.class);
 	
 	@Override
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
@@ -102,8 +103,8 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 				int start = ParamUtil.getInteger(resourceRequest, "start", 0);
 				
 				List<Offer> offers =_offerService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-						themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, newestOfferId, start, 
-						start + StudentjobConstants.OFFERS_OFFSET, comparator);
+						groupId, 0, keywords, preference, regionId, degreeId, WorkflowConstants.STATUS_APPROVED, 
+						newestOfferId, start, start + StudentjobConstants.OFFERS_OFFSET, comparator);
 				
 				PortletContext portletContext = resourceRequest.getPortletContext();
 				
@@ -122,12 +123,12 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 							"Offer", orderByCol, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 				
 				List<Offer> offers =_offerService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-						themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, 0, 0, 1,
+						groupId, 0, keywords, preference, regionId, degreeId, WorkflowConstants.STATUS_APPROVED, 0, 0, 1,
 						comparatorCreate);
 				
 				JSONObject dataJson = JSONFactoryUtil.createJSONObject();
 				long offerCount = _offerService.getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-						themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, 0);
+						groupId, 0, keywords, preference, regionId, degreeId, WorkflowConstants.STATUS_APPROVED, 0);
 				
 				if (!offers.isEmpty()) {
 					dataJson.put("newestOfferId", String.valueOf(offers.get(0).getOfferId()));
@@ -150,6 +151,10 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 						userId, 
 						ServiceContextFactory.getInstance(resourceRequest)
 					);
+				
+				resourceResponse.setContentType("text/plain");
+				resourceResponse.setCharacterEncoding("UTF-8");
+				resourceResponse.getWriter().write("ok");
 			}
 			
 		}

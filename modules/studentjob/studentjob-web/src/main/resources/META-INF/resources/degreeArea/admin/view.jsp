@@ -1,8 +1,10 @@
- <%@ include file="/init.jsp" %>
+<%@ include file="/init.jsp" %>
+<head>
+	<script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
+	<link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
+</head>
 
 <div class="container-fluid-1280">
-
-	<h1>AAAAAAAA <liferay-ui:message key="degreeAreas" /></h1>
 
 	<%-- Clay management toolbar. --%>
 
@@ -16,8 +18,9 @@
 
 	<%-- Search container. --%>
 
+<div class="container">
 	<liferay-ui:search-container 
-		emptyResultsMessage="no-degreeAreas"
+		emptyResultsMessage="studentjob.degreeArea.admin.no-result"
 		id="degreeAreaEntries"
 		iteratorURL="${portletURL}" 
 		total="${degreeAreaCount}">
@@ -42,5 +45,5 @@
 	
 <!-- 	<c:set var="degreeAreaId" scope="request" value="10" /> -->
 <%-- 	<liferay-portlet:runtime portletName="edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_DEGREE_ADMIN" queryString="degreeAreaId=${degreeAreaId}" /> --%>
-	
+	</div>
 </div>

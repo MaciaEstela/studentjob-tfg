@@ -370,39 +370,6 @@ public abstract class UserEnrollOfferLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns all the user enroll offers matching the UUID and company.
-	 *
-	 * @param uuid the UUID of the user enroll offers
-	 * @param companyId the primary key of the company
-	 * @return the matching user enroll offers, or an empty list if no matches were found
-	 */
-	@Override
-	public List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
-		String uuid, long companyId) {
-
-		return userEnrollOfferPersistence.findByUuid_C(uuid, companyId);
-	}
-
-	/**
-	 * Returns a range of user enroll offers matching the UUID and company.
-	 *
-	 * @param uuid the UUID of the user enroll offers
-	 * @param companyId the primary key of the company
-	 * @param start the lower bound of the range of user enroll offers
-	 * @param end the upper bound of the range of user enroll offers (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the range of matching user enroll offers, or an empty list if no matches were found
-	 */
-	@Override
-	public List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
-		String uuid, long companyId, int start, int end,
-		OrderByComparator<UserEnrollOffer> orderByComparator) {
-
-		return userEnrollOfferPersistence.findByUuid_C(
-			uuid, companyId, start, end, orderByComparator);
-	}
-
-	/**
 	 * Returns the user enroll offer matching the UUID and group.
 	 *
 	 * @param uuid the user enroll offer's UUID

@@ -56,7 +56,7 @@
 			<%@ include file="/offer/user/card.jspf" %>
 		</c:forEach>
 	</div>
-	<div id="<portlet:namespace />offers-cards-bottom"></div>
+	<div id="<portlet:namespace />offers-cards-bottom mb-7"></div>
 </div>
 
 

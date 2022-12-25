@@ -205,195 +205,46 @@
     }
 }
 
-.offer-detail {
-    &__header{
-        border: 1px solid;
-        padding: 10px;
-        box-shadow: 2px 2px #888888;
-        background: url('/o/studentjob-theme/images/offer-background.jpg');
-          background-color: #b9e4ec;
-        background-size: cover;
-        background-position: top;
-        background-repeat: no-repeat;
-        min-height: 300px;
+.studentprofile-detail{
+    
+    &__main-info{
+        background-color: #90e0ef;
+        box-shadow: 2px 3px 3px black;
+    }
 
-        @media screen and (max-width: $md) {
-            background-position-y: 120px;
-            background-position-x: 10%;
-        }
+    &__degree:not(:last-child)::after{
+        content: '|';
+        margin-right: 10px;
+        margin-left: 10px;
     }
 
     &__image-wrapper{
         display: flex;
-        flex-direction: column;
-        gap: 30px;
-        position: relative;
-        justify-content: flex-end;
+        justify-content: center;
     }
 
     &__image{
-        width: 150px;
         border-radius: 50%;
-        height: 150px;
-        border: 3px solid #dedede;
-        object-fit: cover;
-        position: absolute;
-        top: -70px;
-        left: -70px;
-
-        @media screen and (max-width: $lg) {
-            top: -50px;
-            left: -50px;
-            width: 100px;
-            height: 100px;
-        }
-
-        @media screen and (max-width: $md) {
-            left: -15px;
-        }
     }
 
-    &__company-name{
-        font-weight: bold;
-        font-size: 20px;
-        text-transform: uppercase;
-        color: #193A6F;
-    }
-
-    &__main-info{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-top: 20px;
-        @media screen and (max-width: $md) {
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
+    &__name{
+        font-family: 'Raleway';
+        letter-spacing: 3px;
+        font-weight: 700;
     }
 
     &__title{
-        text-transform: uppercase;
-        font-family: 'Oswald';
-        font-weight: 700;
-        color: #193A6F;
+        font-size: 20px;
+        letter-spacing: 2px;
     }
 
-    &__extra{
+    &__contact-wrapper{
         display: flex;
-        gap: 30px;
-        align-items: center;
-        justify-content: start;
-        width: 100%;
-        font-weight: bold;
-        flex-wrap: wrap;
+        justify-content: space-between;
     }
 
-    &__preference{
-        color: #193A6F;
-    }
-
-    &__location{
-        color: #193A6F;
-    }
-
-    &__inscription-wrapper{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        @media screen and (max-width: $md) {
-            margin-bottom: 20px;
-        }
-    }
-
-    &__inscription-btn{
-        color: #fff;
-        border-radius: 5px;
-        padding: 10px 25px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-        display: inline-block;
-        box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
-        outline: none;
-        background: rgb(255,151,0);
-        border: none;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-family: 'Quicksand';
-        font-weight: 700;
-        font-size: 22px;
-
-        &:after{
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 0;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            border-radius: 5px;
-            background-color: #eaf818;
-            background-image: linear-gradient(315deg, #eaf818 0%, #f6fc9c 74%);
-            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5);
-            transition: all 0.3s ease;
-        }
-
-        &:hover{
-            color: #000;
-        }
-
-        &:hover:after{
-            top: auto;
-            bottom: 0;
-            height: 100%;
-        }
-
-        &:active{
-            top: 2px;
-        }
-    }
-
-    &__content{
-        margin-top: 30px;
-        background-color: #f2f2f2;
-        border-radius: 10px;
-    }
-
-    &__resume{
-        font-family: 'Oswald';
-        font-weight: 700;
-        color: #193A6F;
-        border-bottom: 1px solid #193a6f;
-        padding: 18px;
-    }
-
-    &__desired-degrees-wrapper{
-        padding: 15px 30px 0px 30px;
-    }
-
-    &__desired-degree-title{
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    &__desired-degree-list{
-        list-style: none;
-    }
-
-    &__desired-degree-item{
-        .icon{
-            margin-right: 10px;
-            color: #007b00;
-        }
-
-        span{
-            text-decoration: inherit;
-            font-style: italic;
-        }
-    }
-
-    &__description{
-        padding: 15px 30px 45px 30px;
+    &__email a{
+        font-weight: 600;
+        color: #11224d;
     }
 }

@@ -16,7 +16,6 @@ package edu.uoc.mestemi.studentjob.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
-import com.liferay.portal.kernel.model.ShardedModel;
 
 import edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK;
 
@@ -36,8 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface UserEnrollOfferModel
-	extends BaseModel<UserEnrollOffer>, ShardedModel {
+public interface UserEnrollOfferModel extends BaseModel<UserEnrollOffer> {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -129,22 +127,6 @@ public interface UserEnrollOfferModel
 	 * @param groupId the group ID of this user enroll offer
 	 */
 	public void setGroupId(long groupId);
-
-	/**
-	 * Returns the company ID of this user enroll offer.
-	 *
-	 * @return the company ID of this user enroll offer
-	 */
-	@Override
-	public long getCompanyId();
-
-	/**
-	 * Sets the company ID of this user enroll offer.
-	 *
-	 * @param companyId the company ID of this user enroll offer
-	 */
-	@Override
-	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the create date of this user enroll offer.

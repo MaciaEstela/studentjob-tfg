@@ -63,7 +63,6 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 		ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		System.out.println("On process Action");
 		ThemeDisplay themeDisplay =
 				(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		
@@ -72,7 +71,6 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 		
 		ServiceContext serviceContext =
 			ServiceContextFactory.getInstance(StudentProfile.class.getName(), actionRequest);
-		System.out.println("On process Action2");
 		// Get parameters from the request.
 
 		long studentProfileId = ParamUtil.getLong(actionRequest, "studentProfileId");
@@ -83,20 +81,16 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 		
 		Map<Locale, String> descriptionMap =
 				LocalizationUtil.getLocalizationMap(actionRequest, "description");
-		System.out.println("On process Action3");
 		boolean active = ParamUtil.getBoolean(actionRequest, "active", false);
 		String email = ParamUtil.getString(actionRequest, "email");
 		String regionCode = ParamUtil.getString(actionRequest, "region");
 		String preference = ParamUtil.getString(actionRequest, "preference");
 		
-		System.out.println("On process Action4");
 		long[] degreeIds = ParamUtil.getLongValues(actionRequest, "degree");
 		List<Long> degreesList = Arrays.stream(degreeIds).boxed().collect(Collectors.toList());
-		System.out.println("On process Action5");
 		long regionId = ProvinceUtil.getRegionId(
 				ProvinceUtil.getCountryIdByCode(companyId, CountryA3Constants.SPAIN), 
 				regionCode);
-		System.out.println("On process Action6");
 		
 		long curriculumId = 0;
 		
@@ -111,9 +105,8 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 			System.out.println("On process Action7");	
 			DLAppLocalServiceUtil.deleteFileEntry(studentProfile.getCurriculumId());	
 		} catch (Exception e) {
-			
+			log.error(e);
 		}
-		System.out.println("On process Action8");
 		
 		try {
 			// Call the service to update the studentProfile

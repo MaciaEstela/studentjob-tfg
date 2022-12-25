@@ -50,6 +50,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="status" type="Integer" />
 		<field localized="true" name="title" type="String" />
 		<field name="preference" type="String" />
 		<field localized="true" name="description" type="String" />
@@ -103,7 +104,6 @@
 		<field name="userId" type="long" />
 		<field name="offerId" type="long" />
 		<field name="groupId" type="long" />
-		<field name="companyId" type="long" />
 		<field name="createDate" type="Date" />
 	</model>
 </model-hints>

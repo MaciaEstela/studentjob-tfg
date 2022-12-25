@@ -10,6 +10,8 @@ public class MVCCommandNames {
 	public static final String DELETE_OFFER_ADMIN = "/studentjob/offer/admin/delete";
 	public static final String EDIT_OFFER_ADMIN = "/studentjob/offer/admin/edit";
 	public static final String LIST_OFFER_ADMIN = "/studentjob/offer/admin/view";
+	public static final String EXPIRE_OFFER_ADMIN = "/studentjob/offer/admin/expire";
+	public static final String VIEW_INSCRIPTIONS = "/studentjob/offer/admin/view-inscriptions";
 	
 	public static final String LIST_OFFER_USER = "/studentjob/offer/public/list";
 	public static final String VIEW_DETAIL_USER = "/studentjob/offer/public/view-detail";
@@ -45,4 +47,8 @@ public class MVCCommandNames {
 	public static final String STUDENTPROFILE_PUBLIC_RESOURCE_COMMAND = "/studentjob/studentprofile/public/resource";
 	public static final String STUDENTPROFILE_PUBLIC_RESOURCE_COMMAND_GET_STUDENTS = "getStudents";
 	public static final String STUDENTPROFILE_PUBLIC_RESOURCE_COMMAND_AUX_DATA = "auxdataStudents";
+	
+	public static final String LIST_MYINSCRIPTIONS_USER = "/studentjob/my-inscriptions";
+	public static final String MYINSCRIPTIONS_RESOURCE_COMMAND = "/studentjob/my-inscriptions-resource";
+	public static final String MYINSCRIPTIONS_CANCEL_INSCRIPTION_USER = "cancel-inscription";
 }

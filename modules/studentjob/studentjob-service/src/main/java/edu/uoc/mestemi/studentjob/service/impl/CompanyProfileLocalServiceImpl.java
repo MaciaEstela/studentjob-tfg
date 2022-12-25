@@ -125,19 +125,23 @@ public class CompanyProfileLocalServiceImpl
 		return companyProfilePersistence.findByGroupId(groupId, start, end, orderByComparator);
 	}
 	
-	public List<CompanyProfile> getCompanyProfilesByKeywords(long groupId, String keywords, int start, 
+	public List<CompanyProfile> getCompanyProfilesByKeywords(long groupId, String keywords, boolean onlyActives, int start, 
 			int end, OrderByComparator<CompanyProfile> orderByComparator) {
 		return companyProfilePersistence.findWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords), start, end, orderByComparator);
+				getKeywordSearchDynamicQuery(groupId, keywords, onlyActives), start, end, orderByComparator);
 	}
 	
-	public long getCompanyProfilesCountByKeywords(long groupId, String keywords) {
+	public long getCompanyProfilesCountByKeywords(long groupId, String keywords, boolean onlyActives) {
 		return companyProfilePersistence.countWithDynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords));
+				getKeywordSearchDynamicQuery(groupId, keywords, onlyActives));
 	}
 	
-	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords) {
+	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords, boolean onlyActives) {
 		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
+		
+		if (onlyActives) {
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("active", true));
+		}
 		
 		if (Validator.isNotNull(keywords)) {
 			Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();

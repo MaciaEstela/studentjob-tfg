@@ -533,28 +533,30 @@ public class StudentProfileLocalServiceWrapper
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
 		getStudentProfilesByKeywords(
-			long groupId, String keywords, int start, int end,
+			long groupId, String keywords, boolean onlyActives, int start,
+			int end,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<edu.uoc.mestemi.studentjob.model.StudentProfile>
 					orderByComparator) {
 
 		return _studentProfileLocalService.getStudentProfilesByKeywords(
-			groupId, keywords, start, end, orderByComparator);
+			groupId, keywords, onlyActives, start, end, orderByComparator);
 	}
 
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
 		getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId, int start, int end,
+			long degreeId, boolean onlyActives, long newestId, int start,
+			int end,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<edu.uoc.mestemi.studentjob.model.StudentProfile>
 					orderByComparator) {
 
 		return _studentProfileLocalService.
 			getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-				groupId, keywords, preference, regionId, degreeId, newestId,
-				start, end, orderByComparator);
+				groupId, keywords, preference, regionId, degreeId, onlyActives,
+				newestId, start, end, orderByComparator);
 	}
 
 	/**
@@ -606,21 +608,22 @@ public class StudentProfileLocalServiceWrapper
 
 	@Override
 	public long getStudentProfilesCountByKeywords(
-		long groupId, String keywords) {
+		long groupId, String keywords, boolean onlyActives) {
 
 		return _studentProfileLocalService.getStudentProfilesCountByKeywords(
-			groupId, keywords);
+			groupId, keywords, onlyActives);
 	}
 
 	@Override
 	public long
 		getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 			long groupId, String keywords, String preference, long regionId,
-			long degreeId, long newestId) {
+			long degreeId, boolean onlyActives, long newestId) {
 
 		return _studentProfileLocalService.
 			getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-				groupId, keywords, preference, regionId, degreeId, newestId);
+				groupId, keywords, preference, regionId, degreeId, onlyActives,
+				newestId);
 	}
 
 	@Override

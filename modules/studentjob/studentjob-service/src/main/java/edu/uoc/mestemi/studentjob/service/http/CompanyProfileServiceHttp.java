@@ -377,7 +377,7 @@ public class CompanyProfileServiceHttp {
 		<edu.uoc.mestemi.studentjob.model.CompanyProfile>
 			getCompanyProfilesByKeywords(
 				HttpPrincipal httpPrincipal, long groupId, String keywords,
-				int start, int end,
+				boolean onlyActives, int start, int end,
 				com.liferay.portal.kernel.util.OrderByComparator
 					<edu.uoc.mestemi.studentjob.model.CompanyProfile>
 						orderByComparator) {
@@ -388,7 +388,8 @@ public class CompanyProfileServiceHttp {
 				_getCompanyProfilesByKeywordsParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, keywords, start, end, orderByComparator);
+				methodKey, groupId, keywords, onlyActives, start, end,
+				orderByComparator);
 
 			Object returnObj = null;
 
@@ -413,7 +414,8 @@ public class CompanyProfileServiceHttp {
 	}
 
 	public static long getCompanyProfilesCountByKeywords(
-		HttpPrincipal httpPrincipal, long groupId, String keywords) {
+		HttpPrincipal httpPrincipal, long groupId, String keywords,
+		boolean onlyActives) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -422,7 +424,7 @@ public class CompanyProfileServiceHttp {
 				_getCompanyProfilesCountByKeywordsParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, keywords);
+				methodKey, groupId, keywords, onlyActives);
 
 			Object returnObj = null;
 
@@ -482,12 +484,12 @@ public class CompanyProfileServiceHttp {
 		};
 	private static final Class<?>[]
 		_getCompanyProfilesByKeywordsParameterTypes8 = new Class[] {
-			long.class, String.class, int.class, int.class,
+			long.class, String.class, boolean.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
 		_getCompanyProfilesCountByKeywordsParameterTypes9 = new Class[] {
-			long.class, String.class
+			long.class, String.class, boolean.class
 		};
 
 }

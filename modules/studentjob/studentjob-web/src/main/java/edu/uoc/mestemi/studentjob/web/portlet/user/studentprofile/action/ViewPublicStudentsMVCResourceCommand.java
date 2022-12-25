@@ -95,7 +95,7 @@ public class ViewPublicStudentsMVCResourceCommand extends BaseMVCResourceCommand
 			int start = ParamUtil.getInteger(resourceRequest, "start", 0);
 			
 			List<StudentProfile> studentProfiles =_studentProfileService.getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, newestStudentProfileId, start, 
+					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, true, newestStudentProfileId, start, 
 					start + StudentjobConstants.STUDENTS_OFFSET, comparator);
 			
 			PortletContext portletContext = resourceRequest.getPortletContext();
@@ -116,12 +116,12 @@ public class ViewPublicStudentsMVCResourceCommand extends BaseMVCResourceCommand
 						"StudentProfile", orderByCol, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 			
 			List<StudentProfile> studentProfiles =_studentProfileService.getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, 0, 0, 1,
+					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, true, 0, 0, 1,
 					comparatorCreate);
 			
 			JSONObject dataJson = JSONFactoryUtil.createJSONObject();
 			long studentProfileCount = _studentProfileService.getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, 0);
+					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, true, 0);
 			
 			if (!studentProfiles.isEmpty()) {
 				dataJson.put("newestStudentProfileId", String.valueOf(studentProfiles.get(0).getStudentProfileId()));

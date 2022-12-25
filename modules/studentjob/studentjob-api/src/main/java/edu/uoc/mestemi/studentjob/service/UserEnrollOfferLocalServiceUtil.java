@@ -274,6 +274,22 @@ public class UserEnrollOfferLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static List<UserEnrollOffer> getUserEnrolledOffers(
+		long groupId, long userId) {
+
+		return getService().getUserEnrolledOffers(groupId, userId);
+	}
+
+	public static int getUserEnrolledOffersCount(long groupId, long userId) {
+		return getService().getUserEnrolledOffersCount(groupId, userId);
+	}
+
+	public static UserEnrollOffer getUserEnrollOffer(
+		long groupId, long userId, long offerId) {
+
+		return getService().getUserEnrollOffer(groupId, userId, offerId);
+	}
+
 	/**
 	 * Returns the user enroll offer with the primary key.
 	 *
@@ -321,36 +337,10 @@ public class UserEnrollOfferLocalServiceUtil {
 		return getService().getUserEnrollOffers(start, end);
 	}
 
-	/**
-	 * Returns all the user enroll offers matching the UUID and company.
-	 *
-	 * @param uuid the UUID of the user enroll offers
-	 * @param companyId the primary key of the company
-	 * @return the matching user enroll offers, or an empty list if no matches were found
-	 */
-	public static List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
-		String uuid, long companyId) {
+	public static List<UserEnrollOffer> getUserEnrollOffers(
+		long groupId, long offerId) {
 
-		return getService().getUserEnrollOffersByUuidAndCompanyId(
-			uuid, companyId);
-	}
-
-	/**
-	 * Returns a range of user enroll offers matching the UUID and company.
-	 *
-	 * @param uuid the UUID of the user enroll offers
-	 * @param companyId the primary key of the company
-	 * @param start the lower bound of the range of user enroll offers
-	 * @param end the upper bound of the range of user enroll offers (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the range of matching user enroll offers, or an empty list if no matches were found
-	 */
-	public static List<UserEnrollOffer> getUserEnrollOffersByUuidAndCompanyId(
-		String uuid, long companyId, int start, int end,
-		OrderByComparator<UserEnrollOffer> orderByComparator) {
-
-		return getService().getUserEnrollOffersByUuidAndCompanyId(
-			uuid, companyId, start, end, orderByComparator);
+		return getService().getUserEnrollOffers(groupId, offerId);
 	}
 
 	/**
