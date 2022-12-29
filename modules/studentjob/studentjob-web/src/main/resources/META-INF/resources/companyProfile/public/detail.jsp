@@ -12,33 +12,33 @@
 						<div class="companyprofile-detail__image-wrapper-responsive">
 							<img class="companyprofile-detail__image d-block d-md-none position-static" alt="Logo" src="${logo}">
 						</div>
-						<h1 class="companyprofile-detail__title">
+						<h1 class="companyprofile-detail__company-name">
 							${companyName}
 						</h1>
-						<div class="companyprofile-detail__company-name">
+						<div class="companyprofile-detail__title">
 							${companyProfile.getTitle(locale)}
 						</div>
 					</div>
 					<div class="col-12 col-lg-4 my-5 my-lg-0 companyprofile-detail__inscription-wrapper">
-						<a class="companyprofile-detail__inscription-btn">
-							Veure ofertes
+						<a href="/offers?keywords=${companyName}" class="companyprofile-detail__inscription-btn">
+							<liferay-ui:message key="studentjob.companyprofile.view-offers" />
 						</a>
 					</div>
 				</div>
-				<div class="companyprofile-detail__info-items row">
-					<div class="companyprofile-detail__sector col-12 col-lg-3 my-md-0 my-3">
+				<div class="companyprofile-detail__info-items">
+					<div class="companyprofile-detail__sector">
 						<i class="icon icon-suitcase"></i>
 						${companyProfile.getSector(locale)}
 					</div>
-					<div class="companyprofile-detail__location col-12 col-lg-3 my-md-0 my-3">
+					<div class="companyprofile-detail__location">
 						<i class="icon icon-location-arrow"></i>
 						${province}
 					</div>
-					<div class="companyprofile-detail__website col-12 col-lg-3 my-md-0 my-3">
+					<div class="companyprofile-detail__website">
 						<i class="icon icon-laptop"></i>
 						<a href="${companyProfile.getWebsite()}">${companyProfile.getWebsite()}</a>
 					</div>
-					<div class="companyprofile-detail__email col-12 col-lg-3 my-md-0 my-3">
+					<div class="companyprofile-detail__email">
 						<i class="icon icon-inbox"></i>
 						<a href="mailto:${companyProfile.getEmail()}">${companyProfile.getEmail()}</a>
 					</div>

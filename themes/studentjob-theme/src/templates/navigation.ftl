@@ -87,24 +87,27 @@
 		</div>
 		<#if is_signed_in>
 			<div class="my-profile dropdown">
-				<a class="my-profile__item"  type="button" id="dropdownMyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="my-profile__item" type="button" id="dropdownMyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<div class="my-profile__img-wrapper">
 						<img class="my-profile__img" src="${user.getPortraitURL(themeDisplay)}" alt="User logo"/>
 					</div>
-					<div class="dropdown-menu" aria-labelledby="dropdownMyProfile">
-						<div href="#" class="my-profile__title">${user_name}</div>
-						<#list nav_items as nav_item>
-							<#if nav_item.getName() == "my-profile">
-								<#list nav_item.getChildren() as nav_child>
-									<a href="${nav_child.getURL()}" ${nav_child.getTarget()} class="dropdown-item" role="menuitem">
-										${nav_child.getName()}
-									</a>
-								</#list>
-							</#if>
-						</#list>
-						<a class="dropdown-item" href="/c/portal/logout"><@liferay.language key="disconnect" /></a>
-					</div>
 				</a>
+				<div class="dropdown-menu" aria-labelledby="dropdownMyProfile">
+					<div class="my-profile__title">${user_name}</div>
+					<#list nav_items as nav_item>
+						<#if nav_item.getName() == "my-profile">
+							<#list nav_item.getChildren() as nav_child>
+								<a href="${nav_child.getURL()}" ${nav_child.getTarget()} class="dropdown-item" role="menuitem">
+									${nav_child.getName()}
+								</a>
+							</#list>
+						</#if>
+					</#list>
+					<a class="dropdown-item my-profile__logout" href="/c/portal/logout">
+						<i class="icon icon-signout"></i>
+						<@liferay.language key="disconnect" />
+					</a>
+				</div>
 			</div>
 		<#else>
 			<div class="log-buttons d-flex justify-content-center pr-md-7 pr-0 pt-5 pt-md-0">

@@ -34,7 +34,7 @@
 }
 
 .offers-list-title{
-    font-family: "Quicksand", serif;
+    font-family: "Montserrat";
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -79,7 +79,6 @@
     &__top{
         display: flex;
         background-color: #e8f5e9;
-        min-height: 125px;
     }
 
     &__image-wrapper{
@@ -93,7 +92,7 @@
         width: 100%;
         padding-left: 10px;
         padding-top: 15px;
-        flex-direction: column;
+        min-height: 125px;
     }
 
     &__title{
@@ -112,6 +111,7 @@
         top: -25px;
         left: -30px;
         border: 1px solid $light-grey-2;
+        background-color: #fff;
 
         @media screen and (max-width: $md) {
             width: 70px;
@@ -161,11 +161,18 @@
         font-weight: bold;
     }
 
-    &__time{
+    &__bottom-wrapper{
         width: 100%;
         padding: 10px;
         background-color: #b3e5fc;
         margin-bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+    }
+
+    &__time{
+        font-size: 15px;
     }
 }
 
@@ -204,6 +211,7 @@
         position: absolute;
         top: -70px;
         left: -70px;
+        background-color: #fff;
 
         @media screen and (max-width: $lg) {
             top: -50px;

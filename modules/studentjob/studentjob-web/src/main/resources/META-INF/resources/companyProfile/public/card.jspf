@@ -1,4 +1,4 @@
-<a href="${companyProfile.getViewURL()}" class="companyprofile-cards__item col-6 col-md-3">
+<a href="${companyProfile.getViewURL()}" class="companyprofile-cards__item col-12 col-md-3 mb-3">
 	<div class="companyprofile-cards__top">
 		<div class="companyprofile-cards__image-wrapper">
 			<img alt="${companyProfile.getName()} Logo" class="companyprofile-cards__image" src="${companyProfile.getLogoURL()}">

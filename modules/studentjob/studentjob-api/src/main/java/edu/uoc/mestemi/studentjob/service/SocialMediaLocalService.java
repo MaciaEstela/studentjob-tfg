@@ -305,6 +305,9 @@ public interface SocialMediaLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SocialMedia> getSocialMedias(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SocialMedia> getSocialMedias(long socialMediaNetworkId);
+
 	/**
 	 * Returns all the social medias matching the UUID and company.
 	 *

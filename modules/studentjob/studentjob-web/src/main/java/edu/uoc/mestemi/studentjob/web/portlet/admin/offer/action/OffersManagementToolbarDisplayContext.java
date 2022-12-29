@@ -100,23 +100,14 @@ public class OffersManagementToolbarDisplayContext
 	@Override
 	public String getDisplayStyle() {
 
-		String displayStyle = ParamUtil.getString(httpServletRequest, "displayStyle");
-
-		if (Validator.isNull(displayStyle)) {
-			displayStyle = _portalPreferences.getValue(
-					StudentjobPortletKeys.STUDENTJOB, "assignments-display-style",
-				"descriptive");
-		}
-		else {
-			_portalPreferences.setValue(
+		_portalPreferences.setValue(
 				StudentjobPortletKeys.STUDENTJOB, "assignments-display-style",
-				displayStyle);
+				"list");
 
-			httpServletRequest.setAttribute(
-				WebKeys.SINGLE_PAGE_APPLICATION_CLEAR_CACHE, Boolean.TRUE);
-		}
-
-		return displayStyle;
+		httpServletRequest.setAttribute(
+			WebKeys.SINGLE_PAGE_APPLICATION_CLEAR_CACHE, Boolean.TRUE);
+		
+		return "list";
 	}
 
 	/**
@@ -201,13 +192,9 @@ public class OffersManagementToolbarDisplayContext
 		return new ViewTypeItemList(portletURL.buildPortletURL(), getDisplayStyle()) {
 			private static final long serialVersionUID = 1L;
 			{
-				addTableViewTypeItem();
 			}
 		};
 	}
-
-	
-	
 	
 	@Override
 	public List<DropdownItem> getFilterDropdownItems() {

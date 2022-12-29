@@ -51,10 +51,16 @@
 <div class="container">
 	<div style="display: none;" id="<portlet:namespace />spinnerloading" class="spinner loading"></div>
 	
-	<div class="offers-cards" id="<portlet:namespace />offers-list">
+	<div class="offers-cards mb-4" id="<portlet:namespace />offers-list">
 		<c:forEach items="${offersDTO}" var="offer">
 			<%@ include file="/offer/user/card.jspf" %>
 		</c:forEach>
+	</div>
+	<div id="<portlet:namespace />no-results" class="offers__no-results-wrapper w-100 text-center" style="display: none;">
+		<h2 class="offers-list text-danger">
+			<liferay-ui:message key="studentjob.offers.no-result" />
+		</h1>
+		<img src="/o/studentjob-theme/images/no-results.png" class="offers__no-results-img floating-large mt-5"/>
 	</div>
 	<div id="<portlet:namespace />offers-cards-bottom mb-7"></div>
 </div>
@@ -74,15 +80,16 @@
 		let spinnerElement = document.getElementById('<portlet:namespace />spinnerloading')
 		let offersList = document.getElementById('<portlet:namespace />offers-list');
 		let offerCountElement = document.getElementById('<portlet:namespace />offer-count');
+		let noResultsElement = document.getElementById('<portlet:namespace />no-results');
 		let footerElement = document.getElementById('footer');
 		
 		let scrollListening = true;
 		
 		let newestOfferId = ${newestOfferId}
 		
-		console.log("newestOfferId " + newestOfferId)
-		console.log("start " + start)
-		console.log("offset " + offset)
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		keywordsInput.value = urlParams.get('keywords');
 		
 		let keywords = keywordsInput.value
 		let region = regionInput.value
@@ -125,7 +132,6 @@
 		degreeInput.addEventListener('change', degreeChange);
 		preferenceInput.addEventListener('change', preferenceChange);
 		
-		
 		function resetOffers(){
 			start = 0;
 			scrollListening = true;
@@ -155,6 +161,7 @@
 								updateOffersAuxData();
 								scrollListening = true;
 							}
+							checkOffersList();
 							spinnerElement.style.display = "none";
 						}
 					}
@@ -164,6 +171,7 @@
 		
 		function updateOffersAuxData(){
 			scrollListening = false;
+			urlParams.delete('keywords');
 			AUI().use('aui-io-request', function(A){
 				A.io.request('${getOffersAuxDataURL}', {
 					method: 'post',
@@ -182,8 +190,6 @@
 								offerCount = data.offerCount;
 								start = start + offset;
 								offerCountElement.textContent = offerCount;
-								
-								console.log(offerCountElement)
 								scrollListening = true;
 							}
 						}
@@ -193,7 +199,6 @@
 		}
 		
 		var scrollListener = function (event) {
-			
 			var scrollHeight = document.documentElement.scrollHeight;
 			var scrollTop = document.documentElement.scrollTop;
 			var clientHeight = document.documentElement.clientHeight;
@@ -204,6 +209,17 @@
 			}
 		};
 		
+		function checkOffersList(){
+			if (document.querySelectorAll('.offers-cards__item').length == 0){
+				noResultsElement.style.display = "block";
+				offerCount = 0;
+				offerCountElement.textContent = offerCount;
+			} else {
+				noResultsElement.style.display = "none";
+			}
+		}
+		
 		window.addEventListener("scroll", scrollListener);
+		checkOffersList();
 	});
 </script>

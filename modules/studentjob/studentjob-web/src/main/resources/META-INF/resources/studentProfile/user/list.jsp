@@ -51,17 +51,23 @@
 <div class="container">
 	<div style="display: none;" id="<portlet:namespace />spinnerloading" class="spinner loading"></div>
 	
-	<div class="students-cards" id="<portlet:namespace />students-list">
+	<div class="students-cards mb-4" id="<portlet:namespace />students-list">
 		<c:forEach items="${studentProfilesDTO}" var="student">
 			<%@ include file="/studentProfile/user/card.jspf" %>
 		</c:forEach>
+	</div>
+	<div id="<portlet:namespace />no-results" class="students__no-results-wrapper w-100 text-center" style="display: none;">
+		<h2 class="students-list text-danger">
+			<liferay-ui:message key="studentjob.students.no-result" />
+		</h1>
+		<img src="/o/studentjob-theme/images/no-results.png" class="students__no-results-img floating-large mt-5"/>
 	</div>
 	<div id="<portlet:namespace />students-cards-bottom"></div>
 </div>
 
 
 <script type="text/javascript">
-	AUI().ready('aui-module', function(A){
+	AUI().ready('aui-module', function(A){		
 		let offset = <%=StudentjobConstants.STUDENTS_OFFSET%>;
 		let start = <%=StudentjobConstants.STUDENTS_OFFSET%>;
 		
@@ -75,6 +81,7 @@
 		let studentsList = document.getElementById('<portlet:namespace />students-list');
 		let studentCountElement = document.getElementById('<portlet:namespace />students-count');
 		let footerElement = document.getElementById('footer');
+		let noResultsElement = document.getElementById('<portlet:namespace />no-results');
 		
 		let scrollListening = true;
 		
@@ -132,6 +139,7 @@
 			spinnerElement.style.display = "block";
 			studentsList.innerHTML = "";
 			reloadStudentsResource();
+			newestStudentProfileId = 0;
 		}
 		
 		function reloadStudentsResource(){
@@ -146,7 +154,7 @@
 						<portlet:namespace />region: regionInput.value,
 						<portlet:namespace />offset: offset,
 						<portlet:namespace />start: start,
-						<portlet:namespace />newestStudentProfileId: newestStudentProfileId,
+						<portlet:namespace />newestStudentProfileId: 22,
 					},
 					on: {
 						success: function() {
@@ -155,6 +163,7 @@
 								updateStudentsAuxData();
 								scrollListening = true;
 							}
+							checkStudentsList();
 							spinnerElement.style.display = "none";
 						}
 					}
@@ -179,7 +188,7 @@
 								var data = JSON.parse(this.get('responseData'));
 								console.log(data);
 								newestStudentProfileId = data.newestStudentProfileId;
-								studentCount = data.studentCount;
+								studentCount = data.studentProfileCount;
 								start = start + offset;
 								studentCountElement.textContent = studentCount;
 								
@@ -204,6 +213,17 @@
 			}
 		};
 		
+		function checkStudentsList(){
+			if (document.querySelectorAll('.students-cards__item').length == 0){
+				noResultsElement.style.display = "block";
+				studentCount = 0;
+				studentCountElement.textContent = studentCount;
+			} else {
+				noResultsElement.style.display = "none";
+			}
+		}
+		
+		checkStudentsList();
 		window.addEventListener("scroll", scrollListener);
 	});
 </script>

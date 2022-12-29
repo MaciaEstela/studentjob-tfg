@@ -18,6 +18,8 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Order;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
@@ -134,6 +136,25 @@ public class CompanyProfileLocalServiceImpl
 	public long getCompanyProfilesCountByKeywords(long groupId, String keywords, boolean onlyActives) {
 		return companyProfilePersistence.countWithDynamicQuery(
 				getKeywordSearchDynamicQuery(groupId, keywords, onlyActives));
+	}
+	
+	public long getNewestCompanyProfileId() {
+		long companyProfileId = 0;
+		
+		DynamicQuery latestCompanyDynamicQuery = dynamicQuery();
+		
+		Order order = OrderFactoryUtil.desc("createDate");
+		latestCompanyDynamicQuery.addOrder(order);
+		latestCompanyDynamicQuery.setLimit(0, 1);
+		
+		List<CompanyProfile> companies = dynamicQuery(latestCompanyDynamicQuery);
+		
+		
+		if (!companies.isEmpty()) {
+			companyProfileId = companies.get(0).getCompanyProfileId();
+		}
+		
+		return companyProfileId;
 	}
 	
 	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String keywords, boolean onlyActives) {

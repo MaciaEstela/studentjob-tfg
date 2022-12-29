@@ -31,6 +31,7 @@ import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
+import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.StudentProfileService;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
@@ -135,19 +136,7 @@ public class ViewPublicStudentsMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("studentProfilesDTO", studentProfilesDTO);
 		
 		// Get newest studentProfileId to avoid duplicated results on pagination
-		long newestStudentProfileId = 0;
-		OrderByComparator<StudentProfile> comparatorCreated =
-				OrderByComparatorFactoryUtil.create(
-					"StudentProfile", orderByColCreated, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
-		
-		List<StudentProfile> studentProfilesCreated = _studentProfileService.getStudentProfilesByKeywords(
-				groupId, keywords, true, 0, 1,
-				comparatorCreated);
-		
-		if (!studentProfilesCreated.isEmpty()) {
-			newestStudentProfileId = studentProfilesCreated.get(0).getStudentProfileId();
-		}
-		
+		long newestStudentProfileId = StudentProfileLocalServiceUtil.getNewestStudentProfileId();
 		renderRequest.setAttribute("newestStudentProfileId", newestStudentProfileId);
 		
 		renderRequest.setAttribute(

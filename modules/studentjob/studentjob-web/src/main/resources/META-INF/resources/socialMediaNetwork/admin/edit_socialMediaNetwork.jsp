@@ -35,18 +35,12 @@
 
 				<%-- Title field. --%>
 
-				<aui:input name="name">
-
-				</aui:input>
-				
-				<aui:input name="baseURL">
-
-				</aui:input>
-				
-				<aui:input name="logoId" type="number">
-
-				</aui:input>
-				
+				<aui:input name="name"></aui:input>
+				<aui:input name="baseURL"></aui:input>
+				<aui:input label="form.socialmedianetwork.logo" type="file" accept="image/*" name="logo" ></aui:input>
+				<c:if test="${!logoUrl.isEmpty()}">
+					<img width="50px" height="50px" src="${logoUrl}">
+				</c:if>
 			</aui:fieldset>
 		</aui:fieldset-group>
 

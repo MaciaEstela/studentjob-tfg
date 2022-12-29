@@ -397,6 +397,11 @@ public class OfferLocalServiceWrapper
 		return _offerLocalService.getIndexableActionableDynamicQuery();
 	}
 
+	@Override
+	public long getNewestOfferId() {
+		return _offerLocalService.getNewestOfferId();
+	}
+
 	/**
 	 * Returns the offer with the primary key.
 	 *
@@ -468,6 +473,13 @@ public class OfferLocalServiceWrapper
 
 		return _offerLocalService.getOffersByGroupId(
 			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByGroupIdAndUserId(long groupId, long userId) {
+
+		return _offerLocalService.getOffersByGroupIdAndUserId(groupId, userId);
 	}
 
 	@Override

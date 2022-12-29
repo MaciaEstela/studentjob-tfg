@@ -125,6 +125,11 @@ public class CompanyProfileServiceWrapper
 			groupId, keywords, onlyActives);
 	}
 
+	@Override
+	public long getNewestCompanyProfileId() {
+		return _companyProfileService.getNewestCompanyProfileId();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

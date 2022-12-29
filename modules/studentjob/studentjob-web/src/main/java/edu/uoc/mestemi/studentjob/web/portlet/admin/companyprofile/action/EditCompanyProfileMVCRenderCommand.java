@@ -29,6 +29,7 @@ import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkService;
 import edu.uoc.mestemi.studentjob.service.SocialMediaService;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
+import edu.uoc.mestemi.studentjob.util.StudentjobUtilities;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 
@@ -81,6 +82,10 @@ public class EditCompanyProfileMVCRenderCommand implements MVCRenderCommand {
 		List<SocialMedia> socialMedias = _socialMediaService.getSocialMediaNetworksByGroupIdAndClass(
 				groupId, CompanyProfile.class.getName(), companyProfileId);
 		
+		boolean canHide = true;
+		if (StudentjobUtilities.userHasOffers(groupId, userId))
+			canHide = false;
+		
 		List<SocialMediaFormDTO> socialMediasList = new ArrayList<>();
 		for (SocialMediaNetwork socialMediaNetwork : socialMediaNetworks) {
 			String socialURL = StringPool.BLANK;
@@ -94,10 +99,7 @@ public class EditCompanyProfileMVCRenderCommand implements MVCRenderCommand {
 					socialURL, socialMediaNetwork.getName(), socialMediaNetwork.getSocialMediaNetworkId()));
 		}
 		
-		System.out.println("active es " + companyProfile.isActive());
-		System.out.println(JSONFactoryUtil.createJSONArray(socialMediasList).toJSONString());
 		// Set companyProfile to the request attributes.
-		
 		renderRequest.setAttribute("companyProfile", companyProfile);
 		renderRequest.setAttribute("regions", regions);
 		renderRequest.setAttribute("socialMediaPrefix", StudentjobConstants.SOCIALMEDIA_FORM_PREFIX);
@@ -105,6 +107,7 @@ public class EditCompanyProfileMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("socialMediasList", socialMediasList);
 		renderRequest.setAttribute("companyProfileClass", CompanyProfile.class);
 		renderRequest.setAttribute("locale", themeDisplay.getLocale());
+		renderRequest.setAttribute("canHide", canHide);
 		
 		return "/companyProfile/user/edit_companyProfile.jsp";
 	}

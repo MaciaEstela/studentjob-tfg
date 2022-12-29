@@ -20,5 +20,5 @@ public class PublicOffersFriendlyURLMapper extends DefaultFriendlyURLMapper{
 		return _MAPPING;
 	}
 
-	private static final String _MAPPING = "offers";
+	private static final String _MAPPING = "view-offer";
 }

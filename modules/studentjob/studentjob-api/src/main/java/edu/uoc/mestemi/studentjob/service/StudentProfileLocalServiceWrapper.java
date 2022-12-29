@@ -424,6 +424,11 @@ public class StudentProfileLocalServiceWrapper
 		return _studentProfileLocalService.getIndexableActionableDynamicQuery();
 	}
 
+	@Override
+	public long getNewestStudentProfileId() {
+		return _studentProfileLocalService.getNewestStudentProfileId();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

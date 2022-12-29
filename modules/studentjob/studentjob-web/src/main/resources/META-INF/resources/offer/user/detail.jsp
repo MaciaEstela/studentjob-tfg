@@ -28,7 +28,7 @@
 	<div class="container offer-detail ">
 		<div class="offer-detail__header row">
 			<div class="offer-detail__image-wrapper col-12 col-md-1">
-				<a href="${viewCompanyProfileURL}">
+				<a href="/companies/-/view-company/${companyProfileId}">
 					<img class="offer-detail__image" alt="Logo" src="${offerDTO.getLogoURL()}">
 				</a>
 			</div>
@@ -46,6 +46,9 @@
 						</span>
 					</c:when>
 					<c:otherwise>
+						<span id="enrolledAlert" class="alert alert-warning" style="display: none;">
+							<liferay-ui:message key="studentjob.offers.already-enrolled" />
+						</span>
 						<a id="enrollUserBtn" href="javascript:void(0);" class="offer-detail__inscription-btn">
 							<liferay-ui:message key="studentjob.offers.enrollment" />
 						</a>
@@ -102,7 +105,9 @@
 					on: {
 						success: function() {
 							if (this.get('responseData') && this.get('responseData') == "ok"){
-								document.getElementById("successEnroll").style.display = "block"; 
+								document.getElementById("successEnroll").style.display = "block";
+								document.getElementById("enrollUserBtn").style.display = "none";
+								document.getElementById("enrolledAlert").style.display = "block";
 							} else {
 								console.log("Error on enrollment");
 							}

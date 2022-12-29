@@ -56,7 +56,6 @@ public class MyAccountMVCRenderCommand implements MVCRenderCommand {
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
-		System.out.println("isStudent " + isStudent);
 		renderRequest.setAttribute("isStudent", isStudent);
 		renderRequest.setAttribute("user", user);
 

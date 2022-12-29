@@ -22,6 +22,7 @@ create index IX_BC974D8D on SJob_Offers_Degrees (offerId);
 
 create index IX_57E6F8B8 on SJob_SocialMedia (groupId, className[$COLUMN_LENGTH:75$], classPK, socialMediaNetworkId);
 create index IX_C7B10120 on SJob_SocialMedia (groupId, className[$COLUMN_LENGTH:75$], classPK, socialURL[$COLUMN_LENGTH:75$]);
+create index IX_180743EE on SJob_SocialMedia (socialMediaNetworkId);
 create index IX_2283E53C on SJob_SocialMedia (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_A8FC8ABE on SJob_SocialMedia (uuid_[$COLUMN_LENGTH:75$], groupId);
 

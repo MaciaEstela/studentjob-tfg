@@ -84,10 +84,25 @@
 				</aui:select>
 				
 				<%-- SocialMedia field. --%>
-				 <%@ include file="/utils/socialMedia.jspf"%>
-
+				<%@ include file="/utils/socialMedia.jspf"%>
 				<aui:input type="file" name="curriculum" label="studentjob.studentprofile.form.cv"></aui:input>
-				<aui:input name="active" type="checkbox" label="studentjob.studentprofile.form.active" value="${studentProfile.isActive()}"/>
+				<c:if test="${!cvURL.isEmpty()}">
+					<div class="mb-5">
+						<a href="${cvURL}"><liferay-ui:message key="download-file" /></a>
+					</div>
+				</c:if>
+				
+				<c:choose>
+					<c:when test="${canHide}">
+						<aui:input name="active" type="checkbox" label="studentjob.studentprofile.form.active" value="${studentProfile.isActive()}"/>
+					</c:when>
+					<c:otherwise>
+						<p>
+							<liferay-ui:message key="studentjob.studentprofile.form.cant-unactive" />
+						</p>
+					</c:otherwise>
+				</c:choose>
+				
 			</aui:fieldset>
 		</aui:fieldset-group>
 

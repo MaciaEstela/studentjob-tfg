@@ -83,6 +83,10 @@
 			<finder-column name="socialMediaNetworkId" />
 		</finder>
 		
+		<finder name="SocialMediaNetworkId" return-type="Collection">
+			<finder-column name="socialMediaNetworkId"></finder-column>
+		</finder>
+		
 		<!-- References -->
 		
 
@@ -246,6 +250,11 @@
 		<!-- Finder methods -->
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId"></finder-column>
+		</finder>
+		
+		<finder name="GroupIdAndUserId" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="userId"></finder-column>
 		</finder>
 
 		<!-- References -->

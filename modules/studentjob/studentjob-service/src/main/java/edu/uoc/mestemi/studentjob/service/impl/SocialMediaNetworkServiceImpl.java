@@ -82,4 +82,5 @@ public class SocialMediaNetworkServiceImpl
 	public long getSocialMediaNetworksCountByKeywords(long groupId, String keywords) {
 		return socialMediaNetworkLocalService.getSocialMediaNetworksCountByKeywords(groupId, keywords);
 	}
+	
 }

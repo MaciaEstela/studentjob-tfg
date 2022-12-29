@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.RegionLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,13 +24,18 @@ import org.jsoup.Jsoup;
 import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.dto.MyInscriptionDTO;
 import edu.uoc.mestemi.studentjob.dto.OfferDTO;
+import edu.uoc.mestemi.studentjob.dto.SocialMediaDTO;
 import edu.uoc.mestemi.studentjob.dto.StudentProfileDTO;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
+import edu.uoc.mestemi.studentjob.model.SocialMedia;
+import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.service.SocialMediaLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CommonUtilities;
 import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 
@@ -85,6 +91,9 @@ public class DTOUtil {
 			description = description.substring(0, 200) + "...";
 		}
 		
+		String province = StringPool.BLANK;
+		province = RegionLocalServiceUtil.getRegion(offer.getRegionId()).getName();
+		
 		offerDTO = new OfferDTO(
 			offer.getTitle(locale), 
 			(String) user.getExpandoBridge().getAttribute("userCompany"),
@@ -92,7 +101,8 @@ public class DTOUtil {
 			LanguageUtil.get(resourceBundle, "studentjob.preference." + offer.getPreference()), 
 			description, 
 			agoText,
-			portletURL
+			portletURL,
+			province
 		);
 		
 		return offerDTO;
@@ -103,6 +113,8 @@ public class DTOUtil {
  		
 		StudentProfileDTO studentProfileDTO = null;
 		Locale locale = themeDisplay.getLocale();
+		
+		long groupId = themeDisplay.getScopeGroupId();
 		
 		User user = UserLocalServiceUtil.getUser(studentProfile.getUserId());
 		String name = user.getFirstName();
@@ -119,6 +131,7 @@ public class DTOUtil {
 		Region region = RegionLocalServiceUtil.getRegion(studentProfile.getRegionId());
 		
 		studentProfileDTO = new StudentProfileDTO(
+				studentProfile.getStudentProfileId(),
 				name, 
 				surname, 
 				degreesString, 
@@ -180,10 +193,19 @@ public class DTOUtil {
 				offer.getTitle(locale),
 				(String) companyUser.getExpandoBridge().getAttribute("userCompany"), 
 				agoText, 
-				true
+				offer.getStatus() == WorkflowConstants.STATUS_APPROVED
 			);
 		
 		return myInscriptionDTO;
 	}
 	
+	public static SocialMediaDTO getSocialMediaDTO(ThemeDisplay themeDisplay, SocialMedia socialMedia) throws PortalException{
+		SocialMediaNetwork socialMediaNetwork = SocialMediaNetworkLocalServiceUtil.getSocialMediaNetwork(
+				socialMedia.getSocialMediaNetworkId());
+		
+		String logoUrl = DocumentLibraryUtil.getFileDownloadURL(themeDisplay, socialMediaNetwork.getLogo());
+		
+		return new SocialMediaDTO(
+				socialMediaNetwork.getName(), logoUrl, socialMedia.getSocialURL());
+	}
 }

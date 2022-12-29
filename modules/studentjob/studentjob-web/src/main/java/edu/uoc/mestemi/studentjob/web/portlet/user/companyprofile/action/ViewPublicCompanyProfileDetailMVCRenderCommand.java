@@ -70,7 +70,7 @@ public class ViewPublicCompanyProfileDetailMVCRenderCommand implements MVCRender
 				//TODO: ARREGLAR EL CODI
 				User user = UserLocalServiceUtil.getUserById(userId);
 				String companyName = (String) user.getExpandoBridge().getAttribute(
-						StudentjobConstants.USER_COMPANY);
+						StudentjobConstants.USER_COMPANY_EXPANDO);
 				
 				renderRequest.setAttribute("companyName", companyName);
 				companyProfile =_companyProfileService.getCompanyProfileByGroupIdAndUserId(groupId, userId);

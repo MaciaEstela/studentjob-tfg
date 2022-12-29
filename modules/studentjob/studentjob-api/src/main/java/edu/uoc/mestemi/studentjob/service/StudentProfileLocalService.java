@@ -289,6 +289,9 @@ public interface StudentProfileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getNewestStudentProfileId();
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

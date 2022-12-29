@@ -4,6 +4,7 @@ import java.util.List;
 
 public class StudentProfileDTO {
 
+	private long studentProfileId;
 	private String name;
 	private String surname;
 	private List<String> degrees;
@@ -17,12 +18,11 @@ public class StudentProfileDTO {
 	private String phone;
 	private String viewURL;
 	
-	
-
-	public StudentProfileDTO(String name, String surname, List<String> degrees, String title, String province,
+	public StudentProfileDTO(long studentProfileId, String name, String surname, List<String> degrees, String title, String province,
 			String jobPreference, String cvUrl, String portraitUrl, String description, String email, String phone,
 			String viewURL) {
 		super();
+		this.studentProfileId = studentProfileId;
 		this.name = name;
 		this.surname = surname;
 		this.degrees = degrees;
@@ -35,6 +35,16 @@ public class StudentProfileDTO {
 		this.email = email;
 		this.phone = phone;
 		this.viewURL = viewURL;
+	}
+
+	
+	
+	public long getStudentProfileId() {
+		return studentProfileId;
+	}
+
+	public void setStudentProfileId(long studentProfileId) {
+		this.studentProfileId = studentProfileId;
 	}
 
 	public String getName() {

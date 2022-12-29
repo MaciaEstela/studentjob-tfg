@@ -109,6 +109,10 @@ public class CompanyProfileServiceUtil {
 			groupId, keywords, onlyActives);
 	}
 
+	public static long getNewestCompanyProfileId() {
+		return getService().getNewestCompanyProfileId();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

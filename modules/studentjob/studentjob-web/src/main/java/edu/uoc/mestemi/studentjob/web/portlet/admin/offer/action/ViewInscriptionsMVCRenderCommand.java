@@ -32,6 +32,7 @@ import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
@@ -115,10 +116,10 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 		String redirect = renderRequest.getRenderParameters().getValue("redirect");
 
 		portletDisplay.setURLBack(redirect);
-
+		renderRequest.setAttribute("offerTitle", offer.getTitle(themeDisplay.getLocale()));
 		renderRequest.setAttribute("studentProfilesDTO", studentProfilesDTO);
 		
-		return "/studentProfile/user/list_inscriptions.jsp";
+		return "/offer/admin/list_inscriptions.jsp";
 	}
 
 	@Reference

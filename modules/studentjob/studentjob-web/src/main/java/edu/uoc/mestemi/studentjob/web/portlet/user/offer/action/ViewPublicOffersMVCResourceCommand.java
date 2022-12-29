@@ -35,6 +35,7 @@ import edu.uoc.mestemi.studentjob.web.portlet.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.dto.OfferDTO;
 import edu.uoc.mestemi.studentjob.model.Offer;
+import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferService;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
@@ -131,7 +132,8 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 						groupId, 0, keywords, preference, regionId, degreeId, WorkflowConstants.STATUS_APPROVED, 0);
 				
 				if (!offers.isEmpty()) {
-					dataJson.put("newestOfferId", String.valueOf(offers.get(0).getOfferId()));
+					newestOfferId = OfferLocalServiceUtil.getNewestOfferId();
+					dataJson.put("newestOfferId", String.valueOf(newestOfferId));
 					dataJson.put("offerCount", String.valueOf(offerCount));
 					
 					resourceResponse.setContentType("application/json");

@@ -405,6 +405,13 @@ public class SocialMediaLocalServiceWrapper
 		return _socialMediaLocalService.getSocialMedias(start, end);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.SocialMedia>
+		getSocialMedias(long socialMediaNetworkId) {
+
+		return _socialMediaLocalService.getSocialMedias(socialMediaNetworkId);
+	}
+
 	/**
 	 * Returns all the social medias matching the UUID and company.
 	 *

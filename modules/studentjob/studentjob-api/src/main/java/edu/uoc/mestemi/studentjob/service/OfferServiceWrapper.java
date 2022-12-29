@@ -87,6 +87,11 @@ public class OfferServiceWrapper
 	}
 
 	@Override
+	public long getNewestOfferId() {
+		return _offerService.getNewestOfferId();
+	}
+
+	@Override
 	public edu.uoc.mestemi.studentjob.model.Offer getOffer(long offerId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

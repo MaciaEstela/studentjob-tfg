@@ -70,6 +70,10 @@ public class StudentProfileServiceUtil {
 		return getService().getDegreesIdsByOfferId(studentProfileId);
 	}
 
+	public static long getNewestStudentProfileId() {
+		return getService().getNewestStudentProfileId();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

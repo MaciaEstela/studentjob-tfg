@@ -1,15 +1,21 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.socialmedianetwork.action;
 
+import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
+import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
+import java.io.File;
 import java.util.Locale;
 import java.util.Map;
 import javax.portlet.ActionRequest;
@@ -18,9 +24,12 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.exception.SocialMediaNetworkValidationException;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
+import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkService;
+import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 
@@ -53,16 +62,35 @@ public class EditSocialMediaNetworkMVCActionCommand extends BaseMVCActionCommand
 		// Get parameters from the request.
 
 		long socialMediaNetworkId = ParamUtil.getLong(actionRequest, "socialMediaNetworkId");
-
+		SocialMediaNetwork socialMediaNetwork = SocialMediaNetworkLocalServiceUtil.getSocialMediaNetwork(socialMediaNetworkId);
 		String name = ParamUtil.getString(actionRequest, "name");
-		long logoId = ParamUtil.getLong(actionRequest, "logoId");
 		String baseURL = ParamUtil.getString(actionRequest, "baseURL");
-			
+		
+		long logoId = socialMediaNetwork.getLogo();
+		boolean newLogo = false;
+		try {
+			UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(actionRequest);
+			File file = uploadRequest.getFile("logo");
+			if (file.length() > 0) {
+				String fileName = uploadRequest.getFileName("logo");
+				
+				FileEntry curriculum = DocumentLibraryUtil.addFile(actionRequest, 
+						StudentjobConstants.SOCIALMEDIANETWORK_IMAGE_FOLDER, file, fileName);
+				logoId = curriculum.getFileEntryId();
+				newLogo = true;
+			}
+		} catch (Exception e) {
+			log.error(e);
+		}
+		
 		try {
 			// Call the service to update the socialMediaNetwork
 			_socialMediaNetworkService.updateSocialMediaNetwork(
 				socialMediaNetworkId, name, logoId, baseURL, serviceContext);
 
+			if (newLogo)
+				DocumentLibraryUtil.deleteFileEntryIfExists(socialMediaNetwork.getLogo());
+			
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (SocialMediaNetworkValidationException ove) {

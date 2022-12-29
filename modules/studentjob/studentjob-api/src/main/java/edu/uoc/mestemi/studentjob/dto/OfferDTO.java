@@ -8,9 +8,10 @@ public class OfferDTO {
 	private String description;
 	private String createString;
 	private String viewURL;
+	private String province;
 	
 	public OfferDTO(String title, String company, String logoURL, String preference, String description, 
-			String createString, String viewURL) {
+			String createString, String viewURL, String province) {
 		super();
 		this.title = title;
 		this.company = company;
@@ -19,6 +20,7 @@ public class OfferDTO {
 		this.description = description;
 		this.createString = createString;
 		this.viewURL = viewURL;
+		this.province = province;
 	}
 
 	public String getTitle() {
@@ -75,6 +77,14 @@ public class OfferDTO {
 
 	public void setViewURL(String viewURL) {
 		this.viewURL = viewURL;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
 	}
 	
 }

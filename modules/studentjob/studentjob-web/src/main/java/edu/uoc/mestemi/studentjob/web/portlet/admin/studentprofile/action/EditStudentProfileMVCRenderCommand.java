@@ -5,6 +5,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Region;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.service.RegionService;
@@ -28,8 +29,11 @@ import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.StudentProfileService;
+import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
+import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
+import edu.uoc.mestemi.studentjob.util.StudentjobUtilities;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkService;
 import edu.uoc.mestemi.studentjob.service.SocialMediaService;
@@ -58,7 +62,6 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
-		System.out.println("On render");
 
 		// TODO : if user is not signed in or user is not in company group return 404
 		
@@ -68,6 +71,7 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 		long userId = themeDisplay.getUserId();
 		long groupId = themeDisplay.getScopeGroupId();
 		long companyId = themeDisplay.getCompanyId();
+		User user = themeDisplay.getUser();
 		
 		StudentProfile studentProfile = _studentProfileService.getStudentProfileByGroupIdAndUserId(groupId, userId);
 		long studentProfileId = studentProfile.getStudentProfileId();
@@ -81,8 +85,7 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 		portletDisplay.setURLBack(redirect);
 		
 		List<Region> regions = ProvinceUtil.getRegionsByCountryA3(companyId, CountryA3Constants.SPAIN, true);
-		System.out.println("regions es " + regions.size());
-		System.out.println("companyId es " + companyId);
+
 		List<SocialMediaNetwork> socialMediaNetworks = _socialMediaNetworkService.getSocialMediaNetworksByGroupId(groupId);
 		
 		List<SocialMedia> socialMedias = _socialMediaService.getSocialMediaNetworksByGroupIdAndClass(
@@ -102,12 +105,19 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 		}
 		
 		List<Long> currentStudentProfileDegreesIds = _studentProfileService.getDegreesIdsByOfferId(studentProfileId);
-		System.out.println(" currentStudentProfileDegreesIds " + currentStudentProfileDegreesIds.size());
-		
-		System.out.println("active es " + studentProfile.isActive());
-		System.out.println(JSONFactoryUtil.createJSONArray(socialMediasList).toJSONString());
-		
 		List<Degree> degrees = _degreeService.getDegreesByGroupId(groupId);
+		
+		String cvURL = StringPool.BLANK;
+		long cvId = studentProfile.getCurriculumId();
+		
+		if (cvId > 0) {
+			cvURL = DocumentLibraryUtil.getFileDownloadURL(themeDisplay, cvId); 
+		}
+		
+		boolean canHide = true;
+		if (StudentjobUtilities.userHasEnrolledOffers(groupId, userId)) {
+			canHide = false;
+		}
 		
 		// Set studentProfile to the request attributes.
 		renderRequest.setAttribute("preferences", StudentjobConstants.JOB_PREFERENCE);
@@ -120,6 +130,8 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("socialMediasList", socialMediasList);
 		renderRequest.setAttribute("studentProfileClass", StudentProfile.class);
 		renderRequest.setAttribute("locale", themeDisplay.getLocale());
+		renderRequest.setAttribute("cvURL", cvURL);
+		renderRequest.setAttribute("canHide", canHide);
 		
 		return "/studentProfile/admin/edit_studentProfile.jsp";
 	}

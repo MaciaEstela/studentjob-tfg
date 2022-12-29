@@ -69,8 +69,6 @@ public class ViewMyInscriptionsMVCResourceCommand extends BaseMVCResourceCommand
 		
 		String cmd = ParamUtil.getString(resourceRequest, StudentjobConstants.CMD);
 		
-		log.info("ME LLAMAN");
-		
 		if (cmd.equals(MVCCommandNames.MYINSCRIPTIONS_CANCEL_INSCRIPTION_USER)) {
 			long offerId = ParamUtil.getLong(resourceRequest, "offerId", 0);
 			UserEnrollOfferServiceUtil.deleteEnrollOffer(offerId, userId);

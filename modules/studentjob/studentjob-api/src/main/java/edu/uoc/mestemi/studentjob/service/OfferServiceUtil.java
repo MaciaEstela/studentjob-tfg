@@ -79,6 +79,10 @@ public class OfferServiceUtil {
 		return getService().getDegreesIdsByOfferId(offerId);
 	}
 
+	public static long getNewestOfferId() {
+		return getService().getNewestOfferId();
+	}
+
 	public static Offer getOffer(long offerId) throws PortalException {
 		return getService().getOffer(offerId);
 	}

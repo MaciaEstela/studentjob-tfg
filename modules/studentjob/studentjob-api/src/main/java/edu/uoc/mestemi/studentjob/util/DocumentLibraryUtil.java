@@ -1,6 +1,9 @@
 package edu.uoc.mestemi.studentjob.util;
 
+import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
 import com.liferay.document.library.kernel.exception.NoSuchFolderException;
+import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.model.DLFolder;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
 import com.liferay.document.library.util.DLURLHelperUtil;
@@ -73,18 +76,53 @@ public class DocumentLibraryUtil {
 			}
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			fileName = fileName.replaceFirst("\\.", "-" + sdf.format(date) + ".");
+			long folderId = folder.getFolderId();
+			
+			try {
+				FileEntry currentFileEntry = DLAppLocalServiceUtil.getFileEntryByFileName(groupId, folderId, fileName);
+				DLAppLocalServiceUtil.deleteFileEntry(currentFileEntry.getFileEntryId());
+			} catch (Exception e) {}
 			
 			fileEntry = DLAppLocalServiceUtil.addFileEntry(
-				fileName + "-" + sdf.format(date),
+				fileName,
 				adminUser.getUserId(),
 				groupId,
-				folder.getFolderId(),
-				fileName + "-" + sdf.format(date),
+				folderId,
+				fileName,
 				MimeTypesUtil.getContentType(file),
 				bytes,
 				null,
 				null,
 				serviceContext);
+			
+			PermissionChecker originalPermissionChecker = PermissionThreadLocal.getPermissionChecker();
+			
+			try {
+				PermissionThreadLocal.setPermissionChecker(
+						PermissionCheckerFactoryUtil.create(adminUser));
+				
+				Role userRole = RoleLocalServiceUtil.getRole(
+						folder.getCompanyId(),
+						RoleConstants.USER);
+				
+				String[] viewAccess = new String[1];
+				viewAccess[0] = ActionKeys.VIEW;
+				
+				ResourcePermissionServiceUtil.setIndividualResourcePermissions(
+						groupId,
+						fileEntry.getCompanyId(),
+						DLFileEntry.class.getName(),
+						String.valueOf(fileEntry.getPrimaryKey()),
+						userRole.getRoleId(),
+						viewAccess
+					);
+			} catch (Exception e) {
+				log.error(e);
+			} finally {
+				PermissionThreadLocal.setPermissionChecker(originalPermissionChecker);
+			}
+
 		}
 		
 		return fileEntry;
@@ -127,7 +165,7 @@ public class DocumentLibraryUtil {
 				ResourcePermissionServiceUtil.setIndividualResourcePermissions(
 						groupId,
 						folder.getCompanyId(),
-						Folder.class.getName(),
+						DLFolder.class.getName(),
 						String.valueOf(folder.getPrimaryKey()),
 						guestRole.getRoleId(),
 						new String[0]
@@ -139,7 +177,7 @@ public class DocumentLibraryUtil {
 				ResourcePermissionServiceUtil.setIndividualResourcePermissions(
 						groupId,
 						folder.getCompanyId(),
-						Folder.class.getName(),
+						DLFolder.class.getName(),
 						String.valueOf(folder.getPrimaryKey()),
 						userRole.getRoleId(),
 						viewAccess
@@ -172,5 +210,13 @@ public class DocumentLibraryUtil {
 		
 		
 		return downloadURL;
+	}
+	
+	public static void deleteFileEntryIfExists(long fileEntryId) {
+		try {
+			DLAppLocalServiceUtil.deleteFileEntry(fileEntryId);
+		} catch (PortalException e) {
+			// File doesn't exist
+		}
 	}
 }

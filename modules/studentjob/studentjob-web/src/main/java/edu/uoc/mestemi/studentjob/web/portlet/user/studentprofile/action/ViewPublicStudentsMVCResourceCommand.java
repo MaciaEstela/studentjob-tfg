@@ -33,6 +33,7 @@ import edu.uoc.mestemi.studentjob.web.portlet.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.dto.StudentProfileDTO;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
+import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.StudentProfileService;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
@@ -124,7 +125,7 @@ public class ViewPublicStudentsMVCResourceCommand extends BaseMVCResourceCommand
 					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, true, 0);
 			
 			if (!studentProfiles.isEmpty()) {
-				dataJson.put("newestStudentProfileId", String.valueOf(studentProfiles.get(0).getStudentProfileId()));
+				dataJson.put("newestStudentProfileId", String.valueOf(StudentProfileLocalServiceUtil.getNewestStudentProfileId()));
 				dataJson.put("studentProfileCount", String.valueOf(studentProfileCount));
 				
 				resourceResponse.setContentType("application/json");

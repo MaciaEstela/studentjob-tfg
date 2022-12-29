@@ -282,6 +282,9 @@ public interface OfferLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getNewestOfferId();
+
 	/**
 	 * Returns the offer with the primary key.
 	 *
@@ -328,6 +331,9 @@ public interface OfferLocalService
 	public List<Offer> getOffersByGroupId(
 		long groupId, int start, int end,
 		OrderByComparator<Offer> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByGroupIdAndUserId(long groupId, long userId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Offer> getOffersByKeywords(

@@ -2935,6 +2935,519 @@ public class SocialMediaPersistenceImpl
 		_FINDER_COLUMN_GROUPIDANDCLASSNAMEANDCLASSPKANDSOCIALMEDIANETWORKID_SOCIALMEDIANETWORKID_2 =
 			"socialMedia.socialMediaNetworkId = ?";
 
+	private FinderPath _finderPathWithPaginationFindBySocialMediaNetworkId;
+	private FinderPath _finderPathWithoutPaginationFindBySocialMediaNetworkId;
+	private FinderPath _finderPathCountBySocialMediaNetworkId;
+
+	/**
+	 * Returns all the social medias where socialMediaNetworkId = &#63;.
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the matching social medias
+	 */
+	@Override
+	public List<SocialMedia> findBySocialMediaNetworkId(
+		long socialMediaNetworkId) {
+
+		return findBySocialMediaNetworkId(
+			socialMediaNetworkId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the social medias where socialMediaNetworkId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>SocialMediaModelImpl</code>.
+	 * </p>
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param start the lower bound of the range of social medias
+	 * @param end the upper bound of the range of social medias (not inclusive)
+	 * @return the range of matching social medias
+	 */
+	@Override
+	public List<SocialMedia> findBySocialMediaNetworkId(
+		long socialMediaNetworkId, int start, int end) {
+
+		return findBySocialMediaNetworkId(
+			socialMediaNetworkId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the social medias where socialMediaNetworkId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>SocialMediaModelImpl</code>.
+	 * </p>
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param start the lower bound of the range of social medias
+	 * @param end the upper bound of the range of social medias (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching social medias
+	 */
+	@Override
+	public List<SocialMedia> findBySocialMediaNetworkId(
+		long socialMediaNetworkId, int start, int end,
+		OrderByComparator<SocialMedia> orderByComparator) {
+
+		return findBySocialMediaNetworkId(
+			socialMediaNetworkId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the social medias where socialMediaNetworkId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>SocialMediaModelImpl</code>.
+	 * </p>
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param start the lower bound of the range of social medias
+	 * @param end the upper bound of the range of social medias (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching social medias
+	 */
+	@Override
+	public List<SocialMedia> findBySocialMediaNetworkId(
+		long socialMediaNetworkId, int start, int end,
+		OrderByComparator<SocialMedia> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindBySocialMediaNetworkId;
+				finderArgs = new Object[] {socialMediaNetworkId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindBySocialMediaNetworkId;
+			finderArgs = new Object[] {
+				socialMediaNetworkId, start, end, orderByComparator
+			};
+		}
+
+		List<SocialMedia> list = null;
+
+		if (useFinderCache) {
+			list = (List<SocialMedia>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (SocialMedia socialMedia : list) {
+					if (socialMediaNetworkId !=
+							socialMedia.getSocialMediaNetworkId()) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
+
+			sb.append(_SQL_SELECT_SOCIALMEDIA_WHERE);
+
+			sb.append(
+				_FINDER_COLUMN_SOCIALMEDIANETWORKID_SOCIALMEDIANETWORKID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(SocialMediaModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(socialMediaNetworkId);
+
+				list = (List<SocialMedia>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first social media in the ordered set where socialMediaNetworkId = &#63;.
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching social media
+	 * @throws NoSuchSocialMediaException if a matching social media could not be found
+	 */
+	@Override
+	public SocialMedia findBySocialMediaNetworkId_First(
+			long socialMediaNetworkId,
+			OrderByComparator<SocialMedia> orderByComparator)
+		throws NoSuchSocialMediaException {
+
+		SocialMedia socialMedia = fetchBySocialMediaNetworkId_First(
+			socialMediaNetworkId, orderByComparator);
+
+		if (socialMedia != null) {
+			return socialMedia;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("socialMediaNetworkId=");
+		sb.append(socialMediaNetworkId);
+
+		sb.append("}");
+
+		throw new NoSuchSocialMediaException(sb.toString());
+	}
+
+	/**
+	 * Returns the first social media in the ordered set where socialMediaNetworkId = &#63;.
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching social media, or <code>null</code> if a matching social media could not be found
+	 */
+	@Override
+	public SocialMedia fetchBySocialMediaNetworkId_First(
+		long socialMediaNetworkId,
+		OrderByComparator<SocialMedia> orderByComparator) {
+
+		List<SocialMedia> list = findBySocialMediaNetworkId(
+			socialMediaNetworkId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last social media in the ordered set where socialMediaNetworkId = &#63;.
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching social media
+	 * @throws NoSuchSocialMediaException if a matching social media could not be found
+	 */
+	@Override
+	public SocialMedia findBySocialMediaNetworkId_Last(
+			long socialMediaNetworkId,
+			OrderByComparator<SocialMedia> orderByComparator)
+		throws NoSuchSocialMediaException {
+
+		SocialMedia socialMedia = fetchBySocialMediaNetworkId_Last(
+			socialMediaNetworkId, orderByComparator);
+
+		if (socialMedia != null) {
+			return socialMedia;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("socialMediaNetworkId=");
+		sb.append(socialMediaNetworkId);
+
+		sb.append("}");
+
+		throw new NoSuchSocialMediaException(sb.toString());
+	}
+
+	/**
+	 * Returns the last social media in the ordered set where socialMediaNetworkId = &#63;.
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching social media, or <code>null</code> if a matching social media could not be found
+	 */
+	@Override
+	public SocialMedia fetchBySocialMediaNetworkId_Last(
+		long socialMediaNetworkId,
+		OrderByComparator<SocialMedia> orderByComparator) {
+
+		int count = countBySocialMediaNetworkId(socialMediaNetworkId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<SocialMedia> list = findBySocialMediaNetworkId(
+			socialMediaNetworkId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the social medias before and after the current social media in the ordered set where socialMediaNetworkId = &#63;.
+	 *
+	 * @param socialMediaId the primary key of the current social media
+	 * @param socialMediaNetworkId the social media network ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next social media
+	 * @throws NoSuchSocialMediaException if a social media with the primary key could not be found
+	 */
+	@Override
+	public SocialMedia[] findBySocialMediaNetworkId_PrevAndNext(
+			long socialMediaId, long socialMediaNetworkId,
+			OrderByComparator<SocialMedia> orderByComparator)
+		throws NoSuchSocialMediaException {
+
+		SocialMedia socialMedia = findByPrimaryKey(socialMediaId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SocialMedia[] array = new SocialMediaImpl[3];
+
+			array[0] = getBySocialMediaNetworkId_PrevAndNext(
+				session, socialMedia, socialMediaNetworkId, orderByComparator,
+				true);
+
+			array[1] = socialMedia;
+
+			array[2] = getBySocialMediaNetworkId_PrevAndNext(
+				session, socialMedia, socialMediaNetworkId, orderByComparator,
+				false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected SocialMedia getBySocialMediaNetworkId_PrevAndNext(
+		Session session, SocialMedia socialMedia, long socialMediaNetworkId,
+		OrderByComparator<SocialMedia> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_SOCIALMEDIA_WHERE);
+
+		sb.append(_FINDER_COLUMN_SOCIALMEDIANETWORKID_SOCIALMEDIANETWORKID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(SocialMediaModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(socialMediaNetworkId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(socialMedia)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<SocialMedia> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the social medias where socialMediaNetworkId = &#63; from the database.
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 */
+	@Override
+	public void removeBySocialMediaNetworkId(long socialMediaNetworkId) {
+		for (SocialMedia socialMedia :
+				findBySocialMediaNetworkId(
+					socialMediaNetworkId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(socialMedia);
+		}
+	}
+
+	/**
+	 * Returns the number of social medias where socialMediaNetworkId = &#63;.
+	 *
+	 * @param socialMediaNetworkId the social media network ID
+	 * @return the number of matching social medias
+	 */
+	@Override
+	public int countBySocialMediaNetworkId(long socialMediaNetworkId) {
+		FinderPath finderPath = _finderPathCountBySocialMediaNetworkId;
+
+		Object[] finderArgs = new Object[] {socialMediaNetworkId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_SOCIALMEDIA_WHERE);
+
+			sb.append(
+				_FINDER_COLUMN_SOCIALMEDIANETWORKID_SOCIALMEDIANETWORKID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(socialMediaNetworkId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_SOCIALMEDIANETWORKID_SOCIALMEDIANETWORKID_2 =
+			"socialMedia.socialMediaNetworkId = ?";
+
 	public SocialMediaPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -3655,6 +4168,25 @@ public class SocialMediaPersistenceImpl
 					"groupId", "className", "classPK", "socialMediaNetworkId"
 				},
 				false);
+
+		_finderPathWithPaginationFindBySocialMediaNetworkId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findBySocialMediaNetworkId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			},
+			new String[] {"socialMediaNetworkId"}, true);
+
+		_finderPathWithoutPaginationFindBySocialMediaNetworkId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findBySocialMediaNetworkId", new String[] {Long.class.getName()},
+			new String[] {"socialMediaNetworkId"}, true);
+
+		_finderPathCountBySocialMediaNetworkId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countBySocialMediaNetworkId", new String[] {Long.class.getName()},
+			new String[] {"socialMediaNetworkId"}, false);
 
 		_setSocialMediaUtilPersistence(this);
 	}

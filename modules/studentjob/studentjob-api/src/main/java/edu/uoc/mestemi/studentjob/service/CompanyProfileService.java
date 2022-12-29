@@ -96,6 +96,9 @@ public interface CompanyProfileService extends BaseService {
 	public long getCompanyProfilesCountByKeywords(
 		long groupId, String keywords, boolean onlyActives);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getNewestCompanyProfileId();
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

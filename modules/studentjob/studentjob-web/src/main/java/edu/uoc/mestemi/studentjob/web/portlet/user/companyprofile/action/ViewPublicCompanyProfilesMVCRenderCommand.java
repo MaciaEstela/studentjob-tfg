@@ -62,7 +62,7 @@ public class ViewPublicCompanyProfilesMVCRenderCommand implements MVCRenderComma
 		for (CompanyProfile companyProfile : companyProfiles) {
 			try {
 				User user = UserLocalServiceUtil.getUser(companyProfile.getUserId());
-				String name = (String) user.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY);
+				String name = (String) user.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY_EXPANDO);
 				
 				String portletURL = PortletURLBuilder.createRenderURL(
 						renderResponse

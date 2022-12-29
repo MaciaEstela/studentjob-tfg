@@ -66,13 +66,17 @@ public class UserEnrollOfferLocalServiceImpl
 	public List<UserEnrollOffer> getUserEnrollOffers(long groupId, long offerId){
 		return userEnrollOfferPersistence.findByGroupIdAndOfferId(groupId, offerId);
 	}
+	
+	public int getUserEnrollOffersCount(long groupId, long offerId){
+		return userEnrollOfferPersistence.countByGroupIdAndOfferId(groupId, offerId);
+	}
 
 	public List<UserEnrollOffer> getUserEnrolledOffers(long groupId, long userId){
 		return userEnrollOfferPersistence.findByGroupIdAndUserId(groupId, userId);
 	}
 	
 	public int getUserEnrolledOffersCount(long groupId, long userId){
-		return userEnrollOfferPersistence.countByGroupIdAndOfferId(groupId, userId);
+		return userEnrollOfferPersistence.countByGroupIdAndUserId(groupId, userId);
 	}
 	
 	@Override

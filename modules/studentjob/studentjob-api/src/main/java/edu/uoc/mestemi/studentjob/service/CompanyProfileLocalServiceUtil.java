@@ -389,6 +389,10 @@ public class CompanyProfileLocalServiceUtil {
 		return getService().getIndexableActionableDynamicQuery();
 	}
 
+	public static long getNewestCompanyProfileId() {
+		return getService().getNewestCompanyProfileId();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

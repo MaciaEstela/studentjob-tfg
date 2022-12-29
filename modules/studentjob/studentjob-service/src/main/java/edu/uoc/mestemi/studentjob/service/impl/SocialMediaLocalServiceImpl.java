@@ -114,6 +114,10 @@ public class SocialMediaLocalServiceImpl
 				groupId, className, classPK, socialMediaNetworkId);
 	}
 	
+	public List<SocialMedia> getSocialMedias(long socialMediaNetworkId){
+		return socialMediaPersistence.findBySocialMediaNetworkId(socialMediaNetworkId);
+	}
+	
 	@Override
 	public SocialMedia addSocialMedia(SocialMedia offer) {
 		throw new UnsupportedOperationException("Not supported");

@@ -18,12 +18,17 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Conjunction;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Order;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -76,6 +81,21 @@ public class StudentProfileLocalServiceImpl
 		studentProfile.setRegionId(regionId);
 		studentProfile.setActive(active);
 		studentProfile.setTitleMap(titleMap);
+		
+		// Add a hidden user first and second name to the map to make it able to search by name or surnames
+		String userName = user.getFirstName() + " " + user.getLastName();
+		try {
+			for(Map.Entry<Locale, String> entry : descriptionMap.entrySet()) {
+				Locale key = entry.getKey();
+				String value = entry.getValue();
+				
+				if (!value.contains(userName)) {
+					value = value + "<p style=\"display: none\">" + userName + "</p>";
+					descriptionMap.replace(key, value);
+				}
+			}
+		} catch (Exception e) {}
+		
 		studentProfile.setDescriptionMap(descriptionMap);
 		studentProfile.setEmail(email);
 		studentProfile.setPreference(preference);
@@ -94,25 +114,45 @@ public class StudentProfileLocalServiceImpl
 					throws PortalException {
 		
 		StudentProfile studentProfile = getStudentProfile(studentProfileId);
+		User studentUser = UserLocalServiceUtil.getUser(studentProfile.getUserId());
 		
 		studentProfile.setModifiedDate(new Date());
 		
 		studentProfile.setRegionId(regionId);
 		studentProfile.setActive(active);
 		studentProfile.setTitleMap(titleMap);
+
+		// Add a hidden user first and second name to the map to make it able to search by name or surnames
+		String userName = studentUser.getFirstName() + " " + studentUser.getLastName();
+		try {
+			for(Map.Entry<Locale, String> entry : descriptionMap.entrySet()) {
+				Locale key = entry.getKey();
+				String value = entry.getValue();
+				
+				if (!value.contains(userName)) {
+					value = value + "<p style=\"display: none\">" + userName + "</p>";
+					descriptionMap.replace(key, value);
+				}
+			}
+		} catch (Exception e) {}
 		studentProfile.setDescriptionMap(descriptionMap);
+		
 		studentProfile.setEmail(email);
 		studentProfile.setPreference(preference);
 		studentProfile.setCurriculumId(curriculumId);
 		
 		List<Degree> degrees = degreeLocalService.getStudentProfileDegrees(studentProfileId);
-		for (Degree degree : degrees)
-			if (!degreeIds.contains(degree.getDegreeId()))
+		for (Degree degree : degrees) {
+			if (!degreeIds.contains(degree.getDegreeId())) {
 				deleteDegreeStudentProfile(degree.getDegreeId(), studentProfileId);
+			}
+		}
 		
-		for (long degreeId : degreeIds)
-			if (!hasDegreeStudentProfile(degreeId, studentProfileId))
+		for (long degreeId : degreeIds) {
+			if (!hasDegreeStudentProfile(degreeId, studentProfileId)) {
 				addDegreeStudentProfile(degreeId, studentProfileId);
+			}
+		}
 		
 		studentProfile = super.updateStudentProfile(studentProfile);
 		
@@ -153,6 +193,24 @@ public class StudentProfileLocalServiceImpl
 	
 	public List<Long> getDegreesIdsByOfferId(long studentProfileId){
 		return Arrays.stream(studentProfilePersistence.getDegreePrimaryKeys(studentProfileId)).boxed().collect(Collectors.toList());
+	}
+	
+	public long getNewestStudentProfileId() {
+		long studentProfileId = 0;
+		
+		DynamicQuery latestStudentDynamicQuery = dynamicQuery();
+		Order order = OrderFactoryUtil.desc("createDate");
+		latestStudentDynamicQuery.addOrder(order);
+		latestStudentDynamicQuery.setLimit(0, 1);
+		
+		List<StudentProfile> students = dynamicQuery(latestStudentDynamicQuery);
+		
+		
+		if (!students.isEmpty()) {
+			studentProfileId = students.get(0).getStudentProfileId();
+		}
+		
+		return studentProfileId;
 	}
 	
 	public List<StudentProfile> getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(long groupId, 

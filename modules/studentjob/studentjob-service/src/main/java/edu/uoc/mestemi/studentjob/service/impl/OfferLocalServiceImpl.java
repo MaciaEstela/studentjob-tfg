@@ -21,6 +21,8 @@ import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactory;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Order;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
@@ -42,6 +44,7 @@ import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalService;
 import edu.uoc.mestemi.studentjob.service.base.OfferLocalServiceBaseImpl;
+import edu.uoc.mestemi.studentjob.util.StudentjobUtilities;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -146,6 +149,10 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		return offerPersistence.findByGroupId(groupId, start, end, orderByComparator);
 	}
 	
+	public List<Offer> getOffersByGroupIdAndUserId(long groupId, long userId) {
+		return offerPersistence.findByGroupIdAndUserId(groupId, userId);
+	}
+	
 	public List<Offer> getOffersByKeywords(long groupId, long userId, String keywords, int workflowStatus, int start,  
 			int end, OrderByComparator<Offer> orderByComparator) {
 		return offerPersistence.findWithDynamicQuery(
@@ -240,6 +247,23 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		return dynamicQuery;
 	}
 	
+	public long getNewestOfferId() {
+		long offerId = 0;
+		
+		DynamicQuery latestCompanyDynamicQuery = dynamicQuery();
+		Order order = OrderFactoryUtil.desc("createDate");
+		latestCompanyDynamicQuery.addOrder(order);
+		latestCompanyDynamicQuery.setLimit(0, 1);
+		
+		List<Offer> offers = dynamicQuery(latestCompanyDynamicQuery);
+		
+		if (!offers.isEmpty()) {
+			offerId = offers.get(0).getOfferId();
+		}
+		
+		return offerId;
+	}
+	
 	@Override
 	public Offer addOffer(Offer offer) {
 		throw new UnsupportedOperationException("Not supported");
@@ -265,6 +289,19 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		}
 	}
 	
+	@Override
+	public Offer deleteOffer(long offerId) throws PortalException {
+		return deleteOffer(getOffer(offerId));
+	}
+
+	@Override
+	public Offer deleteOffer(Offer offer) {
+		StudentjobUtilities.removeUserEnrollOffersByOffer(offer.getGroupId(), offer.getOfferId());
+		return super.deleteOffer(offer);
+	}
+
+
+
 	@Reference
 	GroupLocalService groupLocalService;
 	

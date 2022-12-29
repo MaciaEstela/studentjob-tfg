@@ -332,6 +332,9 @@ public interface CompanyProfileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getNewestCompanyProfileId();
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

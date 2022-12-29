@@ -1,17 +1,25 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.studentprofile.action;
 
 import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -25,6 +33,9 @@ import java.util.stream.Collectors;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -74,43 +85,49 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 		// Get parameters from the request.
 
 		long studentProfileId = ParamUtil.getLong(actionRequest, "studentProfileId");
-
 		StudentProfile studentProfile = _studentProfileService.getStudentProfile(studentProfileId);
+		User studentUser = UserLocalServiceUtil.getUser(studentProfile.getUserId());
+		
 		Map<Locale, String> titleMap =
 				LocalizationUtil.getLocalizationMap(actionRequest, "title");
 		
 		Map<Locale, String> descriptionMap =
 				LocalizationUtil.getLocalizationMap(actionRequest, "description");
-		boolean active = ParamUtil.getBoolean(actionRequest, "active", false);
+		boolean active = ParamUtil.getBoolean(actionRequest, "active", true);
 		String email = ParamUtil.getString(actionRequest, "email");
 		String regionCode = ParamUtil.getString(actionRequest, "region");
 		String preference = ParamUtil.getString(actionRequest, "preference");
 		
 		long[] degreeIds = ParamUtil.getLongValues(actionRequest, "degree");
 		List<Long> degreesList = Arrays.stream(degreeIds).boxed().collect(Collectors.toList());
+		
 		long regionId = ProvinceUtil.getRegionId(
 				ProvinceUtil.getCountryIdByCode(companyId, CountryA3Constants.SPAIN), 
 				regionCode);
 		
-		long curriculumId = 0;
-		
+		long curriculumId = studentProfile.getCurriculumId();
+		boolean newCurriculum = false;
 		try {
 			UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(actionRequest);
 			File file = uploadRequest.getFile("curriculum");
-			String fileName = uploadRequest.getFileName("curriculum");
 			
-			System.out.println("file es " + fileName);
-			FileEntry curriculum = DocumentLibraryUtil.addFile(actionRequest, "curriculums", file, fileName);
-			curriculumId = curriculum.getFileEntryId();
-			System.out.println("On process Action7");	
-			DLAppLocalServiceUtil.deleteFileEntry(studentProfile.getCurriculumId());	
+			if (file.length() > 0) {
+				String fileName = uploadRequest.getFileName("curriculum");
+				String extension = StringPool.BLANK;
+				if (fileName.contains("."))
+					extension = fileName.substring(fileName.lastIndexOf("."));
+				
+				fileName = studentUser.getFirstName() + " " + studentUser.getLastName() + "." + extension;
+				FileEntry curriculum = DocumentLibraryUtil.addFile(actionRequest, "curriculums", file, fileName);
+				curriculumId = curriculum.getFileEntryId();
+				newCurriculum = true;
+			}
 		} catch (Exception e) {
 			log.error(e);
 		}
 		
 		try {
 			// Call the service to update the studentProfile
-			
 			_studentProfileService.updateStudentProfile(
 					studentProfileId, 
 					regionId, 
@@ -127,7 +144,18 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 			StudentjobUtilities.updateSocialMedia(groupId, actionRequest, 
 					StudentProfile.class.getName(), studentProfileId, serviceContext);
 			
-			sendRedirect(actionRequest, actionResponse);
+			if (!active)
+				StudentjobUtilities.removeUserEnrolledOffersByUser(groupId, studentUser.getUserId());
+			
+			if (newCurriculum)
+				DocumentLibraryUtil.deleteFileEntryIfExists(studentProfile.getCurriculumId());
+			
+			
+			PortletResponse portletResponse = (PortletResponse) actionRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
+			LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+			LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_STUDENTPROFILE_ADMIN, PortletRequest.RENDER_PHASE);
+			
+			sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 		}
 		catch (StudentProfileValidationException ove) {
 			log.error("Error validating StudentProfile edit with studentProfileId " + studentProfileId, ove);

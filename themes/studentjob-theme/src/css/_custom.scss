@@ -28,7 +28,25 @@
     @import "modules/studentprofile";
     @import "modules/home";
     @import "modules/myinscriptions";
+    @import "modules/login";
 
+    @keyframes floatlarge {
+        0% {
+            transform: translatey(0px);
+        }
+        50% {
+            transform: translatey(-60px);
+        }
+        100% {
+            transform: translatey(0px);
+        }
+    }
+
+    .floating-large{
+        transform: translatey(0px);
+        animation: floatlarge 5s ease-in-out infinite;
+        max-width: 100%;
+    }
 
     .offers-layout {
         .portlet-column-only.col-md-12{
@@ -65,5 +83,21 @@
 
     .input-localized-palette-container .dropdown-item-indicator-end{
         position: static;
+    }
+
+    h1{
+        @media screen and (max-width: $md) {
+            font-size: 7.9vw;
+        }
+    }
+
+    h2{
+        @media screen and (max-width: $md) {
+            font-size: 6.2vw;
+        }
+    }
+
+    .sticker-overlay{
+        background-color: #fff;
     }
 }

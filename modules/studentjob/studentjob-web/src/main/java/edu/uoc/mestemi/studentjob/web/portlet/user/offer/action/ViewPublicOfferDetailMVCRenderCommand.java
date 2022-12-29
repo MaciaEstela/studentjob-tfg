@@ -4,6 +4,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.RegionLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -23,6 +24,8 @@ import edu.uoc.mestemi.studentjob.exception.NoSuchOfferException;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
+import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalService;
+import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalService;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
@@ -98,8 +101,14 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("enrolled", userEnrollOffer != null);
 		
 		List<Degree> currentOfferDegrees = _offerService.getDegreesByOfferId(offer.getOfferId());
+		
+		long companyUserId = offer.getUserId();
+		long companyProfileId = CompanyProfileLocalServiceUtil.getCompanyProfileByGroupIdAndUserId(
+				groupId, companyUserId).getCompanyProfileId();
+		
 		// Set offer to the request attributes.
 		renderRequest.setAttribute("offer", offer);
+		renderRequest.setAttribute("companyProfileId", companyProfileId);
 		renderRequest.setAttribute("offerDTO", offerDTO);
 		renderRequest.setAttribute("province", province);
 		renderRequest.setAttribute("currentOfferDegrees", currentOfferDegrees);

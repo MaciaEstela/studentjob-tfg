@@ -30,8 +30,10 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uoc.mestemi.studentjob.model.Degree;
+import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalService;
+import edu.uoc.mestemi.studentjob.service.SocialMediaLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.base.SocialMediaNetworkLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -138,6 +140,25 @@ public class SocialMediaNetworkLocalServiceImpl
 		throw new UnsupportedOperationException("Not supported");
 	}
 	
+	@Override
+	public SocialMediaNetwork deleteSocialMediaNetwork(SocialMediaNetwork socialMediaNetwork) {
+		List<SocialMedia> socialMedias = SocialMediaLocalServiceUtil.getSocialMedias(socialMediaNetwork.getSocialMediaNetworkId());
+		
+		for (SocialMedia socialMedia : socialMedias) {
+			SocialMediaLocalServiceUtil.deleteSocialMedia(socialMedia);
+		}
+		
+		return super.deleteSocialMediaNetwork(socialMediaNetwork);
+	}
+	
+	@Override
+	public SocialMediaNetwork deleteSocialMediaNetwork(long socialMediaNetworkId) throws PortalException {
+		SocialMediaNetwork socialMediaNetwork = getSocialMediaNetwork(socialMediaNetworkId);
+		return deleteSocialMediaNetwork(socialMediaNetwork);
+	}
+
+
+
 	@Reference
 	GroupLocalService groupLocalService;
 	

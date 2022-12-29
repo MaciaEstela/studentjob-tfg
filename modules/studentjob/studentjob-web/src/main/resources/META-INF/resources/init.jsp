@@ -28,6 +28,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.liferay.portal.kernel.model.Region" %>
 <%@ page import="java.util.Locale" %>
+<%@ page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %>
 
 <%@ page import="edu.uoc.mestemi.studentjob.model.SocialMedia"%>
 <%@ page import="edu.uoc.mestemi.studentjob.model.SocialMediaNetwork"%>
@@ -39,6 +40,7 @@
 <%@ page import="edu.uoc.mestemi.studentjob.model.Offer"%>
 <%@ page import="edu.uoc.mestemi.studentjob.dto.SocialMediaFormDTO"%>
 <%@ page import="edu.uoc.mestemi.studentjob.dto.OfferDTO"%>
+<%@ page import="edu.uoc.mestemi.studentjob.dto.SocialMediaDTO"%>
 
 
 <liferay-frontend:defineObjects />

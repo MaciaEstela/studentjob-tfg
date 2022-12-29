@@ -352,6 +352,10 @@ public class UserEnrollOfferLocalServiceUtil {
 		return getService().getUserEnrollOffersCount();
 	}
 
+	public static int getUserEnrollOffersCount(long groupId, long offerId) {
+		return getService().getUserEnrollOffersCount(groupId, offerId);
+	}
+
 	/**
 	 * Updates the user enroll offer in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

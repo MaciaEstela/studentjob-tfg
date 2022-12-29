@@ -31,7 +31,7 @@
 	
 	<div class="students-cards__download-cv-wrapper">
 		<a href="${student.getCvUrl()}" class="students-cards__download-cv">
-			Descarregar CV
+			<liferay-ui:message key="studentjob.studentprofile.download-cv" />
 		</a>
 	</div>
 </div>

@@ -17,8 +17,13 @@
 		<p class="offers-cards__description">
 			${offer.getDescription()}
 		</p>
-		<div class="offers-cards__time">
-			${offer.getCreateString()}
+		<div class="offers-cards__bottom-wrapper">
+			<div class="offers-cards__time">
+				${offer.getCreateString()}
+			</div>
+			<div class="offers-cards__province">
+				${offer.getProvince()}
+			</div>
 		</div>
 	</div>
 </a>

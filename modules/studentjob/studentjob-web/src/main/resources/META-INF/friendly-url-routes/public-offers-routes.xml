@@ -3,7 +3,7 @@
 
 <routes>
 	<route>
-		<pattern>/view-offer/{offerId}</pattern>
+		<pattern>/{offerId}</pattern>
 		<implicit-parameter name="mvcRenderCommandName">/studentjob/offer/public/view-detail</implicit-parameter>
 		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
 		<implicit-parameter name="p_p_state">normal</implicit-parameter>

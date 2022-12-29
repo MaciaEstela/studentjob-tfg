@@ -1,11 +1,11 @@
  <%-- Generate offer view  URL. --%>
 
- <portlet:renderURL var="editOfferURL">
+<portlet:renderURL var="editOfferURL">
 	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_OFFER_ADMIN %>" />
 	<portlet:param name="redirect" value="${currentURL}" />
 	<portlet:param name="offerId" value="${entry.offerId}" />
- </portlet:renderURL>
- 
+</portlet:renderURL>
+
 <liferay-ui:search-container-column-text 
 	href="${editOfferURL}" 
 	name="title" 
@@ -17,14 +17,14 @@
 	userId="${entry.userId}" 
 />
 
-<liferay-ui:search-container-column-text 
-	name="inscriptions" 
-	value="<%= UserEnrollOfferServiceUtil.getUserEnrolledOffersCount() %>" 
-/>
-
 <liferay-ui:search-container-column-date 
 	name="create-date"
 	property="createDate" 
+/>
+
+<liferay-ui:search-container-column-text 
+	name="active"
+	value="<%= entry.getStatus() == WorkflowConstants.STATUS_APPROVED ? "Sí" : "No" %>" 
 />
 
 <liferay-ui:search-container-column-jsp 

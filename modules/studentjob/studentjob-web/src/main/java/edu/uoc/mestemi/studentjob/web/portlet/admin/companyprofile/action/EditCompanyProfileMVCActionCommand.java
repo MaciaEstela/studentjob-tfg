@@ -21,6 +21,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.exception.CompanyProfileValidationException;
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
+import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileService;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
 import edu.uoc.mestemi.studentjob.util.StudentjobUtilities;
@@ -62,6 +63,8 @@ public class EditCompanyProfileMVCActionCommand extends BaseMVCActionCommand {
 		// Get parameters from the request.
 
 		long companyProfileId = ParamUtil.getLong(actionRequest, "companyProfileId");
+		CompanyProfile companyProfile = CompanyProfileLocalServiceUtil.getCompanyProfile(companyProfileId);
+		long companyUserId = companyProfile.getUserId();
 
 		Map<Locale, String> titleMap =
 				LocalizationUtil.getLocalizationMap(actionRequest, "title");
@@ -95,6 +98,9 @@ public class EditCompanyProfileMVCActionCommand extends BaseMVCActionCommand {
 			
 			StudentjobUtilities.updateSocialMedia(groupId, actionRequest, 
 					CompanyProfile.class.getName(), companyProfileId, serviceContext);
+			
+			if (!active)
+				StudentjobUtilities.removeCompanyOffers(groupId, companyUserId);
 			
 			sendRedirect(actionRequest, actionResponse);
 		}

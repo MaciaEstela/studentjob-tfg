@@ -71,6 +71,11 @@ public class StudentProfileServiceWrapper
 		return _studentProfileService.getDegreesIdsByOfferId(studentProfileId);
 	}
 
+	@Override
+	public long getNewestStudentProfileId() {
+		return _studentProfileService.getNewestStudentProfileId();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

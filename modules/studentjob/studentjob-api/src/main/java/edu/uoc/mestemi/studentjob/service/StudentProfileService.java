@@ -73,6 +73,9 @@ public interface StudentProfileService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Long> getDegreesIdsByOfferId(long studentProfileId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getNewestStudentProfileId();
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

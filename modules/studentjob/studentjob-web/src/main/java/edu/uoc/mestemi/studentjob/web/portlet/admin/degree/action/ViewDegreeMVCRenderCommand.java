@@ -54,20 +54,6 @@ public class ViewDegreeMVCRenderCommand implements MVCRenderCommand {
 		// Add Clay management toolbar related attributes.
 		addManagementToolbarAttributes(renderRequest, renderResponse);
 		
-		HttpServletRequest httpRequest = PortalUtil.getHttpServletRequest(renderRequest);
-		String instance=httpRequest.getParameter("degreeAreaId");
-		System.out.println("instance es "+ instance);
-		
-//		List<Object[]> degrees = DegreeLocalServiceUtil.getDegreesByDegreeAreaId("1");
-//		System.out.println(degrees.size());
-//		
-//		for (Object[] objects : degrees) {
-//			System.out.println(objects.toString());
-//			int studentId = (int)objects[0];
-//		}
-		
-//		_degreeService.getDegreesByDegreeAreaId(1);
-		
 		return "/degree/admin/view.jsp";
 	}
 

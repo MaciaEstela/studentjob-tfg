@@ -338,6 +338,10 @@ public class OfferLocalServiceUtil {
 		return getService().getIndexableActionableDynamicQuery();
 	}
 
+	public static long getNewestOfferId() {
+		return getService().getNewestOfferId();
+	}
+
 	/**
 	 * Returns the offer with the primary key.
 	 *
@@ -394,6 +398,12 @@ public class OfferLocalServiceUtil {
 
 		return getService().getOffersByGroupId(
 			groupId, start, end, orderByComparator);
+	}
+
+	public static List<Offer> getOffersByGroupIdAndUserId(
+		long groupId, long userId) {
+
+		return getService().getOffersByGroupIdAndUserId(groupId, userId);
 	}
 
 	public static List<Offer> getOffersByKeywords(

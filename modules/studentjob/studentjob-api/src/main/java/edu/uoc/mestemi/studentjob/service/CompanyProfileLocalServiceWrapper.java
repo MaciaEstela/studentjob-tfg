@@ -447,6 +447,11 @@ public class CompanyProfileLocalServiceWrapper
 		return _companyProfileLocalService.getIndexableActionableDynamicQuery();
 	}
 
+	@Override
+	public long getNewestCompanyProfileId() {
+		return _companyProfileLocalService.getNewestCompanyProfileId();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

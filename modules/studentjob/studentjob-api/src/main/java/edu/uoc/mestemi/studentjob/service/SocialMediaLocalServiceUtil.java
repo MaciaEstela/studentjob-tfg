@@ -354,6 +354,10 @@ public class SocialMediaLocalServiceUtil {
 		return getService().getSocialMedias(start, end);
 	}
 
+	public static List<SocialMedia> getSocialMedias(long socialMediaNetworkId) {
+		return getService().getSocialMedias(socialMediaNetworkId);
+	}
+
 	/**
 	 * Returns all the social medias matching the UUID and company.
 	 *

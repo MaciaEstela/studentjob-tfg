@@ -33,7 +33,7 @@
 					<aui:input wrapperCssClass="col-md-6 col-12" name="lastName" value="${user.getLastName()}" />
 					
 					<div class="col-md-6 col-12 d-flex align-items-center">
-						<aui:input label="form.myaccount.profilephoto" wrapperCssClass="w-100 mr-3" type="file" accept="image/png, image/jpg, image/jpeg"  name="image" ></aui:input>
+						<aui:input label="form.myaccount.profilephoto" wrapperCssClass="w-100 mr-3" type="file" accept="image/*"  name="image" ></aui:input>
 						<img width="100px" height="100px" src="${user.getPortraitURL(themeDisplay) }">
 					</div>
 					

@@ -1,5 +1,6 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.socialmedianetwork.action;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -22,6 +23,7 @@ import edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaNetworkException;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkService;
+import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
@@ -48,14 +50,18 @@ public class EditSocialMediaNetworkMVCRenderCommand implements MVCRenderCommand 
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
+		ThemeDisplay themeDisplay =
+				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		SocialMediaNetwork socialMediaNetwork = null;
-
+		
 		long socialMediaNetworkId = ParamUtil.getLong(renderRequest, "socialMediaNetworkId", 0);
-
+		String logoURL = StringPool.BLANK;
+		
 		if (socialMediaNetworkId > 0) {
 			try {
 				// Call the service to get the socialMediaNetwork for editing.
 				socialMediaNetwork = _socialMediaNetworkService.getSocialMediaNetwork(socialMediaNetworkId);
+				logoURL = DocumentLibraryUtil.getFileDownloadURL(themeDisplay, socialMediaNetwork.getLogo());
 			}
 			catch (NoSuchSocialMediaNetworkException nsoe) {
 				log.error("Can't find data for SocialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId, nsoe);
@@ -64,9 +70,6 @@ public class EditSocialMediaNetworkMVCRenderCommand implements MVCRenderCommand 
 				log.error("Error on rendering data for SocialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId, pe);
 			}
 		}
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
 		// Set back icon visible.
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
@@ -80,6 +83,7 @@ public class EditSocialMediaNetworkMVCRenderCommand implements MVCRenderCommand 
 		renderRequest.setAttribute("socialMediaNetwork", socialMediaNetwork);
 		renderRequest.setAttribute("socialMediaNetworkClass", SocialMediaNetwork.class);
 		renderRequest.setAttribute("locale", themeDisplay.getLocale());
+		renderRequest.setAttribute("logoUrl", logoURL);
 		
 		return "/socialMediaNetwork/admin/edit_socialMediaNetwork.jsp";
 	}

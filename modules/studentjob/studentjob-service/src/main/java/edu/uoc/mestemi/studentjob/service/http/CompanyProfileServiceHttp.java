@@ -335,6 +335,35 @@ public class CompanyProfileServiceHttp {
 		}
 	}
 
+	public static long getNewestCompanyProfileId(HttpPrincipal httpPrincipal) {
+		try {
+			MethodKey methodKey = new MethodKey(
+				CompanyProfileServiceUtil.class, "getNewestCompanyProfileId",
+				_getNewestCompanyProfileIdParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static java.util.List
 		<edu.uoc.mestemi.studentjob.model.CompanyProfile>
 			getCompanyProfilesByGroupId(
@@ -346,7 +375,7 @@ public class CompanyProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CompanyProfileServiceUtil.class, "getCompanyProfilesByGroupId",
-				_getCompanyProfilesByGroupIdParameterTypes7);
+				_getCompanyProfilesByGroupIdParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, start, end, orderByComparator);
@@ -385,7 +414,7 @@ public class CompanyProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CompanyProfileServiceUtil.class, "getCompanyProfilesByKeywords",
-				_getCompanyProfilesByKeywordsParameterTypes8);
+				_getCompanyProfilesByKeywordsParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, keywords, onlyActives, start, end,
@@ -421,7 +450,7 @@ public class CompanyProfileServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CompanyProfileServiceUtil.class,
 				"getCompanyProfilesCountByKeywords",
-				_getCompanyProfilesCountByKeywordsParameterTypes9);
+				_getCompanyProfilesCountByKeywordsParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, keywords, onlyActives);
@@ -477,18 +506,20 @@ public class CompanyProfileServiceHttp {
 		_getCompanyProfilesByGroupIdParameterTypes6 = new Class[] {
 			long.class, int.class, int.class
 		};
+	private static final Class<?>[] _getNewestCompanyProfileIdParameterTypes7 =
+		new Class[] {};
 	private static final Class<?>[]
-		_getCompanyProfilesByGroupIdParameterTypes7 = new Class[] {
+		_getCompanyProfilesByGroupIdParameterTypes8 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCompanyProfilesByKeywordsParameterTypes8 = new Class[] {
+		_getCompanyProfilesByKeywordsParameterTypes9 = new Class[] {
 			long.class, String.class, boolean.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCompanyProfilesCountByKeywordsParameterTypes9 = new Class[] {
+		_getCompanyProfilesCountByKeywordsParameterTypes10 = new Class[] {
 			long.class, String.class, boolean.class
 		};
 

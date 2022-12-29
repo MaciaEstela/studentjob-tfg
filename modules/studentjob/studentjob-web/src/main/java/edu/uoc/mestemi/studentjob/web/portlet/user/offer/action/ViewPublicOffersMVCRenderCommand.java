@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -30,6 +32,7 @@ import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
+import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
@@ -91,10 +94,6 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 			ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_COL, 
 					StudentjobConstants.ORDER_MODIFIED_DATE);
 		
-		String orderByColCreated =
-				ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_COL, 
-						StudentjobConstants.ORDER_CREATE_DATE);
-		
 		String orderByType =
 			ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_TYPE, StudentjobConstants.ORDER_ASC);
 
@@ -106,13 +105,15 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
+		if (keywords.isEmpty()) {
+			// Get HTTP param
+			HttpServletRequest httpReq = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(renderRequest));
+			keywords = httpReq.getParameter("keywords");
+		}
+		
 		List<Offer> offers =_offerService.getOffersByKeywords(
 				groupId, 0, keywords, WorkflowConstants.STATUS_APPROVED, 0, StudentjobConstants.OFFERS_OFFSET,
 				comparator);
-		
-//		List<Offer> offers =_offerService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
-//				themeDisplay.getScopeGroupId(), "", "", 0, 0, 0, 0, 
-//				StudentjobConstants.OFFERS_OFFSET, comparator);
 		
 		List<OfferDTO> offersDTO = new ArrayList<>();
 		
@@ -133,19 +134,7 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("offersDTO", offersDTO);
 		
 		// Get newest offer id to avoid duplicated results on pagination
-		long newestOfferId = 0;
-		OrderByComparator<Offer> comparatorCreated =
-				OrderByComparatorFactoryUtil.create(
-					"Offer", orderByColCreated, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
-		
-		List<Offer> offersCreated =_offerService.getOffersByKeywords(
-				themeDisplay.getScopeGroupId(), 0, keywords, WorkflowConstants.STATUS_APPROVED, 0, 1,
-				comparatorCreated);
-		
-		if (!offersCreated.isEmpty()) {
-			newestOfferId = offersCreated.get(0).getOfferId();
-		}
-		
+		long newestOfferId = _offerService.getNewestOfferId();
 		renderRequest.setAttribute("newestOfferId", newestOfferId);
 		
 		// Set request attributes.

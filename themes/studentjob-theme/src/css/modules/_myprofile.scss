@@ -4,6 +4,10 @@
     justify-content: end;
     padding-right: 200px;
 
+    @media screen and (max-width: $lg) {
+        padding-right: 0px;    
+    }
+
     @media screen and (max-width: $md) {
         padding-right: 0px;    
     }
@@ -12,23 +16,38 @@
         text-align: center;
         padding: 5px;
         font-weight: 600;
-    }
-
-    &__img-wrapper{
-        width: 50px;
+        width: 100%;
+        background-color: #f9efef;
+        border-bottom: 1px #dedede;
     }
 
     &__img{
         border-radius: 50%;
         background-color: #fff;
         border: 1px solid #d7d71d;
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
     }
 
     .dropdown-menu{
         left: auto;
-        padding-left: 1px;
-        padding-right: 1px;
+        padding: 0px;
+    }
+
+    .dropdown-item{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    &__logout.dropdown-item{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: #f29696;
+        border-top: 1px solid #000;
+
+        &:hover{
+            color: #fff;
+            background-color: #e63939;
+        }
     }
 }

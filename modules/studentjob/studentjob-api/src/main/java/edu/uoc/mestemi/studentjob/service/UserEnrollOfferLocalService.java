@@ -305,6 +305,9 @@ public interface UserEnrollOfferLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getUserEnrollOffersCount();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getUserEnrollOffersCount(long groupId, long offerId);
+
 	/**
 	 * Updates the user enroll offer in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

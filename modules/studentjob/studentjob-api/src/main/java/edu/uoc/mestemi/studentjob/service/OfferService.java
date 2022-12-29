@@ -78,6 +78,9 @@ public interface OfferService extends BaseService {
 	public List<Long> getDegreesIdsByOfferId(long offerId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getNewestOfferId();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Offer getOffer(long offerId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

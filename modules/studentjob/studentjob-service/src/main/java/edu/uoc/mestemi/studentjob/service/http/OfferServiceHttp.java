@@ -531,13 +531,42 @@ public class OfferServiceHttp {
 		}
 	}
 
+	public static long getNewestOfferId(HttpPrincipal httpPrincipal) {
+		try {
+			MethodKey methodKey = new MethodKey(
+				OfferServiceUtil.class, "getNewestOfferId",
+				_getNewestOfferIdParameterTypes13);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static edu.uoc.mestemi.studentjob.model.Offer addOffer(
 		HttpPrincipal httpPrincipal,
 		edu.uoc.mestemi.studentjob.model.Offer offer) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				OfferServiceUtil.class, "addOffer", _addOfferParameterTypes13);
+				OfferServiceUtil.class, "addOffer", _addOfferParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, offer);
 
@@ -569,7 +598,7 @@ public class OfferServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				OfferServiceUtil.class, "updateOffer",
-				_updateOfferParameterTypes14);
+				_updateOfferParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, offer);
 
@@ -601,7 +630,7 @@ public class OfferServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				OfferServiceUtil.class, "expireOffer",
-				_expireOfferParameterTypes15);
+				_expireOfferParameterTypes16);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, offer);
 
@@ -632,7 +661,7 @@ public class OfferServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				OfferServiceUtil.class, "expireOffer",
-				_expireOfferParameterTypes16);
+				_expireOfferParameterTypes17);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, offerId);
 
@@ -708,16 +737,18 @@ public class OfferServiceHttp {
 				long.class, long.class, String.class, String.class, long.class,
 				long.class, int.class, long.class
 			};
-	private static final Class<?>[] _addOfferParameterTypes13 = new Class[] {
+	private static final Class<?>[] _getNewestOfferIdParameterTypes13 =
+		new Class[] {};
+	private static final Class<?>[] _addOfferParameterTypes14 = new Class[] {
 		edu.uoc.mestemi.studentjob.model.Offer.class
 	};
-	private static final Class<?>[] _updateOfferParameterTypes14 = new Class[] {
-		edu.uoc.mestemi.studentjob.model.Offer.class
-	};
-	private static final Class<?>[] _expireOfferParameterTypes15 = new Class[] {
+	private static final Class<?>[] _updateOfferParameterTypes15 = new Class[] {
 		edu.uoc.mestemi.studentjob.model.Offer.class
 	};
 	private static final Class<?>[] _expireOfferParameterTypes16 = new Class[] {
+		edu.uoc.mestemi.studentjob.model.Offer.class
+	};
+	private static final Class<?>[] _expireOfferParameterTypes17 = new Class[] {
 		long.class
 	};
 
