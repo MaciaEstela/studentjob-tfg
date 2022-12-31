@@ -364,6 +364,14 @@ public class CompanyProfileLocalServiceWrapper
 
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
+		getCompanyProfilesByGroupIdAndActive(long groupId, boolean active) {
+
+		return _companyProfileLocalService.getCompanyProfilesByGroupIdAndActive(
+			groupId, active);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.CompanyProfile>
 		getCompanyProfilesByKeywords(
 			long groupId, String keywords, boolean onlyActives, int start,
 			int end,

@@ -118,6 +118,10 @@ public class CompanyProfileLocalServiceImpl
 		return companyProfilePersistence.findByGroupId(groupId, start, end);
 	}
 	
+	public List<CompanyProfile> getCompanyProfilesByGroupIdAndActive(long groupId, boolean active) {
+		return companyProfilePersistence.findByGroupIdAndActive(groupId, active);
+	}
+	
 	public CompanyProfile getCompanyProfileByGroupIdAndUserId(long groupId, long userId) {
 		return companyProfilePersistence.findByGroupIdAndUserId(groupId, userId).get(0);
 	}

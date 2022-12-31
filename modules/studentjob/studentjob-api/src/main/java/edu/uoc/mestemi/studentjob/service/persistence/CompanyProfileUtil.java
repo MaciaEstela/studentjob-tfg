@@ -711,6 +711,196 @@ public class CompanyProfileUtil {
 	}
 
 	/**
+	 * Returns all the company profiles where groupId = &#63; and active = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @return the matching company profiles
+	 */
+	public static List<CompanyProfile> findByGroupIdAndActive(
+		long groupId, boolean active) {
+
+		return getPersistence().findByGroupIdAndActive(groupId, active);
+	}
+
+	/**
+	 * Returns a range of all the company profiles where groupId = &#63; and active = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CompanyProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @param start the lower bound of the range of company profiles
+	 * @param end the upper bound of the range of company profiles (not inclusive)
+	 * @return the range of matching company profiles
+	 */
+	public static List<CompanyProfile> findByGroupIdAndActive(
+		long groupId, boolean active, int start, int end) {
+
+		return getPersistence().findByGroupIdAndActive(
+			groupId, active, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the company profiles where groupId = &#63; and active = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CompanyProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @param start the lower bound of the range of company profiles
+	 * @param end the upper bound of the range of company profiles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching company profiles
+	 */
+	public static List<CompanyProfile> findByGroupIdAndActive(
+		long groupId, boolean active, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator) {
+
+		return getPersistence().findByGroupIdAndActive(
+			groupId, active, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the company profiles where groupId = &#63; and active = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CompanyProfileModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @param start the lower bound of the range of company profiles
+	 * @param end the upper bound of the range of company profiles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching company profiles
+	 */
+	public static List<CompanyProfile> findByGroupIdAndActive(
+		long groupId, boolean active, int start, int end,
+		OrderByComparator<CompanyProfile> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByGroupIdAndActive(
+			groupId, active, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first company profile in the ordered set where groupId = &#63; and active = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching company profile
+	 * @throws NoSuchCompanyProfileException if a matching company profile could not be found
+	 */
+	public static CompanyProfile findByGroupIdAndActive_First(
+			long groupId, boolean active,
+			OrderByComparator<CompanyProfile> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchCompanyProfileException {
+
+		return getPersistence().findByGroupIdAndActive_First(
+			groupId, active, orderByComparator);
+	}
+
+	/**
+	 * Returns the first company profile in the ordered set where groupId = &#63; and active = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching company profile, or <code>null</code> if a matching company profile could not be found
+	 */
+	public static CompanyProfile fetchByGroupIdAndActive_First(
+		long groupId, boolean active,
+		OrderByComparator<CompanyProfile> orderByComparator) {
+
+		return getPersistence().fetchByGroupIdAndActive_First(
+			groupId, active, orderByComparator);
+	}
+
+	/**
+	 * Returns the last company profile in the ordered set where groupId = &#63; and active = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching company profile
+	 * @throws NoSuchCompanyProfileException if a matching company profile could not be found
+	 */
+	public static CompanyProfile findByGroupIdAndActive_Last(
+			long groupId, boolean active,
+			OrderByComparator<CompanyProfile> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchCompanyProfileException {
+
+		return getPersistence().findByGroupIdAndActive_Last(
+			groupId, active, orderByComparator);
+	}
+
+	/**
+	 * Returns the last company profile in the ordered set where groupId = &#63; and active = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching company profile, or <code>null</code> if a matching company profile could not be found
+	 */
+	public static CompanyProfile fetchByGroupIdAndActive_Last(
+		long groupId, boolean active,
+		OrderByComparator<CompanyProfile> orderByComparator) {
+
+		return getPersistence().fetchByGroupIdAndActive_Last(
+			groupId, active, orderByComparator);
+	}
+
+	/**
+	 * Returns the company profiles before and after the current company profile in the ordered set where groupId = &#63; and active = &#63;.
+	 *
+	 * @param companyProfileId the primary key of the current company profile
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next company profile
+	 * @throws NoSuchCompanyProfileException if a company profile with the primary key could not be found
+	 */
+	public static CompanyProfile[] findByGroupIdAndActive_PrevAndNext(
+			long companyProfileId, long groupId, boolean active,
+			OrderByComparator<CompanyProfile> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchCompanyProfileException {
+
+		return getPersistence().findByGroupIdAndActive_PrevAndNext(
+			companyProfileId, groupId, active, orderByComparator);
+	}
+
+	/**
+	 * Removes all the company profiles where groupId = &#63; and active = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 */
+	public static void removeByGroupIdAndActive(long groupId, boolean active) {
+		getPersistence().removeByGroupIdAndActive(groupId, active);
+	}
+
+	/**
+	 * Returns the number of company profiles where groupId = &#63; and active = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param active the active
+	 * @return the number of matching company profiles
+	 */
+	public static int countByGroupIdAndActive(long groupId, boolean active) {
+		return getPersistence().countByGroupIdAndActive(groupId, active);
+	}
+
+	/**
 	 * Returns all the company profiles where groupId = &#63; and userId = &#63;.
 	 *
 	 * @param groupId the group ID

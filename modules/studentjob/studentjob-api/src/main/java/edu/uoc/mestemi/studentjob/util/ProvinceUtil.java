@@ -27,6 +27,11 @@ public class ProvinceUtil {
 		return CountryLocalServiceUtil.getCountryByA3(companyId, codeA3);
 	}
 	
+	public static long getRegionIdByCode(long companyId, String countryCode, String regionCode) throws PortalException{
+		Region region = RegionLocalServiceUtil.getRegion(getCountryIdByCode(companyId, countryCode), regionCode);
+		return region.getRegionId();
+	}
+	
 	public static long getRegionId(long companyId, String countryCodeA3, String regionCodeA3) throws PortalException {
 		Country country = CountryLocalServiceUtil.getCountryByA3(companyId, countryCodeA3);
 		return RegionLocalServiceUtil.getRegion(country.getCountryId(), regionCodeA3).getRegionId();

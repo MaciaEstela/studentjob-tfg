@@ -447,6 +447,13 @@ public class StudentProfileLocalServiceUtil {
 			groupId, start, end, orderByComparator);
 	}
 
+	public static List<StudentProfile> getStudentProfilesByGroupIdAndActive(
+		long groupId, boolean active) {
+
+		return getService().getStudentProfilesByGroupIdAndActive(
+			groupId, active);
+	}
+
 	public static List<StudentProfile> getStudentProfilesByKeywords(
 		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<StudentProfile> orderByComparator) {

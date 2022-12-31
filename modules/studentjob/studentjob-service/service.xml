@@ -129,6 +129,11 @@
 			<finder-column name="groupId"></finder-column>
 		</finder>
 		
+		<finder name="GroupIdAndActive" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="active"></finder-column>
+		</finder>
+		
 		<finder name="GroupIdAndUserId" return-type="Collection">
 			<finder-column name="groupId"></finder-column>
 			<finder-column name="userId"></finder-column>
@@ -164,6 +169,13 @@
 		<finder name="GroupIdAndOfferId" return-type="Collection">
 			<finder-column name="groupId"></finder-column>
 			<finder-column name="offerId"></finder-column>
+		</finder>
+		
+		<finder name="GroupIdAndOfferIdAndCreateDateGT" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="offerId"></finder-column>
+			<finder-column name="createDate" comparator="&gt;"/>
+			
 		</finder>
 	</entity>
 	
@@ -202,6 +214,11 @@
 		<!-- Finder methods -->
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId"></finder-column>
+		</finder>
+		
+		<finder name="GroupIdAndActive" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="active"></finder-column>
 		</finder>
 		
 		<finder name="GroupIdAndUserId" return-type="Collection">

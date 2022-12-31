@@ -537,6 +537,14 @@ public class StudentProfileLocalServiceWrapper
 
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
+		getStudentProfilesByGroupIdAndActive(long groupId, boolean active) {
+
+		return _studentProfileLocalService.getStudentProfilesByGroupIdAndActive(
+			groupId, active);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.StudentProfile>
 		getStudentProfilesByKeywords(
 			long groupId, String keywords, boolean onlyActives, int start,
 			int end,

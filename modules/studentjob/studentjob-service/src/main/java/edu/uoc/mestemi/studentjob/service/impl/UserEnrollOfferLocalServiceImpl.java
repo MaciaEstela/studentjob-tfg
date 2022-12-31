@@ -67,6 +67,14 @@ public class UserEnrollOfferLocalServiceImpl
 		return userEnrollOfferPersistence.findByGroupIdAndOfferId(groupId, offerId);
 	}
 	
+	public List<UserEnrollOffer> getUserEnrollOffersByCreateDate(long groupId, long offerId, Date createDateGT){
+		return userEnrollOfferPersistence.findByGroupIdAndOfferIdAndCreateDateGT(groupId, offerId, createDateGT);
+	}
+	
+	public int getUserEnrollOffersByCreateDateCount(long groupId, long offerId, Date createDateGT){
+		return userEnrollOfferPersistence.countByGroupIdAndOfferIdAndCreateDateGT(groupId, offerId, createDateGT);
+	}
+	
 	public int getUserEnrollOffersCount(long groupId, long offerId){
 		return userEnrollOfferPersistence.countByGroupIdAndOfferId(groupId, offerId);
 	}

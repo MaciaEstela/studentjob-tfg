@@ -9,9 +9,16 @@ public class StudentjobConstants {
 	public static final String SOCIALMEDIANETWORK_IMAGE_FOLDER = "socialMediaNetworkImages-";
 	
 	public static final String[] JOB_PREFERENCE = {"remote", "person", "hybrid", "no-preference"};
+	public static final String JOB_PREFERENCE_REMOTE = JOB_PREFERENCE[0];
+	public static final String JOB_PREFERENCE_PERSON = JOB_PREFERENCE[1];
+	public static final String JOB_PREFERENCE_HYBRID = JOB_PREFERENCE[2];
+	public static final String JOB_PREFERENCE_NO_PREFERENCE = JOB_PREFERENCE[3];
 	
 	public static final int OFFERS_OFFSET = 6;
 	public static final int STUDENTS_OFFSET = 6;
+	
+	public static final boolean USERS_INACTIVE_BY_DEFAULT = true;
+	public static final boolean STUDENTS_ONLY_UOC = true;
 	
 	public static final String CMD = "cmd";
 	

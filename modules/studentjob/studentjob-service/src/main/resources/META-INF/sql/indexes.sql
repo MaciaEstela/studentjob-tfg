@@ -1,3 +1,4 @@
+create index IX_9C5AB666 on SJob_CompanyProfile (groupId, active_);
 create index IX_EC7D313D on SJob_CompanyProfile (groupId, userId);
 create index IX_B2939EBB on SJob_CompanyProfile (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_985A97FD on SJob_CompanyProfile (uuid_[$COLUMN_LENGTH:75$], groupId);
@@ -30,6 +31,7 @@ create index IX_A5F38692 on SJob_SocialMediaNetwork (groupId, userId);
 create index IX_27E7F406 on SJob_SocialMediaNetwork (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_6CC9C408 on SJob_SocialMediaNetwork (uuid_[$COLUMN_LENGTH:75$], groupId);
 
+create index IX_78C3C9E8 on SJob_StudentProfile (groupId, active_);
 create index IX_98C2A57B on SJob_StudentProfile (groupId, userId);
 create index IX_8EFCB23D on SJob_StudentProfile (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_5396A3FF on SJob_StudentProfile (uuid_[$COLUMN_LENGTH:75$], groupId);
@@ -37,6 +39,6 @@ create unique index IX_5396A3FF on SJob_StudentProfile (uuid_[$COLUMN_LENGTH:75$
 create index IX_9379160D on SJob_Students_Degrees (companyId);
 create index IX_D29F61D8 on SJob_Students_Degrees (studentProfileId);
 
-create index IX_A46BAC79 on SJob_UserEnrollOffer (groupId, offerId);
+create index IX_DEE60DB7 on SJob_UserEnrollOffer (groupId, offerId, createDate);
 create index IX_4B64637F on SJob_UserEnrollOffer (groupId, userId, offerId);
 create unique index IX_7D595C52 on SJob_UserEnrollOffer (uuid_[$COLUMN_LENGTH:75$], groupId);

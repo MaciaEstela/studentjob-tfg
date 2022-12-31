@@ -163,6 +163,10 @@ public class StudentProfileLocalServiceImpl
 		return studentProfilePersistence.findByGroupId(groupId);
 	}
 	
+	public List<StudentProfile> getStudentProfilesByGroupIdAndActive(long groupId, boolean active) {
+		return studentProfilePersistence.findByGroupIdAndActive(groupId, active);
+	}
+	
 	public List<StudentProfile> getStudentProfilesByGroupId(long groupId, int start, int end) {
 		return studentProfilePersistence.findByGroupId(groupId, start, end);
 	}

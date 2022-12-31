@@ -22,6 +22,7 @@ import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -816,6 +817,220 @@ public class UserEnrollOfferUtil {
 	 */
 	public static int countByGroupIdAndOfferId(long groupId, long offerId) {
 		return getPersistence().countByGroupIdAndOfferId(groupId, offerId);
+	}
+
+	/**
+	 * Returns all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @return the matching user enroll offers
+	 */
+	public static List<UserEnrollOffer> findByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate) {
+
+		return getPersistence().findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate);
+	}
+
+	/**
+	 * Returns a range of all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @return the range of matching user enroll offers
+	 */
+	public static List<UserEnrollOffer> findByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate, int start, int end) {
+
+		return getPersistence().findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching user enroll offers
+	 */
+	public static List<UserEnrollOffer> findByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return getPersistence().findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching user enroll offers
+	 */
+	public static List<UserEnrollOffer> findByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate, start, end, orderByComparator,
+			useFinderCache);
+	}
+
+	/**
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer findByGroupIdAndOfferIdAndCreateDateGT_First(
+			long groupId, long offerId, Date createDate,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchUserEnrollOfferException {
+
+		return getPersistence().findByGroupIdAndOfferIdAndCreateDateGT_First(
+			groupId, offerId, createDate, orderByComparator);
+	}
+
+	/**
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer fetchByGroupIdAndOfferIdAndCreateDateGT_First(
+		long groupId, long offerId, Date createDate,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return getPersistence().fetchByGroupIdAndOfferIdAndCreateDateGT_First(
+			groupId, offerId, createDate, orderByComparator);
+	}
+
+	/**
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer findByGroupIdAndOfferIdAndCreateDateGT_Last(
+			long groupId, long offerId, Date createDate,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchUserEnrollOfferException {
+
+		return getPersistence().findByGroupIdAndOfferIdAndCreateDateGT_Last(
+			groupId, offerId, createDate, orderByComparator);
+	}
+
+	/**
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	public static UserEnrollOffer fetchByGroupIdAndOfferIdAndCreateDateGT_Last(
+		long groupId, long offerId, Date createDate,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return getPersistence().fetchByGroupIdAndOfferIdAndCreateDateGT_Last(
+			groupId, offerId, createDate, orderByComparator);
+	}
+
+	/**
+	 * Returns the user enroll offers before and after the current user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param userEnrollOfferPK the primary key of the current user enroll offer
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a user enroll offer with the primary key could not be found
+	 */
+	public static UserEnrollOffer[]
+			findByGroupIdAndOfferIdAndCreateDateGT_PrevAndNext(
+				edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK
+					userEnrollOfferPK,
+				long groupId, long offerId, Date createDate,
+				OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws edu.uoc.mestemi.studentjob.exception.
+			NoSuchUserEnrollOfferException {
+
+		return getPersistence().
+			findByGroupIdAndOfferIdAndCreateDateGT_PrevAndNext(
+				userEnrollOfferPK, groupId, offerId, createDate,
+				orderByComparator);
+	}
+
+	/**
+	 * Removes all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 */
+	public static void removeByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate) {
+
+		getPersistence().removeByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate);
+	}
+
+	/**
+	 * Returns the number of user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @return the number of matching user enroll offers
+	 */
+	public static int countByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate) {
+
+		return getPersistence().countByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate);
 	}
 
 	/**

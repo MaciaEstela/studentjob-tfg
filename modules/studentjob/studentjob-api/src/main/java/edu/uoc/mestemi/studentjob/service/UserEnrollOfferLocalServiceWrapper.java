@@ -390,6 +390,24 @@ public class UserEnrollOfferLocalServiceWrapper
 			groupId, offerId);
 	}
 
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>
+		getUserEnrollOffersByCreateDate(
+			long groupId, long offerId, java.util.Date createDateGT) {
+
+		return _userEnrollOfferLocalService.getUserEnrollOffersByCreateDate(
+			groupId, offerId, createDateGT);
+	}
+
+	@Override
+	public int getUserEnrollOffersByCreateDateCount(
+		long groupId, long offerId, java.util.Date createDateGT) {
+
+		return _userEnrollOfferLocalService.
+			getUserEnrollOffersByCreateDateCount(
+				groupId, offerId, createDateGT);
+	}
+
 	/**
 	 * Returns the number of user enroll offers.
 	 *

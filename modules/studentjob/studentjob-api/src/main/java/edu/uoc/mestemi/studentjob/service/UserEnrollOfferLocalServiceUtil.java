@@ -343,6 +343,20 @@ public class UserEnrollOfferLocalServiceUtil {
 		return getService().getUserEnrollOffers(groupId, offerId);
 	}
 
+	public static List<UserEnrollOffer> getUserEnrollOffersByCreateDate(
+		long groupId, long offerId, java.util.Date createDateGT) {
+
+		return getService().getUserEnrollOffersByCreateDate(
+			groupId, offerId, createDateGT);
+	}
+
+	public static int getUserEnrollOffersByCreateDateCount(
+		long groupId, long offerId, java.util.Date createDateGT) {
+
+		return getService().getUserEnrollOffersByCreateDateCount(
+			groupId, offerId, createDateGT);
+	}
+
 	/**
 	 * Returns the number of user enroll offers.
 	 *

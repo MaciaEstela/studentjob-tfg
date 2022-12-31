@@ -362,6 +362,10 @@ public interface StudentProfileLocalService
 		OrderByComparator<StudentProfile> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<StudentProfile> getStudentProfilesByGroupIdAndActive(
+		long groupId, boolean active);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<StudentProfile> getStudentProfilesByKeywords(
 		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<StudentProfile> orderByComparator);

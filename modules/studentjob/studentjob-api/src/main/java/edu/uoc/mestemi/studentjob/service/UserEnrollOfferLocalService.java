@@ -37,6 +37,7 @@ import edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -296,6 +297,14 @@ public interface UserEnrollOfferLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<UserEnrollOffer> getUserEnrollOffers(
 		long groupId, long offerId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserEnrollOffer> getUserEnrollOffersByCreateDate(
+		long groupId, long offerId, Date createDateGT);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getUserEnrollOffersByCreateDateCount(
+		long groupId, long offerId, Date createDateGT);
 
 	/**
 	 * Returns the number of user enroll offers.

@@ -55,6 +55,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.sql.Timestamp;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -2237,6 +2239,639 @@ public class UserEnrollOfferPersistenceImpl
 	private static final String _FINDER_COLUMN_GROUPIDANDOFFERID_OFFERID_2 =
 		"userEnrollOffer.id.offerId = ?";
 
+	private FinderPath
+		_finderPathWithPaginationFindByGroupIdAndOfferIdAndCreateDateGT;
+	private FinderPath
+		_finderPathWithPaginationCountByGroupIdAndOfferIdAndCreateDateGT;
+
+	/**
+	 * Returns all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @return the matching user enroll offers
+	 */
+	@Override
+	public List<UserEnrollOffer> findByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate) {
+
+		return findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @return the range of matching user enroll offers
+	 */
+	@Override
+	public List<UserEnrollOffer> findByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate, int start, int end) {
+
+		return findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching user enroll offers
+	 */
+	@Override
+	public List<UserEnrollOffer> findByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		return findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserEnrollOfferModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param start the lower bound of the range of user enroll offers
+	 * @param end the upper bound of the range of user enroll offers (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching user enroll offers
+	 */
+	@Override
+	public List<UserEnrollOffer> findByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate, int start, int end,
+		OrderByComparator<UserEnrollOffer> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		finderPath =
+			_finderPathWithPaginationFindByGroupIdAndOfferIdAndCreateDateGT;
+		finderArgs = new Object[] {
+			groupId, offerId, _getTime(createDate), start, end,
+			orderByComparator
+		};
+
+		List<UserEnrollOffer> list = null;
+
+		if (useFinderCache) {
+			list = (List<UserEnrollOffer>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (UserEnrollOffer userEnrollOffer : list) {
+					if ((groupId != userEnrollOffer.getGroupId()) ||
+						(offerId != userEnrollOffer.getOfferId()) ||
+						(createDate.getTime() >= userEnrollOffer.getCreateDate(
+						).getTime())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					5 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(5);
+			}
+
+			sb.append(_SQL_SELECT_USERENROLLOFFER_WHERE);
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_GROUPID_2);
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_OFFERID_2);
+
+			boolean bindCreateDate = false;
+
+			if (createDate == null) {
+				sb.append(
+					_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_CREATEDATE_1);
+			}
+			else {
+				bindCreateDate = true;
+
+				sb.append(
+					_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_CREATEDATE_2);
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(UserEnrollOfferModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(groupId);
+
+				queryPos.add(offerId);
+
+				if (bindCreateDate) {
+					queryPos.add(new Timestamp(createDate.getTime()));
+				}
+
+				list = (List<UserEnrollOffer>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer findByGroupIdAndOfferIdAndCreateDateGT_First(
+			long groupId, long offerId, Date createDate,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer =
+			fetchByGroupIdAndOfferIdAndCreateDateGT_First(
+				groupId, offerId, createDate, orderByComparator);
+
+		if (userEnrollOffer != null) {
+			return userEnrollOffer;
+		}
+
+		StringBundler sb = new StringBundler(8);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("groupId=");
+		sb.append(groupId);
+
+		sb.append(", offerId=");
+		sb.append(offerId);
+
+		sb.append(", createDate>");
+		sb.append(createDate);
+
+		sb.append("}");
+
+		throw new NoSuchUserEnrollOfferException(sb.toString());
+	}
+
+	/**
+	 * Returns the first user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer fetchByGroupIdAndOfferIdAndCreateDateGT_First(
+		long groupId, long offerId, Date createDate,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		List<UserEnrollOffer> list = findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer findByGroupIdAndOfferIdAndCreateDateGT_Last(
+			long groupId, long offerId, Date createDate,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer =
+			fetchByGroupIdAndOfferIdAndCreateDateGT_Last(
+				groupId, offerId, createDate, orderByComparator);
+
+		if (userEnrollOffer != null) {
+			return userEnrollOffer;
+		}
+
+		StringBundler sb = new StringBundler(8);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("groupId=");
+		sb.append(groupId);
+
+		sb.append(", offerId=");
+		sb.append(offerId);
+
+		sb.append(", createDate>");
+		sb.append(createDate);
+
+		sb.append("}");
+
+		throw new NoSuchUserEnrollOfferException(sb.toString());
+	}
+
+	/**
+	 * Returns the last user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user enroll offer, or <code>null</code> if a matching user enroll offer could not be found
+	 */
+	@Override
+	public UserEnrollOffer fetchByGroupIdAndOfferIdAndCreateDateGT_Last(
+		long groupId, long offerId, Date createDate,
+		OrderByComparator<UserEnrollOffer> orderByComparator) {
+
+		int count = countByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<UserEnrollOffer> list = findByGroupIdAndOfferIdAndCreateDateGT(
+			groupId, offerId, createDate, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the user enroll offers before and after the current user enroll offer in the ordered set where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param userEnrollOfferPK the primary key of the current user enroll offer
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next user enroll offer
+	 * @throws NoSuchUserEnrollOfferException if a user enroll offer with the primary key could not be found
+	 */
+	@Override
+	public UserEnrollOffer[] findByGroupIdAndOfferIdAndCreateDateGT_PrevAndNext(
+			UserEnrollOfferPK userEnrollOfferPK, long groupId, long offerId,
+			Date createDate,
+			OrderByComparator<UserEnrollOffer> orderByComparator)
+		throws NoSuchUserEnrollOfferException {
+
+		UserEnrollOffer userEnrollOffer = findByPrimaryKey(userEnrollOfferPK);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			UserEnrollOffer[] array = new UserEnrollOfferImpl[3];
+
+			array[0] = getByGroupIdAndOfferIdAndCreateDateGT_PrevAndNext(
+				session, userEnrollOffer, groupId, offerId, createDate,
+				orderByComparator, true);
+
+			array[1] = userEnrollOffer;
+
+			array[2] = getByGroupIdAndOfferIdAndCreateDateGT_PrevAndNext(
+				session, userEnrollOffer, groupId, offerId, createDate,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected UserEnrollOffer getByGroupIdAndOfferIdAndCreateDateGT_PrevAndNext(
+		Session session, UserEnrollOffer userEnrollOffer, long groupId,
+		long offerId, Date createDate,
+		OrderByComparator<UserEnrollOffer> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(5);
+		}
+
+		sb.append(_SQL_SELECT_USERENROLLOFFER_WHERE);
+
+		sb.append(_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_GROUPID_2);
+
+		sb.append(_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_OFFERID_2);
+
+		boolean bindCreateDate = false;
+
+		if (createDate == null) {
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_CREATEDATE_1);
+		}
+		else {
+			bindCreateDate = true;
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_CREATEDATE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(UserEnrollOfferModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(groupId);
+
+		queryPos.add(offerId);
+
+		if (bindCreateDate) {
+			queryPos.add(new Timestamp(createDate.getTime()));
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						userEnrollOffer)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<UserEnrollOffer> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 */
+	@Override
+	public void removeByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate) {
+
+		for (UserEnrollOffer userEnrollOffer :
+				findByGroupIdAndOfferIdAndCreateDateGT(
+					groupId, offerId, createDate, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null)) {
+
+			remove(userEnrollOffer);
+		}
+	}
+
+	/**
+	 * Returns the number of user enroll offers where groupId = &#63; and offerId = &#63; and createDate &gt; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param offerId the offer ID
+	 * @param createDate the create date
+	 * @return the number of matching user enroll offers
+	 */
+	@Override
+	public int countByGroupIdAndOfferIdAndCreateDateGT(
+		long groupId, long offerId, Date createDate) {
+
+		FinderPath finderPath =
+			_finderPathWithPaginationCountByGroupIdAndOfferIdAndCreateDateGT;
+
+		Object[] finderArgs = new Object[] {
+			groupId, offerId, _getTime(createDate)
+		};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_COUNT_USERENROLLOFFER_WHERE);
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_GROUPID_2);
+
+			sb.append(
+				_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_OFFERID_2);
+
+			boolean bindCreateDate = false;
+
+			if (createDate == null) {
+				sb.append(
+					_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_CREATEDATE_1);
+			}
+			else {
+				bindCreateDate = true;
+
+				sb.append(
+					_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_CREATEDATE_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(groupId);
+
+				queryPos.add(offerId);
+
+				if (bindCreateDate) {
+					queryPos.add(new Timestamp(createDate.getTime()));
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_GROUPID_2 =
+			"userEnrollOffer.groupId = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_OFFERID_2 =
+			"userEnrollOffer.id.offerId = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_CREATEDATE_1 =
+			"userEnrollOffer.createDate IS NULL";
+
+	private static final String
+		_FINDER_COLUMN_GROUPIDANDOFFERIDANDCREATEDATEGT_CREATEDATE_2 =
+			"userEnrollOffer.createDate > ?";
+
 	public UserEnrollOfferPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -2927,6 +3562,27 @@ public class UserEnrollOfferPersistenceImpl
 			new String[] {Long.class.getName(), Long.class.getName()},
 			new String[] {"groupId", "offerId"}, false);
 
+		_finderPathWithPaginationFindByGroupIdAndOfferIdAndCreateDateGT =
+			new FinderPath(
+				FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+				"findByGroupIdAndOfferIdAndCreateDateGT",
+				new String[] {
+					Long.class.getName(), Long.class.getName(),
+					Date.class.getName(), Integer.class.getName(),
+					Integer.class.getName(), OrderByComparator.class.getName()
+				},
+				new String[] {"groupId", "offerId", "createDate"}, true);
+
+		_finderPathWithPaginationCountByGroupIdAndOfferIdAndCreateDateGT =
+			new FinderPath(
+				FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+				"countByGroupIdAndOfferIdAndCreateDateGT",
+				new String[] {
+					Long.class.getName(), Long.class.getName(),
+					Date.class.getName()
+				},
+				new String[] {"groupId", "offerId", "createDate"}, false);
+
 		_setUserEnrollOfferUtilPersistence(this);
 	}
 
@@ -2984,6 +3640,14 @@ public class UserEnrollOfferPersistenceImpl
 
 	@Reference
 	protected FinderCache finderCache;
+
+	private static Long _getTime(Date date) {
+		if (date == null) {
+			return null;
+		}
+
+		return date.getTime();
+	}
 
 	private static final String _SQL_SELECT_USERENROLLOFFER =
 		"SELECT userEnrollOffer FROM UserEnrollOffer userEnrollOffer";

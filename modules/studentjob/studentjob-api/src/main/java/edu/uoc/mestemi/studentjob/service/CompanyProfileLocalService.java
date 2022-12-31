@@ -283,6 +283,10 @@ public interface CompanyProfileLocalService
 		OrderByComparator<CompanyProfile> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CompanyProfile> getCompanyProfilesByGroupIdAndActive(
+		long groupId, boolean active);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CompanyProfile> getCompanyProfilesByKeywords(
 		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<CompanyProfile> orderByComparator);
