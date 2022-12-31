@@ -22,13 +22,17 @@ import com.liferay.portal.kernel.service.TicketLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,7 +112,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
 		LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobRegisterPortletKeys.STUDENTJOB_MY_ACCOUNT, PortletRequest.RENDER_PHASE);
 		
-		sendRedirect(actionRequest, actionResponse, renderUrl.toString());
+//		sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 	}
 
 	/**
@@ -124,7 +128,19 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		String userNif= ParamUtil.getString(actionRequest, userTypePrefix + "Nif", StringPool.BLANK);
 		String userPhone = ParamUtil.getString(actionRequest, userTypePrefix + "Phone", StringPool.BLANK);
 		String userCompany = ParamUtil.getString(actionRequest, userTypePrefix + "Company", StringPool.BLANK);
-
+		
+		if (userNif.isEmpty() || userPhone.isEmpty() || userCompany.isEmpty()) {
+			SessionErrors.add(actionRequest, "register-invalid-inputs");
+		}
+		
+		if (!userNif.matches("([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])")) {
+			SessionErrors.add(actionRequest, "register-invalid-nif");
+		}
+		
+		if (!userPhone.matches("(^\\+?[1-9][0-9]{7,14})")) {
+			SessionErrors.add(actionRequest, "register-invalid-phone");
+		}
+		
 		User user = createUser(actionRequest, themeDisplay, userTypePrefix);
 		long groupId = themeDisplay.getScopeGroupId();
 		
@@ -229,9 +245,19 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		String password = ParamUtil.getString(actionRequest, userTypePrefix + "Password", StringPool.BLANK);
 		String repeatPassword = ParamUtil.getString(actionRequest, userTypePrefix + "RepeatPassword", StringPool.BLANK);
 		
+		if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
+			SessionErrors.add(actionRequest, "email-invalid-inputs");
+		}
+		
 		User adminUser = UserManagementUtil.getAdminUser(companyId);
 		User user = null;
-		if (adminUser != null) {
+		
+//		if (userTypePrefix.equals(StudentjobConstants.USER_STUDENT) && StudentjobConstants.STUDENTS_ONLY_UOC && !RegisterUtil.getEmailDomain(email).equals("uoc.edu")) {
+//			System.out.println("El email no es valido");
+//			SessionErrors.add(actionRequest, "email-not-valid-uoc");
+//		}
+		
+		if (adminUser != null && SessionErrors.isEmpty(actionRequest)) {
 			
 			user =  _userLocalService.addUserWithWorkflow(
 				adminUser.getUserId(),
@@ -265,10 +291,12 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				UserLocalServiceUtil.addRoleUser(
 						RoleLocalServiceUtil.getRole(companyId, StudentjobConstants.COMPANY_ROLE).getRoleId(), 
 						user.getUserId());
+				SessionMessages.add(actionRequest, "company-registered");
 			} else { //(userTypePrefix.equals(StudentjobConstants.USER_STUDENT)) {
 				UserLocalServiceUtil.addRoleUser(
 						RoleLocalServiceUtil.getRole(companyId, StudentjobConstants.STUDENT_ROLE).getRoleId(), 
 						user.getUserId());
+				SessionMessages.add(actionRequest, "student-registered");
 			}
 			
 			Ticket ticket = _ticketLocalService.addTicket(
@@ -287,8 +315,8 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				log.error("Cant send user mail register", e);
 			} 
 			
-			// TODO: Set Status inactive when create a new User until verification
-//			user.setStatus(WorkflowConstants.STATUS_INACTIVE);
+			if (StudentjobConstants.USERS_INACTIVE_BY_DEFAULT)
+				user.setStatus(WorkflowConstants.STATUS_INACTIVE);
 		}
 			
 		return user;
@@ -318,11 +346,12 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		params.put("contactmail", "contact@mestemiuoc.com");
 		params.put("siteurl", "https://mestemiuoc.com");
 		params.put("preferencesUrl", "https://mestemiuoc.com/sjobadmin/settings");
-		params.put("confirmUrl", "http://localhost:8080/validate?token=" + token + "&user=" + screenName);
+		params.put("confirmUrl", "http://mestemiuoc.com/validate?token=" + token + "&user=" + screenName);
 		
 		templateProcessor = new TemplateProcessor(
 				portletContext.getResource("/mails/registerMail.ftl").getPath());
-		
+		System.out.println("path");
+		System.out.println(portletContext.getResource("/mails/registerMail.ftl").getPath());
 		try {
 			RegisterUtil.sendMailMessage(
 					StudentjobConstants.EMAIL_SENDER, 

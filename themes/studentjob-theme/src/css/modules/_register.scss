@@ -97,3 +97,18 @@
         }
     } 
 }
+
+.validate-container{
+
+    &__header-wrapper--ok{
+        background-color: #dede;
+        padding-top: 125px;
+        padding-bottom: 125px;
+    }
+
+    &__header-wrapper--fail{
+        background-color: #eee1dded;
+        padding-top: 125px;
+        padding-bottom: 125px;
+    }
+}

@@ -2,6 +2,7 @@ package edu.uoc.mestemi.studentjob.register.util;
 
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailServiceUtil;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
@@ -49,5 +50,12 @@ public class RegisterUtil {
 	public static UserGroup getUserGroup(long companyId, String groupName) throws PortalException {
 		return UserGroupLocalServiceUtil.getUserGroup(companyId, groupName);
 	}
-
+	
+	public static String getEmailDomain(String email){
+		String emailDomain = StringPool.BLANK;
+		if (email.contains("@"))
+			emailDomain = email.substring(email.indexOf("@") + 1);
+		
+		return emailDomain;
+	}
 }

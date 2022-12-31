@@ -4,15 +4,35 @@
 
 <aui:form name="companyuserform" method="post" action="${addCompanyUserURL}">
 	<aui:input name="selectedService" type="hidden" value="${selectedService}" />
-	
-	<aui:input name="companyNif" type="text" label="form.register.company.nif"/>
-	<aui:input name="companyName" type="text" label="form.register.name"/>
-	<aui:input name="companySurname" type="text" label="form.register.surname"/>
-	<aui:input name="companyCompany" type="text" label="form.register.company.company"/>
-	<aui:input name="companyPhone" type="text" label="form.register.phone"/>
-	<aui:input name="companyEmail" type="text" label="form.register.email"/>
-	<aui:input name="companyPassword" type="password" label="form.register.password"/>
-	<aui:input name="companyRepeatPassword" type="password" label="form.register.repeat-password"/>
+	<aui:input required="true" name="companyNif" type="text" label="form.register.company.nif">
+		<aui:validator errorMessage="form.validator.nif" name="custom">
+			function(val, fieldNode, ruleValue) {
+				var regex = new RegExp(/([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])/);
+				return regex.test(val);
+			}
+		</aui:validator>
+	</aui:input>
+	<aui:input required="true" name="companyName" maxlength="30" type="text" label="form.register.name"/>
+	<aui:input required="true" name="companySurname" maxlength="75" type="text" label="form.register.surname"/>
+	<aui:input required="true" name="companyCompany"  maxlength="75" type="text" label="form.register.company.company"/>
+	<aui:input required="true" name="companyPhone" type="text" label="form.register.phone">
+		<aui:validator errorMessage="form.validator.phone" name="custom">
+			function(val, fieldNode, ruleValue) {
+				var regex = new RegExp(/^\+?[1-9][0-9]{7,14}/);
+				return regex.test(val);
+			}
+		</aui:validator>
+	</aui:input>
+	<aui:input required="true" name="companyEmail" type="email" label="form.register.email"></aui:input>
+	<aui:input required="true" name="companyPassword" maxlength="50" type="password" label="form.register.password"/>
+	<aui:input required="true" name="companyRepeatPassword" maxlength="50" type="password" label="form.register.repeat-password">
+		<aui:validator errorMessage="form.validator.password-repeat" name="custom">
+			function(val, fieldNode, ruleValue) {
+				var password = document.getElementById('<portlet:namespace />companyPassword').value;
+				return val == password;
+			}
+		</aui:validator>
+	</aui:input>
 	<aui:input name="companyOfferAlerts" type="checkbox" wrapperCssClass="control-label" label="form.register.company.alert"/>
 	
 	<div class="row mt-5">

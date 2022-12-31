@@ -6,7 +6,10 @@
         background-color: #e0f0de;
         border-radius: 10px;
         position: relative;
-
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        
         &--expired{
             background-color: #f0acac;
         }

@@ -3,11 +3,25 @@
 </liferay-portlet:actionURL>
 
 <aui:form name="studentuserform" method="post" action="${addStudentUserURL}">
-	<aui:input name="studentName" type="text" label="form.register.name"/>
-	<aui:input name="studentSurname" type="text" label="form.register.surname"/>
-	<aui:input name="studentEmail" type="text" value="@uoc.edu" label="form.register.email"/>
-	<aui:input name="studentPassword" type="password" label="form.register.password"/>
-	<aui:input name="studentRepeatPassword" type="password" label="form.register.repeat-password"/>
+	<aui:input required="true" name="studentName" maxlength="30" type="text" label="form.register.name"/>
+	<aui:input required="true" name="studentSurname" maxlength="75" type="text" label="form.register.surname"/>
+	<aui:input required="true" name="studentEmail" type="text" value="@uoc.edu" label="form.register.email">
+		<aui:validator errorMessage="form.validator.email-uoc" name="custom">
+			function(val, fieldNode, ruleValue) {
+				var regex = new RegExp(/@example\.com$/i);
+				return regex.test(val);
+			}
+		</aui:validator>
+	</aui:input>
+	<aui:input required="true" name="studentPassword" maxlength="50" type="password" label="form.register.password"/>
+	<aui:input required="true" name="studentRepeatPassword" maxlength="50" type="password" label="form.register.repeat-password">
+			<aui:validator errorMessage="form.validator.password-repeat" name="custom">
+			function(val, fieldNode, ruleValue) {
+				var password = document.getElementById('<portlet:namespace />studentPassword').value;
+				return val == password;
+			}
+		</aui:validator>
+	</aui:input>
 	<aui:input name="studentOfferAlerts" type="checkbox" wrapperCssClass="control-label" label="form.register.student.alert"/>
 	
 	<div class="row mt-5">

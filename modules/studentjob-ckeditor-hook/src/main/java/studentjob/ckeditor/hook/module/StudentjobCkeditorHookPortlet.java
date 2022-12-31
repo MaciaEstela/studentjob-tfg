@@ -18,9 +18,9 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	property = {
 		"editor.name=ckeditor", 
-		"javax.portlet.name=edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_COMPANYPROFILE_USER",
+		"javax.portlet.name=edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_COMPANYPROFILE_ADMIN",
+		"javax.portlet.name=edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_STUDENTPROFILE_ADMIN",
 		"javax.portlet.name=edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_OFFER_ADMIN",
-		"javax.portlet.name=edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet_STUDENTPROFILE_USER",
 		"service.ranking:Integer=100"
 	},
 
