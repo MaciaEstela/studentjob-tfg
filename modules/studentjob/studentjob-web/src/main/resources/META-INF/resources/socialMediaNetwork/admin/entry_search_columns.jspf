@@ -90,7 +90,7 @@
 
 		<liferay-ui:search-container-column-text 
 			href="${editSocialMediaNetworkURL}" 
-			name="baseURL" 
+			name="studentjob.socialMediaNetwork.admin.url" 
 			value="<%= entry.getBaseURL() %>" 
 		/>
 

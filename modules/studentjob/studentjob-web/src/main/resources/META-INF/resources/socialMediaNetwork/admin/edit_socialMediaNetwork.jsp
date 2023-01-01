@@ -19,7 +19,10 @@
 	</c:otherwise>
  </c:choose>
 
- <div class="container edit-socialMediaNetwork">
+ <div class="container edit-socialMediaNetwork mt-4">
+
+	<liferay-ui:error key="invalid-website" message="errors.invalid-website"></liferay-ui:error>
+	<liferay-ui:error key="invalid-attached-file" message="errors.invalid-attached-file"></liferay-ui:error>
 
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 
@@ -35,9 +38,14 @@
 
 				<%-- Title field. --%>
 
-				<aui:input name="name"></aui:input>
-				<aui:input name="baseURL"></aui:input>
-				<aui:input label="form.socialmedianetwork.logo" type="file" accept="image/*" name="logo" ></aui:input>
+				<aui:input required="true" name="name"></aui:input>
+				<aui:input required="true" label="studentjob.socialMediaNetwork.admin.url" name="baseURL"></aui:input>
+				
+				<c:set var="cvRequired" value = "true"/>
+				<c:if test="${!logoUrl.isEmpty()}">
+					<c:set var="cvRequired" value = "false"/>
+				</c:if>
+				<aui:input required="${cvRequired}" label="studentjob.socialMediaNetwork.admin.logo" type="file" accept="image/*" name="logo" ></aui:input>
 				<c:if test="${!logoUrl.isEmpty()}">
 					<img width="50px" height="50px" src="${logoUrl}">
 				</c:if>

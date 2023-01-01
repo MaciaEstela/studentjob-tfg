@@ -19,7 +19,7 @@
 	</c:otherwise>
  </c:choose>
 
- <div class="container edit-degree">
+ <div class="container edit-degree mt-4">
 	<liferay-ui:error key="invalid-degreeArea" message="errors.invalid-degreeArea"></liferay-ui:error>
 	<liferay-ui:error key="empty-degreeArea" message="errors.empty-degreeArea"></liferay-ui:error>
 	<liferay-ui:error key="title-missing-spanish" message="errors.title-missing-spanish"></liferay-ui:error>
@@ -38,12 +38,10 @@
 
 				<%-- Title field. --%>
 
-				<aui:input name="name">
-
-				</aui:input>
+				<aui:input required="true"name="name"></aui:input>
 
 				<%-- Degree field. --%>
-				<aui:select name="degreeArea" label="offer.degreeArea" multiple="true">
+				<aui:select required="true" label="studentjob.degree.degreeArea" name="degreeArea" multiple="true">
 					<c:forEach items="${degreeAreas}" var="degreeArea">
 						<c:choose>
 							<c:when test="${currentDegreeAreasDegreeIds.contains(degreeArea.getDegreeAreaId())}">

@@ -1,5 +1,5 @@
 <div id="<portlet:namespace />socialmedia-fields-container">
 	<c:forEach items="${socialMediasList}" var="socialMediaDto" varStatus="loop">
-		<aui:input type="text" name="${socialMediaPrefix}${socialMediaDto.getNetworkId()}" label="${socialMediaDto.getName()}" value="${socialMediaDto.getUrl()}"/>
+		<aui:input type="url" name="${socialMediaPrefix}${socialMediaDto.getNetworkId()}" label="${socialMediaDto.getName()}" value="${socialMediaDto.getUrl()}"/>
 	</c:forEach>
 </div>

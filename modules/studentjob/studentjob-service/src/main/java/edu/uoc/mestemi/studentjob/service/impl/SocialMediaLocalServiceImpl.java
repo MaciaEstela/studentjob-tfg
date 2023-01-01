@@ -21,16 +21,14 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.Validator;
-
 import java.util.Date;
 import java.util.List;
 
 import edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaException;
-import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkLocalService;
 import edu.uoc.mestemi.studentjob.service.base.SocialMediaLocalServiceBaseImpl;
+import edu.uoc.mestemi.studentjob.util.validator.SocialMediaValidatorImpl;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -48,9 +46,8 @@ public class SocialMediaLocalServiceImpl
 	public SocialMedia addSocialMedia(long groupId, long socialMediaNetworkId, String socialURL, String className, 
 			long classPK, ServiceContext serviceContext) throws PortalException {
 		
-		if (Validator.isNull(socialMediaNetworkId)) {
-			throw new OfferValidationException("SocialMedia should have a SocialMediaNetwork associated");
-		}
+		SocialMediaValidatorImpl socialMediaValidatorImpl = new SocialMediaValidatorImpl();
+		socialMediaValidatorImpl.validate(socialMediaNetworkId, socialURL);
 		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
@@ -81,6 +78,9 @@ public class SocialMediaLocalServiceImpl
 			throws PortalException {
 
 		SocialMedia socialMedia = getSocialMedia(socialMediaId);
+		
+		SocialMediaValidatorImpl socialMediaValidatorImpl = new SocialMediaValidatorImpl();
+		socialMediaValidatorImpl.validate(socialMedia.getSocialMediaNetworkId(), socialURL);
 		
 		socialMedia.setModifiedDate(new Date());
 		

@@ -15,24 +15,39 @@ package edu.uoc.mestemi.studentjob.exception;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 /**
  * @author Brian Wing Shun Chan
  */
-public class SocialMediaTypeValidationException extends PortalException {
+public class SocialMediaValidationException extends PortalException {
 
-	public SocialMediaTypeValidationException() {
+	private static final long serialVersionUID = 1L;
+
+	public SocialMediaValidationException(List<String> errors) {
+		super(String.join(",", errors));
+		_errors = errors;
+	}
+	
+	public List<String> getErrors() {
+		return _errors;
+	}
+	
+	public SocialMediaValidationException() {
 	}
 
-	public SocialMediaTypeValidationException(String msg) {
+	public SocialMediaValidationException(String msg) {
 		super(msg);
 	}
 
-	public SocialMediaTypeValidationException(String msg, Throwable throwable) {
+	public SocialMediaValidationException(String msg, Throwable throwable) {
 		super(msg, throwable);
 	}
 
-	public SocialMediaTypeValidationException(Throwable throwable) {
+	public SocialMediaValidationException(Throwable throwable) {
 		super(throwable);
 	}
+	
+	private List<String> _errors;
 
 }

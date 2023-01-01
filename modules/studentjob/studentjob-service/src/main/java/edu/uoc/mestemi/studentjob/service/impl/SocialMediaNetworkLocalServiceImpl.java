@@ -35,6 +35,7 @@ import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalService;
 import edu.uoc.mestemi.studentjob.service.SocialMediaLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.base.SocialMediaNetworkLocalServiceBaseImpl;
+import edu.uoc.mestemi.studentjob.util.validator.SocialMediaNetworkValidatorImpl;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -50,6 +51,9 @@ public class SocialMediaNetworkLocalServiceImpl
 	extends SocialMediaNetworkLocalServiceBaseImpl {
 	
 	public SocialMediaNetwork addSocialMediaNetwork(long groupId, String name, long logo, String baseURL, ServiceContext serviceContext) throws PortalException {
+		
+		SocialMediaNetworkValidatorImpl socialMediaNetworkValidatorImpl = new SocialMediaNetworkValidatorImpl();
+		socialMediaNetworkValidatorImpl.validate(name, baseURL, logo);
 		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
@@ -77,6 +81,9 @@ public class SocialMediaNetworkLocalServiceImpl
 	
 	public SocialMediaNetwork updateSocialMediaNetwork(long socialMediaNetworkId, String name, long logo, String baseURL, ServiceContext serviceContext) 
 					throws PortalException {
+		
+		SocialMediaNetworkValidatorImpl socialMediaNetworkValidatorImpl = new SocialMediaNetworkValidatorImpl();
+		socialMediaNetworkValidatorImpl.validate(name, baseURL, logo);
 		
 		SocialMediaNetwork socialMediaNetwork = getSocialMediaNetwork(socialMediaNetworkId);
 		
@@ -156,8 +163,6 @@ public class SocialMediaNetworkLocalServiceImpl
 		SocialMediaNetwork socialMediaNetwork = getSocialMediaNetwork(socialMediaNetworkId);
 		return deleteSocialMediaNetwork(socialMediaNetwork);
 	}
-
-
 
 	@Reference
 	GroupLocalService groupLocalService;

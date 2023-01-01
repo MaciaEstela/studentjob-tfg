@@ -357,7 +357,7 @@
 	<!-- Exceptions -->
 	<exceptions>
 		<exception>SocialMediaNetworkValidation</exception>
-		<exception>SocialMediaTypeValidation</exception>
+		<exception>SocialMediaValidation</exception>
 		<exception>StudentProfileValidation</exception>
 		<exception>CompanyProfileValidation</exception>
 		<exception>OfferValidation</exception>

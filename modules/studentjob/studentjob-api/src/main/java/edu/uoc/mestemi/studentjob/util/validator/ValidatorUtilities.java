@@ -1,6 +1,8 @@
 package edu.uoc.mestemi.studentjob.util.validator;
 
+import com.liferay.document.library.kernel.service.DLFileEntryLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Country;
@@ -21,8 +23,10 @@ import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.DegreeAreaLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
+import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 
 public class ValidatorUtilities {
 	
@@ -257,6 +261,36 @@ public class ValidatorUtilities {
 		
 		return true;
 	}
+	
+	public static boolean isFileEntryIdValid(long fileEntryId, List<String> errors) {
+		
+		boolean result = true;
+		
+		try {
+			DLFileEntryLocalServiceUtil.getFileEntry(fileEntryId);
+		} catch (PortalException e) {
+			result = false;
+			errors.add("invalid-attached-file");
+		}
+		
+		
+		return result;
+	}
+	
+	public static boolean isSocialMediaNetworkIdValid(long socialMediaNetworkId, List<String> errors) {
+		
+		boolean result = true;
+		
+		try {
+			SocialMediaNetworkLocalServiceUtil.getSocialMediaNetwork(socialMediaNetworkId);
+		} catch (PortalException e) {
+			result = false;
+			errors.add("invalid-socialmedianetworkId");
+		}
+		
+		return result;
+	}
+	
 }
 
 

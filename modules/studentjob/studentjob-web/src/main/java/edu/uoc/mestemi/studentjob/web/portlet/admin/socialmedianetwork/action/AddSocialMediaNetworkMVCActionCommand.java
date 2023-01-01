@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -83,6 +84,7 @@ public class AddSocialMediaNetworkMVCActionCommand extends BaseMVCActionCommand 
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (SocialMediaNetworkValidationException ove) {
+			ove.getErrors().forEach(key -> SessionErrors.add(actionRequest, key));
 			log.error("Error validating new SocialMediaNetwork", ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_SOCIALMEDIANETWORK_ADMIN);
 		}
