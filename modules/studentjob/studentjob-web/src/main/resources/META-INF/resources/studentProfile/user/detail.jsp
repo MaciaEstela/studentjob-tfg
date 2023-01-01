@@ -9,7 +9,7 @@
 							<img class="studentprofile-detail__image" alt="Logo" src="${studentProfileDTO.getPortraitUrl()}">
 						</div>
 						<div class="studentprofile-detail__info-wrapper col-md-6 col-12">
-							<h1 class="studentprofile-detail__name mb-3">
+							<h1 class="studentprofile-detail__name mb-3 mt-3">
 								${studentProfileDTO.getName()} ${studentProfileDTO.getSurname()}
 							</h1>
 							<h2 class="studentprofile-detail__title mb-3">
@@ -22,7 +22,7 @@
 									</div>
 								</c:forEach>
 							</div>
-							<div class="studentprofile-detail__contact-info-wrapper">
+							<div class="studentprofile-detail__contact-info-wrapper d-md-flex">
 								<div class="studentprofile-detail__preference">
 									<i class="icon icon-laptop"></i>
 									${studentProfileDTO.getJobPreference()}
@@ -37,27 +37,29 @@
 								</div>
 							</div>
 						</div>
-						<div class="studentprofile-detail__contact-wrapper col-md-3 col-12">
-							<div class="studentprofile-detail__download-cv">
-								<a href="${studentProfileDTO.getCvUrl()}" class="btn btn-primary">Descargar CV</a>
+						<div class="studentprofile-detail__contact-wrapper col-md-3 col-12 mt-4">
+							<div class="studentprofile-detail__download-cv mb-4">
+								<a href="${studentProfileDTO.getCvUrl()}" class="btn btn-dark">Descargar CV</a>
 							</div>
 							<div class="studentprofile-detail__socialmedia-wrapper">
 								<c:forEach items="${socialMediasDTO}" var="socialMediaDTO">
-									<div class="studentprofile-detail__socialmedia-item">
-										<a href="${socialMediaDTO.getSocialMediaUrl()}">
-											<img alt="${socialMediaDTO.getName()}" src="${socialMediaDTO.getImageUrl()}"/>
-										</a>
-									</div>
+									<c:if test="${!socialMediaDTO.getSocialMediaUrl().isEmpty()}">
+										<div class="studentprofile-detail__socialmedia-item">
+											<a href="${socialMediaDTO.getSocialMediaUrl()}">
+												<img alt="${socialMediaDTO.getName()}" src="${socialMediaDTO.getImageUrl()}"/>
+											</a>
+										</div>
+									</c:if>
 								</c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="studentprofile-detail__content row mt-5 mb-4">
-					<h2 class="studentprofile-detail__resume col-12">
+				<div class="studentprofile-detail__content col-12 mt-5 mb-4">
+					<h2 class="studentprofile-detail__resume">
 						<liferay-ui:message key="studentjob.studentprofile.user.description" />
 					</h2>
-					<div class="studentprofile-detail__description col-12">
+					<div class="studentprofile-detail__description">
 						${studentProfileDTO.getDescription()}
 					</div>
 				</div>

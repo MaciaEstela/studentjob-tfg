@@ -258,6 +258,18 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 //		}
 		
 		if (adminUser != null && SessionErrors.isEmpty(actionRequest)) {
+			String customScreenName = StringPool.BLANK;
+			boolean autoScreenName = false;
+			
+			try {
+				if (userTypePrefix.equals(StudentjobConstants.USER_COMPANY)) {
+					customScreenName = RegisterUtil.getScreenNameCompany(themeDisplay, email);
+				} else {
+					customScreenName = RegisterUtil.getScreenNameStudent(themeDisplay, email);
+				}
+			} catch (Exception e) {
+				autoScreenName = true;
+			}
 			
 			user =  _userLocalService.addUserWithWorkflow(
 				adminUser.getUserId(),
@@ -265,8 +277,8 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				false,
 				password,
 				repeatPassword,
-				true,
-				StringPool.BLANK,
+				autoScreenName,
+				customScreenName,
 				email,
 				themeDisplay.getLocale(),
 				name,
