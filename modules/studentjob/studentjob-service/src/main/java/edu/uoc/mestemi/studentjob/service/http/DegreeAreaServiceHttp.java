@@ -175,6 +175,47 @@ public class DegreeAreaServiceHttp {
 		}
 	}
 
+	public static edu.uoc.mestemi.studentjob.model.DegreeArea
+			deleteDegreeAreaWithValidation(
+				HttpPrincipal httpPrincipal, long degreeAreaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeAreaServiceUtil.class, "deleteDegreeAreaWithValidation",
+				_deleteDegreeAreaWithValidationParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, degreeAreaId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.DegreeArea)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static edu.uoc.mestemi.studentjob.model.DegreeArea getDegreeArea(
 			HttpPrincipal httpPrincipal, long degreeAreaId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -182,7 +223,7 @@ public class DegreeAreaServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeAreaServiceUtil.class, "getDegreeArea",
-				_getDegreeAreaParameterTypes3);
+				_getDegreeAreaParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, degreeAreaId);
@@ -221,7 +262,7 @@ public class DegreeAreaServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeAreaServiceUtil.class, "getDegreeAreasByGroupId",
-				_getDegreeAreasByGroupIdParameterTypes4);
+				_getDegreeAreasByGroupIdParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
 
@@ -254,7 +295,7 @@ public class DegreeAreaServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeAreaServiceUtil.class, "getDegreeAreasByGroupId",
-				_getDegreeAreasByGroupIdParameterTypes5);
+				_getDegreeAreasByGroupIdParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, start, end);
@@ -291,7 +332,7 @@ public class DegreeAreaServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeAreaServiceUtil.class, "getCompanyProfilesByGroupId",
-				_getCompanyProfilesByGroupIdParameterTypes6);
+				_getCompanyProfilesByGroupIdParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, start, end, orderByComparator);
@@ -329,7 +370,7 @@ public class DegreeAreaServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeAreaServiceUtil.class, "getDegreeAreasByKeywords",
-				_getDegreeAreasByKeywordsParameterTypes7);
+				_getDegreeAreasByKeywordsParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, keywords, start, end, orderByComparator);
@@ -362,7 +403,7 @@ public class DegreeAreaServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeAreaServiceUtil.class, "getDegreeAreasCountByKeywords",
-				_getDegreeAreasCountByKeywordsParameterTypes8);
+				_getDegreeAreasCountByKeywordsParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, keywords);
@@ -403,24 +444,28 @@ public class DegreeAreaServiceHttp {
 		};
 	private static final Class<?>[] _deleteDegreeAreaParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getDegreeAreaParameterTypes3 =
-		new Class[] {long.class};
-	private static final Class<?>[] _getDegreeAreasByGroupIdParameterTypes4 =
+	private static final Class<?>[]
+		_deleteDegreeAreaWithValidationParameterTypes3 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getDegreeAreaParameterTypes4 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getDegreeAreasByGroupIdParameterTypes5 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getDegreeAreasByGroupIdParameterTypes6 =
 		new Class[] {long.class, int.class, int.class};
 	private static final Class<?>[]
-		_getCompanyProfilesByGroupIdParameterTypes6 = new Class[] {
+		_getCompanyProfilesByGroupIdParameterTypes7 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
-	private static final Class<?>[] _getDegreeAreasByKeywordsParameterTypes7 =
+	private static final Class<?>[] _getDegreeAreasByKeywordsParameterTypes8 =
 		new Class[] {
 			long.class, String.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getDegreeAreasCountByKeywordsParameterTypes8 = new Class[] {
+		_getDegreeAreasCountByKeywordsParameterTypes9 = new Class[] {
 			long.class, String.class
 		};
 

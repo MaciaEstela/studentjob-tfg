@@ -170,6 +170,12 @@ public interface DegreeLocalService
 
 	public void deleteDegreeAreaDegrees(long degreeAreaId, long[] degreeIds);
 
+	public Degree deleteDegreeWithValidation(Degree degree)
+		throws PortalException;
+
+	public Degree deleteDegreeWithValidation(long degreeId)
+		throws PortalException;
+
 	public void deleteOfferDegree(long offerId, Degree degree);
 
 	public void deleteOfferDegree(long offerId, long degreeId);

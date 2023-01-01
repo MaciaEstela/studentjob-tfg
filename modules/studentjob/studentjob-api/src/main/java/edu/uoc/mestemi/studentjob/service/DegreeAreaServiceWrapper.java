@@ -53,6 +53,14 @@ public class DegreeAreaServiceWrapper
 	}
 
 	@Override
+	public edu.uoc.mestemi.studentjob.model.DegreeArea
+			deleteDegreeAreaWithValidation(long degreeAreaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeAreaService.deleteDegreeAreaWithValidation(degreeAreaId);
+	}
+
+	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.DegreeArea>
 		getCompanyProfilesByGroupId(
 			long groupId, int start, int end,

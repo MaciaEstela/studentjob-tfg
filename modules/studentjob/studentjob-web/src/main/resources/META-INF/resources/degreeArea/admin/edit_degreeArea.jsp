@@ -20,7 +20,8 @@
  </c:choose>
 
  <div class="container edit-degreeArea">
-
+	<liferay-ui:error key="title-missing-spanish" message="errors.title-missing-spanish"></liferay-ui:error>
+	
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 
 	<aui:model-context bean="${degreeArea}" model="${degreeAreaClass}" />

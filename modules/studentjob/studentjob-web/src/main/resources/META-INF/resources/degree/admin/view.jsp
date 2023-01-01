@@ -18,6 +18,8 @@
 
 	<%-- Search container. --%>
 <div class="container">
+		<liferay-ui:error key="degree-linked-student" message="errors.degree-linked-student"></liferay-ui:error>
+		<liferay-ui:error key="degree-linked-offer" message="errors.degree-linked-offer"></liferay-ui:error>
 		<liferay-ui:search-container 
 			emptyResultsMessage="studentjob.degree.admin.no-result"
 			id="degreeEntries"

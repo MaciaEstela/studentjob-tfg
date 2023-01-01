@@ -155,6 +155,15 @@ public class DegreeAreaLocalServiceWrapper
 	}
 
 	@Override
+	public edu.uoc.mestemi.studentjob.model.DegreeArea
+			deleteDegreeAreaWithValidation(long degreeAreaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeAreaLocalService.deleteDegreeAreaWithValidation(
+			degreeAreaId);
+	}
+
+	@Override
 	public void deleteDegreeDegreeArea(
 		long degreeId, edu.uoc.mestemi.studentjob.model.DegreeArea degreeArea) {
 

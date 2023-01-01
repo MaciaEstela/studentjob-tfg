@@ -38,6 +38,8 @@ import edu.uoc.mestemi.studentjob.model.CompanyProfile;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.service.SocialMediaLocalService;
 import edu.uoc.mestemi.studentjob.service.base.CompanyProfileLocalServiceBaseImpl;
+import edu.uoc.mestemi.studentjob.util.validator.CompanyProfileValidatorImpl;
+import edu.uoc.mestemi.studentjob.util.validator.StudentProfileValidatorImpl;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -92,6 +94,9 @@ public class CompanyProfileLocalServiceImpl
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, 
 			Map<Locale, String> sectorMap, String website, ServiceContext serviceContext) 
 					throws PortalException {
+		
+		CompanyProfileValidatorImpl companyProfileValidatorImpl = new CompanyProfileValidatorImpl();
+		companyProfileValidatorImpl.validate(regionId, titleMap, descriptionMap, email, sectorMap, website);
 		
 		CompanyProfile companyProfile = getCompanyProfile(companyProfileId);
 		

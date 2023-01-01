@@ -177,6 +177,47 @@ public class DegreeServiceHttp {
 		}
 	}
 
+	public static edu.uoc.mestemi.studentjob.model.Degree
+			deleteDegreeWithValidation(
+				HttpPrincipal httpPrincipal, long degreeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DegreeServiceUtil.class, "deleteDegreeWithValidation",
+				_deleteDegreeWithValidationParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, degreeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (edu.uoc.mestemi.studentjob.model.Degree)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static edu.uoc.mestemi.studentjob.model.Degree getDegree(
 			HttpPrincipal httpPrincipal, long degreeId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -184,7 +225,7 @@ public class DegreeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeServiceUtil.class, "getDegree",
-				_getDegreeParameterTypes3);
+				_getDegreeParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, degreeId);
@@ -223,7 +264,7 @@ public class DegreeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeServiceUtil.class, "getDegreesByGroupId",
-				_getDegreesByGroupIdParameterTypes4);
+				_getDegreesByGroupIdParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
 
@@ -256,7 +297,7 @@ public class DegreeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeServiceUtil.class, "getDegreesByGroupId",
-				_getDegreesByGroupIdParameterTypes5);
+				_getDegreesByGroupIdParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, start, end);
@@ -292,7 +333,7 @@ public class DegreeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeServiceUtil.class, "getDegreesByGroupId",
-				_getDegreesByGroupIdParameterTypes6);
+				_getDegreesByGroupIdParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, start, end, orderByComparator);
@@ -325,7 +366,7 @@ public class DegreeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeServiceUtil.class, "getDegreeAreasByDegreeId",
-				_getDegreeAreasByDegreeIdParameterTypes7);
+				_getDegreeAreasByDegreeIdParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, degreeId);
@@ -358,7 +399,7 @@ public class DegreeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeServiceUtil.class, "getDegreeAreasIdsByDegreeId",
-				_getDegreeAreasIdsByDegreeIdParameterTypes8);
+				_getDegreeAreasIdsByDegreeIdParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, degreeId);
@@ -394,7 +435,7 @@ public class DegreeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeServiceUtil.class, "getDegreesByKeywords",
-				_getDegreesByKeywordsParameterTypes9);
+				_getDegreesByKeywordsParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, keywords, start, end, orderByComparator);
@@ -427,7 +468,7 @@ public class DegreeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				DegreeServiceUtil.class, "getDegreesCountByKeywords",
-				_getDegreesCountByKeywordsParameterTypes10);
+				_getDegreesCountByKeywordsParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, keywords);
@@ -466,28 +507,30 @@ public class DegreeServiceHttp {
 	private static final Class<?>[] _deleteDegreeParameterTypes2 = new Class[] {
 		long.class
 	};
-	private static final Class<?>[] _getDegreeParameterTypes3 = new Class[] {
+	private static final Class<?>[] _deleteDegreeWithValidationParameterTypes3 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getDegreeParameterTypes4 = new Class[] {
 		long.class
 	};
-	private static final Class<?>[] _getDegreesByGroupIdParameterTypes4 =
-		new Class[] {long.class};
 	private static final Class<?>[] _getDegreesByGroupIdParameterTypes5 =
-		new Class[] {long.class, int.class, int.class};
+		new Class[] {long.class};
 	private static final Class<?>[] _getDegreesByGroupIdParameterTypes6 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[] _getDegreesByGroupIdParameterTypes7 =
 		new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
-	private static final Class<?>[] _getDegreeAreasByDegreeIdParameterTypes7 =
+	private static final Class<?>[] _getDegreeAreasByDegreeIdParameterTypes8 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_getDegreeAreasIdsByDegreeIdParameterTypes8 = new Class[] {long.class};
-	private static final Class<?>[] _getDegreesByKeywordsParameterTypes9 =
+		_getDegreeAreasIdsByDegreeIdParameterTypes9 = new Class[] {long.class};
+	private static final Class<?>[] _getDegreesByKeywordsParameterTypes10 =
 		new Class[] {
 			long.class, String.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
-	private static final Class<?>[] _getDegreesCountByKeywordsParameterTypes10 =
+	private static final Class<?>[] _getDegreesCountByKeywordsParameterTypes11 =
 		new Class[] {long.class, String.class};
 
 }

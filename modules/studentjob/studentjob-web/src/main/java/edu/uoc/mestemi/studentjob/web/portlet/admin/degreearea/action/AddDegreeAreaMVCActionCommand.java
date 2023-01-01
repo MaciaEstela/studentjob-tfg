@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -66,6 +67,7 @@ public class AddDegreeAreaMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (DegreeAreaValidationException ove) {
+			ove.getErrors().forEach(key -> SessionErrors.add(actionRequest, key));
 			log.error("Error validating new DegreeArea", ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_DEGREEAREA_ADMIN);
 		}

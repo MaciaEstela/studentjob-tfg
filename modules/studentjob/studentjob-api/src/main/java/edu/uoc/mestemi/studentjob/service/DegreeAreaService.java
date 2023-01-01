@@ -64,6 +64,9 @@ public interface DegreeAreaService extends BaseService {
 	public DegreeArea deleteDegreeArea(long degreeAreaId)
 		throws PortalException;
 
+	public DegreeArea deleteDegreeAreaWithValidation(long degreeAreaId)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DegreeArea> getCompanyProfilesByGroupId(
 		long groupId, int start, int end,

@@ -31,8 +31,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import edu.uoc.mestemi.studentjob.exception.DegreeAreaValidationException;
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
 import edu.uoc.mestemi.studentjob.service.base.DegreeAreaLocalServiceBaseImpl;
+import edu.uoc.mestemi.studentjob.util.validator.CompanyProfileValidatorImpl;
+import edu.uoc.mestemi.studentjob.util.validator.DegreeAreaValidatorImpl;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -47,6 +50,9 @@ import org.osgi.service.component.annotations.Reference;
 public class DegreeAreaLocalServiceImpl extends DegreeAreaLocalServiceBaseImpl {
 	
 	public DegreeArea addDegreeArea(long groupId, Map<Locale, String> nameMap, ServiceContext serviceContext) throws PortalException {
+		
+		DegreeAreaValidatorImpl degreeAreaValidatorImpl = new DegreeAreaValidatorImpl();
+		degreeAreaValidatorImpl.validate(nameMap);
 		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
@@ -71,6 +77,9 @@ public class DegreeAreaLocalServiceImpl extends DegreeAreaLocalServiceBaseImpl {
 	}
 	
 	public DegreeArea updateDegreeArea(long degreeAreaId, Map<Locale, String> nameMap, ServiceContext serviceContext) throws PortalException {
+		
+		DegreeAreaValidatorImpl degreeAreaValidatorImpl = new DegreeAreaValidatorImpl();
+		degreeAreaValidatorImpl.validate(nameMap);
 		
 		DegreeArea degreeArea = getDegreeArea(degreeAreaId);
 		
@@ -130,6 +139,25 @@ public class DegreeAreaLocalServiceImpl extends DegreeAreaLocalServiceBaseImpl {
 		throw new UnsupportedOperationException("Not supported");
 	}
 	
+	public DegreeArea deleteDegreeAreaWithValidation(long degreeAreaId) throws PortalException {
+		DegreeAreaValidatorImpl degreeAreaValidatorImpl = new DegreeAreaValidatorImpl();
+		degreeAreaValidatorImpl.validateDelete(degreeAreaId);
+		
+		return degreeAreaPersistence.remove(degreeAreaId);
+	}
+	
+	@Override
+	public DegreeArea deleteDegreeArea(long degreeAreaId) throws PortalException {
+		throw new UnsupportedOperationException("Not supported");
+	}
+
+	@Override
+	public DegreeArea deleteDegreeArea(DegreeArea degreeArea) {
+		throw new UnsupportedOperationException("Not supported");
+	}
+
+
+
 	@Reference
 	GroupLocalService groupLocalService;
 }

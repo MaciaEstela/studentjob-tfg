@@ -20,6 +20,9 @@
  </c:choose>
 
  <div class="container edit-degree">
+	<liferay-ui:error key="invalid-degreeArea" message="errors.invalid-degreeArea"></liferay-ui:error>
+	<liferay-ui:error key="empty-degreeArea" message="errors.empty-degreeArea"></liferay-ui:error>
+	<liferay-ui:error key="title-missing-spanish" message="errors.title-missing-spanish"></liferay-ui:error>
 
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 

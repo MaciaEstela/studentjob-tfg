@@ -140,6 +140,9 @@ public interface DegreeAreaLocalService
 	public DegreeArea deleteDegreeArea(long degreeAreaId)
 		throws PortalException;
 
+	public DegreeArea deleteDegreeAreaWithValidation(long degreeAreaId)
+		throws PortalException;
+
 	public void deleteDegreeDegreeArea(long degreeId, DegreeArea degreeArea);
 
 	public void deleteDegreeDegreeArea(long degreeId, long degreeAreaId);

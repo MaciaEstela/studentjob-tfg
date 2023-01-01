@@ -19,7 +19,7 @@ public interface StudentProfileValidator {
 	 * @param regionId
 	 * @param preference
 	 * 
-	 * @throws OfferValidationException
+	 * @throws StudentProfileValidationException
 	 */
 	public void validate(long regionId, Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, 
 			String preference, List<Long> degreeIds) throws StudentProfileValidationException;

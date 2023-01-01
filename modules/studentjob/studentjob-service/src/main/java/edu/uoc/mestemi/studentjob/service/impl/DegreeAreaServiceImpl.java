@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
 import edu.uoc.mestemi.studentjob.service.base.DegreeAreaServiceBaseImpl;
 
@@ -54,6 +55,10 @@ public class DegreeAreaServiceImpl extends DegreeAreaServiceBaseImpl {
 	
 	public DegreeArea deleteDegreeArea(long degreeAreaId) throws PortalException {
 		return degreeAreaLocalService.deleteDegreeArea(degreeAreaId);
+	}
+	
+	public DegreeArea deleteDegreeAreaWithValidation(long degreeAreaId) throws PortalException {
+		return degreeAreaLocalService.deleteDegreeAreaWithValidation(degreeAreaId);
 	}
 	
 	public DegreeArea getDegreeArea(long degreeAreaId) throws PortalException {

@@ -58,6 +58,10 @@ public class DegreeServiceImpl extends DegreeServiceBaseImpl {
 		return degreeLocalService.deleteDegree(degreeId);
 	}
 	
+	public Degree deleteDegreeWithValidation(long degreeId) throws PortalException {
+		return degreeLocalService.deleteDegreeWithValidation(degreeId);
+	}
+	
 	public Degree getDegree(long degreeId) throws PortalException {
 		return degreeLocalService.getDegree(degreeId);
 	}

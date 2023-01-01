@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -65,6 +66,7 @@ public class EditDegreeAreaMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (DegreeAreaValidationException ove) {
+			ove.getErrors().forEach(key -> SessionErrors.add(actionRequest, key));
 			log.error("Error validating DegreeArea edit with degreeAreaId " + degreeAreaId, ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_DEGREEAREA_ADMIN);
 		}

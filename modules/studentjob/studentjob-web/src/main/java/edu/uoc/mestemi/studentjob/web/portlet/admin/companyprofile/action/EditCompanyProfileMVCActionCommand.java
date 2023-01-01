@@ -3,19 +3,27 @@ package edu.uoc.mestemi.studentjob.web.portlet.admin.companyprofile.action;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Locale;
 import java.util.Map;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -102,9 +110,9 @@ public class EditCompanyProfileMVCActionCommand extends BaseMVCActionCommand {
 			if (!active)
 				StudentjobUtilities.removeCompanyOffers(groupId, companyUserId);
 			
-			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (CompanyProfileValidationException ove) {
+			ove.getErrors().forEach(key -> SessionErrors.add(actionRequest, key));
 			log.error("Error validating CompanyProfile edit with companyProfileId " + companyProfileId, ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_COMPANYPROFILE_ADMIN_ACTION);
 		}
@@ -112,6 +120,12 @@ public class EditCompanyProfileMVCActionCommand extends BaseMVCActionCommand {
 			log.error("Error editing CompanyProfile with companyProfileId " + companyProfileId, pe);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_COMPANYPROFILE_ADMIN_ACTION);
 		}
+		
+		PortletResponse portletResponse = (PortletResponse) actionRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
+		LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+		LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_COMPANYPROFILE_ADMIN, PortletRequest.RENDER_PHASE);
+		
+		sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 	}
 
 	@Reference

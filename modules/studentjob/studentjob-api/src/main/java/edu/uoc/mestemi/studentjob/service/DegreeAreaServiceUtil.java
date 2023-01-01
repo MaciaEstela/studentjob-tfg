@@ -55,6 +55,12 @@ public class DegreeAreaServiceUtil {
 		return getService().deleteDegreeArea(degreeAreaId);
 	}
 
+	public static DegreeArea deleteDegreeAreaWithValidation(long degreeAreaId)
+		throws PortalException {
+
+		return getService().deleteDegreeAreaWithValidation(degreeAreaId);
+	}
+
 	public static List<DegreeArea> getCompanyProfilesByGroupId(
 		long groupId, int start, int end,
 		OrderByComparator<DegreeArea> orderByComparator) {

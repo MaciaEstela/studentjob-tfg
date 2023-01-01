@@ -53,6 +53,14 @@ public class DegreeServiceWrapper
 	}
 
 	@Override
+	public edu.uoc.mestemi.studentjob.model.Degree deleteDegreeWithValidation(
+			long degreeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _degreeService.deleteDegreeWithValidation(degreeId);
+	}
+
+	@Override
 	public edu.uoc.mestemi.studentjob.model.Degree getDegree(long degreeId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

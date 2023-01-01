@@ -64,9 +64,6 @@ public class StudentProfileLocalServiceImpl
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, String preference, 
 			long curriculumId, List<Long> degreeIds, ServiceContext serviceContext) throws PortalException {
 		
-		StudentProfileValidatorImpl studentProfileValidatorImpl = new StudentProfileValidatorImpl();
-		studentProfileValidatorImpl.validate(regionId, titleMap, descriptionMap, email, preference, degreeIds);
-		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
 		User user = userLocalService.getUser(userId);

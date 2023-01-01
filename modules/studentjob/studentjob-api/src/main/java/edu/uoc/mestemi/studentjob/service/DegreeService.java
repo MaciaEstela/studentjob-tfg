@@ -64,6 +64,9 @@ public interface DegreeService extends BaseService {
 
 	public Degree deleteDegree(long degreeId) throws PortalException;
 
+	public Degree deleteDegreeWithValidation(long degreeId)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Degree getDegree(long degreeId) throws PortalException;
 

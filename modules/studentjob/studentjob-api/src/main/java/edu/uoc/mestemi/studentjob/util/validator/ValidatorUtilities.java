@@ -1,5 +1,6 @@
 package edu.uoc.mestemi.studentjob.util.validator;
 
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Country;
@@ -15,7 +16,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
+import edu.uoc.mestemi.studentjob.model.Offer;
+import edu.uoc.mestemi.studentjob.model.StudentProfile;
+import edu.uoc.mestemi.studentjob.service.DegreeAreaLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 
 public class ValidatorUtilities {
@@ -52,6 +58,17 @@ public class ValidatorUtilities {
 		} catch (Exception e) {
 			result = false;
 			log.error("Region with id " + regionId + " is not valid for country " + countryA3, e);
+		}
+		
+		return result;
+	}
+	
+	public static boolean isDegreeAreaEmpty(long degreeAreaId, List<String> errors) {
+		boolean result = true;
+		
+		if (DegreeLocalServiceUtil.hasDegreeAreaDegrees(degreeAreaId)) {
+			errors.add("degreearea-has-degree");
+			result = false;
 		}
 		
 		return result;
@@ -120,6 +137,17 @@ public class ValidatorUtilities {
 		return result;
 	}
 	
+	public static boolean isSectorValid(Map<Locale, String> sectorMap, List<String> errors) {
+		boolean result = true;
+		
+		if (!ValidatorUtilities.mapHasLocaleKey(sectorMap, "es_ES")) {
+			errors.add("sector-missing-spanish");
+			result = false;
+		}
+		
+		return result;
+	}
+	
 	public static boolean isPreferenceValid(String preference, List<String> errors) {
 		boolean result = true;
 		
@@ -159,6 +187,75 @@ public class ValidatorUtilities {
 		}
 		
 		return result;
+	}
+	
+	public static boolean isWebsiteValid(String website, List<String> errors) {
+		boolean result = true;
+		
+		if (!Validator.isUrl(website)) {
+			result = false;
+			errors.add("invalid-website");
+		}
+		
+		return result;
+	}
+	
+	public static boolean areDegreeAreasValid(List<Long> degreeAreasIds, List<String> errors) {
+		
+		if (Validator.isNull(degreeAreasIds) || degreeAreasIds.isEmpty()) {
+			errors.add("empty-degreeArea");
+			return false;
+		}
+		
+		for (long degreeAreaId : degreeAreasIds) {
+			if (!isDegreeAreaValid(degreeAreaId, errors)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public static boolean isDegreeAreaValid(long degreeAreaId, List<String> errors) {
+		try {
+			if (DegreeAreaLocalServiceUtil.getDegreeArea(degreeAreaId) == null) {
+				errors.add("invalid-degreeArea");
+				return false;
+			}
+		} catch (Exception e) {
+			errors.add("invalid-degreeArea");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public static boolean isDegreeLinkedToStudent(long degreeId, List<String> errors) {
+		List<StudentProfile> studentProfiles = StudentProfileLocalServiceUtil.getStudentProfiles(
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		
+		for (StudentProfile studentProfile : studentProfiles) {
+			if (DegreeLocalServiceUtil.hasStudentProfileDegree(studentProfile.getStudentProfileId(), degreeId)) {
+				errors.add("degree-linked-student");
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public static boolean isDegreeLinkedToOffer(long degreeId, List<String> errors) {
+		List<Offer> offers = OfferLocalServiceUtil.getOffers(
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		
+		for (Offer offer : offers) {
+			if (DegreeLocalServiceUtil.hasOfferDegree(offer.getOfferId(), degreeId)) {
+				errors.add("degree-linked-offer");
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
 

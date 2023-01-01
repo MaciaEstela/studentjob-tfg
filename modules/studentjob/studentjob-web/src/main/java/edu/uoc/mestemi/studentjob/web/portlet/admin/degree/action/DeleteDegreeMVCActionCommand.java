@@ -5,6 +5,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import javax.portlet.ActionRequest;
@@ -13,6 +14,7 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import edu.uoc.mestemi.studentjob.exception.DegreeValidationException;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 
@@ -45,9 +47,11 @@ public class DeleteDegreeMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			// Call service to delete the degree.
-			_degreeService.deleteDegree(degreeId);
-		}
-		catch (PortalException pe) {
+			_degreeService.deleteDegreeWithValidation(degreeId);
+		} catch (DegreeValidationException dve) {
+			dve.getErrors().forEach(key -> SessionErrors.add(actionRequest, key));
+			log.error("Error deleting degree with degreeId " + degreeId, dve);
+		} catch (PortalException pe) {
 			log.error("Error deleting degree with degreeId " + degreeId, pe);
 		}
 	}

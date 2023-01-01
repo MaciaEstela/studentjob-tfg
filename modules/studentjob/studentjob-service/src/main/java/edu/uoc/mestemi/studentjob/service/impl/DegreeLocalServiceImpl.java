@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
@@ -39,8 +40,14 @@ import java.util.Map;
 import edu.uoc.mestemi.studentjob.exception.DegreeValidationException;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
+import edu.uoc.mestemi.studentjob.model.Offer;
+import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.DegreeAreaLocalService;
+import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.base.DegreeLocalServiceBaseImpl;
+import edu.uoc.mestemi.studentjob.util.validator.CompanyProfileValidatorImpl;
+import edu.uoc.mestemi.studentjob.util.validator.DegreeValidatorImpl;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -56,9 +63,8 @@ public class DegreeLocalServiceImpl extends DegreeLocalServiceBaseImpl {
 	
 	public Degree addDegree(long groupId, Map<Locale, String> nameMap, List<Long> degreeAreasIds, ServiceContext serviceContext) throws PortalException {
 		
-		if (Validator.isNull(degreeAreasIds) && degreeAreasIds.isEmpty()) {
-			throw new DegreeValidationException("Degree must have a DegreeArea associated");
-		}
+		DegreeValidatorImpl degreeValidatorImpl = new DegreeValidatorImpl();
+		degreeValidatorImpl.validate(nameMap, degreeAreasIds);
 		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
@@ -87,6 +93,9 @@ public class DegreeLocalServiceImpl extends DegreeLocalServiceBaseImpl {
 	}
 	
 	public Degree updateDegree(long degreeId, Map<Locale, String> nameMap, List<Long> degreeAreasIds, ServiceContext serviceContext) throws PortalException {
+		
+		DegreeValidatorImpl degreeValidatorImpl = new DegreeValidatorImpl();
+		degreeValidatorImpl.validate(nameMap, degreeAreasIds);
 		
 		Degree degree = getDegree(degreeId);
 		
@@ -191,6 +200,27 @@ public class DegreeLocalServiceImpl extends DegreeLocalServiceBaseImpl {
 		throw new UnsupportedOperationException("Not supported");
 	}
 	
+	@Override
+	public Degree deleteDegree(long degreeId) throws PortalException {
+		return deleteDegree(getDegree(degreeId));
+	}
+
+	@Override
+	public Degree deleteDegree(Degree degree) {
+		throw new UnsupportedOperationException("Not supported");
+	}
+	
+	public Degree deleteDegreeWithValidation(Degree degree) throws PortalException {
+		DegreeValidatorImpl degreeValidatorImpl = new DegreeValidatorImpl();
+		degreeValidatorImpl.validateDelete(degree.getDegreeId());
+		
+		return degreePersistence.remove(degree);
+	}
+	
+	public Degree deleteDegreeWithValidation(long degreeId) throws PortalException {
+		return deleteDegreeWithValidation(getDegree(degreeId));
+	}
+
 	@Override
 	public Degree updateDegree(Degree degree) {
 		throw new UnsupportedOperationException("Not supported");

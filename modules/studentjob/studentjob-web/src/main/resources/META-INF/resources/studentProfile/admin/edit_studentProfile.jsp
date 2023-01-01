@@ -15,6 +15,7 @@
 	<liferay-ui:error key="invalid-preference" message="errors.invalid-preference"></liferay-ui:error>
 	<liferay-ui:error key="empty-degree" message="errors.empty-degree"></liferay-ui:error>
 	<liferay-ui:error key="invalid-degree" message="errors.invalid-degree"></liferay-ui:error>
+	<liferay-ui:error key="invalid-email" message="errors.invalid-email"></liferay-ui:error>
 	
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 

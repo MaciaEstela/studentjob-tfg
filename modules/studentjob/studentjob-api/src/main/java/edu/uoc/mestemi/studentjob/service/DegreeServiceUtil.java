@@ -55,6 +55,12 @@ public class DegreeServiceUtil {
 		return getService().deleteDegree(degreeId);
 	}
 
+	public static Degree deleteDegreeWithValidation(long degreeId)
+		throws PortalException {
+
+		return getService().deleteDegreeWithValidation(degreeId);
+	}
+
 	public static Degree getDegree(long degreeId) throws PortalException {
 		return getService().getDegree(degreeId);
 	}

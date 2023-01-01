@@ -19,6 +19,8 @@
 	<%-- Search container. --%>
 
 <div class="container">
+	<liferay-ui:error key="degreearea-has-degree" message="errors.degreearea-has-degree"></liferay-ui:error>
+
 	<liferay-ui:search-container 
 		emptyResultsMessage="studentjob.degreeArea.admin.no-result"
 		id="degreeAreaEntries"

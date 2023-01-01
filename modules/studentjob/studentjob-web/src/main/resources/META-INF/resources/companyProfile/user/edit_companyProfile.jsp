@@ -9,7 +9,14 @@
 <c:set var="editTitle" value="edit-companyProfile"/>
 
 <div class="container-fluid-1280 edit-companyProfile">
-
+	<liferay-ui:error key="invalid-region-id" message="errors.invalid-region-id"></liferay-ui:error>
+	<liferay-ui:error key="title-missing-spanish" message="errors.title-missing-spanish"></liferay-ui:error>
+	<liferay-ui:error key="description-missing-spanish" message="errors.description-missing-spanish"></liferay-ui:error>
+	<liferay-ui:error key="invalid-email" message="errors.invalid-email"></liferay-ui:error>
+	<liferay-ui:error key="invalid-website" message="errors.invalid-website"></liferay-ui:error>
+	<liferay-ui:error key="sector-missing-spanish" message="errors.sector-missing-spanish"></liferay-ui:error>
+	
+	
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 
 	<aui:model-context bean="${companyProfile}" model="${companyProfileClass}" />
@@ -21,16 +28,16 @@
 		<aui:fieldset-group markupView="lexicon">
 
 			<aui:fieldset>
-				<aui:input label="studentjob.companyprofile.form.title" name="title">
+				<aui:input required="true" label="studentjob.companyprofile.form.title" name="title">
 				</aui:input>
 				
-				<aui:input label="studentjob.companyprofile.form.email" name="email">
+				<aui:input required="true" label="studentjob.companyprofile.form.email" type="email" name="email">
 				</aui:input>
 				
-				<aui:input label="studentjob.companyprofile.form.sector" name="sector">
+				<aui:input required="true" label="studentjob.companyprofile.form.sector" name="sector">
 				</aui:input>
 				
-				<aui:input label="studentjob.companyprofile.form.website" name="website">
+				<aui:input required="true" label="studentjob.companyprofile.form.website" value="${companyProfile.getWebsite()}" type="url" name="website">
 				</aui:input>
 				
 				<label class="control-label">
@@ -48,7 +55,7 @@
 				</div>
 				
 				<%-- Region field. --%>
-				<aui:select name="region" label="studentjob.companyprofile.form.region">
+				<aui:select required="true"  name="region" label="studentjob.companyprofile.form.region">
 					<c:forEach items="${regions}" var="region">
 						<c:choose>
 							<c:when test="${region.getRegionId() == companyProfile.getRegionId()}">

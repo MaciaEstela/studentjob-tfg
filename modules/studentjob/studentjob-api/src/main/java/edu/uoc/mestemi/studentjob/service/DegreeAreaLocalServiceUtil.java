@@ -146,6 +146,12 @@ public class DegreeAreaLocalServiceUtil {
 		return getService().deleteDegreeArea(degreeAreaId);
 	}
 
+	public static DegreeArea deleteDegreeAreaWithValidation(long degreeAreaId)
+		throws PortalException {
+
+		return getService().deleteDegreeAreaWithValidation(degreeAreaId);
+	}
+
 	public static void deleteDegreeDegreeArea(
 		long degreeId, DegreeArea degreeArea) {
 
