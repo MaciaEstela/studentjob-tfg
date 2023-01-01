@@ -110,6 +110,7 @@ public class MyAccountMVCActionCommand extends BaseMVCActionCommand {
 			user.setLastName(lastName);
 			user.getExpandoBridge().setAttribute(StudentjobConstants.USER_PHONE, phone);
 			user.getExpandoBridge().setAttribute(StudentjobConstants.USER_EMAIL_OFFERS, mailOffers);
+			_userLocalService.updateUser(user);
 		} catch (Exception e) {
 			log.error(e);
 		}

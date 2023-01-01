@@ -12,7 +12,9 @@
 				</div>
 			</a>
 			<div class="dropdown-menu dropdown-menu--responsive" aria-labelledby="dropdownMyProfileResponsive">
-				<div class="my-profile__title">${user_name}</div>
+				<div class="my-profile__title">
+					${studentjob_name}
+				</div>
 				<#list nav_items as nav_item>
 					<#if nav_item.getName() == "my-profile">
 						<#list nav_item.getChildren() as nav_child>
@@ -118,7 +120,7 @@
 					</div>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMyProfile">
-					<div class="my-profile__title">${user_name}</div>
+					<div class="my-profile__title">${studentjob_name}</div>
 					<#list nav_items as nav_item>
 						<#if nav_item.getName() == "my-profile">
 							<#list nav_item.getChildren() as nav_child>
