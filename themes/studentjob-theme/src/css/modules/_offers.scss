@@ -324,6 +324,10 @@
         &:active{
             top: 2px;
         }
+
+        @media screen and (max-width: $md) {
+            font-size: 15px;
+        }
     }
 
     &__content{

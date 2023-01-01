@@ -8,7 +8,7 @@
 	<aui:input required="true" name="studentEmail" type="text" value="@uoc.edu" label="form.register.email">
 		<aui:validator errorMessage="form.validator.email-uoc" name="custom">
 			function(val, fieldNode, ruleValue) {
-				var regex = new RegExp(/@example\.com$/i);
+				var regex = new RegExp(/@uoc\.edu$/i);
 				return regex.test(val);
 			}
 		</aui:validator>

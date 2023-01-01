@@ -13,9 +13,17 @@
         align-items: center;
     }
 
+    .site-title{
+        @media screen and (max-width: $lg) {
+            width: 100%;
+        }
+    }
+
     .logo{
         width: 250px;
         height: auto;
+        max-width: 100%;
+        height: fit-content;
     }
 
     .navbar-toggler{

@@ -115,6 +115,11 @@
     &__degrees-wrapper{
         padding: 10px;
         background-color: #fff;
+        display: flex;
+
+        @media screen and (max-width: $md) {
+            display: block;
+        }
     }
 
     &__image-wrapper{
@@ -212,9 +217,11 @@
     }
 
     &__degree:not(:last-child)::after{
-        content: '|';
-        margin-right: 10px;
-        margin-left: 10px;
+        @media screen and (min-width: $md) {
+            content: '|';
+            margin-right: 10px;
+            margin-left: 10px;
+        }       
     }
 
     &__image-wrapper{
@@ -225,7 +232,8 @@
     &__image{
         border-radius: 50%;
         width: 200px;
-        height: 200px;
+        height: fit-content;
+        max-width: 100%;
     }
 
     &__name{
@@ -242,6 +250,10 @@
     &__contact-info-wrapper{
         display: flex;
         gap: 20px;
+
+        @media screen and (max-width: $md) {
+            display: block;
+        }
     }
 
     &__email a{

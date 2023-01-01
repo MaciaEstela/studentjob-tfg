@@ -32,6 +32,10 @@
     .dropdown-menu{
         left: auto;
         padding: 0px;
+
+        &--responsive{
+            left: 0;
+        }
     }
 
     .dropdown-item{

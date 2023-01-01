@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
 <script src="https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"></script>
 
-<div class="container">
+<div class="container overflow-auto">
 	<h1 class="mt-4 mb-4">
 		<liferay-ui:message key="studentjob.studentprofile.table.title" arguments="${offerTitle}"/>
 	</h1>

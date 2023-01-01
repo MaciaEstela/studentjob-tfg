@@ -1,9 +1,34 @@
 <nav aria-label="<@liferay.language key="site-pages" />" class="${nav_css_class}" id="navigation" role="navigation">
-	<div aria-level="1" class="site-title" role="heading">
+	<div aria-level="1" class="site-title w-lg-100" role="heading">
         <a class="${logo_css_class}" href="${site_default_url}" title="<@liferay.language_format arguments="${site_name}" key="go-to-x" />">
             <img alt="Studentjob Logo" class="logo" src="${images_folder}/studentjob-dark.png" />
         </a>
     </div>
+	<#if is_signed_in>
+		<div class="my-profile dropdown d-lg-none">
+			<a class="my-profile__item" type="button" id="dropdownMyProfileResponsive" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div class="my-profile__img-wrapper">
+					<img class="my-profile__img" src="${user.getPortraitURL(themeDisplay)}" alt="User logo"/>
+				</div>
+			</a>
+			<div class="dropdown-menu dropdown-menu--responsive" aria-labelledby="dropdownMyProfileResponsive">
+				<div class="my-profile__title">${user_name}</div>
+				<#list nav_items as nav_item>
+					<#if nav_item.getName() == "my-profile">
+						<#list nav_item.getChildren() as nav_child>
+							<a href="${nav_child.getURL()}" ${nav_child.getTarget()} class="dropdown-item" role="menuitem">
+								${nav_child.getName()}
+							</a>
+						</#list>
+					</#if>
+				</#list>
+				<a class="dropdown-item my-profile__logout" href="/c/portal/logout">
+					<i class="icon icon-signout"></i>
+					<@liferay.language key="disconnect" />
+				</a>
+			</div>
+		</div>
+	</#if>
 	<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		<div class="navbar-hamburger">
           <span class="line"></span>
@@ -84,9 +109,9 @@
 				instanceId="header-lang"
 				portletName="com_liferay_site_navigation_language_web_portlet_SiteNavigationLanguagePortlet"
 			/>
-		</div>
+		</div> 
 		<#if is_signed_in>
-			<div class="my-profile dropdown">
+			<div class="my-profile dropdown d-none d-lg-block">
 				<a class="my-profile__item" type="button" id="dropdownMyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<div class="my-profile__img-wrapper">
 						<img class="my-profile__img" src="${user.getPortraitURL(themeDisplay)}" alt="User logo"/>
