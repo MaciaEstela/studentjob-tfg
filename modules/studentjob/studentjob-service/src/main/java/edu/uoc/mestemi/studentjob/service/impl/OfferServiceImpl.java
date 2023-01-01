@@ -15,15 +15,9 @@
 package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.Order;
-import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -48,7 +42,6 @@ public class OfferServiceImpl extends OfferServiceBaseImpl {
 	
 	public Offer addOffer(long groupId, long regionId, Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String preference, 
 			List<Long> degreeIds, ServiceContext serviceContext) throws PortalException {
-		
 		return offerLocalService.addOffer(groupId, regionId, titleMap, descriptionMap, preference, degreeIds, serviceContext);
 	}
 	

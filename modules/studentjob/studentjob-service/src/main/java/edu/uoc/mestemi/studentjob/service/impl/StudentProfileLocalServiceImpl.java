@@ -44,6 +44,8 @@ import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalService;
 import edu.uoc.mestemi.studentjob.service.base.StudentProfileLocalServiceBaseImpl;
+import edu.uoc.mestemi.studentjob.util.validator.OfferValidatorImpl;
+import edu.uoc.mestemi.studentjob.util.validator.StudentProfileValidatorImpl;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -61,6 +63,9 @@ public class StudentProfileLocalServiceImpl
 	public StudentProfile addStudentProfile(long groupId, long userId, long regionId, boolean active, 
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, String preference, 
 			long curriculumId, List<Long> degreeIds, ServiceContext serviceContext) throws PortalException {
+		
+		StudentProfileValidatorImpl studentProfileValidatorImpl = new StudentProfileValidatorImpl();
+		studentProfileValidatorImpl.validate(regionId, titleMap, descriptionMap, email, preference, degreeIds);
 		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
@@ -112,6 +117,9 @@ public class StudentProfileLocalServiceImpl
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String email, String preference, 
 			long curriculumId, List<Long> degreeIds, ServiceContext serviceContext) 
 					throws PortalException {
+		
+		StudentProfileValidatorImpl studentProfileValidatorImpl = new StudentProfileValidatorImpl();
+		studentProfileValidatorImpl.validate(regionId, titleMap, descriptionMap, email, preference, degreeIds);
 		
 		StudentProfile studentProfile = getStudentProfile(studentProfileId);
 		User studentUser = UserLocalServiceUtil.getUser(studentProfile.getUserId());

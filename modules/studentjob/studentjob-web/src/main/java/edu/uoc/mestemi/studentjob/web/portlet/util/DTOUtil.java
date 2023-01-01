@@ -114,8 +114,6 @@ public class DTOUtil {
 		StudentProfileDTO studentProfileDTO = null;
 		Locale locale = themeDisplay.getLocale();
 		
-		long groupId = themeDisplay.getScopeGroupId();
-		
 		User user = UserLocalServiceUtil.getUser(studentProfile.getUserId());
 		String name = user.getFirstName();
 		String surname = user.getLastName();

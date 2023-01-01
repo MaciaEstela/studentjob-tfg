@@ -20,7 +20,7 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.instanceable=false",
 		"javax.portlet.display-name=Studentjob STUDENTPROFILE ADMIN",
 		"javax.portlet.init-param.template-path=/",
-		"javax.portlet.init-param.view-template=/degreearea/admin/view.jsp",
+		"javax.portlet.init-param.view-template=/studentProfile/admin/edit_studentProfile.jsp",
 		"javax.portlet.name=" + StudentjobPortletKeys.STUDENTJOB_STUDENTPROFILE_ADMIN,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"

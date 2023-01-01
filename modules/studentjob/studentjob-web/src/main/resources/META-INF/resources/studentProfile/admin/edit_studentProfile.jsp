@@ -9,7 +9,13 @@
 <c:set var="editTitle" value="studentjob.studentprofile.admin.edit"/>
 
 <div class="container-fluid-1280 edit-studentProfile">
-
+	<liferay-ui:error key="invalid-region-id" message="errors.invalid-region-id"></liferay-ui:error>
+	<liferay-ui:error key="title-missing-spanish" message="errors.title-missing-spanish"></liferay-ui:error>
+	<liferay-ui:error key="description-missing-spanish" message="errors.description-missing-spanish"></liferay-ui:error>
+	<liferay-ui:error key="invalid-preference" message="errors.invalid-preference"></liferay-ui:error>
+	<liferay-ui:error key="empty-degree" message="errors.empty-degree"></liferay-ui:error>
+	<liferay-ui:error key="invalid-degree" message="errors.invalid-degree"></liferay-ui:error>
+	
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 
 	<aui:model-context bean="${studentProfile}" model="${studentProfileClass}" />
@@ -21,7 +27,7 @@
 		<aui:fieldset-group markupView="lexicon">
 
 			<aui:fieldset>
-				<aui:input label="studentjob.studentprofile.form.title" name="title">
+				<aui:input required="true" label="studentjob.studentprofile.form.title" name="title">
 				</aui:input>
 				
 				<label class="control-label">
@@ -29,6 +35,7 @@
 				</label>
 				<div class="alloy-editor-container">
 					<liferay-ui:input-localized
+						required="true" 
 						xml="${studentProfile.getDescription()}"
 						type="editor"
 						cssClass="studentjob-ckeditor"
@@ -38,11 +45,11 @@
 						showSource="false" />
 				</div>
 				
-				<aui:input label="studentjob.studentprofile.form.email" name="email">
+				<aui:input required="true" type="email" label="studentjob.studentprofile.form.email" name="email">
 				</aui:input>
 				
 				<%-- Preference field. --%>
-				<aui:select name="preference" label="studentjob.studentprofile.form.preference">
+				<aui:select required="true" name="preference" label="studentjob.studentprofile.form.preference">
 					<c:forEach items="${preferences}" var="preference">
 						<c:choose>
 							<c:when test="${offer.getPreference() == preference}">
@@ -56,7 +63,7 @@
 				</aui:select>
 				
 				<%-- Region field. --%>
-				<aui:select name="region" label="studentjob.studentprofile.form.region">
+				<aui:select required="true" name="region" label="studentjob.studentprofile.form.region">
 					<c:forEach items="${regions}" var="region">
 						<c:choose>
 							<c:when test="${region.getRegionId() == studentProfile.getRegionId()}">
@@ -70,7 +77,7 @@
 				</aui:select>
 				
 				<%-- Degree field. --%>
-				<aui:select name="degree" label="studentjob.studentprofile.form.degree" multiple="true">
+				<aui:select required="true" name="degree" label="studentjob.studentprofile.form.degree" multiple="true">
 					<c:forEach items="${degrees}" var="degree">
 						<c:choose>
 							<c:when test="${currentStudentProfileDegreesIds.contains(degree.getDegreeId())}">
@@ -85,7 +92,12 @@
 				
 				<%-- SocialMedia field. --%>
 				<%@ include file="/utils/socialMedia.jspf"%>
-				<aui:input type="file" name="curriculum" label="studentjob.studentprofile.form.cv"></aui:input>
+				
+				<c:set var="cvRequired" value = "true"/>
+				<c:if test="${!cvURL.isEmpty()}">
+					<c:set var="cvRequired" value = "false"/>
+				</c:if>
+				<aui:input required="${cvRequired}" type="file" name="curriculum" label="studentjob.studentprofile.form.cv"></aui:input>
 				<c:if test="${!cvURL.isEmpty()}">
 					<div class="mb-5">
 						<a href="${cvURL}"><liferay-ui:message key="download-file" /></a>

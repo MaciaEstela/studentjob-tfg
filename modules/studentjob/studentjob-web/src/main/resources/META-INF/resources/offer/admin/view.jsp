@@ -1,9 +1,15 @@
  <%@ include file="/init.jsp" %>
 
 <div class="container-fluid-1280">
-
 	<h1><liferay-ui:message key="studentjob.offers.admin-title" /></h1>
-
+	<liferay-ui:error key="invalid-region-id" message="errors.invalid-region-id"></liferay-ui:error>
+	<liferay-ui:error key="title-missing-spanish" message="errors.title-missing-spanish"></liferay-ui:error>
+	<liferay-ui:error key="description-missing-spanish" message="errors.description-missing-spanish"></liferay-ui:error>
+	<liferay-ui:error key="invalid-preference" message="errors.invalid-preference"></liferay-ui:error>
+	<liferay-ui:error key="empty-degree" message="errors.empty-degree"></liferay-ui:error>
+	<liferay-ui:error key="invalid-degree" message="errors.invalid-degree"></liferay-ui:error>
+	<liferay-ui:success key="offer-added" message="messages.offer-added"/>
+	
 	<%-- Clay management toolbar. --%>
 
 	<clay:management-toolbar

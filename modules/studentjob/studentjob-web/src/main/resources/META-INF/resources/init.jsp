@@ -30,6 +30,7 @@
 <%@ page import="java.util.Locale" %>
 <%@ page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %>
 
+<%@ page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 <%@ page import="edu.uoc.mestemi.studentjob.model.SocialMedia"%>
 <%@ page import="edu.uoc.mestemi.studentjob.model.SocialMediaNetwork"%>
 <%@ page import="edu.uoc.mestemi.studentjob.model.UserEnrollOffer"%>

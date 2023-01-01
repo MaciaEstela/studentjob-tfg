@@ -1,8 +1,8 @@
- <%@ include file="/init.jsp"%>
+<%@ include file="/init.jsp"%>
 
- <%-- Generate add / edit action URL and set title. --%>
+<%-- Generate add / edit action URL and set title. --%>
 
- <c:choose>
+<c:choose>
 	<c:when test="${not empty offer}">
 		<portlet:actionURL var="offerActionURL" name="<%=MVCCommandNames.EDIT_OFFER_ADMIN %>">
 			<portlet:param name="redirect" value="${param.redirect}" />
@@ -17,9 +17,16 @@
 
 		<c:set var="editTitle" value="studentjob.offers.create-title"/>
 	</c:otherwise>
- </c:choose>
+</c:choose>
 
  <div class="container-fluid-1280 edit-offer">
+
+	<liferay-ui:error key="invalid-region-id" message="errors.invalid-region-id"></liferay-ui:error>
+	<liferay-ui:error key="title-missing-spanish" message="errors.title-missing-spanish"></liferay-ui:error>
+	<liferay-ui:error key="description-missing-spanish" message="errors.description-missing-spanish"></liferay-ui:error>
+	<liferay-ui:error key="invalid-preference" message="errors.invalid-preference"></liferay-ui:error>
+	<liferay-ui:error key="empty-degree" message="errors.empty-degree"></liferay-ui:error>
+	<liferay-ui:error key="invalid-degree" message="errors.invalid-degree"></liferay-ui:error>
 
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 

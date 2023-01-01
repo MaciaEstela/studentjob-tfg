@@ -39,6 +39,7 @@ import edu.uoc.mestemi.studentjob.model.Offer;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -320,6 +321,11 @@ public interface OfferLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Offer> getOffers(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Offer> getOffersByDateGreater(
+		long groupId, String preference, long regionId, long degreeId,
+		Date greaterThanDate);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Offer> getOffersByGroupId(long groupId);

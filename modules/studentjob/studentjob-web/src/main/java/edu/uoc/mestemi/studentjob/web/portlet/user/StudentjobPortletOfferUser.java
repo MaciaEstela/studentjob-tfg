@@ -20,7 +20,7 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.instanceable=false",
 		"javax.portlet.display-name=Studentjob Offer User",
 		"javax.portlet.init-param.template-path=/",
-		"javax.portlet.init-param.view-template=/offer/admin/view.jsp",
+		"javax.portlet.init-param.view-template=/offer/user/list.jsp",
 		"javax.portlet.name=" + StudentjobPortletKeys.STUDENTJOB_OFFER_USER,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"

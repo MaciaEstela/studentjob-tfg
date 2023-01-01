@@ -452,6 +452,16 @@ public class OfferLocalServiceWrapper
 
 	@Override
 	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
+		getOffersByDateGreater(
+			long groupId, String preference, long regionId, long degreeId,
+			java.util.Date greaterThanDate) {
+
+		return _offerLocalService.getOffersByDateGreater(
+			groupId, preference, regionId, degreeId, greaterThanDate);
+	}
+
+	@Override
+	public java.util.List<edu.uoc.mestemi.studentjob.model.Offer>
 		getOffersByGroupId(long groupId) {
 
 		return _offerLocalService.getOffersByGroupId(groupId);

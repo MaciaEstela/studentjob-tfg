@@ -60,6 +60,7 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
+		log.info("ViewPublicOffersMVCRenderCommand");
 		ThemeDisplay themeDisplay =
 				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		long groupId = themeDisplay.getScopeGroupId();

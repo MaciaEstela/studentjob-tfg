@@ -14,13 +14,10 @@
 
 package edu.uoc.mestemi.studentjob.service.impl;
 
-import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Conjunction;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactory;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Order;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
@@ -39,13 +36,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalService;
 import edu.uoc.mestemi.studentjob.service.base.OfferLocalServiceBaseImpl;
 import edu.uoc.mestemi.studentjob.util.StudentjobUtilities;
-
+import edu.uoc.mestemi.studentjob.util.validator.OfferValidatorImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -61,9 +57,8 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	public Offer addOffer(long groupId, long regionId, Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String preference, 
 			List<Long> degreeIds, ServiceContext serviceContext) throws PortalException {
 		
-		if (Validator.isNull(degreeIds) && degreeIds.isEmpty()) {
-			throw new OfferValidationException("Offer must have a degrees associated");
-		}
+		OfferValidatorImpl offerValidatorImple = new OfferValidatorImpl();
+		offerValidatorImple.validate(regionId, titleMap, descriptionMap, preference, degreeIds);
 		
 		// Get group and user
 		Group group = groupLocalService.getGroup(groupId);
@@ -98,6 +93,9 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	public Offer updateOffer(long offerId, long regionId, Map<Locale, String> titleMap, Map<Locale, String> descriptionMap, String preference, 
 			List<Long> degreeIds, ServiceContext serviceContext) 
 					throws PortalException {
+		
+		OfferValidatorImpl offerValidatorImple = new OfferValidatorImpl();
+		offerValidatorImple.validate(regionId, titleMap, descriptionMap, preference, degreeIds);
 		
 		Offer offer = getOffer(offerId);
 		
@@ -159,6 +157,11 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 				getKeywordSearchDynamicQuery(groupId, userId, keywords, workflowStatus), start, end, orderByComparator);
 	}
 	
+	public List<Offer> getOffersByDateGreater(long groupId, String preference, long regionId, long degreeId, Date greaterThanDate) {
+		return offerPersistence.findWithDynamicQuery(
+				getKeywordSearchDynamicQuery(groupId, preference, regionId, degreeId, greaterThanDate));
+	}
+	
 	public long getOffersCountByKeywords(long groupId, long userId, String keywords, int workflowStatus) {
 		return offerPersistence.countWithDynamicQuery(
 				getKeywordSearchDynamicQuery(groupId, userId, keywords, workflowStatus));
@@ -195,6 +198,39 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 			
 			dynamicQuery.add(disjunctionQuery);
 		}
+		
+		return dynamicQuery;
+	}
+	
+	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String preference, long regionId, long degreeId, 
+			Date greaterThanDate) {
+		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
+		Conjunction conjunctionQuery = RestrictionsFactoryUtil.conjunction();
+		
+		if (Validator.isNotNull(preference) && !preference.isEmpty()) {
+			conjunctionQuery.add(RestrictionsFactoryUtil.like("preference", "%" + preference + "%"));
+		}
+		
+		if (Validator.isNotNull(regionId) && regionId != 0) {
+			conjunctionQuery.add(RestrictionsFactoryUtil.like("regionId", regionId));
+		}
+		
+		if (Validator.isNotNull(degreeId) && degreeId != 0) {
+			List<Offer> allOffersDegree = getDegreeOffers(degreeId);
+			List<Long> offersIds = new ArrayList<>();
+			
+			for (Offer offer : allOffersDegree) {
+				offersIds.add(offer.getOfferId());
+			}
+			
+			conjunctionQuery.add(RestrictionsFactoryUtil.in("offerId", offersIds));
+		}
+		
+		if (Validator.isNotNull(greaterThanDate)) {
+			conjunctionQuery.add(RestrictionsFactoryUtil.ge("createDate", greaterThanDate));
+		}
+		
+		dynamicQuery.add(conjunctionQuery);
 		
 		return dynamicQuery;
 	}
@@ -307,5 +343,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	
 	@Reference
 	DegreeLocalService degreeLocalService;
-
+	
+//	@Reference
+//	OfferValidator offerValidator;
 }

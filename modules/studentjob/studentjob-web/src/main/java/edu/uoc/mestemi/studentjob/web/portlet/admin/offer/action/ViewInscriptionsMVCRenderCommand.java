@@ -62,6 +62,8 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
+		log.info("ViewOffersMVCRenderCommand");
+
 		Offer offer = null;
 
 		long offerId = ParamUtil.getLong(renderRequest, "offerId", 0);

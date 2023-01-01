@@ -382,6 +382,14 @@ public class OfferLocalServiceUtil {
 		return getService().getOffers(start, end);
 	}
 
+	public static List<Offer> getOffersByDateGreater(
+		long groupId, String preference, long regionId, long degreeId,
+		java.util.Date greaterThanDate) {
+
+		return getService().getOffersByDateGreater(
+			groupId, preference, regionId, degreeId, greaterThanDate);
+	}
+
 	public static List<Offer> getOffersByGroupId(long groupId) {
 		return getService().getOffersByGroupId(groupId);
 	}

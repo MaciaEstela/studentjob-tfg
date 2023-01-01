@@ -15,11 +15,24 @@ package edu.uoc.mestemi.studentjob.exception;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 /**
  * @author Brian Wing Shun Chan
  */
 public class StudentProfileValidationException extends PortalException {
+	
+	private static final long serialVersionUID = 1L;
 
+	public StudentProfileValidationException(List<String> errors) {
+		super(String.join(",", errors));
+		_errors = errors;
+	}
+	
+	public List<String> getErrors() {
+		return _errors;
+	}
+	
 	public StudentProfileValidationException() {
 	}
 
@@ -34,5 +47,6 @@ public class StudentProfileValidationException extends PortalException {
 	public StudentProfileValidationException(Throwable throwable) {
 		super(throwable);
 	}
-
+	
+	private List<String> _errors;
 }

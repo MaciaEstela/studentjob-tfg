@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -127,6 +128,13 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 		}
 		
 		try {
+			
+			if (curriculumId == 0 && !newCurriculum) {
+				List<String> errors = new ArrayList<>();
+				errors.add("invalid-cv");
+				throw new StudentProfileValidationException(errors);
+			}
+			
 			// Call the service to update the studentProfile
 			_studentProfileService.updateStudentProfile(
 					studentProfileId, 
@@ -149,15 +157,9 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 			
 			if (newCurriculum)
 				DocumentLibraryUtil.deleteFileEntryIfExists(studentProfile.getCurriculumId());
-			
-			
-			PortletResponse portletResponse = (PortletResponse) actionRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
-			LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
-			LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_STUDENTPROFILE_ADMIN, PortletRequest.RENDER_PHASE);
-			
-			sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 		}
 		catch (StudentProfileValidationException ove) {
+			ove.getErrors().forEach(key -> SessionErrors.add(actionRequest, key));
 			log.error("Error validating StudentProfile edit with studentProfileId " + studentProfileId, ove);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_STUDENTPROFILE_ADMIN_ACTION);
 		}
@@ -165,6 +167,11 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 			log.error("Error editing StudentProfile with studentProfileId " + studentProfileId, pe);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.EDIT_STUDENTPROFILE_ADMIN_ACTION);
 		}
+		PortletResponse portletResponse = (PortletResponse) actionRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
+		LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+		LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_STUDENTPROFILE_ADMIN, PortletRequest.RENDER_PHASE);
+		
+		sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 	}
 
 	@Reference

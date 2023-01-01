@@ -8,6 +8,8 @@ Export-Package: \
 	edu.uoc.mestemi.studentjob.model,\
 	edu.uoc.mestemi.studentjob.service,\
 	edu.uoc.mestemi.studentjob.service.persistence,\
-	edu.uoc.mestemi.studentjob.util
+	edu.uoc.mestemi.studentjob.util,\
+	edu.uoc.mestemi.studentjob.util.validator,\
+	edu.uoc.mestemi.studentjob.validator
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../studentjob-service/service.xml

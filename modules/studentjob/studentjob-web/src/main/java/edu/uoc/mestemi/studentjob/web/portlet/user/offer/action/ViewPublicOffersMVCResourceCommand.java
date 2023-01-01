@@ -63,6 +63,7 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws Exception {
 
+		log.info("ViewPublicOffersMVCResourceCommand");
 		ThemeDisplay themeDisplay =
 				(ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		long groupId = themeDisplay.getScopeGroupId();
