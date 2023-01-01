@@ -1,19 +1,27 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.offer.action;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SendPasswordException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Region;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -54,13 +62,21 @@ public class EditOfferMVCRenderCommand implements MVCRenderCommand {
 		throws PortletException {
 
 		Offer offer = null;
-
+		ThemeDisplay themeDisplay =
+				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		
 		long offerId = ParamUtil.getLong(renderRequest, "offerId", 0);
-
+		long userId = themeDisplay.getUserId();
 		if (offerId > 0) {
 			try {
 				// Call the service to get the offer for editing.
 				offer = _offerService.getOffer(offerId);
+				if (offer.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
+					PortletResponse portletResponse = (PortletResponse) renderRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
+					LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+					LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_OFFER_ADMIN, PortletRequest.RENDER_PHASE);
+					return renderUrl.toString();
+				}
 			}
 			catch (NoSuchOfferException nsoe) {
 				log.error("Can't find data for Offer with offerId " + offerId + " - Message: " + nsoe.getMessage());
@@ -69,10 +85,7 @@ public class EditOfferMVCRenderCommand implements MVCRenderCommand {
 				log.error("Error on rendering data for Offer with offerId " + offerId + " - Message: " + pe.getMessage());
 			}
 		}
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-
+		
 		// Set back icon visible.
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 		long groupId = themeDisplay.getScopeGroupId();

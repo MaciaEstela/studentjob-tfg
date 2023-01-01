@@ -54,7 +54,7 @@ public class ViewPublicCompanyProfilesMVCRenderCommand implements MVCRenderComma
 				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		long groupId = themeDisplay.getScopeGroupId();
 		
-		List<CompanyProfile> companyProfiles = _companyProfileService.getCompanyProfilesByGroupId(groupId);
+		List<CompanyProfile> companyProfiles = _companyProfileService.getCompanyProfilesByGroupIdAndActive(groupId, true);
 		List<CompanyProfileDTO> companyProfilesDTO = new ArrayList<>();
 		
 		Locale locale = themeDisplay.getLocale();

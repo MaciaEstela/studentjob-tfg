@@ -2,12 +2,20 @@ package edu.uoc.mestemi.studentjob.web.portlet.admin.offer.action;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -40,14 +48,23 @@ public class ExpireOfferMVCActionCommand extends BaseMVCActionCommand {
 		ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
+		ThemeDisplay themeDisplay =
+				(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		long userId = themeDisplay.getUserId();
 		// Get offer id from request.
 		long offerId = ParamUtil.getLong(actionRequest, "offerId");
-
-		Offer offer = _offerService.expireOffer(offerId);
+		Offer offer = _offerService.getOffer(offerId);
 		
-		if (offer == null) {
-			// SessionErrors.add(acti, clazz);
+		if (offer.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
+			PortletResponse portletResponse = (PortletResponse) actionRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
+			LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+			LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_OFFER_ADMIN, PortletRequest.RENDER_PHASE);
+			sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 		}
+
+		offer = _offerService.expireOffer(offerId);
+		
+
 	}
 
 	@Reference

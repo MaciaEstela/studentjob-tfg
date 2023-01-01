@@ -94,6 +94,13 @@ public class CompanyProfileServiceUtil {
 			groupId, start, end, orderByComparator);
 	}
 
+	public static List<CompanyProfile> getCompanyProfilesByGroupIdAndActive(
+		long groupId, boolean active) {
+
+		return getService().getCompanyProfilesByGroupIdAndActive(
+			groupId, active);
+	}
+
 	public static List<CompanyProfile> getCompanyProfilesByKeywords(
 		long groupId, String keywords, boolean onlyActives, int start, int end,
 		OrderByComparator<CompanyProfile> orderByComparator) {

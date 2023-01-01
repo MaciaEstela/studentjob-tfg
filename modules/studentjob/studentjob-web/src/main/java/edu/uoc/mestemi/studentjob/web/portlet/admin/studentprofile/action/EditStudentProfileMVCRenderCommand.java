@@ -6,16 +6,22 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -62,8 +68,6 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
-
-		// TODO : if user is not signed in or user is not in company group return 404
 		
 		ThemeDisplay themeDisplay =
 				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
@@ -71,11 +75,17 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 		long userId = themeDisplay.getUserId();
 		long groupId = themeDisplay.getScopeGroupId();
 		long companyId = themeDisplay.getCompanyId();
-		User user = themeDisplay.getUser();
 		
 		StudentProfile studentProfile = _studentProfileService.getStudentProfileByGroupIdAndUserId(groupId, userId);
 		long studentProfileId = studentProfile.getStudentProfileId();
-
+		
+		if (studentProfile.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
+			PortletResponse portletResponse = (PortletResponse) renderRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
+			LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+			LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_STUDENTPROFILE_ADMIN, PortletRequest.RENDER_PHASE);
+			return renderUrl.toString();
+		}
+		
 		// Set back icon visible.
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 		portletDisplay.setShowBackIcon(true);

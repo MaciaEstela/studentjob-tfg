@@ -64,6 +64,7 @@ public class EditCompanyProfileMVCActionCommand extends BaseMVCActionCommand {
 		
 		long companyId = themeDisplay.getCompanyId();
 		long groupId = themeDisplay.getScopeGroupId();
+		long userId = themeDisplay.getUserId();
 		
 		ServiceContext serviceContext =
 			ServiceContextFactory.getInstance(CompanyProfile.class.getName(), actionRequest);
@@ -73,7 +74,14 @@ public class EditCompanyProfileMVCActionCommand extends BaseMVCActionCommand {
 		long companyProfileId = ParamUtil.getLong(actionRequest, "companyProfileId");
 		CompanyProfile companyProfile = CompanyProfileLocalServiceUtil.getCompanyProfile(companyProfileId);
 		long companyUserId = companyProfile.getUserId();
-
+		
+		if (companyProfile.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
+			PortletResponse portletResponse = (PortletResponse) actionRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
+			LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+			LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_COMPANYPROFILE_ADMIN, PortletRequest.RENDER_PHASE);
+			sendRedirect(actionRequest, actionResponse, renderUrl.toString());
+		}
+		
 		Map<Locale, String> titleMap =
 				LocalizationUtil.getLocalizationMap(actionRequest, "title");
 		

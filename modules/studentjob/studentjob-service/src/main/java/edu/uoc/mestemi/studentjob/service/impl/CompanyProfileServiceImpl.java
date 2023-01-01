@@ -67,6 +67,10 @@ public class CompanyProfileServiceImpl extends CompanyProfileServiceBaseImpl {
 		return companyProfileLocalService.deleteCompanyProfile(companyProfileId);
 	}
 	
+	public List<CompanyProfile> getCompanyProfilesByGroupIdAndActive(long groupId, boolean active) {
+		return companyProfileLocalService.getCompanyProfilesByGroupIdAndActive(groupId, active);
+	}
+	
 	public CompanyProfile getCompanyProfileByGroupIdAndUserId(long groupId, long userId) {
 		return companyProfileLocalService.getCompanyProfileByGroupIdAndUserId(groupId, userId);
 	}
