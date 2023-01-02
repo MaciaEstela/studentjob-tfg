@@ -1,6 +1,8 @@
 # studentjob-tfg
 Repository that includes the Liferay workspace corresponding to the computer engineering degree final project, which consists of the development of a job portal for UOC students
 
+# Importació en Local
+
 Per aixecar el portal en un entorn local es pot utilitzar el docker definit en el docker-compose.yml en l'arrel del projecte per aixecar el servidor de MySQL. La resta de serveis (liferay i elasticsearch) no fan falta i es poden eliminar.
 
 Cal importar la base de dades exportada de producció en l'entorn de Docker MySQL. Ens connectem amb un gestor de MySQL i la importem (root / password)
