@@ -27,7 +27,6 @@ test-results
 **/test-mvc
 /modules/test-service
 /modules/test-mvc
-/modules/studentjob-rest
 /modules/autofields-js-override-web
 /modules/frontend-js-aui-web-override
 /modules/studentjob-context-contributor
