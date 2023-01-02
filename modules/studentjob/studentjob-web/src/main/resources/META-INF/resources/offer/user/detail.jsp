@@ -40,6 +40,11 @@
 			<div class="offer-detail__inscription-wrapper col-12 col-md-5">
 			
 				<c:choose>
+					<c:when test = "${!userIsStudent}">
+						<span class="alert alert-warning">
+							<liferay-ui:message key="studentjob.offers.inactive-student" />
+						</span>
+					</c:when>
 					<c:when test = "${enrolled}">
 						<span class="alert alert-warning">
 							<liferay-ui:message key="studentjob.offers.already-enrolled" />

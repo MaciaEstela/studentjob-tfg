@@ -39,6 +39,7 @@ import edu.uoc.mestemi.studentjob.dto.OfferDTO;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.OfferService;
+import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferService;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
@@ -152,19 +153,20 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 			if (offerId != 0) {
 				Role studentRole = UserManagementUtil.getRoleById(companyId, StudentjobConstants.STUDENT_ROLE);
 				if (UserLocalServiceUtil.hasRoleUser(studentRole.getRoleId(), userId)) {
-					_userEnrollOffer.addUserEnrollOffer(
-							groupId, 
-							offerId, 
-							userId, 
-							ServiceContextFactory.getInstance(resourceRequest)
-						);
-					
-					resourceResponse.setContentType("text/plain");
-					resourceResponse.setCharacterEncoding("UTF-8");
-					resourceResponse.getWriter().write("ok");
+					if (StudentProfileLocalServiceUtil.getStudentProfileByGroupIdAndUserId(groupId, userId).isActive()) {
+						_userEnrollOffer.addUserEnrollOffer(
+								groupId, 
+								offerId, 
+								userId, 
+								ServiceContextFactory.getInstance(resourceRequest)
+							);
+						
+						resourceResponse.setContentType("text/plain");
+						resourceResponse.setCharacterEncoding("UTF-8");
+						resourceResponse.getWriter().write("ok");
+					}
 				}
 			}
-			
 		}
 	}
 	

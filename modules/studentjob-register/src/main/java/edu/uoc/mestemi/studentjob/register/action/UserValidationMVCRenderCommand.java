@@ -90,16 +90,18 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 										PortalUtil.getDefaultCompanyId(), RoleConstants.ADMINISTRATOR).getRoleId());
 						
 						for (User adminUserMail : adminUsers) {
-							TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/companyRegisteredMail.ftl");
+							TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/companyRegisteredMailTpl.ftl");
 							Map<String,Object> params = new HashMap<>();
 							params.put("userCompany", user.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY_EXPANDO));
 							params.put("fullName", user.getFullName());
 							params.put("email", user.getEmailAddress());
-
 							Locale userLocale = adminUserMail.getLocale();
-
 							ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", userLocale, UTF8Control.INSTANCE);
-
+							
+							params.put("new-company-user", LanguageUtil.get(resourceBundle, "mail.text.new-company-user"));
+							params.put("new-company-user", LanguageUtil.get(resourceBundle, "mail.text.new-company-user-requires-approval"));
+							params.put("you-can-unsuscribe", LanguageUtil.get(resourceBundle, "mail.text.you-can-unsuscribe"));
+							
 							RegisterUtil.sendMailMessage(
 									StudentjobConstants.EMAIL_SENDER, 
 									adminUserMail.getEmailAddress(),

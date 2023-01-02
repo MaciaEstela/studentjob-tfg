@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en"><head>
-  <title> Listado de inscripciones </title>
+  <title> ${new-company-user} </title>
   <!--[if !mso]><!-- -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!--<![endif]-->
@@ -245,17 +245,15 @@
                     <tr>
                       <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
                         <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;">
-                          <h1 style="margin: 0; font-size: 32px; line-height: 50px; font-weight: 400;"> Ofertas con nuevas inscripciones </h1>
+                          <h1 style="margin: 0; font-size: 32px; line-height: 50px; font-weight: 400;"> ${new-company-user-requires-approval} </h1>
                         </div>
                       </td>
                     </tr>
-                    <#list enrollmentsString as text>
                       <tr>
                         <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
-                          <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;"> ${text} </div>
+                          <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;"> ${fullName} - ${userCompany} - ${email} </div>
                         </td>
                       </tr>
-                    </#list>
                   </tbody>
                 </table>
               </div>
@@ -301,7 +299,7 @@
                   <tbody><tr>
                     <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
                       <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:14px;font-weight:300;line-height:20px;text-align:left;color:#11224D;">
-                        <p style="margin: 0;"> Puedes desuscribirte a las notificaciones mediante la configuración de tu cuenta a través de la web </p>
+                        <p style="margin: 0;"> ${you-can-unsuscribe} </p>
                       </div>
                     </td>
                   </tr>
@@ -420,7 +418,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="1" style="vertical-align:top;height:1px;">
       
     <![endif]-->
-                      <div style="height:1px;"> </div>
+                      <div style="height:1px;"></div>
                       <!--[if mso | IE]>
     
         </td></tr></table>

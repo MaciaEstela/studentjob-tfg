@@ -4,9 +4,11 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.RegionLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -19,16 +21,20 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.dto.OfferDTO;
 import edu.uoc.mestemi.studentjob.exception.NoSuchOfferException;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
+import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalService;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.OfferService;
+import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalService;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
+import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 import edu.uoc.mestemi.studentjob.web.portlet.util.DTOUtil;
@@ -59,10 +65,25 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 			(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		
 		Offer offer = null;
-
+		
+		long companyId = themeDisplay.getCompanyId();
 		long offerId = ParamUtil.getLong(renderRequest, "offerId", 0);
 		long userId = themeDisplay.getUserId();
 		long groupId = themeDisplay.getScopeGroupId();
+		
+		boolean userIsStudent = false;
+		
+		try {
+			Role studentRole = UserManagementUtil.getRoleById(companyId, StudentjobConstants.STUDENT_ROLE);
+			if (UserLocalServiceUtil.hasRoleUser(studentRole.getRoleId(), userId)) {
+				StudentProfile studentProfile = StudentProfileLocalServiceUtil.getStudentProfileByGroupIdAndUserId(groupId, userId);
+				if (studentProfile.isActive()) {
+					userIsStudent = true;
+				}
+			}
+		} catch (Exception e) {
+			log.error("Error checking user roles", e);
+		}
 		
 		if (offerId > 0) {
 			try {
@@ -76,11 +97,6 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 				log.error("Error on rendering data for Offer with offerId " + offerId, pe);
 			}
 		}
-		
-		if (offer == null) {
-			return ""; // TODO: Return 404
-		}
-
 		
 		OfferDTO offerDTO = null;
 		String province = StringPool.BLANK;
@@ -108,6 +124,7 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 		
 		// Set offer to the request attributes.
 		renderRequest.setAttribute("offer", offer);
+		renderRequest.setAttribute("userIsStudent", userIsStudent);
 		renderRequest.setAttribute("companyProfileId", companyProfileId);
 		renderRequest.setAttribute("offerDTO", offerDTO);
 		renderRequest.setAttribute("province", province);
