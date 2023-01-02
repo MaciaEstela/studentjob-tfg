@@ -89,7 +89,12 @@
         transition: all .2s ease-in-out;
         padding: 15px 30px;
         
-        &:hover {
+        &:disabled{
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
           background: $dark-grey;
           border: 1px solid $dark-grey;
           color: $light-grey;

@@ -35,11 +35,23 @@
 	</aui:input>
 	<aui:input name="companyOfferAlerts" type="checkbox" wrapperCssClass="control-label" label="form.register.company.alert"/>
 	
+	<aui:input name="companyCaptcha" type="hidden" label="captcha"/>
+	<div class="mt-5">
+		<div class="g-recaptcha" data-callback="enableCompanyBtn" data-sitekey="${publicKey}"></div>
+	</div>
+	
 	<div class="row mt-5">
 		<div class="col-12 text-center">
-			<button class="btn-submit" type="submit" id="<portlet:namespace />submitButtonCompany">
+			<button disabled="true" class="btn-submit" type="submit" id="<portlet:namespace />submitButtonCompany">
 				<liferay-ui:message key="form.register.signup" />
 			</button>
 		</div>
 	</div>
 </aui:form>
+
+<script type="text/javascript">
+	function enableCompanyBtn(response){
+		document.getElementById("<portlet:namespace />companyCaptcha").value = response;
+		document.getElementById("<portlet:namespace />submitButtonCompany").disabled = false;
+	}
+</script>

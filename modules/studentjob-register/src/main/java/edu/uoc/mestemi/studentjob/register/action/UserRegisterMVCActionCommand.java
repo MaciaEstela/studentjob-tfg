@@ -114,6 +114,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		String userNif= ParamUtil.getString(actionRequest, userTypePrefix + "Nif", StringPool.BLANK);
 		String userPhone = ParamUtil.getString(actionRequest, userTypePrefix + "Phone", StringPool.BLANK);
 		String userCompany = ParamUtil.getString(actionRequest, userTypePrefix + "Company", StringPool.BLANK);
+		String userCaptcha = ParamUtil.getString(actionRequest, userTypePrefix + "Captcha", StringPool.BLANK);
 		
 		if (userNif.isEmpty() || userPhone.isEmpty() || userCompany.isEmpty()) {
 			SessionErrors.add(actionRequest, "register-invalid-inputs");
@@ -125,6 +126,10 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		
 		if (!userPhone.matches("(^\\+?[1-9][0-9]{7,14})")) {
 			SessionErrors.add(actionRequest, "register-invalid-phone");
+		}
+		
+		if (!RegisterUtil.checkCaptcha(userCaptcha)) {
+			SessionErrors.add(actionRequest, "register-invalid-captcha");
 		}
 		
 		User user = createUser(actionRequest, themeDisplay, userTypePrefix);

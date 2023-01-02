@@ -4,23 +4,42 @@ import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailServiceUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
-import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
 
-import java.util.regex.Pattern;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  * @author Macia Estela (mestemi@uoc.edu)
  */
 public class RegisterUtil {
-
+	
+	private static final Log log = LogFactoryUtil.getLog(RegisterUtil.class);
+	
 	private RegisterUtil() {
 		throw new IllegalStateException("Utility class");
 	}
@@ -72,7 +91,6 @@ public class RegisterUtil {
 		emailName = emailName.replaceAll("[^a-zA-Z]", "");
 		String baseEmailName = emailName;
 		
-		System.out.println("emailName es " + emailName);
 		int count = 0;
 		do {
 			try {
@@ -115,5 +133,44 @@ public class RegisterUtil {
 		} while (screenName.isEmpty());
 		
 		return screenName;
+	}
+	
+	public static boolean checkCaptcha(String publicCaptcha) {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		HttpPost httppost = new HttpPost("https://www.google.com/recaptcha/api/siteverify");
+		List<NameValuePair> params = new ArrayList<>(2);
+		
+		String privateKey = PropsUtil.get("captcha.private.key");
+		params.add(new BasicNameValuePair("secret", privateKey));
+		params.add(new BasicNameValuePair("response", publicCaptcha));
+		httppost.setEntity(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
+		
+		try {
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			if (entity != null) {
+				try (InputStream instream = entity.getContent()) {
+					BufferedReader streamReader = new BufferedReader(new InputStreamReader(instream, StandardCharsets.UTF_8));
+					StringBuilder responseStrBuilder = new StringBuilder();
+					String inputStr;
+					while ((inputStr = streamReader.readLine()) != null)
+						responseStrBuilder.append(inputStr);
+					
+					JSONObject jsonObject = JSONFactoryUtil.createJSONObject(responseStrBuilder.toString());
+					if ( jsonObject.has("success"))
+						return jsonObject.getBoolean("success");
+				}
+			}
+		} catch (Exception e) {
+			log.error("Can't validate google recaptcha");
+		} finally {
+			try {
+				httpclient.close();
+			} catch (Exception e) {
+				log.error("Can't close httpClient");
+			}
+		}
+		
+		return false;
 	}
 }

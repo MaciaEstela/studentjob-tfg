@@ -24,11 +24,23 @@
 	</aui:input>
 	<aui:input name="studentOfferAlerts" type="checkbox" wrapperCssClass="control-label" label="form.register.student.alert"/>
 	
+	<aui:input name="studentCaptcha" type="hidden" label="captcha"/>
+	<div class="mt-5">
+		<div class="g-recaptcha" data-callback="enableStudentBtn" data-sitekey="${publicKey}"></div>
+	</div>
+	
 	<div class="row mt-5">
 		<div class="col-12 text-center">
-			<button class="btn-submit" type="submit" id="<portlet:namespace />submitButtonStudent">
+			<button disabled="true" class="btn-submit" type="submit" id="<portlet:namespace />submitButtonStudent">
 				<liferay-ui:message key="form.register.signup" />
 			</button>
 		</div>
 	</div>
 </aui:form>
+
+<script type="text/javascript">
+	function enableStudentBtn(response){
+		document.getElementById("<portlet:namespace />studentCaptcha").value = response;
+		document.getElementById("<portlet:namespace />submitButtonStudent").disabled = false;
+	}
+</script>
