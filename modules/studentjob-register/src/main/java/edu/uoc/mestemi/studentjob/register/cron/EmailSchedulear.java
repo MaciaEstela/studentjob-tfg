@@ -2,6 +2,8 @@ package edu.uoc.mestemi.studentjob.register.cron;
 
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.language.UTF8Control;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
@@ -9,8 +11,6 @@ import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.model.role.RoleConstants;
-import com.liferay.portal.kernel.portlet.AdministratorControlPanelEntry;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelperUtil;
 import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
 import com.liferay.portal.kernel.scheduler.Trigger;
@@ -23,13 +23,13 @@ import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.mail.internet.AddressException;
 
@@ -132,13 +132,20 @@ public class EmailSchedulear extends BaseMessageListener {
 		User companyUser = UserLocalServiceUtil.getUser(companyProfile.getUserId());
 		if ((boolean) companyUser.getExpandoBridge().getAttribute(StudentjobConstants.USER_EMAIL_OFFERS)) {
 			List<Offer> offers = OfferLocalServiceUtil.getOffersByGroupIdAndUserId(companyProfile.getGroupId(), companyUser.getUserId());
+			Locale userLocale = companyUser.getLocale();
+			
+			ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", userLocale, UTF8Control.INSTANCE);
 			
 			for (Offer offer : offers) {
 				int userEnrollOffersCount = UserEnrollOfferLocalServiceUtil.getUserEnrollOffersByCreateDateCount(companyProfile.getGroupId(), offer.getOfferId(), greaterThanDate);
+				String offerTitle = offer.getTitle("es_ES");
+				if (!offer.getTitle(userLocale).isEmpty()) {
+					offerTitle = offer.getTitle(userLocale);
+				}
 				if (userEnrollOffersCount == 1) {
-					enrollmentsString.add(offer.getTitle("es_ES") + " - " + userEnrollOffersCount + " nueva inscripci�n");
+					enrollmentsString.add(offerTitle + " - " + userEnrollOffersCount + " " + LanguageUtil.get(resourceBundle, "mail.text.new-inscription"));
 				} else if (userEnrollOffersCount > 0) {
-					enrollmentsString.add(offer.getTitle("es_ES") + " - " + userEnrollOffersCount + " nuevas inscripciones");
+					enrollmentsString.add(offerTitle + " - " + userEnrollOffersCount + " " + LanguageUtil.get(resourceBundle, "mail.text.new-inscriptions"));
 				}
 			}
 			
@@ -151,7 +158,7 @@ public class EmailSchedulear extends BaseMessageListener {
 				RegisterUtil.sendMailMessage(
 						StudentjobConstants.EMAIL_SENDER, 
 						companyUser.getEmailAddress(), 
-						"Nuevas inscripciones a tus ofertas",
+						LanguageUtil.get(resourceBundle, "mail.text.new-inscriptions-to-your-offer"),
 						templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL)
 					);
 			}
@@ -177,12 +184,19 @@ public class EmailSchedulear extends BaseMessageListener {
 			
 			List<String> offersString = new ArrayList<>();
 			
+			Locale userLocale = studentUser.getLocale();
+			ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", userLocale, UTF8Control.INSTANCE);
+			
 			for (Degree degree : degrees) {
 				List<Offer> offers = OfferLocalServiceUtil.getOffersByDateGreater(studentProfile.getGroupId(), preference, regionId, degree.getDegreeId(), greaterThanDate);
 				for (Offer offer : offers) {
+					String offerTitle = offer.getTitle("es_ES");
+					if (!offer.getTitle(userLocale).isEmpty()) {
+						offerTitle = offer.getTitle(userLocale);
+					}
 					User companyUser = UserLocalServiceUtil.getUser(offer.getUserId());
 					String company = (String) companyUser.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY_EXPANDO);
-					offersString.add(company + " - " + offer.getTitle("es_ES"));
+					offersString.add(company + " - " + offerTitle);
 				}
 			}
 			
@@ -195,7 +209,7 @@ public class EmailSchedulear extends BaseMessageListener {
 				RegisterUtil.sendMailMessage(
 						StudentjobConstants.EMAIL_SENDER, 
 						studentUser.getEmailAddress(), 
-						"Nuevas ofertas de pr�cticas de tu inter�s",
+						LanguageUtil.get(resourceBundle, "mail.text.new-offers-for-you"),
 						templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL)
 					);
 			}

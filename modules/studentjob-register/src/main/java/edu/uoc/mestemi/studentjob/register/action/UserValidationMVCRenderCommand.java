@@ -1,6 +1,8 @@
 package edu.uoc.mestemi.studentjob.register.action;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.language.UTF8Control;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Ticket;
@@ -19,7 +21,9 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -91,11 +95,15 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 							params.put("userCompany", user.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY_EXPANDO));
 							params.put("fullName", user.getFullName());
 							params.put("email", user.getEmailAddress());
-							
+
+							Locale userLocale = adminUserMail.getLocale();
+
+							ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", userLocale, UTF8Control.INSTANCE);
+
 							RegisterUtil.sendMailMessage(
 									StudentjobConstants.EMAIL_SENDER, 
 									adminUserMail.getEmailAddress(),
-									"Nuevo registro de empresa",
+									LanguageUtil.get(resourceBundle, "mail.text.new-company-registered"),
 									templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL)
 								);
 						}
