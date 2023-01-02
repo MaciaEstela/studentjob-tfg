@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-<script src="https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"></script>
 
 <div class="container overflow-auto">
 	<h1 class="mt-4 mb-4">
@@ -55,7 +54,7 @@
 AUI().ready('aui-module', function(A){
 	<% if (themeDisplay.getLocale().toString().equals("es_ES")) { %>
 		$('#inscriptions').DataTable({
-	        language: {
+			language: {
 				"decimal": "",
 				"emptyTable": "No hay información",
 				"info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
@@ -75,10 +74,10 @@ AUI().ready('aui-module', function(A){
 					"previous": "Anterior"
 				}
 			}
-	    });
+		});
 	<% } else if (themeDisplay.getLocale().toString().equals("ca_ES")) { %>
 		$('#inscriptions').DataTable({
-	        language: {
+			language: {
 				"decimal": "",
 				"emptyTable": "No hi ha informació",
 				"info": "Mostrant _START_ a _END_ de _TOTAL_ Entrades",
@@ -98,7 +97,7 @@ AUI().ready('aui-module', function(A){
 					"previous": "Anterior"
 				}
 			}
-	    });
+		});
 	<% } else { %>
 		$('#inscriptions').DataTable();
 	<% } %>

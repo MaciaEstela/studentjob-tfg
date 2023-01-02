@@ -1,7 +1,7 @@
 <%@ include file="/init.jsp" %>
 <head>
-	<script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
-	<link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
+	<link rel="stylesheet" href="/o/studentjob-theme/css/slimselect.css">
+	<script src="/o/studentjob-theme/js/slimselect.js"></script>
 </head>
 
 <div class="container-fluid-1280">

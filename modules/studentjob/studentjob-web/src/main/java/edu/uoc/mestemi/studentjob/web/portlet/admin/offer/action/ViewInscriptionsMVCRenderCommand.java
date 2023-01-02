@@ -4,18 +4,24 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Region;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder;
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -63,11 +69,14 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 		throws PortletException {
 
 		log.info("ViewOffersMVCRenderCommand");
-
+		ThemeDisplay themeDisplay =
+				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		long userId = themeDisplay.getUserId();
+		
 		Offer offer = null;
 
 		long offerId = ParamUtil.getLong(renderRequest, "offerId", 0);
-
+		
 		if (offerId > 0) {
 			try {
 				// Call the service to get the offer for editing.
@@ -80,10 +89,14 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 				log.error("Error on rendering data for Offer with offerId " + offerId + " - Message: " + pe.getMessage());
 			}
 		}
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-
+		
+		if (offer.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
+			PortletResponse portletResponse = (PortletResponse) renderRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
+			LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+			LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_OFFER_ADMIN, PortletRequest.RENDER_PHASE);
+			return renderUrl.toString();
+		}
+		
 		// Set back icon visible.
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 		long groupId = themeDisplay.getScopeGroupId();

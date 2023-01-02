@@ -6,7 +6,7 @@
 	<portlet:param name="redirect" value="${param.redirect}" />
 </portlet:actionURL>
 
-<c:set var="editTitle" value="edit-companyProfile"/>
+<c:set var="editTitle" value="studentjob.companyprofile.admin.edit"/>
 
 <div class="container-fluid-1280 edit-companyProfile">
 	<liferay-ui:error key="invalid-region-id" message="errors.invalid-region-id"></liferay-ui:error>
@@ -15,7 +15,6 @@
 	<liferay-ui:error key="invalid-email" message="errors.invalid-email"></liferay-ui:error>
 	<liferay-ui:error key="invalid-website" message="errors.invalid-website"></liferay-ui:error>
 	<liferay-ui:error key="sector-missing-spanish" message="errors.sector-missing-spanish"></liferay-ui:error>
-	
 	
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 

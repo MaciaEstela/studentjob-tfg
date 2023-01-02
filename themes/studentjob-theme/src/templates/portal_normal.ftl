@@ -9,7 +9,7 @@
 
 	<meta content="initial-scale=1.0, width=device-width" name="viewport" />
 
-	<script src="${javascript_folder}/jquery-3.3.1.slim.min.js" defer></script>
+	<script src="${javascript_folder}/jquery-3.6.3.min.js" defer></script>
 	<script src="${javascript_folder}/popper.min.js" defer></script>
 	<script src="${javascript_folder}/bootstrap.min.js" defer></script>
 	<script src="${javascript_folder}/jquery.dataTables.min.js" defer></script>

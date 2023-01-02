@@ -128,8 +128,8 @@
 	</aui:form>
 </div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.js"></script>
+<link rel="stylesheet" href="/o/studentjob-theme/css/slimselect.css">
+<script src="/o/studentjob-theme/js/slimselect.js"></script>
 
 <script type="text/javascript">
 AUI().ready('aui-module', function(A){
