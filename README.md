@@ -10,5 +10,4 @@ https://mega.nz/file/fJ5nmTbY#GzL9_pcU8N4Tj6HeuTx8To4Vpj6iO2XUz2b00GFLAUo
 
 Cal descarregar el Liferay amb Tomcat integrat per poder aixecar el portal en local. Un cop descomprimit cal tocar el fitxer portal-setup-wizard.properties per canviar la propietat liferay.home per la ruta on es troba el Liferay. En cas de ser Windows ha de ser quelcom com: 
 C:/Liferay/TFG/liferay-ce-portal-7.4.3.46-ga46
-
 https://mega.nz/file/rUJngQRD#_bQ-f8fgIUD1K-Kqx_uPbiHfehV9tE2jtQ2URsK6PzI
