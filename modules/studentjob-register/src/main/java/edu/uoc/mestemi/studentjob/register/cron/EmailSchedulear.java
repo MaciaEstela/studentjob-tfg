@@ -55,6 +55,7 @@ import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 		immediate = true,
 		property = {
 			"cron.expression= 0 0 * ? * *"   // scheduler runs every hour
+//			"cron.expression= 0 */1 * ? * *"   // scheduler runs every 3 min.
 		},
 		service = EmailSchedulear.class
 	)
@@ -151,11 +152,11 @@ public class EmailSchedulear extends BaseMessageListener {
 			
 			// Send mail
 			if (!enrollmentsString.isEmpty()) {
-				TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/companyResumeMailTpl.ftl");
+				TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/companyResumeMailTpl2.ftl");
 				Map<String,Object> params = new HashMap<>();
 				params.put("enrollmentsString", enrollmentsString);
-				params.put("offers-with-new-inscriptions", LanguageUtil.get(resourceBundle, "mail.text.offers-with-new-inscriptions"));
-				params.put("inscriptions-list", LanguageUtil.get(resourceBundle, "mail.text.inscriptions-list"));
+				params.put("offersWithNewInscriptions", LanguageUtil.get(resourceBundle, "mail.text.offers-with-new-inscriptions"));
+				params.put("inscriptionsList", LanguageUtil.get(resourceBundle, "mail.text.inscriptions-list"));
 				
 				RegisterUtil.sendMailMessage(
 						StudentjobConstants.EMAIL_SENDER, 
@@ -204,12 +205,12 @@ public class EmailSchedulear extends BaseMessageListener {
 			
 			// Send mail
 			if(!offersString.isEmpty()) {
-				TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/studentResumeMailTpl.ftl");
+				TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/studentResumeMailTpl2.ftl");
 				Map<String,Object> params = new HashMap<>();
 				params.put("offersString", offersString);
-				params.put("new-offers-list", LanguageUtil.get(resourceBundle, "mail.text.new-offers-list"));
-				params.put("you-can-unsuscribe", LanguageUtil.get(resourceBundle, "mail.text.you-can-unsuscribe"));
-				params.put("new-interesting-offers", LanguageUtil.get(resourceBundle, "mail.text.new-interesting-offers"));
+				params.put("newOffersList", LanguageUtil.get(resourceBundle, "mail.text.new-offers-list"));
+				params.put("youCanUnsuscribe", LanguageUtil.get(resourceBundle, "mail.text.you-can-unsuscribe"));
+				params.put("newInterestingOffers", LanguageUtil.get(resourceBundle, "mail.text.new-interesting-offers"));
 				
 				RegisterUtil.sendMailMessage(
 						StudentjobConstants.EMAIL_SENDER, 

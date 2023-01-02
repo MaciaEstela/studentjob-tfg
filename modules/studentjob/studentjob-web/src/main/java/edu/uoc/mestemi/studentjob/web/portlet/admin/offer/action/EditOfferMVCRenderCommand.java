@@ -79,10 +79,10 @@ public class EditOfferMVCRenderCommand implements MVCRenderCommand {
 				}
 			}
 			catch (NoSuchOfferException nsoe) {
-				log.error("Can't find data for Offer with offerId " + offerId + " - Message: " + nsoe.getMessage());
+				log.error("Can't find data for Offer with offerId " + offerId, nsoe);
 			}
 			catch (PortalException pe) {
-				log.error("Error on rendering data for Offer with offerId " + offerId + " - Message: " + pe.getMessage());
+				log.error("Error on rendering data for Offer with offerId " + offerId, pe);
 			}
 		}
 		

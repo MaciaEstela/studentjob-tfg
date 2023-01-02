@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en"><head>
-  <title> ${new-company-user} </title>
+  <title> ${newCompanyUser} </title>
   <!--[if !mso]><!-- -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!--<![endif]-->
@@ -245,7 +245,7 @@
                     <tr>
                       <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
                         <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;">
-                          <h1 style="margin: 0; font-size: 32px; line-height: 50px; font-weight: 400;"> ${new-company-user-requires-approval} </h1>
+                          <h1 style="margin: 0; font-size: 32px; line-height: 50px; font-weight: 400;"> ${newCompanyUserRequiresApproval} </h1>
                         </div>
                       </td>
                     </tr>
@@ -299,7 +299,7 @@
                   <tbody><tr>
                     <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
                       <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:14px;font-weight:300;line-height:20px;text-align:left;color:#11224D;">
-                        <p style="margin: 0;"> ${you-can-unsuscribe} </p>
+                        <p style="margin: 0;"> ${youCanUnsuscribe} </p>
                       </div>
                     </td>
                   </tr>

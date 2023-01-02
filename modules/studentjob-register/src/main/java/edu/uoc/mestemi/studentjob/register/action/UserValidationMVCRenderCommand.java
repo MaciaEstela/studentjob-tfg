@@ -90,7 +90,7 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 										PortalUtil.getDefaultCompanyId(), RoleConstants.ADMINISTRATOR).getRoleId());
 						
 						for (User adminUserMail : adminUsers) {
-							TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/companyRegisteredMailTpl.ftl");
+							TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/companyRegisteredMailTpl2.ftl");
 							Map<String,Object> params = new HashMap<>();
 							params.put("userCompany", user.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY_EXPANDO));
 							params.put("fullName", user.getFullName());
@@ -98,9 +98,9 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 							Locale userLocale = adminUserMail.getLocale();
 							ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", userLocale, UTF8Control.INSTANCE);
 							
-							params.put("new-company-user", LanguageUtil.get(resourceBundle, "mail.text.new-company-user"));
-							params.put("new-company-user", LanguageUtil.get(resourceBundle, "mail.text.new-company-user-requires-approval"));
-							params.put("you-can-unsuscribe", LanguageUtil.get(resourceBundle, "mail.text.you-can-unsuscribe"));
+							params.put("newCompanyUser", LanguageUtil.get(resourceBundle, "mail.text.new-company-user"));
+							params.put("newCompanyUserRequiresApproval", LanguageUtil.get(resourceBundle, "mail.text.new-company-user-requires-approval"));
+							params.put("youCanUnsuscribe", LanguageUtil.get(resourceBundle, "mail.text.you-can-unsuscribe"));
 							
 							RegisterUtil.sendMailMessage(
 									StudentjobConstants.EMAIL_SENDER, 

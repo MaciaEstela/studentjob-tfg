@@ -1,5 +1,10 @@
  <%@ include file="/init.jsp" %>
 
+<c:choose>
+	<c:when test = "${!activeCompany}">
+		<h1><liferay-ui:message key="studentjob.offers.inactive-company" /></h1>
+	</c:when>
+	<c:otherwise>
 <div class="container-fluid-1280">
 	<h1><liferay-ui:message key="studentjob.offers.admin-title" /></h1>
 	<liferay-ui:error key="invalid-region-id" message="errors.invalid-region-id"></liferay-ui:error>
@@ -46,3 +51,5 @@
 		/>
 	</liferay-ui:search-container>
 </div>
+	</c:otherwise>
+</c:choose>

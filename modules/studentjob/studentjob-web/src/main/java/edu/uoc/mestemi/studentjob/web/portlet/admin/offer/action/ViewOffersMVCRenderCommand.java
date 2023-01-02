@@ -23,7 +23,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
+import edu.uoc.mestemi.studentjob.model.CompanyProfile;
 import edu.uoc.mestemi.studentjob.model.Offer;
+import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.DegreeAreaService;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
@@ -51,7 +53,27 @@ public class ViewOffersMVCRenderCommand implements MVCRenderCommand {
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
-				
+		
+		ThemeDisplay themeDisplay =
+				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		long userId = themeDisplay.getUserId();
+		long groupId = themeDisplay.getScopeGroupId();
+		boolean activeCompany = true;
+		
+		try {
+			CompanyProfile companyProfile = CompanyProfileLocalServiceUtil.getCompanyProfileByGroupIdAndUserId(groupId, userId);
+			if (!companyProfile.isActive())
+				activeCompany = false;
+		} catch (Exception e) {
+			activeCompany = false;
+		}
+		
+		renderRequest.setAttribute("activeCompany", activeCompany);
+		
+		if (!activeCompany) {
+			return "/offer/admin/view.jsp";
+		}
+		
 		// Add offer list related attributes.
 		addOfferListAttributes(renderRequest);
 
