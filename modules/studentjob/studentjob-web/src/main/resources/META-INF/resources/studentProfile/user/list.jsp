@@ -87,10 +87,6 @@
 		
 		let newestStudentProfileId = ${newestStudentProfileId}
 		
-		console.log("newestStudentProfileId " + newestStudentProfileId)
-		console.log("start " + start)
-		console.log("offset " + offset)
-		
 		let keywords = keywordsInput.value
 		let region = regionInput.value
 		let degree = degreeInput.value
@@ -186,13 +182,11 @@
 						success: function() {
 							if (this.get('responseData') && this.get('responseData') !== ""){
 								var data = JSON.parse(this.get('responseData'));
-								console.log(data);
 								newestStudentProfileId = data.newestStudentProfileId;
 								studentCount = data.studentProfileCount;
 								start = start + offset;
 								studentCountElement.textContent = studentCount;
 								
-								console.log(studentCountElement)
 								scrollListening = true;
 							}
 						}

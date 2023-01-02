@@ -43,6 +43,10 @@
 <%@ page import="edu.uoc.mestemi.studentjob.dto.OfferDTO"%>
 <%@ page import="edu.uoc.mestemi.studentjob.dto.SocialMediaDTO"%>
 
+<%@ page import="edu.uoc.mestemi.studentjob.service.UserEnrollOfferServiceUtil"%>
+
+
+
 
 <liferay-frontend:defineObjects />
 <liferay-theme:defineObjects />

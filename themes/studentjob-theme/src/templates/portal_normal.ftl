@@ -12,8 +12,6 @@
 	<script src="${javascript_folder}/jquery-3.6.3.min.js" defer></script>
 	<script src="${javascript_folder}/popper.min.js" defer></script>
 	<script src="${javascript_folder}/bootstrap.min.js" defer></script>
-	<script src="${javascript_folder}/jquery.dataTables.min.js" defer></script>
-	<script src="${javascript_folder}/dataTables.bootstrap4.min.js" defer></script>
 
 	<@liferay_util["include"] page=top_head_include />
 </head>

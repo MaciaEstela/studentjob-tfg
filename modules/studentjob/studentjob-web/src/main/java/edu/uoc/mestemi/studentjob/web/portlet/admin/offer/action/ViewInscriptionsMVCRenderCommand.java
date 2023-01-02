@@ -68,7 +68,6 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		log.info("ViewOffersMVCRenderCommand");
 		ThemeDisplay themeDisplay =
 				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		long userId = themeDisplay.getUserId();

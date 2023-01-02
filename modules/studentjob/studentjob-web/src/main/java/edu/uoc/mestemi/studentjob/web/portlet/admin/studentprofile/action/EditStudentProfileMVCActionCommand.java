@@ -119,8 +119,15 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 		try {
 			UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(actionRequest);
 			File file = uploadRequest.getFile("curriculum");
+			String contentType = MimeTypesUtil.getContentType(file);
 			
 			if (file.length() > 0) {
+				
+				if (!contentType.equals("application/pdf")) {
+					curriculumId = 0;
+					throw new StudentProfileValidationException();
+				}
+				
 				String fileName = uploadRequest.getFileName("curriculum");
 				String extension = StringPool.BLANK;
 				if (fileName.contains("."))

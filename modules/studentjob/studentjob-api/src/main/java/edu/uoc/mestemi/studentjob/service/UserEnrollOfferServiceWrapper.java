@@ -93,6 +93,12 @@ public class UserEnrollOfferServiceWrapper
 	}
 
 	@Override
+	public int getUserEnrollOffersCount(long groupId, long offerId) {
+		return _userEnrollOfferService.getUserEnrollOffersCount(
+			groupId, offerId);
+	}
+
+	@Override
 	public UserEnrollOfferService getWrappedService() {
 		return _userEnrollOfferService;
 	}

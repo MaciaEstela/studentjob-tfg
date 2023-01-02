@@ -43,6 +43,17 @@
 						<a href="mailto:${companyProfile.getEmail()}">${companyProfile.getEmail()}</a>
 					</div>
 				</div>
+				<div class="companyprofile-detail__socialmedia-items">
+					<c:forEach items="${socialMediasDTO}" var="socialMediaDTO">
+						<c:if test="${!socialMediaDTO.getSocialMediaUrl().isEmpty()}">
+							<div class="companyprofile-detail__socialmedia-item">
+								<a target="_blank" href="${socialMediaDTO.getSocialMediaUrl()}">
+									<img alt="${socialMediaDTO.getName()}" src="${socialMediaDTO.getImageUrl()}"/>
+								</a>
+							</div>
+						</c:if>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -50,7 +61,6 @@
 
 <div class="col-12 mt-7 mb-5">
 	<div class="container companyprofile-detail ">
-
 		<div class="companyprofile-detail__content row">
 			<h2 class="companyprofile-detail__resume col-12">
 				<liferay-ui:message key="studentjob.companyprofile.resume" />

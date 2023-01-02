@@ -25,7 +25,8 @@
 						<aui:input wrapperCssClass="col-md-6 col-12" label="form.register.company.company" name="company" value="${user.getExpandoBridge().getAttribute(companyExpando)}" disabled="true" />
 						<aui:input wrapperCssClass="col-md-6 col-12" label="form.register.company.nif" name="nif" value="${user.getExpandoBridge().getAttribute(nifExpando)}" disabled="true"/>
 					</c:if>
-					<aui:input wrapperCssClass="col-md-6 col-12" name="email" value="${user.getEmailAddress()}" />
+					<c:set var="mailDisabled" value="${isStudent}"/>
+					<aui:input type="email" wrapperCssClass="col-md-6 col-12" name="email" value="${user.getEmailAddress()}" disabled="${isStudent}"/>
 					<c:if test = "${!isStudent}">
 						<aui:input wrapperCssClass="col-md-6 col-12" name="phone" value="${user.getExpandoBridge().getAttribute(phoneExpando)}" />
 					</c:if>

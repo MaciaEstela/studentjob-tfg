@@ -196,7 +196,7 @@ public class ValidatorUtilities {
 	public static boolean isWebsiteValid(String website, List<String> errors) {
 		boolean result = true;
 		
-		if (!Validator.isUrl(website)) {
+		if (!Validator.isBlank(website) && !Validator.isUrl(website)) {
 			result = false;
 			errors.add("invalid-website");
 		}

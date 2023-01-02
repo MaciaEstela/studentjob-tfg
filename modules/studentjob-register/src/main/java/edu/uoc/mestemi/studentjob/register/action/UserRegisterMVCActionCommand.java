@@ -7,7 +7,6 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.language.UTF8Control;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.model.Ticket;
 import com.liferay.portal.kernel.model.TicketConstants;
 import com.liferay.portal.kernel.model.User;
@@ -15,7 +14,6 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.security.auth.session.AuthenticatedSessionManagerUtil;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.TicketLocalService;
@@ -29,7 +27,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -42,16 +39,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Resource.AuthenticationType;
 import javax.mail.internet.AddressException;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -89,7 +82,6 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		
 		actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.RENDER_REGISTER);
 		
-		// TODO: ERROR IF FORM VALIDATION FAILS
 		String registerType = ParamUtil.getString(actionRequest,  "registerType", StringPool.BLANK);
 		
 		try {
@@ -107,12 +99,6 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		} catch (Exception e) {
 			log.error("Error on register user", e);
 		}
-		
-		PortletResponse portletResponse = (PortletResponse) actionRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
-		LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
-		LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobRegisterPortletKeys.STUDENTJOB_MY_ACCOUNT, PortletRequest.RENDER_PHASE);
-		
-//		sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 	}
 
 	/**
@@ -252,10 +238,9 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		User adminUser = UserManagementUtil.getAdminUser(companyId);
 		User user = null;
 		
-//		if (userTypePrefix.equals(StudentjobConstants.USER_STUDENT) && StudentjobConstants.STUDENTS_ONLY_UOC && !RegisterUtil.getEmailDomain(email).equals("uoc.edu")) {
-//			System.out.println("El email no es valido");
-//			SessionErrors.add(actionRequest, "email-not-valid-uoc");
-//		}
+		if (userTypePrefix.equals(StudentjobConstants.USER_STUDENT) && StudentjobConstants.STUDENTS_ONLY_UOC && !RegisterUtil.getEmailDomain(email).equals("uoc.edu")) {
+			SessionErrors.add(actionRequest, "email-not-valid-uoc");
+		}
 		
 		if (adminUser != null && SessionErrors.isEmpty(actionRequest)) {
 			String customScreenName = StringPool.BLANK;
@@ -361,9 +346,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		params.put("confirmUrl", "http://mestemiuoc.com/validate?token=" + token + "&user=" + screenName);
 		
 		templateProcessor = new TemplateProcessor(
-				portletContext.getResource("/mails/registerMail.ftl").getPath());
-		System.out.println("path");
-		System.out.println(portletContext.getResource("/mails/registerMail.ftl").getPath());
+				portletContext.getResource("/mails/registerUserMail.ftl").getPath());
 		try {
 			RegisterUtil.sendMailMessage(
 					StudentjobConstants.EMAIL_SENDER, 

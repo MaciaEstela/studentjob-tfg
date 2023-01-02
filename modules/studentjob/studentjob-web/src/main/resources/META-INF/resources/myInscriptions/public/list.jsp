@@ -26,14 +26,12 @@
 					method: 'post',
 					on: {
 						success: function() {
-							console.log("responseData")
-							console.log(this.get('responseData'))
 							if (this.get('responseData') && this.get('responseData') == "ok"){
 								document.getElementById(itemURL).style.cursor = "initial";
-								document.getElementById(itemURL).text = "Has eliminado tu inscripción a esta oferta";
+								document.getElementById(itemURL).text = '<liferay-ui:message key="studentjob.myinscriptions.removed-inscription" />';
 								document.getElementById(itemURL).removeAttribute("href");
 							} else {
-								console.log("Error on removing enrollment");
+								console.error("Error on removing enrollment");
 							}
 						}
 					}

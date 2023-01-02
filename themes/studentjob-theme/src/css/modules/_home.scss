@@ -113,7 +113,7 @@
         &:hover{
             background-color: transparent;
             color: #000;
-            border-color: #F98125;
+            border-color: #0f866c;
         }
     }
 
@@ -175,6 +175,6 @@
 
     &__logo{
         width: 100px;
-        height: 100px;
+        height: fit-content;
     }
 }

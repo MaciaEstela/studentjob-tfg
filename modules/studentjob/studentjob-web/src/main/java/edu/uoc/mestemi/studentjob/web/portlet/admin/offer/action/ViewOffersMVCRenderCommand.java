@@ -51,9 +51,7 @@ public class ViewOffersMVCRenderCommand implements MVCRenderCommand {
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
-		
-		log.info("ViewOffersMVCRenderCommand");
-		
+				
 		// Add offer list related attributes.
 		addOfferListAttributes(renderRequest);
 

@@ -58,6 +58,10 @@ public class UserEnrollOfferServiceImpl extends UserEnrollOfferServiceBaseImpl {
 	public List<UserEnrollOffer> getUserEnrollOffers(long groupId, long offerId){
 		return userEnrollOfferLocalService.getUserEnrollOffers(groupId, offerId);
 	}
+	
+	public int getUserEnrollOffersCount(long groupId, long offerId){
+		return userEnrollOfferLocalService.getUserEnrollOffersCount(groupId, offerId);
+	}
 
 	public List<UserEnrollOffer> getUserEnrolledOffers(long groupId, long userId){
 		return userEnrollOfferLocalService.getUserEnrolledOffers(groupId, userId);

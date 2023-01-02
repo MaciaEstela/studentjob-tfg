@@ -200,6 +200,23 @@
     &__description{
         padding: 15px 30px 45px 30px;
     }
+
+    &__socialmedia-items{
+        display: flex;
+        gap: 10px;
+
+        @media screen and (max-width: $md) {
+            flex-direction: column;
+        }
+    }
+
+    &__socialmedia-item{
+        width: 50px;
+
+        img{
+            width: 100%;
+        }
+    }
 }
 
 .companyprofile-cards{

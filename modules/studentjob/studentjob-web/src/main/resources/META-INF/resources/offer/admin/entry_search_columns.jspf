@@ -27,6 +27,11 @@
 	value="<%= entry.getStatus() == WorkflowConstants.STATUS_APPROVED ? "Sí" : "No" %>" 
 />
 
+<liferay-ui:search-container-column-text 
+	name="studentjob.offers.inscriptions"
+	value="<%= String.valueOf(UserEnrollOfferServiceUtil.getUserEnrollOffersCount(entry.getGroupId(), entry.getOfferId())) %>" 
+/>
+
 <liferay-ui:search-container-column-jsp 
 	name="actions"
 	path="/offer/admin/entry_actions.jsp" 

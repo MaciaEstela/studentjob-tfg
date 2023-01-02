@@ -1,6 +1,8 @@
 package edu.uoc.mestemi.studentjob.register.action;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.util.PropsUtil;
+
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -28,6 +30,7 @@ public class UserRegisterMVCRenderCommand implements MVCRenderCommand {
 	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
+		renderRequest.setAttribute("publicKey", PropsUtil.get("captcha.public.key"));
 		return VIEW_JSP;
 	}
 	

@@ -121,7 +121,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="20" style="vertical-align:top;height:20px;">
       
     <![endif]-->
-                      <div style="height:20px;"> � </div>
+                      <div style="height:20px;"> </div>
                       <!--[if mso | IE]>
     
         </td></tr></table>
@@ -245,17 +245,15 @@
                     <tr>
                       <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
                         <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;">
-                          <h1 style="margin: 0; font-size: 32px; line-height: 50px; font-weight: 400;"> Ofertas con nuevas inscripciones </h1>
+                          <h1 style="margin: 0; font-size: 32px; line-height: 50px; font-weight: 400;"> Un nuevo usuario de empresa requiere de aprovación manual </h1>
                         </div>
                       </td>
                     </tr>
-                    <#list enrollmentsString as text>
                       <tr>
                         <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
-                          <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;"> ${text} </div>
+                          <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;"> ${fullName} - ${userCompany} - ${email} </div>
                         </td>
                       </tr>
-                    </#list>
                   </tbody>
                 </table>
               </div>
@@ -420,7 +418,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="1" style="vertical-align:top;height:1px;">
       
     <![endif]-->
-                      <div style="height:1px;"> � </div>
+                      <div style="height:1px;"></div>
                       <!--[if mso | IE]>
     
         </td></tr></table>

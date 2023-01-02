@@ -5,15 +5,21 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Ticket;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.TicketLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -28,6 +34,7 @@ import edu.uoc.mestemi.studentjob.register.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKeys;
 import edu.uoc.mestemi.studentjob.register.portlet.StudentjobRegisterPortlet;
 import edu.uoc.mestemi.studentjob.register.util.RegisterUtil;
+import edu.uoc.mestemi.studentjob.register.util.TemplateProcessor;
 import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 
 /**
@@ -72,10 +79,34 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 				if (RoleLocalServiceUtil.hasUserRole(user.getUserId(), companyId, StudentjobConstants.STUDENT_ROLE, true)) {
 					user.setStatus(WorkflowConstants.STATUS_APPROVED);
 					manualApprovement = false;
+				} else {
+					try {
+						List<User> adminUsers = UserLocalServiceUtil.getRoleUsers(
+								UserManagementUtil.getRoleById(
+										PortalUtil.getDefaultCompanyId(), RoleConstants.ADMINISTRATOR).getRoleId());
+						
+						for (User adminUserMail : adminUsers) {
+							TemplateProcessor templateProcessor = new TemplateProcessor("/META-INF/resources/mails/companyRegisteredMail.ftl");
+							Map<String,Object> params = new HashMap<>();
+							params.put("userCompany", user.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY_EXPANDO));
+							params.put("fullName", user.getFullName());
+							params.put("email", user.getEmailAddress());
+							
+							RegisterUtil.sendMailMessage(
+									StudentjobConstants.EMAIL_SENDER, 
+									adminUserMail.getEmailAddress(),
+									"Nuevo registro de empresa",
+									templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL)
+								);
+						}
+					} catch (Exception e) {
+						log.error("Error processing new register mail", e);
+					}
 				}
 				
 				_userLocalService.updateUser(user);
 				
+				_ticketLocalService.deleteTicket(ticket.getTicketId());
 				renderRequest.setAttribute("manualApprovement", manualApprovement);
 				renderRequest.setAttribute("validated", true);
 			}

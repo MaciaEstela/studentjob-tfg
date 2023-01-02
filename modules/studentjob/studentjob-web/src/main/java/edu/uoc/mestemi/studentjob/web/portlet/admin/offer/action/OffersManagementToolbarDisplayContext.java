@@ -122,7 +122,7 @@ public class OffersManagementToolbarDisplayContext
 	}
 
 	public int getFilterStatus() {
-		return ParamUtil.getInteger(httpServletRequest, "filterByStatus", WorkflowConstants.STATUS_APPROVED);
+		return ParamUtil.getInteger(httpServletRequest, "filterByStatus", WorkflowConstants.STATUS_ANY);
 	}
 	
 	/**

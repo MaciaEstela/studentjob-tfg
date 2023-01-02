@@ -29,7 +29,7 @@
 	
 	<div class="students-cards__download-cv-wrapper">
 		<a href="${student.getCvUrl()}" class="students-cards__download-cv">
-			Descarregar CV
+			${downloadCV}
 		</a>
 	</div>
 </div>

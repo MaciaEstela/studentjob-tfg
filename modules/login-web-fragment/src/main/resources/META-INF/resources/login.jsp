@@ -71,7 +71,7 @@
 			<div class="studentjob-login__wrapper">
 				<div class="studentjob-login__login-container">
 					<h2 class="studentjob-login__title mt-5 mb-3 text-center">
-						<liferay-ui:message key="welcome" />!
+						<liferay-ui:message key="studentjob.login.welcome" />
 					</h2>
 					
 					<portlet:actionURL name="/login/login" secure="<%= PropsValues.COMPANY_SECURITY_AUTH_REQUIRES_HTTPS || request.isSecure() %>" var="loginURL">

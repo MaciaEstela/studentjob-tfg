@@ -185,7 +185,6 @@
 						success: function() {
 							if (this.get('responseData') && this.get('responseData') !== ""){
 								var data = JSON.parse(this.get('responseData'));
-								console.log(data);
 								newestOfferId = data.newestOfferId;
 								offerCount = data.offerCount;
 								start = start + offset;

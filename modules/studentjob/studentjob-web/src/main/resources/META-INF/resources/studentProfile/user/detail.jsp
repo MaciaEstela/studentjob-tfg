@@ -39,13 +39,15 @@
 						</div>
 						<div class="studentprofile-detail__contact-wrapper col-md-3 col-12 mt-4">
 							<div class="studentprofile-detail__download-cv mb-4">
-								<a href="${studentProfileDTO.getCvUrl()}" class="btn btn-dark">Descargar CV</a>
+								<a href="${studentProfileDTO.getCvUrl()}" class="btn btn-dark">
+									<liferay-ui:message key="studentjob.studentprofile.user.download-cv" />
+								</a>
 							</div>
 							<div class="studentprofile-detail__socialmedia-wrapper">
 								<c:forEach items="${socialMediasDTO}" var="socialMediaDTO">
 									<c:if test="${!socialMediaDTO.getSocialMediaUrl().isEmpty()}">
 										<div class="studentprofile-detail__socialmedia-item">
-											<a href="${socialMediaDTO.getSocialMediaUrl()}">
+											<a target="_blank" href="${socialMediaDTO.getSocialMediaUrl()}">
 												<img alt="${socialMediaDTO.getName()}" src="${socialMediaDTO.getImageUrl()}"/>
 											</a>
 										</div>

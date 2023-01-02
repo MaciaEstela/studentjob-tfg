@@ -6,10 +6,12 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -40,6 +42,7 @@ import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferService;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
+import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 
 /**
@@ -63,7 +66,6 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws Exception {
 
-		log.info("ViewPublicOffersMVCResourceCommand");
 		ThemeDisplay themeDisplay =
 				(ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		long groupId = themeDisplay.getScopeGroupId();
@@ -148,16 +150,19 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 			long offerId = ParamUtil.getLong(resourceRequest, "offerId", 0);
 			
 			if (offerId != 0) {
-				_userEnrollOffer.addUserEnrollOffer(
-						groupId, 
-						offerId, 
-						userId, 
-						ServiceContextFactory.getInstance(resourceRequest)
-					);
-				
-				resourceResponse.setContentType("text/plain");
-				resourceResponse.setCharacterEncoding("UTF-8");
-				resourceResponse.getWriter().write("ok");
+				Role studentRole = UserManagementUtil.getRoleById(companyId, StudentjobConstants.STUDENT_ROLE);
+				if (UserLocalServiceUtil.hasRoleUser(studentRole.getRoleId(), userId)) {
+					_userEnrollOffer.addUserEnrollOffer(
+							groupId, 
+							offerId, 
+							userId, 
+							ServiceContextFactory.getInstance(resourceRequest)
+						);
+					
+					resourceResponse.setContentType("text/plain");
+					resourceResponse.setCharacterEncoding("UTF-8");
+					resourceResponse.getWriter().write("ok");
+				}
 			}
 			
 		}

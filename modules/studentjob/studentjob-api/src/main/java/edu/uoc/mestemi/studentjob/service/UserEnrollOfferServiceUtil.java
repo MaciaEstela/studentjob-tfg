@@ -85,6 +85,10 @@ public class UserEnrollOfferServiceUtil {
 		return getService().getUserEnrollOffers(groupId, offerId);
 	}
 
+	public static int getUserEnrollOffersCount(long groupId, long offerId) {
+		return getService().getUserEnrollOffersCount(groupId, offerId);
+	}
+
 	public static UserEnrollOfferService getService() {
 		return _service;
 	}

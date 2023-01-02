@@ -12,6 +12,9 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -20,10 +23,15 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
+import edu.uoc.mestemi.studentjob.dto.SocialMediaDTO;
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
+import edu.uoc.mestemi.studentjob.model.SocialMedia;
+import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileService;
+import edu.uoc.mestemi.studentjob.service.SocialMediaLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
+import edu.uoc.mestemi.studentjob.web.portlet.util.DTOUtil;
 
 /**
  * MVC Command for viewing companyProfile details
@@ -88,9 +96,23 @@ public class ViewPublicCompanyProfileDetailMVCRenderCommand implements MVCRender
 			log.error("Error on get Region for regionID " + companyProfile.getRegionId(), e);
 		}
 		
+		List<SocialMedia> socialMedias = 
+				SocialMediaLocalServiceUtil.getSocialMediaNetworksByGroupIdAndClass(
+						groupId, CompanyProfile.class.getName(), companyProfile.getPrimaryKey());
+		List<SocialMediaDTO> socialMediasDTO = new ArrayList<>();
+		
+		for (SocialMedia socialMedia : socialMedias) {
+			try {
+				socialMediasDTO.add(DTOUtil.getSocialMediaDTO(themeDisplay, socialMedia));
+			} catch (PortalException e) {
+				log.error("Can't convert socialMedia with id " + socialMedia.getSocialMediaId() + " to SocialMediaDTO", e);
+			}
+		}
+		
 		// Set companyProfile to the request attributes.
 		renderRequest.setAttribute("companyProfile", companyProfile);
 		renderRequest.setAttribute("province", province);
+		renderRequest.setAttribute("socialMediasDTO", socialMediasDTO);
 		
 		return "/companyProfile/public/detail.jsp";
 	}

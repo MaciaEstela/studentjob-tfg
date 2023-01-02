@@ -1,7 +1,9 @@
 <%@ include file="/init.jsp" %>
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="/o/studentjob-theme/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/o/studentjob-theme/css/bootstrap.css">
+<script src="/o/studentjob-theme/js/jquery.dataTables.min.js"></script>
+<script src="/o/studentjob-theme/js/dataTables.bootstrap4.min.js"></script>
 
 <div class="container overflow-auto">
 	<h1 class="mt-4 mb-4">

@@ -203,6 +203,38 @@ public class UserEnrollOfferServiceHttp {
 		}
 	}
 
+	public static int getUserEnrollOffersCount(
+		HttpPrincipal httpPrincipal, long groupId, long offerId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEnrollOfferServiceUtil.class, "getUserEnrollOffersCount",
+				_getUserEnrollOffersCountParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, offerId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static java.util.List
 		<edu.uoc.mestemi.studentjob.model.UserEnrollOffer>
 			getUserEnrolledOffers(
@@ -211,7 +243,7 @@ public class UserEnrollOfferServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserEnrollOfferServiceUtil.class, "getUserEnrolledOffers",
-				_getUserEnrolledOffersParameterTypes4);
+				_getUserEnrolledOffersParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, userId);
@@ -244,7 +276,7 @@ public class UserEnrollOfferServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserEnrollOfferServiceUtil.class, "getUserEnrolledOffersCount",
-				_getUserEnrolledOffersCountParameterTypes5);
+				_getUserEnrolledOffersCountParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, userId);
@@ -284,9 +316,11 @@ public class UserEnrollOfferServiceHttp {
 		new Class[] {long.class, long.class, long.class};
 	private static final Class<?>[] _getUserEnrollOffersParameterTypes3 =
 		new Class[] {long.class, long.class};
-	private static final Class<?>[] _getUserEnrolledOffersParameterTypes4 =
+	private static final Class<?>[] _getUserEnrollOffersCountParameterTypes4 =
 		new Class[] {long.class, long.class};
-	private static final Class<?>[] _getUserEnrolledOffersCountParameterTypes5 =
+	private static final Class<?>[] _getUserEnrolledOffersParameterTypes5 =
+		new Class[] {long.class, long.class};
+	private static final Class<?>[] _getUserEnrolledOffersCountParameterTypes6 =
 		new Class[] {long.class, long.class};
 
 }

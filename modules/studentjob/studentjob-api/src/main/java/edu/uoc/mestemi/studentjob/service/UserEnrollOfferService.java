@@ -83,4 +83,7 @@ public interface UserEnrollOfferService extends BaseService {
 	public List<UserEnrollOffer> getUserEnrollOffers(
 		long groupId, long offerId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getUserEnrollOffersCount(long groupId, long offerId);
+
 }

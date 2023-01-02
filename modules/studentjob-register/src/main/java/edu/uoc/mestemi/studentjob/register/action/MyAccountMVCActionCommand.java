@@ -5,6 +5,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.UserEmailAddressException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
@@ -45,6 +46,7 @@ import edu.uoc.mestemi.studentjob.register.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKeys;
 import edu.uoc.mestemi.studentjob.register.portlet.StudentjobRegisterPortlet;
 import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
+import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 
 /**
  * MVC Render for Student and Company User Edit account
@@ -67,8 +69,6 @@ public class MyAccountMVCActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		
-		// TODO: ERROR IF FORM VALIDATION FAILS
 		
 		long userId = ParamUtil.getLong(actionRequest, "userId", 0);
 		String phone = ParamUtil.getString(actionRequest, "phone", StringPool.BLANK);
@@ -105,7 +105,10 @@ public class MyAccountMVCActionCommand extends BaseMVCActionCommand {
 			}
 			
 			User user = _userLocalService.getUser(userId);
-			user.setEmailAddress(email);
+			Role studentRole = UserManagementUtil.getRoleById(themeDisplay.getCompanyId(), StudentjobConstants.STUDENT_ROLE);
+			if (!UserLocalServiceUtil.hasRoleUser(studentRole.getRoleId(), user.getUserId())) {
+				user.setEmailAddress(email);
+			}
 			user.setFirstName(name);
 			user.setLastName(lastName);
 			user.getExpandoBridge().setAttribute(StudentjobConstants.USER_PHONE, phone);

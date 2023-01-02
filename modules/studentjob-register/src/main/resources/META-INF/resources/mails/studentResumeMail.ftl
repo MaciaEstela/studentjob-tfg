@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en"><head>
-  <title> ${title} </title>
+  <title> Listado de inscripciones </title>
   <!--[if !mso]><!-- -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!--<![endif]-->
@@ -89,7 +89,7 @@
 </head>
 
 <body style="background-color:#f3f3f5;">
-  <div style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;"> ${title} - ${preview} </div>
+  <div style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;"> Listado de inscripciones </div>
   <div style="background-color:#f3f3f5;">
     <!--[if mso | IE]>
       <table
@@ -121,7 +121,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="20" style="vertical-align:top;height:20px;">
       
     <![endif]-->
-                      <div style="height:20px;"> � </div>
+                      <div style="height:20px;"> </div>
                       <!--[if mso | IE]>
     
         </td></tr></table>
@@ -241,35 +241,23 @@
           <![endif]-->
               <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
                 <table role="presentation" style="vertical-align:top;" width="100%" cellspacing="0" cellpadding="0" border="0">
-                  <tbody><tr>
-                    <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
-                      <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;">
-                        <h1 style="margin: 0; font-size: 32px; line-height: 50px; font-weight: 400;"> ${title}, ${username} </h1>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
-                      <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;"> ${text1} ${text2} </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
-                      <table role="presentation" style="border-collapse:separate;line-height:100%;" cellspacing="0" cellpadding="0" border="0">
-                        <tbody><tr>
-                          <td role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#11224D;" valign="middle" bgcolor="#11224D" align="center">
-                            <a href="${confirmUrl}" style="display: inline-block; background: #11224D; color: white; font-family: Poppins, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: normal; line-height: 30px; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> ${confirm} </a>
-                          </td>
-                        </tr>
-                      </tbody></table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
-                      <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;"> ${visualizeurl} <br /> <a href="${confirmUrl}"> ${confirmUrl} </a> </div>
-                    </td>
-                  </tr>
-                </tbody></table>
+                  <tbody>
+                    <tr>
+                      <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
+                        <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;">
+                          <h1 style="margin: 0; font-size: 32px; line-height: 50px; font-weight: 400;"> Nuevas ofertas de tu interés, consúltalas en la web! </h1>
+                        </div>
+                      </td>
+                    </tr>
+                    <#list offersString as text>
+                      <tr>
+                        <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
+                          <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:20px;font-weight:300;line-height:30px;text-align:left;color:#003366;"> ${text} </div>
+                        </td>
+                      </tr>
+                    </#list>
+                  </tbody>
+                </table>
               </div>
               <!--[if mso | IE]>
             </td>
@@ -313,7 +301,7 @@
                   <tbody><tr>
                     <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
                       <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:14px;font-weight:300;line-height:20px;text-align:left;color:#11224D;">
-                        <p style="margin: 0;"> ${contactus} <a style="color: #11224D;font-weight:700;" href="mailto:${contactmail}"> ${contactmail} </a> </p>
+                        <p style="margin: 0;"> Puedes desuscribirte a las notificaciones mediante la configuración de tu cuenta a través de la web </p>
                       </div>
                     </td>
                   </tr>
@@ -361,7 +349,7 @@
                   <tbody><tr>
                     <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
                       <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:16px;font-weight:500;line-height:30px;text-align:left;color:#ffffff;">
-                        <p style="margin: 0;"> <a href="${siteurl}" style="color: #ffffff;"> ${gotoportal} </a></p>
+                        <p style="margin: 0;"> <a href="www.mestemiuoc.com" style="color: #ffffff;"> www.mestemiuoc.com </a></p>
                       </div>
                     </td>
                   </tr>
@@ -383,9 +371,6 @@
                     </td>
                   </tr>
                   <tr>
-                    <td style="font-size:0px;padding:10px 25px;word-break:break-word;" align="left">
-                      <div style="font-family:Poppins, Helvetica, Arial, sans-serif;font-size:16px;font-weight:500;line-height:30px;text-align:left;color:#ffffff;"> ${footer1} <a class="footer-link" href="${preferencesUrl}" style="color: #fff; text-decoration: underline;">${footer2}</a> ${footer3} </div>
-                    </td>
                   </tr>
                 </tbody></table>
               </div>
@@ -435,7 +420,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="1" style="vertical-align:top;height:1px;">
       
     <![endif]-->
-                      <div style="height:1px;"> � </div>
+                      <div style="height:1px;"> </div>
                       <!--[if mso | IE]>
     
         </td></tr></table>

@@ -50,10 +50,10 @@
 					<c:forEach items="${preferences}" var="preference">
 						<c:choose>
 							<c:when test="${offer.getPreference() == preference}">
-								<aui:option selected="true" label="${preference}" value="${preference}"/>
+								<aui:option selected="true" label="studentjob.preference.${preference}" value="${preference}"/>
 							</c:when>
 							<c:otherwise>
-								<aui:option label="${preference}" value="${preference}"/>
+								<aui:option label="studentjob.preference.${preference}" value="${preference}"/>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>

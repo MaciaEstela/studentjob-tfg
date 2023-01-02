@@ -16,6 +16,8 @@
 	<liferay-ui:error key="empty-degree" message="errors.empty-degree"></liferay-ui:error>
 	<liferay-ui:error key="invalid-degree" message="errors.invalid-degree"></liferay-ui:error>
 	<liferay-ui:error key="invalid-email" message="errors.invalid-email"></liferay-ui:error>
+	<liferay-ui:error key="invalid-website" message="errors.invalid-website"></liferay-ui:error>
+	<liferay-ui:error key="invalid-cv" message="errors.invalid-cv"></liferay-ui:error>
 	
 	<h1><liferay-ui:message key="${editTitle}" /></h1>
 
@@ -54,10 +56,10 @@
 					<c:forEach items="${preferences}" var="preference">
 						<c:choose>
 							<c:when test="${offer.getPreference() == preference}">
-								<aui:option selected="true" label="${preference}" value="${preference}"/>
+								<aui:option selected="true" label="studentjob.preference.${preference}" value="${preference}"/>
 							</c:when>
 							<c:otherwise>
-								<aui:option label="${preference}" value="${preference}"/>
+								<aui:option label="studentjob.preference.${preference}" value="${preference}"/>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -98,7 +100,7 @@
 				<c:if test="${!cvURL.isEmpty()}">
 					<c:set var="cvRequired" value = "false"/>
 				</c:if>
-				<aui:input required="${cvRequired}" type="file" name="curriculum" label="studentjob.studentprofile.form.cv"></aui:input>
+				<aui:input required="${cvRequired}" type="file" accept="application/pdf" name="curriculum" label="studentjob.studentprofile.form.cv"></aui:input>
 				<c:if test="${!cvURL.isEmpty()}">
 					<div class="mb-5">
 						<a href="${cvURL}"><liferay-ui:message key="download-file" /></a>

@@ -4,6 +4,8 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.language.UTF8Control;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
@@ -20,6 +22,7 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.portlet.PortletContext;
 import javax.portlet.ResourceRequest;
@@ -166,9 +169,14 @@ public class ViewPublicStudentsMVCResourceCommand extends BaseMVCResourceCommand
 			StudentProfileDTO studentProfileDTO = DTOUtil.getStudentProfileDTOByStudentProfile(studentProfile, themeDisplay, portletURL); 
 			
 			TemplateProcessor templateProcessor = new TemplateProcessor(
-					portletContext.getResource("/studentProfile/user/card_aux_3.ftl").getPath()
+					portletContext.getResource("/studentProfile/user/card_aux_load.ftl").getPath()
 				);
+
+			ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", themeDisplay.getLocale(), UTF8Control.INSTANCE);
+			String downloadString =  LanguageUtil.get(resourceBundle, "studentjob.studentprofile.download-cv");
+			
 			params.put("student", studentProfileDTO);
+			params.put("downloadCV", downloadString);
 			studentProfileDTOHtml = templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL);
 			
 		} catch (PortalException | MalformedURLException e) {
