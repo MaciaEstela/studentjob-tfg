@@ -12,4 +12,4 @@ Cal descarregar el Liferay amb Tomcat integrat per poder aixecar el portal en lo
 C:/Liferay/TFG/liferay-ce-portal-7.4.3.46-ga46
 
 Aquesta versió ja té els mòduls instal·lats (osgi/war i osgi/modules)
-{penjant...}
+https://mega.nz/file/GMAFFLSb#FqI0CU6Df-5pflpSTAyu_Dx54rGRaPXY8ksbvVw8Rg4
