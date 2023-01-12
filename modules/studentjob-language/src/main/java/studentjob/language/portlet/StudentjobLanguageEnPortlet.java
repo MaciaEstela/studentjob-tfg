@@ -1,4 +1,4 @@
-package studentjob.language.en.portlet;
+package studentjob.language.portlet;
 
 
 import com.liferay.portal.kernel.language.UTF8Control;
@@ -17,7 +17,7 @@ import org.osgi.service.component.annotations.Component;
 		service = ResourceBundle.class
 	)
 public class StudentjobLanguageEnPortlet extends ResourceBundle {
-	private final ResourceBundle resource = ResourceBundle.getBundle("content.Language", UTF8Control.INSTANCE);
+	private final ResourceBundle resource = ResourceBundle.getBundle("content.Language_en_US", UTF8Control.INSTANCE);
 	
 	@Override
 	public Enumeration<String> getKeys() {

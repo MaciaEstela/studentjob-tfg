@@ -1,4 +1,0 @@
-Bundle-Name: studentjob-language-en
-Bundle-SymbolicName: studentjob.language.en
-Bundle-Version: 1.0.0
-Export-Package: studentjob.language.en.constants
