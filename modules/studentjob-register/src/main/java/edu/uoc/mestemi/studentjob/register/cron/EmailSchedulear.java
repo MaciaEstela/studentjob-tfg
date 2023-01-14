@@ -173,35 +173,11 @@ public class EmailSchedulear extends BaseMessageListener {
 		if ((boolean) studentUser.getExpandoBridge().getAttribute(StudentjobConstants.USER_EMAIL_OFFERS)) {
 			List<Degree> degrees = DegreeLocalServiceUtil.getStudentProfileDegrees(studentProfile.getStudentProfileId());
 			
-			String preference = studentProfile.getPreference();
-			long regionId = studentProfile.getRegionId();
-			
-			if (studentProfile.getPreference().equals(StudentjobConstants.JOB_PREFERENCE_REMOTE) || 
-					studentProfile.getPreference().equals(StudentjobConstants.JOB_PREFERENCE_NO_PREFERENCE)) {
-				regionId = 0;
-			}
-			
-			if (studentProfile.getPreference().equals(StudentjobConstants.JOB_PREFERENCE_NO_PREFERENCE)) {
-				preference = StringPool.BLANK;
-			}
-			
-			List<String> offersString = new ArrayList<>();
-			
 			Locale userLocale = studentUser.getLocale();
 			ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", userLocale, UTF8Control.INSTANCE);
+			List<String> offersString = new ArrayList<>();
 			
-			for (Degree degree : degrees) {
-				List<Offer> offers = OfferLocalServiceUtil.getOffersByDateGreater(studentProfile.getGroupId(), preference, regionId, degree.getDegreeId(), greaterThanDate);
-				for (Offer offer : offers) {
-					String offerTitle = offer.getTitle("es_ES");
-					if (!offer.getTitle(userLocale).isEmpty()) {
-						offerTitle = offer.getTitle(userLocale);
-					}
-					User companyUser = UserLocalServiceUtil.getUser(offer.getUserId());
-					String company = (String) companyUser.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY_EXPANDO);
-					offersString.add(company + " - " + offerTitle);
-				}
-			}
+			addOffersToStudentMail(offersString, degrees, studentProfile, userLocale, greaterThanDate);
 			
 			// Send mail
 			if(!offersString.isEmpty()) {
@@ -218,6 +194,33 @@ public class EmailSchedulear extends BaseMessageListener {
 						LanguageUtil.get(resourceBundle, "mail.text.new-offers-for-you"),
 						templateProcessor.process(params, TemplateConstants.LANG_TYPE_FTL)
 					);
+			}
+		}
+	}
+	
+	private void addOffersToStudentMail(List<String> offersString, List<Degree> degrees, StudentProfile studentProfile, Locale userLocale, Date greaterThanDate) throws PortalException {
+		String preference = studentProfile.getPreference();
+		long regionId = studentProfile.getRegionId();
+		
+		if (studentProfile.getPreference().equals(StudentjobConstants.JOB_PREFERENCE_REMOTE) || 
+				studentProfile.getPreference().equals(StudentjobConstants.JOB_PREFERENCE_NO_PREFERENCE)) {
+			regionId = 0;
+		}
+		
+		if (studentProfile.getPreference().equals(StudentjobConstants.JOB_PREFERENCE_NO_PREFERENCE)) {
+			preference = StringPool.BLANK;
+		}
+		
+		for (Degree degree : degrees) {
+			List<Offer> offers = OfferLocalServiceUtil.getOffersByDateGreater(studentProfile.getGroupId(), preference, regionId, degree.getDegreeId(), greaterThanDate);
+			for (Offer offer : offers) {
+				String offerTitle = offer.getTitle("es_ES");
+				if (!offer.getTitle(userLocale).isEmpty()) {
+					offerTitle = offer.getTitle(userLocale);
+				}
+				User companyUser = UserLocalServiceUtil.getUser(offer.getUserId());
+				String company = (String) companyUser.getExpandoBridge().getAttribute(StudentjobConstants.USER_COMPANY_EXPANDO);
+				offersString.add(company + " - " + offerTitle);
 			}
 		}
 	}

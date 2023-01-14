@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Map;
 import org.osgi.service.component.annotations.Component;
 
-import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
 import edu.uoc.mestemi.studentjob.exception.StudentProfileValidationException;
 import edu.uoc.mestemi.studentjob.validator.StudentProfileValidator;
 

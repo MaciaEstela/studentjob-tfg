@@ -1,9 +1,6 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.companyprofile.action;
 
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
@@ -55,8 +52,6 @@ import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 )
 public class EditCompanyProfileMVCRenderCommand implements MVCRenderCommand {
 
-	private static final Log log = LogFactoryUtil.getLog(EditCompanyProfileMVCRenderCommand.class);
-	
 	@Override
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse)

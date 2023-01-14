@@ -1,6 +1,8 @@
 package edu.uoc.mestemi.studentjob.register.action;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
@@ -33,6 +35,7 @@ import edu.uoc.mestemi.studentjob.register.constants.StudentjobRegisterPortletKe
 public class MyAccountMVCRenderCommand implements MVCRenderCommand {
 
 	private static final String VIEW_JSP = "/myaccount.jsp";
+	private static final Log log = LogFactoryUtil.getLog(MyAccountMVCRenderCommand.class);
 	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
@@ -54,7 +57,7 @@ public class MyAccountMVCRenderCommand implements MVCRenderCommand {
 				isStudent = true;
 			}
 		} catch (PortalException e) {
-			e.printStackTrace();
+			log.error("Error on checking user permissions", e);
 		}
 		renderRequest.setAttribute("isStudent", isStudent);
 		renderRequest.setAttribute("user", user);

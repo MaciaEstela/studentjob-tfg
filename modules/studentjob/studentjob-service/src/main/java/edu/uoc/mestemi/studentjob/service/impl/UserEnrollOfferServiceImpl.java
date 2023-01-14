@@ -16,13 +16,10 @@ package edu.uoc.mestemi.studentjob.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.ServiceContext;
 
-import java.util.Date;
 import java.util.List;
 
-import edu.uoc.mestemi.studentjob.exception.NoSuchUserEnrollOfferException;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.base.UserEnrollOfferServiceBaseImpl;
 import edu.uoc.mestemi.studentjob.service.persistence.UserEnrollOfferPK;

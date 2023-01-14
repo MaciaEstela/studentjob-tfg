@@ -1,6 +1,5 @@
 package edu.uoc.mestemi.studentjob.util;
 
-import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
 import com.liferay.document.library.kernel.exception.NoSuchFolderException;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFolder;
@@ -28,6 +27,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -35,8 +35,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.portlet.ActionRequest;
-
-import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 
 public class DocumentLibraryUtil {
 
@@ -63,16 +61,11 @@ public class DocumentLibraryUtil {
 			
 			byte[] bytes = new byte[(int) file.length()];
 			
-			FileInputStream fis = null;
-			try {
-				fis = new FileInputStream(file);
-				fis.read(bytes);
+			try (FileInputStream fis = new FileInputStream(file); 
+					DataInputStream dis = new DataInputStream(fis)) {
+				dis.readFully(bytes);
 			} catch(Exception e) {
 				log.error("Error reading file bytes", e);
-			} finally {
-				if (fis != null) {
-					fis.close();
-				}
 			}
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -82,7 +75,9 @@ public class DocumentLibraryUtil {
 			try {
 				FileEntry currentFileEntry = DLAppLocalServiceUtil.getFileEntryByFileName(groupId, folderId, fileName);
 				DLAppLocalServiceUtil.deleteFileEntry(currentFileEntry.getFileEntryId());
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				log.warn("Error deleting file");
+			}
 			
 			fileEntry = DLAppLocalServiceUtil.addFileEntry(
 				fileName,

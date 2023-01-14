@@ -8,7 +8,6 @@ import java.util.Map;
 import org.osgi.service.component.annotations.Component;
 
 import edu.uoc.mestemi.studentjob.exception.DegreeValidationException;
-import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
 import edu.uoc.mestemi.studentjob.validator.DegreeValidator;
 
 @Component(

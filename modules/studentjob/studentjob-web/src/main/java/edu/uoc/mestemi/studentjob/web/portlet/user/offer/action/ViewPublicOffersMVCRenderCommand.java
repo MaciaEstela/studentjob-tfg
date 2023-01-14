@@ -32,7 +32,6 @@ import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
-import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;

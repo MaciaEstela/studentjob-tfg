@@ -26,7 +26,6 @@ import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
-import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 
 public class ValidatorUtilities {
 	
@@ -122,7 +121,7 @@ public class ValidatorUtilities {
 	public static boolean isTitleValid(Map<Locale, String> titleMap, List<String> errors) {
 		boolean result = true;
 		
-		if (!ValidatorUtilities.mapHasLocaleKey(titleMap, "es_ES")) {
+		if (!ValidatorUtilities.mapHasLocaleKey(titleMap, StudentjobConstants.LOCALE_ES)) {
 			errors.add("title-missing-spanish");
 			result = false;
 		}
@@ -133,7 +132,7 @@ public class ValidatorUtilities {
 	public static boolean isDescriptionValid(Map<Locale, String> descriptionMap, List<String> errors) {
 		boolean result = true;
 		
-		if (!ValidatorUtilities.mapHasLocaleKey(descriptionMap, "es_ES")) {
+		if (!ValidatorUtilities.mapHasLocaleKey(descriptionMap, StudentjobConstants.LOCALE_ES)) {
 			errors.add("description-missing-spanish");
 			result = false;
 		}
@@ -144,7 +143,7 @@ public class ValidatorUtilities {
 	public static boolean isSectorValid(Map<Locale, String> sectorMap, List<String> errors) {
 		boolean result = true;
 		
-		if (!ValidatorUtilities.mapHasLocaleKey(sectorMap, "es_ES")) {
+		if (!ValidatorUtilities.mapHasLocaleKey(sectorMap, StudentjobConstants.LOCALE_ES)) {
 			errors.add("sector-missing-spanish");
 			result = false;
 		}

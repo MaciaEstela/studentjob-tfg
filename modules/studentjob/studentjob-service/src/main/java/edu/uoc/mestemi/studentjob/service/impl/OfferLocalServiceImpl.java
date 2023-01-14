@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalService;
@@ -180,7 +181,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	}
 	
 	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, long userId, String keywords, int workflowStatus) {
-		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
+		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq(StudentjobConstants.GROUP_ID, groupId));
 		
 		if (userId != 0) {
 			dynamicQuery.add(RestrictionsFactoryUtil.eq("userId", userId));
@@ -204,7 +205,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	
 	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, String preference, long regionId, long degreeId, 
 			Date greaterThanDate) {
-		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
+		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq(StudentjobConstants.GROUP_ID, groupId));
 		Conjunction conjunctionQuery = RestrictionsFactoryUtil.conjunction();
 		
 		if (Validator.isNotNull(preference) && !preference.isEmpty()) {
@@ -223,7 +224,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 				offersIds.add(offer.getOfferId());
 			}
 			
-			conjunctionQuery.add(RestrictionsFactoryUtil.in("offerId", offersIds));
+			conjunctionQuery.add(RestrictionsFactoryUtil.in(StudentjobConstants.OFFER_ID, offersIds));
 		}
 		
 		if (Validator.isNotNull(greaterThanDate)) {
@@ -237,7 +238,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	
 	private DynamicQuery getKeywordSearchDynamicQuery(long groupId, long userId, String keywords, 
 			String preference, long regionId, long degreeId, int workflowStatus, long newestId) {
-		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq("groupId", groupId));
+		DynamicQuery dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.eq(StudentjobConstants.GROUP_ID, groupId));
 		Disjunction disjunctionQuery = RestrictionsFactoryUtil.disjunction();
 		Conjunction conjunctionQuery = RestrictionsFactoryUtil.conjunction();
 		
@@ -256,7 +257,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 		}
 		
 		if (Validator.isNotNull(newestId) && newestId != 0) {
-			conjunctionQuery.add(RestrictionsFactoryUtil.le("offerId", newestId));
+			conjunctionQuery.add(RestrictionsFactoryUtil.le(StudentjobConstants.OFFER_ID, newestId));
 		}
 		
 		if (Validator.isNotNull(preference) && !preference.isEmpty()) {
@@ -275,7 +276,7 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 				offersIds.add(offer.getOfferId());
 			}
 			
-			conjunctionQuery.add(RestrictionsFactoryUtil.in("offerId", offersIds));
+			conjunctionQuery.add(RestrictionsFactoryUtil.in(StudentjobConstants.OFFER_ID, offersIds));
 		}
 		
 		dynamicQuery.add(conjunctionQuery);

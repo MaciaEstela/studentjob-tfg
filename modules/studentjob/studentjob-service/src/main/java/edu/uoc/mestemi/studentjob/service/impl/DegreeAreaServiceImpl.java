@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
 import edu.uoc.mestemi.studentjob.service.base.DegreeAreaServiceBaseImpl;
 

@@ -7,7 +7,6 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemListBuilder;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItemList;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -27,6 +26,7 @@ import java.util.List;
 import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 
@@ -40,6 +40,8 @@ import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 	*/
 public class OffersManagementToolbarDisplayContext
 	extends BaseManagementToolbarDisplayContext {
+	
+	private static final String TITLE = "title";
 	
 	public OffersManagementToolbarDisplayContext(
 		LiferayPortletRequest liferayPortletRequest,
@@ -63,16 +65,6 @@ public class OffersManagementToolbarDisplayContext
 		*/
 	@Override
 	public CreationMenu getCreationMenu() {
-
-//		if (!OfferTopLevelPermission.contains(
-//				_themeDisplay.getPermissionChecker(),
-//				_themeDisplay.getScopeGroupId(), "ADD_ENTRY")) {
-//		
-//			return null;
-//		}
-	
-		// Create the menu.
-		
 		return CreationMenuBuilder.addDropdownItem(
 				dropdownItem -> {
 					dropdownItem.setHref(
@@ -118,11 +110,11 @@ public class OffersManagementToolbarDisplayContext
 	@Override
 	public String getOrderByCol() {
 
-		return ParamUtil.getString(httpServletRequest, "orderByCol", "title");
+		return ParamUtil.getString(httpServletRequest, StudentjobConstants.ORDER_BY_COL, TITLE);
 	}
 
 	public int getFilterStatus() {
-		return ParamUtil.getInteger(httpServletRequest, "filterByStatus", WorkflowConstants.STATUS_ANY);
+		return ParamUtil.getInteger(httpServletRequest, StudentjobConstants.FILTER_BY_STATUS, WorkflowConstants.STATUS_ANY);
 	}
 	
 	/**
@@ -133,7 +125,7 @@ public class OffersManagementToolbarDisplayContext
 	@Override
 	public String getOrderByType() {
 
-		return ParamUtil.getString(httpServletRequest, "orderByType", "asc");
+		return ParamUtil.getString(httpServletRequest, StudentjobConstants.ORDER_BY_TYPE, "asc");
 	}
 
 	/**
@@ -150,9 +142,9 @@ public class OffersManagementToolbarDisplayContext
 			).setNavigation(
 				ParamUtil.getString(httpServletRequest, "navigation", "entries")
 			).setParameter(
-				"orderByCol", getOrderByCol()
+				StudentjobConstants.ORDER_BY_COL, getOrderByCol()
 			).setParameter(
-				"orderByType", getOrderByType()
+				StudentjobConstants.ORDER_BY_TYPE, getOrderByType()
 			).buildString();
 	}
 
@@ -175,12 +167,12 @@ public class OffersManagementToolbarDisplayContext
 		}
 
 		String orderByCol =
-			ParamUtil.getString(httpServletRequest, "orderByCol", "title");
+			ParamUtil.getString(httpServletRequest, StudentjobConstants.ORDER_BY_COL, TITLE);
 		String orderByType =
-			ParamUtil.getString(httpServletRequest, "orderByType", "asc");
+			ParamUtil.getString(httpServletRequest, StudentjobConstants.ORDER_BY_TYPE, "asc");
 
-		portletURL.setParameter("orderByCol", orderByCol);
-		portletURL.setParameter("orderByType", orderByType);
+		portletURL.setParameter(StudentjobConstants.ORDER_BY_COL, orderByCol);
+		portletURL.setParameter(StudentjobConstants.ORDER_BY_TYPE, orderByType);
 
 		int cur =
 			ParamUtil.getInteger(httpServletRequest, SearchContainer.DEFAULT_CUR_PARAM);
@@ -224,17 +216,17 @@ public class OffersManagementToolbarDisplayContext
 		
 		return DropdownItemListBuilder.add(
 				 dropdownItem -> {
-					 dropdownItem.setActive("title".equals(getOrderByCol()));
+					 dropdownItem.setActive(TITLE.equals(getOrderByCol()));
 					 dropdownItem.setHref(
-						 _getCurrentSortingURL(), "orderByCol", "title");
+						 _getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL, TITLE);
 					 dropdownItem.setLabel(
-						 LanguageUtil.get(httpServletRequest, "title"));
+						 LanguageUtil.get(httpServletRequest, TITLE));
 				 }
 			).add(dropdownItem -> {
 				dropdownItem.setActive(
 						"createDate".equals(getOrderByCol()));
 					dropdownItem.setHref(
-						_getCurrentSortingURL(), "orderByCol",
+						_getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL,
 						"createDate");
 					dropdownItem.setLabel(
 						LanguageUtil.get(httpServletRequest, "create-date"));
@@ -248,7 +240,7 @@ public class OffersManagementToolbarDisplayContext
 				dropdownItem -> {
 					dropdownItem.setActive(
 							WorkflowConstants.STATUS_ANY  == getFilterStatus());
-					dropdownItem.setHref(_getCurrentSortingURL(), "filterByStatus",
+					dropdownItem.setHref(_getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
 							WorkflowConstants.STATUS_ANY);
 					dropdownItem.setLabel(
 							LanguageUtil.get(httpServletRequest, "all"));
@@ -257,7 +249,7 @@ public class OffersManagementToolbarDisplayContext
 				dropdownItem -> {
 					dropdownItem.setActive(
 							WorkflowConstants.STATUS_APPROVED  == getFilterStatus());
-					dropdownItem.setHref(_getCurrentSortingURL(), "filterByStatus",
+					dropdownItem.setHref(_getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
 							WorkflowConstants.STATUS_APPROVED);
 					dropdownItem.setLabel(
 							LanguageUtil.get(httpServletRequest, "active"));
@@ -266,7 +258,7 @@ public class OffersManagementToolbarDisplayContext
 				dropdownItem -> {
 					dropdownItem.setActive(
 							WorkflowConstants.STATUS_EXPIRED  == getFilterStatus());
-					dropdownItem.setHref(_getCurrentSortingURL(), "filterByStatus",
+					dropdownItem.setHref(_getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
 							WorkflowConstants.STATUS_EXPIRED);
 					dropdownItem.setLabel(
 							LanguageUtil.get(httpServletRequest, "inactive"));

@@ -17,8 +17,8 @@ import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 public class PublicCompaniesFriendlyURLMapper extends DefaultFriendlyURLMapper{
 	@Override
 	public String getMapping() {
-		return _MAPPING;
+		return MAPPING;
 	}
 
-	private static final String _MAPPING = "view-company";
+	private static final String MAPPING = "view-company";
 }

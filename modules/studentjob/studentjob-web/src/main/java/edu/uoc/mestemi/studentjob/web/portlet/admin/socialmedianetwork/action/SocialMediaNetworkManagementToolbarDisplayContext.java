@@ -62,16 +62,6 @@ public class SocialMediaNetworkManagementToolbarDisplayContext
 		*/
 	@Override
 	public CreationMenu getCreationMenu() {
-
-//		if (!SocialMediaNetworkTopLevelPermission.contains(
-//				_themeDisplay.getPermissionChecker(),
-//				_themeDisplay.getScopeGroupId(), "ADD_ENTRY")) {
-//		
-//			return null;
-//		}
-	
-		// Create the menu.
-		
 		return CreationMenuBuilder.addDropdownItem(
 				dropdownItem -> {
 					dropdownItem.setHref(

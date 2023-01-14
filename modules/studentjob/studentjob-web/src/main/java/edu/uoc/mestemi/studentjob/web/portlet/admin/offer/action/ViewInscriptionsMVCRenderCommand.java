@@ -3,7 +3,6 @@ package edu.uoc.mestemi.studentjob.web.portlet.admin.offer.action;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
@@ -28,20 +27,15 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.dto.StudentProfileDTO;
 import edu.uoc.mestemi.studentjob.exception.NoSuchOfferException;
-import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
-import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferServiceUtil;
-import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
-import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 import edu.uoc.mestemi.studentjob.web.portlet.util.DTOUtil;
@@ -89,7 +83,7 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 			}
 		}
 		
-		if (offer.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
+		if (offer == null || offer.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
 			PortletResponse portletResponse = (PortletResponse) renderRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
 			LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
 			LiferayPortletURL renderUrl = liferayPortletResponse.createLiferayPortletURL(themeDisplay.getPlid(), StudentjobPortletKeys.STUDENTJOB_OFFER_ADMIN, PortletRequest.RENDER_PHASE);
@@ -99,7 +93,6 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 		// Set back icon visible.
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 		long groupId = themeDisplay.getScopeGroupId();
-		long companyId = themeDisplay.getCompanyId();
 		portletDisplay.setShowBackIcon(true);
 
 		List<UserEnrollOffer> userEnrollOffers = UserEnrollOfferServiceUtil.getUserEnrollOffers(groupId, offerId);

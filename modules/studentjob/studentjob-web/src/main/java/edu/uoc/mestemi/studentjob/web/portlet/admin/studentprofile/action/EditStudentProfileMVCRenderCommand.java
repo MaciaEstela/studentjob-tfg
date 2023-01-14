@@ -1,11 +1,7 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.studentprofile.action;
 
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Region;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
@@ -35,7 +31,6 @@ import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
 import edu.uoc.mestemi.studentjob.service.StudentProfileService;
-import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
 import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
@@ -62,8 +57,6 @@ import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 )
 public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 
-	private static final Log log = LogFactoryUtil.getLog(EditStudentProfileMVCRenderCommand.class);
-	
 	@Override
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse)

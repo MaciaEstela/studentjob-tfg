@@ -36,6 +36,7 @@ public class StudentjobConstants {
 	
 	public static final String ORDER_BY_COL = "orderByCol";
 	public static final String ORDER_BY_TYPE = "orderByType";
+	public static final String FILTER_BY_STATUS = "filterByStatus";
 	
 	public static final String ORDER_CREATE_DATE = "createDate";
 	public static final String ORDER_MODIFIED_DATE = "modifiedDate";
@@ -48,4 +49,17 @@ public class StudentjobConstants {
 	
 	public static final String STUDENT_GROUP = "studentGroup";
 	public static final String COMPANY_GROUP = "companyGroup";
+	
+	public static final String LOCALE_ES = "es_ES";
+	public static final String LOCALE_CA = "ca_ES";
+	public static final String LOCALE_EN = "en_US";
+	
+	public static final String REGEX_NIF = "([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])";
+	public static final String REGEX_PHONE = "(^\\\\+?[1-9][0-9]{7,14})";
+	
+	public static final String OFFER_ID = "offerId";
+	public static final String GROUP_ID = "groupId";
+	
+	public static final String CONTENT_LANGUAGE = "content.Language";
+	
 }

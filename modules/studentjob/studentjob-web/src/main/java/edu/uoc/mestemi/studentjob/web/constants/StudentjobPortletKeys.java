@@ -5,6 +5,10 @@ package edu.uoc.mestemi.studentjob.web.constants;
  */
 public class StudentjobPortletKeys {
 
+	private StudentjobPortletKeys() {
+		throw new IllegalStateException("Utility class");
+	}
+	
 	public static final String STUDENTJOB =
 		"edu_uoc_mestemi_studentjob_web_portlet_StudentjobPortlet";
 	

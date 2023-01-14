@@ -5,8 +5,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.service.CountryService;
-import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -21,7 +19,6 @@ import org.osgi.service.component.annotations.Reference;
 
 import edu.uoc.mestemi.studentjob.exception.NoSuchSocialMediaNetworkException;
 import edu.uoc.mestemi.studentjob.model.SocialMediaNetwork;
-import edu.uoc.mestemi.studentjob.service.DegreeService;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkService;
 import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;

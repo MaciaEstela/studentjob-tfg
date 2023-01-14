@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,7 +117,7 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 				String offersHTML = getProcessedHTMLOffers(offers, themeDisplay, portletContext, resourceResponse);
 				
 				resourceResponse.setContentType("text/html");
-				resourceResponse.setCharacterEncoding("UTF-8"); 
+				resourceResponse.setCharacterEncoding(StandardCharsets.UTF_8.toString()); 
 				resourceResponse.getWriter().write(offersHTML);
 				
 			} else { // cmd.equals(MVCCommandNames.OFFER_PUBLIC_RESOURCE_COMMAND_AUX_DATA)
@@ -141,7 +142,7 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 					dataJson.put("offerCount", String.valueOf(offerCount));
 					
 					resourceResponse.setContentType("application/json");
-					resourceResponse.setCharacterEncoding("UTF-8");
+					resourceResponse.setCharacterEncoding(StandardCharsets.UTF_8.toString());
 					resourceResponse.getWriter().write(dataJson.toString());
 				}
 			}
@@ -150,22 +151,29 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 			
 			long offerId = ParamUtil.getLong(resourceRequest, "offerId", 0);
 			
-			if (offerId != 0) {
-				Role studentRole = UserManagementUtil.getRoleById(companyId, StudentjobConstants.STUDENT_ROLE);
-				if (UserLocalServiceUtil.hasRoleUser(studentRole.getRoleId(), userId)) {
-					if (StudentProfileLocalServiceUtil.getStudentProfileByGroupIdAndUserId(groupId, userId).isActive()) {
-						_userEnrollOffer.addUserEnrollOffer(
-								groupId, 
-								offerId, 
-								userId, 
-								ServiceContextFactory.getInstance(resourceRequest)
-							);
-						
-						resourceResponse.setContentType("text/plain");
-						resourceResponse.setCharacterEncoding("UTF-8");
-						resourceResponse.getWriter().write("ok");
-					}
-				}
+			try {
+				enrollUserOffer(resourceRequest, companyId, groupId, offerId, userId);
+				resourceResponse.setContentType("text/plain");
+				resourceResponse.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+				resourceResponse.getWriter().write("ok");
+			} catch (PortalException e) {
+				resourceResponse.setContentType("text/plain");
+				resourceResponse.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+				resourceResponse.getWriter().write("error");
+			}
+		}
+	}
+	
+	private void enrollUserOffer(ResourceRequest resourceRequest, long companyId, long groupId, long offerId,  long userId) throws PortalException {
+		if (offerId != 0) {
+			Role studentRole = UserManagementUtil.getRoleById(companyId, StudentjobConstants.STUDENT_ROLE);
+			if (UserLocalServiceUtil.hasRoleUser(studentRole.getRoleId(), userId) && StudentProfileLocalServiceUtil.getStudentProfileByGroupIdAndUserId(groupId, userId).isActive()) {
+				_userEnrollOffer.addUserEnrollOffer(
+						groupId, 
+						offerId, 
+						userId, 
+						ServiceContextFactory.getInstance(resourceRequest)
+					);
 			}
 		}
 	}

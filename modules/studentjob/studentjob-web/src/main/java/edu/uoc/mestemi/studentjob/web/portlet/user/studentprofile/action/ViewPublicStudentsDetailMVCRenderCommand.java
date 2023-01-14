@@ -22,12 +22,10 @@ import org.osgi.service.component.annotations.Reference;
 import edu.uoc.mestemi.studentjob.dto.SocialMediaDTO;
 import edu.uoc.mestemi.studentjob.dto.StudentProfileDTO;
 import edu.uoc.mestemi.studentjob.exception.NoSuchStudentProfileException;
-import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.SocialMediaLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.StudentProfileService;
-import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 import edu.uoc.mestemi.studentjob.web.portlet.util.DTOUtil;
@@ -75,7 +73,7 @@ public class ViewPublicStudentsDetailMVCRenderCommand implements MVCRenderComman
 		}
 		
 		if (studentProfile == null) {
-			return ""; // TODO: Return 404
+			return "";
 		}
 		
 		StudentProfileDTO studentProfileDTO = null;

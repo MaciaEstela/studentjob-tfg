@@ -1,8 +1,6 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.offer.action;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
@@ -46,8 +44,6 @@ import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
 	service = MVCRenderCommand.class
 )
 public class ViewOffersMVCRenderCommand implements MVCRenderCommand {
-	
-	private static final Log log = LogFactoryUtil.getLog(ViewOffersMVCRenderCommand.class);
 	
 	@Override
 	public String render(

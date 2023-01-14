@@ -1,6 +1,5 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.studentprofile.action;
 
-import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;

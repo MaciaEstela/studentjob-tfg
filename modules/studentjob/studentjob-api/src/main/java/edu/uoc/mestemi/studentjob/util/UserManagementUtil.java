@@ -45,7 +45,7 @@ public class UserManagementUtil {
 	 *
 	 * @return Role
 	 */
-	public static Role getRoleById(final long companyId, final String name) throws Exception{
+	public static Role getRoleById(final long companyId, final String name) throws PortalException{
 		return RoleLocalServiceUtil.getRole(companyId, name);
 	}
 	

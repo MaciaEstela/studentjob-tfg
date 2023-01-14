@@ -26,7 +26,6 @@ import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.dto.SocialMediaDTO;
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
 import edu.uoc.mestemi.studentjob.model.SocialMedia;
-import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileService;
 import edu.uoc.mestemi.studentjob.service.SocialMediaLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
@@ -54,9 +53,13 @@ public class ViewPublicCompanyProfileDetailMVCRenderCommand implements MVCRender
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
-
+		ThemeDisplay themeDisplay =
+				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		
 		CompanyProfile companyProfile = null;
 		long userId = ParamUtil.getLong(renderRequest, "userId", 0);
+		
+		long groupId = themeDisplay.getScopeGroupId();
 		
 		long companyProfileId = ParamUtil.getLong(renderRequest, "companyProfileId", 0);
 		
@@ -65,17 +68,17 @@ public class ViewPublicCompanyProfileDetailMVCRenderCommand implements MVCRender
 				companyProfile = _companyProfileService.getCompanyProfile(companyProfileId);
 				userId = companyProfile.getUserId();
 			} catch (PortalException e) {
-				e.printStackTrace();
+				log.error("Error obtaining user companyProfile ", e);
 			}
 		}
-		ThemeDisplay themeDisplay =
-				(ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
 		
-		long groupId = themeDisplay.getScopeGroupId();
+		if (companyProfile == null) {
+			return "/companyProfile/public/detail.jsp";
+		}
 		
 		try {
 			if (userId > 0) {
-				//TODO: ARREGLAR EL CODI
 				User user = UserLocalServiceUtil.getUserById(userId);
 				String companyName = (String) user.getExpandoBridge().getAttribute(
 						StudentjobConstants.USER_COMPANY_EXPANDO);
@@ -85,7 +88,7 @@ public class ViewPublicCompanyProfileDetailMVCRenderCommand implements MVCRender
 				renderRequest.setAttribute("logo", user.getPortraitURL(themeDisplay));
 			}
 		} catch (PortalException e) {
-			e.printStackTrace();
+			log.error("Error obtaining user company", e);
 		}
 
 		String province = StringPool.BLANK;

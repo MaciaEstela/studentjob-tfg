@@ -10,8 +10,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Ticket;
 import com.liferay.portal.kernel.model.TicketConstants;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
-import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
@@ -24,9 +22,7 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -43,8 +39,6 @@ import javax.mail.internet.AddressException;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -75,6 +69,7 @@ import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(StudentjobRegisterPortlet.class);
+	private static final String EMAIL = "Email";
 	
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
@@ -93,7 +88,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				SessionErrors.add(actionRequest, "error.user.invalid-type");
 			}
 		} catch (UserEmailAddressException uea) {
-			String studentEmail = ParamUtil.getString(actionRequest, registerType + "Email", StringPool.BLANK);
+			String studentEmail = ParamUtil.getString(actionRequest, registerType + EMAIL, StringPool.BLANK);
 			log.error("Error on registering duplicated user email " + studentEmail, uea);
 			SessionErrors.add(actionRequest, "error.user.email-duplicated");
 		} catch (Exception e) {
@@ -120,11 +115,11 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			SessionErrors.add(actionRequest, "register-invalid-inputs");
 		}
 		
-		if (!userNif.matches("([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])")) {
+		if (!userNif.matches(StudentjobConstants.REGEX_NIF)) {
 			SessionErrors.add(actionRequest, "register-invalid-nif");
 		}
 		
-		if (!userPhone.matches("(^\\+?[1-9][0-9]{7,14})")) {
+		if (!userPhone.matches(StudentjobConstants.REGEX_PHONE)) {
 			SessionErrors.add(actionRequest, "register-invalid-phone");
 		}
 		
@@ -232,20 +227,14 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 		
 		String name = ParamUtil.getString(actionRequest, userTypePrefix + "Name", StringPool.BLANK);
 		String surname = ParamUtil.getString(actionRequest, userTypePrefix + "Surname", StringPool.BLANK);
-		String email = ParamUtil.getString(actionRequest, userTypePrefix + "Email", StringPool.BLANK);
+		String email = ParamUtil.getString(actionRequest, userTypePrefix + EMAIL, StringPool.BLANK);
 		String password = ParamUtil.getString(actionRequest, userTypePrefix + "Password", StringPool.BLANK);
 		String repeatPassword = ParamUtil.getString(actionRequest, userTypePrefix + "RepeatPassword", StringPool.BLANK);
 		
-		if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
-			SessionErrors.add(actionRequest, "email-invalid-inputs");
-		}
+		createUserValidation(actionRequest, userTypePrefix);
 		
 		User adminUser = UserManagementUtil.getAdminUser(companyId);
 		User user = null;
-		
-		if (userTypePrefix.equals(StudentjobConstants.USER_STUDENT) && StudentjobConstants.STUDENTS_ONLY_UOC && !RegisterUtil.getEmailDomain(email).equals("uoc.edu")) {
-			SessionErrors.add(actionRequest, "email-not-valid-uoc");
-		}
 		
 		if (adminUser != null && SessionErrors.isEmpty(actionRequest)) {
 			String customScreenName = StringPool.BLANK;
@@ -294,7 +283,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 						RoleLocalServiceUtil.getRole(companyId, StudentjobConstants.COMPANY_ROLE).getRoleId(), 
 						user.getUserId());
 				SessionMessages.add(actionRequest, "company-registered");
-			} else { //(userTypePrefix.equals(StudentjobConstants.USER_STUDENT)) {
+			} else {
 				UserLocalServiceUtil.addRoleUser(
 						RoleLocalServiceUtil.getRole(companyId, StudentjobConstants.STUDENT_ROLE).getRoleId(), 
 						user.getUserId());
@@ -361,6 +350,23 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				);
 		} catch (AddressException e) {
 			log.error("Wrong format mail adress", e);
+		}
+	}
+	
+	private void createUserValidation(ActionRequest actionRequest, String userTypePrefix) {
+		
+		String name = ParamUtil.getString(actionRequest, userTypePrefix + "Name", StringPool.BLANK);
+		String surname = ParamUtil.getString(actionRequest, userTypePrefix + "Surname", StringPool.BLANK);
+		String email = ParamUtil.getString(actionRequest, userTypePrefix + EMAIL, StringPool.BLANK);
+		String password = ParamUtil.getString(actionRequest, userTypePrefix + "Password", StringPool.BLANK);
+		String repeatPassword = ParamUtil.getString(actionRequest, userTypePrefix + "RepeatPassword", StringPool.BLANK);
+		
+		if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
+			SessionErrors.add(actionRequest, "email-invalid-inputs");
+		}
+		
+		if (userTypePrefix.equals(StudentjobConstants.USER_STUDENT) && StudentjobConstants.STUDENTS_ONLY_UOC && !RegisterUtil.getEmailDomain(email).equals("uoc.edu")) {
+			SessionErrors.add(actionRequest, "email-not-valid-uoc");
 		}
 	}
 	

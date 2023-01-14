@@ -5,7 +5,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.RegionLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
@@ -28,11 +27,9 @@ import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
-import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalService;
 import edu.uoc.mestemi.studentjob.service.CompanyProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
-import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalService;
 import edu.uoc.mestemi.studentjob.service.UserEnrollOfferLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 import edu.uoc.mestemi.studentjob.web.constants.MVCCommandNames;
@@ -96,6 +93,10 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 			catch (PortalException pe) {
 				log.error("Error on rendering data for Offer with offerId " + offerId, pe);
 			}
+		}
+		
+		if (offer == null) {
+			return "/offer/user/detail.jsp";
 		}
 		
 		OfferDTO offerDTO = null;

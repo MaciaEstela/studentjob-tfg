@@ -4,8 +4,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.language.UTF8Control;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.RegionLocalServiceUtil;
@@ -34,18 +32,17 @@ import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.model.UserEnrollOffer;
 import edu.uoc.mestemi.studentjob.service.DegreeLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
-import edu.uoc.mestemi.studentjob.service.SocialMediaLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.SocialMediaNetworkLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.util.CommonUtilities;
 import edu.uoc.mestemi.studentjob.util.DocumentLibraryUtil;
 
 public class DTOUtil {
 
-	private static final Log log = LogFactoryUtil.getLog(DTOUtil.class);
-
 	private DTOUtil() {
 		throw new IllegalStateException("Utility class");
 	}
+	
+	private static final String RESOURCE_STUDENTJOB_OFFERS = "studentjob.offers."; 
 	
 	public static OfferDTO getOfferDTOByOffer(Offer offer, ThemeDisplay themeDisplay, String portletURL) throws PortalException {
 		OfferDTO offerDTO = null;
@@ -60,28 +57,28 @@ public class DTOUtil {
 		
 		Locale locale = themeDisplay.getLocale();
 		
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", locale, UTF8Control.INSTANCE);
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(StudentjobConstants.CONTENT_LANGUAGE, locale, UTF8Control.INSTANCE);
 		String agoText = StringPool.BLANK;
 		
 		if (differenceMinutes < 60) {
 			if (differenceMinutes == 1) {
-				agoText = LanguageUtil.format(resourceBundle, "studentjob.offers." + labelAgo + ".minute-ago", differenceMinutes);	
+				agoText = LanguageUtil.format(resourceBundle, RESOURCE_STUDENTJOB_OFFERS + labelAgo + ".minute-ago", differenceMinutes);	
 			} else {
-				agoText = LanguageUtil.format(resourceBundle, "studentjob.offers." + labelAgo + ".minutes-ago", differenceMinutes);
+				agoText = LanguageUtil.format(resourceBundle, RESOURCE_STUDENTJOB_OFFERS + labelAgo + ".minutes-ago", differenceMinutes);
 			}
 		} else if (differenceMinutes >= 60 && differenceMinutes < (48*60)) {
 			int hours = (int) differenceMinutes / 60;
 			if (hours == 1) {
-				agoText = LanguageUtil.format(resourceBundle, "studentjob.offers." + labelAgo + ".hour-ago", hours);
+				agoText = LanguageUtil.format(resourceBundle, RESOURCE_STUDENTJOB_OFFERS + labelAgo + ".hour-ago", hours);
 			} else {
-				agoText = LanguageUtil.format(resourceBundle, "studentjob.offers." + labelAgo + ".hours-ago", hours);
+				agoText = LanguageUtil.format(resourceBundle, RESOURCE_STUDENTJOB_OFFERS + labelAgo + ".hours-ago", hours);
 			}
 		} else if (differenceMinutes >= (48*60)){
 			int days = (int) differenceMinutes / 60 / 24;
 			if (days == 1) {
-				agoText = LanguageUtil.format(resourceBundle, "studentjob.offers." + labelAgo + ".day-ago", days);
+				agoText = LanguageUtil.format(resourceBundle, RESOURCE_STUDENTJOB_OFFERS + labelAgo + ".day-ago", days);
 			} else {
-				agoText = LanguageUtil.format(resourceBundle, "studentjob.offers." + labelAgo + ".days-ago", days);
+				agoText = LanguageUtil.format(resourceBundle, RESOURCE_STUDENTJOB_OFFERS + labelAgo + ".days-ago", days);
 			}
 		}
 		
@@ -91,8 +88,7 @@ public class DTOUtil {
 			description = description.substring(0, 200) + "...";
 		}
 		
-		String province = StringPool.BLANK;
-		province = RegionLocalServiceUtil.getRegion(offer.getRegionId()).getName();
+		String province = RegionLocalServiceUtil.getRegion(offer.getRegionId()).getName();
 		
 		offerDTO = new OfferDTO(
 			offer.getTitle(locale), 
@@ -124,7 +120,7 @@ public class DTOUtil {
 			degreesString.add(degree.getName(locale));
 		}
 		
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", locale, UTF8Control.INSTANCE);
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(StudentjobConstants.CONTENT_LANGUAGE, locale, UTF8Control.INSTANCE);
 
 		Region region = RegionLocalServiceUtil.getRegion(studentProfile.getRegionId());
 		
@@ -159,7 +155,7 @@ public class DTOUtil {
 		
 		long differenceMinutes = CommonUtilities.getDifferenceMinutes(userEnrollOffer.getCreateDate(), new Date());
 		
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("content.Language", locale, UTF8Control.INSTANCE);
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(StudentjobConstants.CONTENT_LANGUAGE, locale, UTF8Control.INSTANCE);
 		String agoText = StringPool.BLANK;
 		
 		if (differenceMinutes < 60) {

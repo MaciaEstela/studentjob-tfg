@@ -1,14 +1,9 @@
 package edu.uoc.mestemi.studentjob.util;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class CommonUtilities {
-
-	private static final Log log = LogFactoryUtil.getLog(CommonUtilities.class);
 
 	private CommonUtilities() {
 		throw new IllegalStateException("Utility class");

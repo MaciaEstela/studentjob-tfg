@@ -30,3 +30,4 @@ test-results
 /modules/autofields-js-override-web
 /modules/frontend-js-aui-web-override
 /modules/studentjob-context-contributor
+*.hprof

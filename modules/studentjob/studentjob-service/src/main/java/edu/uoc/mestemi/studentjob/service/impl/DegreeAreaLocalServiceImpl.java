@@ -31,10 +31,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import edu.uoc.mestemi.studentjob.exception.DegreeAreaValidationException;
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
 import edu.uoc.mestemi.studentjob.service.base.DegreeAreaLocalServiceBaseImpl;
-import edu.uoc.mestemi.studentjob.util.validator.CompanyProfileValidatorImpl;
 import edu.uoc.mestemi.studentjob.util.validator.DegreeAreaValidatorImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -131,12 +129,12 @@ public class DegreeAreaLocalServiceImpl extends DegreeAreaLocalServiceBaseImpl {
 	
 	@Override
 	public DegreeArea addDegreeArea(DegreeArea degreeArea) {
-		throw new UnsupportedOperationException("Not supported");
+		throw new UnsupportedOperationException("Default add operation not supported");
 	}
 	
 	@Override
 	public DegreeArea updateDegreeArea(DegreeArea degreeArea) {
-		throw new UnsupportedOperationException("Not supported");
+		throw new UnsupportedOperationException("Default update operation not supported");
 	}
 	
 	public DegreeArea deleteDegreeAreaWithValidation(long degreeAreaId) throws PortalException {

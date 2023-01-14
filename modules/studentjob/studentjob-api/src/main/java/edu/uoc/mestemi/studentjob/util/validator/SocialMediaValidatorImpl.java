@@ -1,20 +1,11 @@
 package edu.uoc.mestemi.studentjob.util.validator;
 
-import com.liferay.portal.kernel.util.Validator;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import org.osgi.service.component.annotations.Component;
 
-import edu.uoc.mestemi.studentjob.exception.OfferValidationException;
-import edu.uoc.mestemi.studentjob.exception.SocialMediaNetworkValidationException;
 import edu.uoc.mestemi.studentjob.exception.SocialMediaValidationException;
-import edu.uoc.mestemi.studentjob.exception.StudentProfileValidationException;
-import edu.uoc.mestemi.studentjob.validator.SocialMediaNetworkValidator;
 import edu.uoc.mestemi.studentjob.validator.SocialMediaValidator;
-import edu.uoc.mestemi.studentjob.validator.StudentProfileValidator;
 
 @Component(
 	immediate = true,

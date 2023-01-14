@@ -17,12 +17,7 @@ package edu.uoc.mestemi.studentjob.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.QueryPos;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.SQLQuery;
-import com.liferay.portal.kernel.dao.orm.Session;
-import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
@@ -37,16 +32,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import edu.uoc.mestemi.studentjob.exception.DegreeValidationException;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.DegreeArea;
-import edu.uoc.mestemi.studentjob.model.Offer;
-import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.DegreeAreaLocalService;
-import edu.uoc.mestemi.studentjob.service.OfferLocalServiceUtil;
-import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.base.DegreeLocalServiceBaseImpl;
-import edu.uoc.mestemi.studentjob.util.validator.CompanyProfileValidatorImpl;
 import edu.uoc.mestemi.studentjob.util.validator.DegreeValidatorImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -169,35 +158,15 @@ public class DegreeLocalServiceImpl extends DegreeLocalServiceBaseImpl {
 		return dynamicQuery;
 	}
 	
+	@Override
 	public List<Degree> getDegreeAreaDegrees(long degreeAreaId, int start, int end, OrderByComparator<Degree> orderByComparator){
 		return degreePersistence.getDegreeAreaDegrees(
 				degreeAreaId, start, end, orderByComparator);
 	}
 	
-//	public List<Degree> getDegreeAreaDegreesCount(long degreeAreaId, int start, int end, OrderByComparator<Degree> orderByComparator){
-//		return degreePersistence.degreeAreas
-//	}
-	
-//	public List<Degree> getDegreesByDegreeAreaId(String degreeAreaId)
-//	{
-//		Session session = degreePersistence.openSession();
-//		SQLQuery query = session.createSQLQuery("select sdg.degreeId as degreeId from sjob_degree sdg inner join sjob_degrees_degreesareas sdd where sdg.degreeId = sdd.degreeId and sdd.degreeAreaId = ? LIMIT ? OFFSET ?");
-//		query.addScalar("degreeId", Type.LONG);
-//		QueryPos pos = QueryPos.getInstance(query);
-//		pos.add(degreeAreaId);
-//		
-//		List<Long> list = query.list();
-//		List<Degree> degrees = new ArrayList<>();
-//		for (long degreeId : list) {
-//			degrees.add(getDegree(degreeId));
-//		}
-//		
-//		return degrees;
-//	}
-	
 	@Override
 	public Degree addDegree(Degree degree) {
-		throw new UnsupportedOperationException("Not supported");
+		throw new UnsupportedOperationException("Default add operation not supported");
 	}
 	
 	@Override

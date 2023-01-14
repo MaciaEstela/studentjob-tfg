@@ -17,7 +17,6 @@ package edu.uoc.mestemi.studentjob.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Order;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
@@ -39,8 +38,6 @@ import edu.uoc.mestemi.studentjob.model.SocialMedia;
 import edu.uoc.mestemi.studentjob.service.SocialMediaLocalService;
 import edu.uoc.mestemi.studentjob.service.base.CompanyProfileLocalServiceBaseImpl;
 import edu.uoc.mestemi.studentjob.util.validator.CompanyProfileValidatorImpl;
-import edu.uoc.mestemi.studentjob.util.validator.StudentProfileValidatorImpl;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -181,13 +178,6 @@ public class CompanyProfileLocalServiceImpl
 			disjunctionQuery.add(RestrictionsFactoryUtil.like("sector", "%" + keywords + "%"));
 			
 			dynamicQuery.add(disjunctionQuery);
-			
-//			DynamicQuery dynamicUser = DynamicQueryFactoryUtil.forClass(User.class, User.class.getClassLoader());
-//			Disjunction disjunctionQueryUser  = RestrictionsFactoryUtil.disjunction();
-//			if (keywords.contains(" ")) {
-//				String[] splittedKeywords = keywords.split(" ");
-//				
-//			}
 		}
 		
 		return dynamicQuery;

@@ -1,7 +1,5 @@
 package edu.uoc.mestemi.studentjob.web.portlet.admin.offer.action;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -41,8 +39,6 @@ import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 )
 public class ExpireOfferMVCActionCommand extends BaseMVCActionCommand {
 
-	private static final Log log = LogFactoryUtil.getLog(ExpireOfferMVCActionCommand.class);
-	
 	@Override
 	protected void doProcessAction(
 		ActionRequest actionRequest, ActionResponse actionResponse)

@@ -8,6 +8,10 @@ import edu.uoc.mestemi.studentjob.util.UserManagementUtil;
 
 public class StudentjobRestUtil {
 
+	private StudentjobRestUtil() {
+		throw new IllegalStateException("Utility class");
+	}
+	
 	public static boolean isUserCompany(long companyId, long userId) {
 		Role companyRole;
 		try {

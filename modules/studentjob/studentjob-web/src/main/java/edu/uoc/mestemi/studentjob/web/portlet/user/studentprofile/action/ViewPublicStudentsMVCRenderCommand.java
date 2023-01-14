@@ -24,13 +24,10 @@ import org.osgi.service.component.annotations.Reference;
 import edu.uoc.mestemi.studentjob.web.constants.StudentjobPortletKeys;
 import edu.uoc.mestemi.studentjob.web.portlet.util.DTOUtil;
 import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
-import edu.uoc.mestemi.studentjob.dto.OfferDTO;
 import edu.uoc.mestemi.studentjob.dto.StudentProfileDTO;
 import edu.uoc.mestemi.studentjob.model.Degree;
-import edu.uoc.mestemi.studentjob.model.Offer;
 import edu.uoc.mestemi.studentjob.model.StudentProfile;
 import edu.uoc.mestemi.studentjob.service.DegreeService;
-import edu.uoc.mestemi.studentjob.service.OfferService;
 import edu.uoc.mestemi.studentjob.service.StudentProfileLocalServiceUtil;
 import edu.uoc.mestemi.studentjob.service.StudentProfileService;
 import edu.uoc.mestemi.studentjob.util.CountryA3Constants;
@@ -93,10 +90,6 @@ public class ViewPublicStudentsMVCRenderCommand implements MVCRenderCommand {
 		String orderByColModified =
 			ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_COL, 
 					StudentjobConstants.ORDER_MODIFIED_DATE);
-		
-		String orderByColCreated =
-				ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_COL, 
-						StudentjobConstants.ORDER_CREATE_DATE);
 		
 		String orderByType =
 			ParamUtil.getString(renderRequest, StudentjobConstants.ORDER_BY_TYPE, StudentjobConstants.ORDER_ASC);

@@ -36,6 +36,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
+import edu.uoc.mestemi.studentjob.constants.StudentjobConstants;
 import edu.uoc.mestemi.studentjob.model.CompanyProfile;
 import edu.uoc.mestemi.studentjob.model.Degree;
 import edu.uoc.mestemi.studentjob.model.Offer;
@@ -62,8 +63,10 @@ import edu.uoc.mestemi.studentjob.util.ProvinceUtil;
 )
 public class StudentjobRestApplication extends Application {
 
+	private static final String DEFAULT_SITE = "/guest";
 	private static final Log log = LogFactoryUtil.getLog(StudentjobRestApplication.class);
 	
+	@Override
 	public Set<Object> getSingletons() {
 		return Collections.<Object>singleton(this);
 	}
@@ -79,7 +82,7 @@ public class StudentjobRestApplication extends Application {
 
 		User user = null;
 
-		String friendlyURL = "/guest";
+		String friendlyURL = DEFAULT_SITE;
 		
 		try {
 			Group group = _groupLocalService.getFriendlyURLGroup(
@@ -111,13 +114,9 @@ public class StudentjobRestApplication extends Application {
 			if (!object.has("provinceId"))
 				return "JSONObject should have the provinceId key";
 			
-			try {
-				CompanyProfile companyProfile = CompanyProfileLocalServiceUtil.getCompanyProfileByGroupIdAndUserId(groupId, userId);
-				if (!companyProfile.isActive()) {
-					return "Your company profile is not active!";
-				}
-			} catch (Exception e) {
-				return "You don't have a company profile!";
+			CompanyProfile companyProfile = CompanyProfileLocalServiceUtil.getCompanyProfileByGroupIdAndUserId(groupId, userId);
+			if (!companyProfile.isActive()) {
+				return "Your company profile is not active!";
 			}
 			
 			JSONArray degreeIdsArray = object.getJSONArray("degreeIds");
@@ -129,24 +128,30 @@ public class StudentjobRestApplication extends Application {
 			
 			JSONObject titleObject = object.getJSONObject("title");
 			Map<Locale, String> titleMap = new HashMap<>();
-			titleMap.put(LocaleUtil.fromLanguageId("es_ES"), titleObject.getString("es_ES"));
+			titleMap.put(LocaleUtil.fromLanguageId(StudentjobConstants.LOCALE_ES), 
+					titleObject.getString(StudentjobConstants.LOCALE_ES));
 			
-			if (titleObject.has("ca_ES")) {
-				titleMap.put(LocaleUtil.fromLanguageId("ca_ES"), titleObject.getString("ca_ES"));
+			if (titleObject.has(StudentjobConstants.LOCALE_CA)) {
+				titleMap.put(LocaleUtil.fromLanguageId(StudentjobConstants.LOCALE_CA), 
+						titleObject.getString(StudentjobConstants.LOCALE_CA));
 			}
-			if (titleObject.has("en_US")) {
-				titleMap.put(LocaleUtil.fromLanguageId("en_US"), titleObject.getString("en_US"));
+			if (titleObject.has(StudentjobConstants.LOCALE_EN)) {
+				titleMap.put(LocaleUtil.fromLanguageId(StudentjobConstants.LOCALE_EN),
+						titleObject.getString(StudentjobConstants.LOCALE_EN));
 			}
 			
 			JSONObject descriptionObject = object.getJSONObject("description");
 			Map<Locale, String> descriptionMap = new HashMap<>();
-			descriptionMap.put(LocaleUtil.fromLanguageId("es_ES"), descriptionObject.getString("es_ES"));
+			descriptionMap.put(LocaleUtil.fromLanguageId(StudentjobConstants.LOCALE_ES), 
+					descriptionObject.getString(StudentjobConstants.LOCALE_ES));
 
-			if (descriptionObject.has("ca_ES")) {
-				descriptionMap.put(LocaleUtil.fromLanguageId("ca_ES"), descriptionObject.getString("ca_ES"));
+			if (descriptionObject.has(StudentjobConstants.LOCALE_CA)) {
+				descriptionMap.put(LocaleUtil.fromLanguageId(StudentjobConstants.LOCALE_CA), 
+						descriptionObject.getString(StudentjobConstants.LOCALE_CA));
 			}
-			if (descriptionObject.has("en_US")) {
-				descriptionMap.put(LocaleUtil.fromLanguageId("en_US"), descriptionObject.getString("en_US"));
+			if (descriptionObject.has(StudentjobConstants.LOCALE_EN)) {
+				descriptionMap.put(LocaleUtil.fromLanguageId(StudentjobConstants.LOCALE_EN), 
+						descriptionObject.getString(StudentjobConstants.LOCALE_EN));
 			}
 			
 			long provinceId = object.getLong("provinceId");
@@ -200,7 +205,7 @@ public class StudentjobRestApplication extends Application {
 		List<DegreeConsumerDTO> degreesDTO = new ArrayList<>();
 		
 		try {
-			String friendlyURL = "/guest";
+			String friendlyURL = DEFAULT_SITE;
 			Group group = _groupLocalService.getFriendlyURLGroup(
 					PortalUtil.getDefaultCompanyId(), 
 					friendlyURL);
@@ -224,7 +229,7 @@ public class StudentjobRestApplication extends Application {
 	public List<OfferConsumerDTO> getMyOffers(@Context HttpServletRequest request) {
 		
 		User user = null;
-		String friendlyURL = "/guest";
+		String friendlyURL = DEFAULT_SITE;
 		
 		List<OfferConsumerDTO> offerConsumerDTOList = new ArrayList<>();
 		
