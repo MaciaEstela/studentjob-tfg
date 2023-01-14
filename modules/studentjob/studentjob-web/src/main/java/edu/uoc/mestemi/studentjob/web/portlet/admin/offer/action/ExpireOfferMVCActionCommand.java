@@ -58,9 +58,7 @@ public class ExpireOfferMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 		}
 
-		offer = offerService.expireOffer(offerId);
-		
-
+		offerService.expireOffer(offerId);
 	}
 
 	@Reference
