@@ -72,8 +72,8 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("validated", false);
 		
 		try {
-			Ticket ticket = _ticketLocalService.getTicket(token);
-			User user = _userLocalService.getUserByScreenName(
+			Ticket ticket = ticketLocalService.getTicket(token);
+			User user = userLocalService.getUserByScreenName(
 					themeDisplay.getCompanyId(), screenName);
 			
 			if (ticket.getClassPK() == user.getPrimaryKey()) {
@@ -114,9 +114,9 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 					}
 				}
 				
-				_userLocalService.updateUser(user);
+				userLocalService.updateUser(user);
 				
-				_ticketLocalService.deleteTicket(ticket.getTicketId());
+				ticketLocalService.deleteTicket(ticket.getTicketId());
 				renderRequest.setAttribute("manualApprovement", manualApprovement);
 				renderRequest.setAttribute("validated", true);
 			}
@@ -129,8 +129,8 @@ public class UserValidationMVCRenderCommand implements MVCRenderCommand {
 	}
 	
 	@Reference
-	TicketLocalService _ticketLocalService;
+	TicketLocalService ticketLocalService;
 	
 	@Reference
-	UserLocalService _userLocalService;
+	UserLocalService userLocalService;
 }

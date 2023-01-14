@@ -122,14 +122,14 @@ public class ViewOffersMVCRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		// Call the service to get the list of offers.
-		List<Offer> offers =_offerService.getOffersByKeywords(
+		List<Offer> offers =offerService.getOffersByKeywords(
 				groupId, userId, keywords, workflowStatus, start, end,
 				comparator);
 		
 		// Set request attributes.
 		renderRequest.setAttribute("offers", offers);
 		renderRequest.setAttribute(
-			"offerCount", _offerService.getOffersCountByKeywords(
+			"offerCount", offerService.getOffersCountByKeywords(
 				groupId, userId, keywords, workflowStatus));
 	}
 
@@ -143,15 +143,15 @@ public class ViewOffersMVCRenderCommand implements MVCRenderCommand {
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		LiferayPortletRequest liferayPortletRequest =
-			_portal.getLiferayPortletRequest(renderRequest);
+			portal.getLiferayPortletRequest(renderRequest);
 
 		LiferayPortletResponse liferayPortletResponse =
-			_portal.getLiferayPortletResponse(renderResponse);
+			portal.getLiferayPortletResponse(renderResponse);
 
 		OffersManagementToolbarDisplayContext offersManagementToolbarDisplayContext =
 			new OffersManagementToolbarDisplayContext(
 				liferayPortletRequest, liferayPortletResponse,
-				_portal.getHttpServletRequest(renderRequest));
+				portal.getHttpServletRequest(renderRequest));
 
 		renderRequest.setAttribute(
 			"offersManagementToolbarDisplayContext",
@@ -160,14 +160,14 @@ public class ViewOffersMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	protected OfferService _offerService;
+	protected OfferService offerService;
 
 	@Reference
-	private Portal _portal;
+	private Portal portal;
 	
 	@Reference
-	protected DegreeAreaService _degreeAreaService;
+	protected DegreeAreaService degreeAreaService;
 	
 	@Reference
-	protected DegreeService _degreeService;
+	protected DegreeService degreeService;
 }

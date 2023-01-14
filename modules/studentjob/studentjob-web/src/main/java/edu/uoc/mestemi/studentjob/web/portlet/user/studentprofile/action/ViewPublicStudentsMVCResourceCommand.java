@@ -98,7 +98,7 @@ public class ViewPublicStudentsMVCResourceCommand extends BaseMVCResourceCommand
 			
 			int start = ParamUtil.getInteger(resourceRequest, "start", 0);
 			
-			List<StudentProfile> studentProfiles =_studentProfileService.getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			List<StudentProfile> studentProfiles =studentProfileService.getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, true, newestStudentProfileId, start, 
 					start + StudentjobConstants.STUDENTS_OFFSET, comparator);
 			
@@ -119,12 +119,12 @@ public class ViewPublicStudentsMVCResourceCommand extends BaseMVCResourceCommand
 					OrderByComparatorFactoryUtil.create(
 						"StudentProfile", orderByCol, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 			
-			List<StudentProfile> studentProfiles =_studentProfileService.getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			List<StudentProfile> studentProfiles =studentProfileService.getStudentProfilesByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, true, 0, 0, 1,
 					comparatorCreate);
 			
 			JSONObject dataJson = JSONFactoryUtil.createJSONObject();
-			long studentProfileCount = _studentProfileService.getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+			long studentProfileCount = studentProfileService.getStudentProfilesCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 					themeDisplay.getScopeGroupId(), keywords, preference, regionId, degreeId, true, 0);
 			
 			if (!studentProfiles.isEmpty()) {
@@ -187,5 +187,5 @@ public class ViewPublicStudentsMVCResourceCommand extends BaseMVCResourceCommand
 	}
 	
 	@Reference
-	protected StudentProfileService _studentProfileService;
+	protected StudentProfileService studentProfileService;
 }

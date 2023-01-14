@@ -69,7 +69,7 @@ public class AddDegreeMVCActionCommand extends BaseMVCActionCommand {
 		
 		try {
 			// Call the service to add a a new degree.
-			_degreeService.addDegree(
+			degreeService.addDegree(
 				themeDisplay.getScopeGroupId(), nameMap, degreeAreasIdList, serviceContext);
 			
 			sendRedirect(actionRequest, actionResponse);
@@ -86,5 +86,5 @@ public class AddDegreeMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected DegreeService _degreeService;
+	protected DegreeService degreeService;
 }

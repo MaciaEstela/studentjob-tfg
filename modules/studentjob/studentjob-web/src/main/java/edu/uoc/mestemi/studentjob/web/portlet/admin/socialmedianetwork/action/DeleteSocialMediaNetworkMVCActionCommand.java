@@ -45,7 +45,7 @@ public class DeleteSocialMediaNetworkMVCActionCommand extends BaseMVCActionComma
 
 		try {
 			// Call service to delete the socialMediaNetwork.
-			_socialMediaNetworkService.deleteSocialMediaNetwork(socialMediaNetworkId);
+			socialMediaNetworkService.deleteSocialMediaNetwork(socialMediaNetworkId);
 		}
 		catch (PortalException pe) {
 			log.error("Error deleting socialMediaNetwork with socialMediaNetworkId " + socialMediaNetworkId, pe);
@@ -53,5 +53,5 @@ public class DeleteSocialMediaNetworkMVCActionCommand extends BaseMVCActionComma
 	}
 
 	@Reference
-	protected SocialMediaNetworkService _socialMediaNetworkService;
+	protected SocialMediaNetworkService socialMediaNetworkService;
 }

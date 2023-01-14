@@ -15,7 +15,6 @@ import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder.PortletURLStep;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -50,11 +49,8 @@ public class OffersManagementToolbarDisplayContext
 
 		super(httpServletRequest, liferayPortletRequest, liferayPortletResponse);
 
-		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(
+		portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(
 				liferayPortletRequest);
-
-		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
 	}
 
 	/**
@@ -92,7 +88,7 @@ public class OffersManagementToolbarDisplayContext
 	@Override
 	public String getDisplayStyle() {
 
-		_portalPreferences.setValue(
+		portalPreferences.setValue(
 				StudentjobPortletKeys.STUDENTJOB, "assignments-display-style",
 				"list");
 
@@ -218,7 +214,7 @@ public class OffersManagementToolbarDisplayContext
 				 dropdownItem -> {
 					 dropdownItem.setActive(TITLE.equals(getOrderByCol()));
 					 dropdownItem.setHref(
-						 _getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL, TITLE);
+						 getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL, TITLE);
 					 dropdownItem.setLabel(
 						 LanguageUtil.get(httpServletRequest, TITLE));
 				 }
@@ -226,7 +222,7 @@ public class OffersManagementToolbarDisplayContext
 				dropdownItem.setActive(
 						"createDate".equals(getOrderByCol()));
 					dropdownItem.setHref(
-						_getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL,
+						getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL,
 						"createDate");
 					dropdownItem.setLabel(
 						LanguageUtil.get(httpServletRequest, "create-date"));
@@ -240,7 +236,7 @@ public class OffersManagementToolbarDisplayContext
 				dropdownItem -> {
 					dropdownItem.setActive(
 							WorkflowConstants.STATUS_ANY  == getFilterStatus());
-					dropdownItem.setHref(_getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
+					dropdownItem.setHref(getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
 							WorkflowConstants.STATUS_ANY);
 					dropdownItem.setLabel(
 							LanguageUtil.get(httpServletRequest, "all"));
@@ -249,7 +245,7 @@ public class OffersManagementToolbarDisplayContext
 				dropdownItem -> {
 					dropdownItem.setActive(
 							WorkflowConstants.STATUS_APPROVED  == getFilterStatus());
-					dropdownItem.setHref(_getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
+					dropdownItem.setHref(getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
 							WorkflowConstants.STATUS_APPROVED);
 					dropdownItem.setLabel(
 							LanguageUtil.get(httpServletRequest, "active"));
@@ -258,7 +254,7 @@ public class OffersManagementToolbarDisplayContext
 				dropdownItem -> {
 					dropdownItem.setActive(
 							WorkflowConstants.STATUS_EXPIRED  == getFilterStatus());
-					dropdownItem.setHref(_getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
+					dropdownItem.setHref(getCurrentSortingURL(), StudentjobConstants.FILTER_BY_STATUS,
 							WorkflowConstants.STATUS_EXPIRED);
 					dropdownItem.setLabel(
 							LanguageUtil.get(httpServletRequest, "inactive"));
@@ -272,7 +268,7 @@ public class OffersManagementToolbarDisplayContext
 	* @return current sorting portlet URL
 	*
 	*/
-	private PortletURL _getCurrentSortingURL() {
+	private PortletURL getCurrentSortingURL() {
 		return PortletURLBuilder.create(
 			getPortletURL()
 		).setKeywords(
@@ -291,6 +287,5 @@ public class OffersManagementToolbarDisplayContext
 		).buildPortletURL();
 	}
 
-	private final PortalPreferences _portalPreferences;
-	private final ThemeDisplay _themeDisplay;
+	private final PortalPreferences portalPreferences;
 }

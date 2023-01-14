@@ -57,7 +57,7 @@ public class EditSocialMediaNetworkMVCRenderCommand implements MVCRenderCommand 
 		if (socialMediaNetworkId > 0) {
 			try {
 				// Call the service to get the socialMediaNetwork for editing.
-				socialMediaNetwork = _socialMediaNetworkService.getSocialMediaNetwork(socialMediaNetworkId);
+				socialMediaNetwork = socialMediaNetworkService.getSocialMediaNetwork(socialMediaNetworkId);
 				logoURL = DocumentLibraryUtil.getFileDownloadURL(themeDisplay, socialMediaNetwork.getLogo());
 			}
 			catch (NoSuchSocialMediaNetworkException nsoe) {
@@ -86,5 +86,5 @@ public class EditSocialMediaNetworkMVCRenderCommand implements MVCRenderCommand 
 	}
 
 	@Reference
-	private SocialMediaNetworkService _socialMediaNetworkService;
+	private SocialMediaNetworkService socialMediaNetworkService;
 }

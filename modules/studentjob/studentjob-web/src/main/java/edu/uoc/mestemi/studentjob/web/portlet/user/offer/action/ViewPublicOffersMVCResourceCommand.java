@@ -108,7 +108,7 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 				
 				int start = ParamUtil.getInteger(resourceRequest, "start", 0);
 				
-				List<Offer> offers =_offerService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				List<Offer> offers =offerService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 						groupId, 0, keywords, preference, regionId, degreeId, WorkflowConstants.STATUS_APPROVED, 
 						newestOfferId, start, start + StudentjobConstants.OFFERS_OFFSET, comparator);
 				
@@ -128,12 +128,12 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 						OrderByComparatorFactoryUtil.create(
 							"Offer", orderByCol, !(StudentjobConstants.ORDER_ASC).equals(orderByType));
 				
-				List<Offer> offers =_offerService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				List<Offer> offers =offerService.getOffersByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 						groupId, 0, keywords, preference, regionId, degreeId, WorkflowConstants.STATUS_APPROVED, 0, 0, 1,
 						comparatorCreate);
 				
 				JSONObject dataJson = JSONFactoryUtil.createJSONObject();
-				long offerCount = _offerService.getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
+				long offerCount = offerService.getOffersCountByKeywordsAndPreferenceAndRegionIdAndDegreeId(
 						groupId, 0, keywords, preference, regionId, degreeId, WorkflowConstants.STATUS_APPROVED, 0);
 				
 				if (!offers.isEmpty()) {
@@ -168,7 +168,7 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 		if (offerId != 0) {
 			Role studentRole = UserManagementUtil.getRoleById(companyId, StudentjobConstants.STUDENT_ROLE);
 			if (UserLocalServiceUtil.hasRoleUser(studentRole.getRoleId(), userId) && StudentProfileLocalServiceUtil.getStudentProfileByGroupIdAndUserId(groupId, userId).isActive()) {
-				_userEnrollOffer.addUserEnrollOffer(
+				userEnrollOffer.addUserEnrollOffer(
 						groupId, 
 						offerId, 
 						userId, 
@@ -221,8 +221,8 @@ public class ViewPublicOffersMVCResourceCommand extends BaseMVCResourceCommand {
 	}
 	
 	@Reference
-	protected OfferService _offerService;
+	protected OfferService offerService;
 
 	@Reference
-	protected UserEnrollOfferService _userEnrollOffer;
+	protected UserEnrollOfferService userEnrollOffer;
 }

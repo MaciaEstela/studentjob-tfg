@@ -67,7 +67,7 @@ public class DeleteOfferMVCActionCommand extends BaseMVCActionCommand {
 		
 		try {
 			// Call service to delete the offer.
-			_offerService.deleteOffer(offerId);
+			offerService.deleteOffer(offerId);
 		}
 		catch (PortalException pe) {
 			log.error("Error deleting offer with offerId " + offerId + " - Message: " + pe.getMessage());
@@ -75,5 +75,5 @@ public class DeleteOfferMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected OfferService _offerService;
+	protected OfferService offerService;
 }

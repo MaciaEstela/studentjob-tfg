@@ -85,7 +85,7 @@ public class StudentjobRestApplication extends Application {
 		String friendlyURL = DEFAULT_SITE;
 		
 		try {
-			Group group = _groupLocalService.getFriendlyURLGroup(
+			Group group = groupLocalService.getFriendlyURLGroup(
 					PortalUtil.getDefaultCompanyId(), 
 					friendlyURL);
 			
@@ -206,7 +206,7 @@ public class StudentjobRestApplication extends Application {
 		
 		try {
 			String friendlyURL = DEFAULT_SITE;
-			Group group = _groupLocalService.getFriendlyURLGroup(
+			Group group = groupLocalService.getFriendlyURLGroup(
 					PortalUtil.getDefaultCompanyId(), 
 					friendlyURL);
 			
@@ -234,7 +234,7 @@ public class StudentjobRestApplication extends Application {
 		List<OfferConsumerDTO> offerConsumerDTOList = new ArrayList<>();
 		
 		try {
-			Group group = _groupLocalService.getFriendlyURLGroup(
+			Group group = groupLocalService.getFriendlyURLGroup(
 					PortalUtil.getDefaultCompanyId(), 
 					friendlyURL);
 			user = PortalUtil.getUser(request);
@@ -269,8 +269,8 @@ public class StudentjobRestApplication extends Application {
 	}
 
 	@Reference
-	private OfferLocalService _offerLocalService;
+	private OfferLocalService offerLocalService;
 	
 	@Reference
-	private GroupLocalService _groupLocalService;
+	private GroupLocalService groupLocalService;
 }

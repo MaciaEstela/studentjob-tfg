@@ -79,10 +79,10 @@ public class MyAccountMVCActionCommand extends BaseMVCActionCommand {
 				
 				dis.readFully(bytes);
 				
-				_userLocalService.updatePortrait(userId, bytes);
+				userLocalService.updatePortrait(userId, bytes);
 			}
 			
-			User user = _userLocalService.getUser(userId);
+			User user = userLocalService.getUser(userId);
 			Role studentRole = UserManagementUtil.getRoleById(themeDisplay.getCompanyId(), StudentjobConstants.STUDENT_ROLE);
 			if (!UserLocalServiceUtil.hasRoleUser(studentRole.getRoleId(), user.getUserId())) {
 				user.setEmailAddress(email);
@@ -91,7 +91,7 @@ public class MyAccountMVCActionCommand extends BaseMVCActionCommand {
 			user.setLastName(lastName);
 			user.getExpandoBridge().setAttribute(StudentjobConstants.USER_PHONE, phone);
 			user.getExpandoBridge().setAttribute(StudentjobConstants.USER_EMAIL_OFFERS, mailOffers);
-			_userLocalService.updateUser(user);
+			userLocalService.updateUser(user);
 		} catch (Exception e) {
 			log.error(e);
 		}
@@ -100,5 +100,5 @@ public class MyAccountMVCActionCommand extends BaseMVCActionCommand {
 	}
 	
 	@Reference
-	UserLocalService _userLocalService;
+	UserLocalService userLocalService;
 }

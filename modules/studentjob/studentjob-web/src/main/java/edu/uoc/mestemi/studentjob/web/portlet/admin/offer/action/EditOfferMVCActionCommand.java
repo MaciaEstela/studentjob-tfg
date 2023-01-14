@@ -102,7 +102,7 @@ public class EditOfferMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			// Call the service to update the offer
-			_offerService.updateOffer(
+			offerService.updateOffer(
 				offerId, regionId, titleMap, descriptionMap, preference, degreesList, serviceContext);
 
 			sendRedirect(actionRequest, actionResponse);
@@ -119,5 +119,5 @@ public class EditOfferMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected OfferService _offerService;
+	protected OfferService offerService;
 }

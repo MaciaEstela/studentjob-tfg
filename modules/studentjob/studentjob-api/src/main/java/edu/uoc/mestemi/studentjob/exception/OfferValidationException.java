@@ -24,13 +24,13 @@ public class OfferValidationException extends PortalException {
 	
 	private static final long serialVersionUID = 1L;
 
-	public OfferValidationException(List<String> errors) {
-		super(String.join(",", errors));
-		_errors = errors;
+	public OfferValidationException(List<String> errorsList) {
+		super(String.join(",", errorsList));
+		errors = errorsList;
 	}
 	
 	public List<String> getErrors() {
-		return _errors;
+		return errors;
 	}
 	
 	public OfferValidationException() {
@@ -48,5 +48,5 @@ public class OfferValidationException extends PortalException {
 		super(throwable);
 	}
 	
-	private List<String> _errors;
+	private List<String> errors;
 }

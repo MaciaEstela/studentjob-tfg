@@ -93,14 +93,14 @@ public class ViewDegreeMVCRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		// Call the service to get the list of degrees.
-		List<Degree> degrees =_degreeService.getDegreesByKeywords(
+		List<Degree> degrees =degreeService.getDegreesByKeywords(
 				themeDisplay.getScopeGroupId(), keywords, start, end,
 				comparator);
 		
 		// Set request attributes.
 		renderRequest.setAttribute("degrees", degrees);
 		renderRequest.setAttribute(
-			"degreeCount", _degreeService.getDegreesCountByKeywords(
+			"degreeCount", degreeService.getDegreesCountByKeywords(
 				themeDisplay.getScopeGroupId(), keywords));
 	}
 
@@ -114,15 +114,15 @@ public class ViewDegreeMVCRenderCommand implements MVCRenderCommand {
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		LiferayPortletRequest liferayPortletRequest =
-			_portal.getLiferayPortletRequest(renderRequest);
+			portal.getLiferayPortletRequest(renderRequest);
 
 		LiferayPortletResponse liferayPortletResponse =
-			_portal.getLiferayPortletResponse(renderResponse);
+			portal.getLiferayPortletResponse(renderResponse);
 
 		DegreesManagementToolbarDisplayContext degreesManagementToolbarDisplayContext =
 			new DegreesManagementToolbarDisplayContext(
 				liferayPortletRequest, liferayPortletResponse,
-				_portal.getHttpServletRequest(renderRequest));
+				portal.getHttpServletRequest(renderRequest));
 
 		renderRequest.setAttribute(
 			"degreesManagementToolbarDisplayContext",
@@ -131,8 +131,8 @@ public class ViewDegreeMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private Portal _portal;
+	private Portal portal;
 	
 	@Reference
-	protected DegreeService _degreeService;
+	protected DegreeService degreeService;
 }

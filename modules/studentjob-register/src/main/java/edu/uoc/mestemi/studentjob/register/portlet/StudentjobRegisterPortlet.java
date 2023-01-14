@@ -136,10 +136,10 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 		ExpandoTable expandoTable = null;
 		
 		try {
-			expandoTable  = _expandoTableLocalService.getTable(companyId, className, tableName);
+			expandoTable  = expandoTableLocalService.getTable(companyId, className, tableName);
 		} catch (NoSuchTableException e) {
 			try {
-				expandoTable = _expandoTableLocalService.addTable(companyId, className, tableName);
+				expandoTable = expandoTableLocalService.addTable(companyId, className, tableName);
 			} catch (PortalException e1) {
 				log.error(
 					"Error adding a ExpandoTable for companyId " + companyId + 
@@ -175,10 +175,10 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 		
 		ExpandoColumn expandoColumn = null;
 
-		expandoColumn = _expandoColumnLocalService.getColumn(companyId, className, tableName, columnName);
+		expandoColumn = expandoColumnLocalService.getColumn(companyId, className, tableName, columnName);
 		if (expandoColumn == null) {
 			try {
-				expandoColumn = _expandoColumnLocalService.addColumn(
+				expandoColumn = expandoColumnLocalService.addColumn(
 						expandoTable.getTableId(), columnName, expandoColumnType, defaultData);
 				setExpandoColumnPermissions(companyId, expandoColumn);
 			} catch (PortalException e) {
@@ -209,10 +209,10 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 			Role userRole = UserManagementUtil.getRoleById(companyId, RoleConstants.USER);
 			String[] actionsR = new String[] { ActionKeys.VIEW };
 			String[] actionsU = new String[] { ActionKeys.UPDATE };
-			_resourcePermissionLocalService.setResourcePermissions(companyId, ExpandoColumn.class.getName(), 
+			resourcePermissionLocalService.setResourcePermissions(companyId, ExpandoColumn.class.getName(), 
 					ResourceConstants.SCOPE_INDIVIDUAL, Long.toString(expandoColumn.getPrimaryKey()), guest.getRoleId(), actionsR);
 			
-			_resourcePermissionLocalService.setResourcePermissions(companyId, ExpandoColumn.class.getName(), 
+			resourcePermissionLocalService.setResourcePermissions(companyId, ExpandoColumn.class.getName(), 
 					ResourceConstants.SCOPE_INDIVIDUAL, Long.toString(expandoColumn.getPrimaryKey()), userRole.getRoleId(), actionsU);
 		} catch (Exception e) {
 			log.error("Error setting Guest Role on Expando Column " + expandoColumn.getName(), e);
@@ -275,11 +275,11 @@ public class StudentjobRegisterPortlet extends MVCPortlet {
 	
 	
 	@Reference
-	ExpandoColumnLocalService _expandoColumnLocalService;
+	ExpandoColumnLocalService expandoColumnLocalService;
 	
 	@Reference
-	ExpandoTableLocalService _expandoTableLocalService;
+	ExpandoTableLocalService expandoTableLocalService;
 	
 	@Reference
-	ResourcePermissionLocalService _resourcePermissionLocalService;
+	ResourcePermissionLocalService resourcePermissionLocalService;
 }

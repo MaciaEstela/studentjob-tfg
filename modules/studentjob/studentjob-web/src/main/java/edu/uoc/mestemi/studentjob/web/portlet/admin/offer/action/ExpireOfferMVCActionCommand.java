@@ -49,7 +49,7 @@ public class ExpireOfferMVCActionCommand extends BaseMVCActionCommand {
 		long userId = themeDisplay.getUserId();
 		// Get offer id from request.
 		long offerId = ParamUtil.getLong(actionRequest, "offerId");
-		Offer offer = _offerService.getOffer(offerId);
+		Offer offer = offerService.getOffer(offerId);
 		
 		if (offer.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
 			PortletResponse portletResponse = (PortletResponse) actionRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
@@ -58,11 +58,11 @@ public class ExpireOfferMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse, renderUrl.toString());
 		}
 
-		offer = _offerService.expireOffer(offerId);
+		offer = offerService.expireOffer(offerId);
 		
 
 	}
 
 	@Reference
-	protected OfferService _offerService;
+	protected OfferService offerService;
 }

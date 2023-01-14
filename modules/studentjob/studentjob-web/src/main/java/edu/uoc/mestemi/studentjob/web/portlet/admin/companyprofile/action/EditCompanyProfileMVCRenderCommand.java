@@ -64,7 +64,7 @@ public class EditCompanyProfileMVCRenderCommand implements MVCRenderCommand {
 		long groupId = themeDisplay.getScopeGroupId();
 		long companyId = themeDisplay.getCompanyId();
 		
-		CompanyProfile companyProfile = _companyProfileService.getCompanyProfileByGroupIdAndUserId(groupId, userId);
+		CompanyProfile companyProfile = companyProfileService.getCompanyProfileByGroupIdAndUserId(groupId, userId);
 		long companyProfileId = companyProfile.getCompanyProfileId();
 
 		if (companyProfile.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
@@ -83,9 +83,9 @@ public class EditCompanyProfileMVCRenderCommand implements MVCRenderCommand {
 		portletDisplay.setURLBack(redirect);
 		
 		List<Region> regions = ProvinceUtil.getRegionsByCountryA3(companyId, CountryA3Constants.SPAIN, true);
-		List<SocialMediaNetwork> socialMediaNetworks = _socialMediaNetworkService.getSocialMediaNetworksByGroupId(groupId);
+		List<SocialMediaNetwork> socialMediaNetworks = socialMediaNetworkService.getSocialMediaNetworksByGroupId(groupId);
 		
-		List<SocialMedia> socialMedias = _socialMediaService.getSocialMediaNetworksByGroupIdAndClass(
+		List<SocialMedia> socialMedias = socialMediaService.getSocialMediaNetworksByGroupIdAndClass(
 				groupId, CompanyProfile.class.getName(), companyProfileId);
 		
 		boolean canHide = true;
@@ -119,11 +119,11 @@ public class EditCompanyProfileMVCRenderCommand implements MVCRenderCommand {
 	}
 	
 	@Reference
-	private CompanyProfileService _companyProfileService;
+	private CompanyProfileService companyProfileService;
 	
 	@Reference
-	private SocialMediaNetworkService _socialMediaNetworkService;
+	private SocialMediaNetworkService socialMediaNetworkService;
 	
 	@Reference
-	private SocialMediaService _socialMediaService;
+	private SocialMediaService socialMediaService;
 }

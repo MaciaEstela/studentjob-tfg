@@ -55,7 +55,7 @@ public class EditDegreeMVCRenderCommand implements MVCRenderCommand {
 		if (degreeId > 0) {
 			try {
 				// Call the service to get the degree for editing.
-				degree = _degreeService.getDegree(degreeId);
+				degree = degreeService.getDegree(degreeId);
 			}
 			catch (NoSuchDegreeException nsoe) {
 				log.error("Can't find data for Degree with degreeId " + degreeId, nsoe);
@@ -77,8 +77,8 @@ public class EditDegreeMVCRenderCommand implements MVCRenderCommand {
 
 		portletDisplay.setURLBack(redirect);
 
-		List<Long> currentDegreeAreasDegreeIds = _degreeService.getDegreeAreasIdsByDegreeId(degreeId);
-		List<DegreeArea> degreeAreas = _degreeAreaService.getDegreeAreasByGroupId(groupId);
+		List<Long> currentDegreeAreasDegreeIds = degreeService.getDegreeAreasIdsByDegreeId(degreeId);
+		List<DegreeArea> degreeAreas = degreeAreaService.getDegreeAreasByGroupId(groupId);
 		
 		// Set degree to the request attributes.
 		renderRequest.setAttribute("degree", degree);
@@ -91,8 +91,8 @@ public class EditDegreeMVCRenderCommand implements MVCRenderCommand {
 	}
 	
 	@Reference
-	private DegreeService _degreeService;
+	private DegreeService degreeService;
 	
 	@Reference
-	private DegreeAreaService _degreeAreaService;
+	private DegreeAreaService degreeAreaService;
 }

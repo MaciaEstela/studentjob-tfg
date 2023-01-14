@@ -15,7 +15,6 @@ import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder.PortletURLStep;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -47,11 +46,8 @@ public class DegreesManagementToolbarDisplayContext
 
 		super(httpServletRequest, liferayPortletRequest, liferayPortletResponse);
 
-		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(
+		portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(
 				liferayPortletRequest);
-
-		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
 	}
 
 	/**
@@ -63,13 +59,6 @@ public class DegreesManagementToolbarDisplayContext
 	@Override
 	public CreationMenu getCreationMenu() {
 
-//		if (!DegreeTopLevelPermission.contains(
-//				_themeDisplay.getPermissionChecker(),
-//				_themeDisplay.getScopeGroupId(), "ADD_ENTRY")) {
-//		
-//			return null;
-//		}
-	
 		// Create the menu.
 		
 		return CreationMenuBuilder.addDropdownItem(
@@ -103,12 +92,12 @@ public class DegreesManagementToolbarDisplayContext
 		String displayStyle = ParamUtil.getString(httpServletRequest, "displayStyle");
 
 		if (Validator.isNull(displayStyle)) {
-			displayStyle = _portalPreferences.getValue(
+			displayStyle = portalPreferences.getValue(
 					StudentjobPortletKeys.STUDENTJOB, "assignments-display-style",
 				"descriptive");
 		}
 		else {
-			_portalPreferences.setValue(
+			portalPreferences.setValue(
 				StudentjobPortletKeys.STUDENTJOB, "assignments-display-style",
 				displayStyle);
 
@@ -218,7 +207,7 @@ public class DegreesManagementToolbarDisplayContext
 				 dropdownItem -> {
 					 dropdownItem.setActive("name".equals(getOrderByCol()));
 					 dropdownItem.setHref(
-						 _getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL, StudentjobConstants.ORDER_NAME);
+						 getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL, StudentjobConstants.ORDER_NAME);
 					 dropdownItem.setLabel(
 						 LanguageUtil.get(httpServletRequest, "name"));
 				 }
@@ -226,7 +215,7 @@ public class DegreesManagementToolbarDisplayContext
 				dropdownItem.setActive(
 						StudentjobConstants.ORDER_CREATE_DATE.equals(getOrderByCol()));
 					dropdownItem.setHref(
-						_getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL,
+						getCurrentSortingURL(), StudentjobConstants.ORDER_BY_COL,
 						StudentjobConstants.ORDER_CREATE_DATE);
 					dropdownItem.setLabel(
 						LanguageUtil.get(httpServletRequest, "create-date"));
@@ -241,7 +230,7 @@ public class DegreesManagementToolbarDisplayContext
 	* @return current sorting portlet URL
 	*
 	*/
-	private PortletURL _getCurrentSortingURL() {
+	private PortletURL getCurrentSortingURL() {
 		return PortletURLBuilder.create(
 			getPortletURL()
 		).setKeywords(
@@ -260,6 +249,5 @@ public class DegreesManagementToolbarDisplayContext
 		).buildPortletURL();
 	}
 
-	private final PortalPreferences _portalPreferences;
-	private final ThemeDisplay _themeDisplay;
+	private final PortalPreferences portalPreferences;
 }

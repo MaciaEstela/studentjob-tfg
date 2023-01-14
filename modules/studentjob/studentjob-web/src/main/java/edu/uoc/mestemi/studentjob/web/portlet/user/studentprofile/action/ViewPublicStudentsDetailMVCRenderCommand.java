@@ -62,7 +62,7 @@ public class ViewPublicStudentsDetailMVCRenderCommand implements MVCRenderComman
 		if (studentProfileId > 0) {
 			try {
 				// Call the service to get the studentProfile for show
-				studentProfile = _studentProfileService.getStudentProfile(studentProfileId);
+				studentProfile = studentProfileService.getStudentProfile(studentProfileId);
 			}
 			catch (NoSuchStudentProfileException nsoe) {
 				log.error("Can't find data for StudentProfile with studentProfileId " + studentProfileId, nsoe);
@@ -115,5 +115,5 @@ public class ViewPublicStudentsDetailMVCRenderCommand implements MVCRenderComman
 	}
 
 	@Reference
-	private StudentProfileService _studentProfileService;
+	private StudentProfileService studentProfileService;
 }

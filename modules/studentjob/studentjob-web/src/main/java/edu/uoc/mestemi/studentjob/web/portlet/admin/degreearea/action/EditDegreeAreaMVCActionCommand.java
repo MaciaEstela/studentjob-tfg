@@ -60,7 +60,7 @@ public class EditDegreeAreaMVCActionCommand extends BaseMVCActionCommand {
 			
 		try {
 			// Call the service to update the degreeArea
-			_degreeAreaService.updateDegreeArea(
+			degreeAreaService.updateDegreeArea(
 				degreeAreaId, nameMap, serviceContext);
 
 			sendRedirect(actionRequest, actionResponse);
@@ -77,5 +77,5 @@ public class EditDegreeAreaMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected DegreeAreaService _degreeAreaService;
+	protected DegreeAreaService degreeAreaService;
 }

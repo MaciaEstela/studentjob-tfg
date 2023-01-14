@@ -73,7 +73,7 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 		if (offerId > 0) {
 			try {
 				// Call the service to get the offer for editing.
-				offer = _offerService.getOffer(offerId);
+				offer = offerService.getOffer(offerId);
 			}
 			catch (NoSuchOfferException nsoe) {
 				log.error("Can't find data for Offer with offerId " + offerId + " - Message: " + nsoe.getMessage());
@@ -130,15 +130,15 @@ public class ViewInscriptionsMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private OfferService _offerService;
+	private OfferService offerService;
 	
 	@Reference
-	private RegionService _regionService;
+	private RegionService regionService;
 	
 	@Reference
-	private CountryService _countryService;
+	private CountryService countryService;
 	
 	@Reference
-	private DegreeService _degreeService;
+	private DegreeService degreeService;
 	
 }

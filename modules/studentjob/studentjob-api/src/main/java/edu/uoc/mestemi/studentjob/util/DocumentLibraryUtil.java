@@ -211,7 +211,7 @@ public class DocumentLibraryUtil {
 		try {
 			DLAppLocalServiceUtil.deleteFileEntry(fileEntryId);
 		} catch (PortalException e) {
-			// File doesn't exist
+			log.warn("File doesn't exist");
 		}
 	}
 }

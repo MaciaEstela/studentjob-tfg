@@ -66,7 +66,7 @@ public class ViewPublicStudentsMVCRenderCommand implements MVCRenderCommand {
 		addStudentListAttributes(renderRequest, renderResponse);
 
 		List<Region> regions = ProvinceUtil.getRegionsByCountryA3(companyId, CountryA3Constants.SPAIN, true);
-		List<Degree> degrees = _degreeService.getDegreesByGroupId(groupId);
+		List<Degree> degrees = degreeService.getDegreesByGroupId(groupId);
 		
 		renderRequest.setAttribute("regions", regions);
 		renderRequest.setAttribute("preferences", StudentjobConstants.JOB_PREFERENCE);
@@ -103,7 +103,7 @@ public class ViewPublicStudentsMVCRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		
-		List<StudentProfile> students =_studentProfileService.getStudentProfilesByKeywords(
+		List<StudentProfile> students =studentProfileService.getStudentProfilesByKeywords(
 				groupId, keywords, true, 0, StudentjobConstants.STUDENTS_OFFSET, comparator);
 		
 		List<StudentProfileDTO> studentProfilesDTO = new ArrayList<>();
@@ -133,12 +133,12 @@ public class ViewPublicStudentsMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("newestStudentProfileId", newestStudentProfileId);
 		
 		renderRequest.setAttribute(
-			"studentProfileCount", _studentProfileService.getStudentProfilesCountByKeywords(groupId, keywords, true));
+			"studentProfileCount", studentProfileService.getStudentProfilesCountByKeywords(groupId, keywords, true));
 	}
 
 	@Reference
-	protected StudentProfileService _studentProfileService;
+	protected StudentProfileService studentProfileService;
 
 	@Reference
-	protected DegreeService _degreeService;
+	protected DegreeService degreeService;
 }

@@ -83,7 +83,7 @@ public class AddOfferMVCActionCommand extends BaseMVCActionCommand {
 		
 		try {
 			// Call the service to add a a new offer.
-			_offerService.addOffer(
+			offerService.addOffer(
 				themeDisplay.getScopeGroupId(), regionId, titleMap, descriptionMap, 
 					preference, degreesIdList, serviceContext);
 			
@@ -103,5 +103,5 @@ public class AddOfferMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected OfferService _offerService;
+	protected OfferService offerService;
 }

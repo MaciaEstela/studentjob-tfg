@@ -68,7 +68,7 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 		addOfferListAttributes(renderRequest, renderResponse);
 
 		List<Region> regions = ProvinceUtil.getRegionsByCountryA3(companyId, CountryA3Constants.SPAIN, true);
-		List<Degree> degrees = _degreeService.getDegreesByGroupId(groupId);
+		List<Degree> degrees = degreeService.getDegreesByGroupId(groupId);
 		
 		renderRequest.setAttribute("regions", regions);
 		renderRequest.setAttribute("preferences", StudentjobConstants.JOB_PREFERENCE);
@@ -110,7 +110,7 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 			keywords = httpReq.getParameter("keywords");
 		}
 		
-		List<Offer> offers =_offerService.getOffersByKeywords(
+		List<Offer> offers =offerService.getOffersByKeywords(
 				groupId, 0, keywords, WorkflowConstants.STATUS_APPROVED, 0, StudentjobConstants.OFFERS_OFFSET,
 				comparator);
 		
@@ -133,19 +133,19 @@ public class ViewPublicOffersMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("offersDTO", offersDTO);
 		
 		// Get newest offer id to avoid duplicated results on pagination
-		long newestOfferId = _offerService.getNewestOfferId();
+		long newestOfferId = offerService.getNewestOfferId();
 		renderRequest.setAttribute("newestOfferId", newestOfferId);
 		
 		// Set request attributes.
 		renderRequest.setAttribute("offers", offers);
 		
 		renderRequest.setAttribute(
-			"offerCount", _offerService.getOffersCountByKeywords(groupId, 0, keywords, WorkflowConstants.STATUS_APPROVED));
+			"offerCount", offerService.getOffersCountByKeywords(groupId, 0, keywords, WorkflowConstants.STATUS_APPROVED));
 	}
 
 	@Reference
-	protected OfferService _offerService;
+	protected OfferService offerService;
 
 	@Reference
-	protected DegreeService _degreeService;
+	protected DegreeService degreeService;
 }

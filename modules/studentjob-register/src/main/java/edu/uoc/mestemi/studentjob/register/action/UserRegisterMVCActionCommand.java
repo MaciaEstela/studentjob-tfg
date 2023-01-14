@@ -147,10 +147,10 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			
 			user.setAgreedToTermsOfUse(true);
 			
-			_userLocalService.updateUser(user);
+			userLocalService.updateUser(user);
 			
 			Map<Locale, String> emptyLocale = new HashMap<>();
-			_companyProfileLocalService.addCompanyProfile(
+			companyProfileLocalService.addCompanyProfile(
 					groupId,
 					user.getUserId(),
 					0,
@@ -190,7 +190,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 			
 			user.setAgreedToTermsOfUse(true);
 			
-			_userLocalService.updateUser(user);
+			userLocalService.updateUser(user);
 			
 			Map<Locale, String> emptyLocale = new HashMap<>();
 			
@@ -250,7 +250,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				autoScreenName = true;
 			}
 			
-			user =  _userLocalService.addUserWithWorkflow(
+			user =  userLocalService.addUserWithWorkflow(
 				adminUser.getUserId(),
 				companyId,
 				false,
@@ -290,7 +290,7 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 				SessionMessages.add(actionRequest, "student-registered");
 			}
 			
-			Ticket ticket = _ticketLocalService.addTicket(
+			Ticket ticket = ticketLocalService.addTicket(
 					companyId,
 					User.class.getName(),
 					user.getPrimaryKey(),
@@ -371,14 +371,14 @@ public class UserRegisterMVCActionCommand extends BaseMVCActionCommand {
 	}
 	
 	@Reference
-	UserLocalService _userLocalService;
+	UserLocalService userLocalService;
 	
 	@Reference
-	CompanyProfileLocalService _companyProfileLocalService;
+	CompanyProfileLocalService companyProfileLocalService;
 	
 	@Reference
-	StudentProfileLocalService _studentProfileLocalService;
+	StudentProfileLocalService studentProfileLocalService;
 	
 	@Reference
-	TicketLocalService _ticketLocalService;
+	TicketLocalService ticketLocalService;
 }

@@ -86,7 +86,7 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 		// Get parameters from the request.
 
 		long studentProfileId = ParamUtil.getLong(actionRequest, "studentProfileId");
-		StudentProfile studentProfile = _studentProfileService.getStudentProfile(studentProfileId);
+		StudentProfile studentProfile = studentProfileService.getStudentProfile(studentProfileId);
 		User studentUser = UserLocalServiceUtil.getUser(studentProfile.getUserId());
 		
 		if (studentProfile.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
@@ -150,7 +150,7 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 			}
 			
 			// Call the service to update the studentProfile
-			_studentProfileService.updateStudentProfile(
+			studentProfileService.updateStudentProfile(
 					studentProfileId, 
 					regionId, 
 					active, 
@@ -189,11 +189,11 @@ public class EditStudentProfileMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected StudentProfileService _studentProfileService;
+	protected StudentProfileService studentProfileService;
 	
 	@Reference
-	private SocialMediaService _socialMediaService;
+	private SocialMediaService socialMediaService;
 	
 	@Reference
-	private SocialMediaNetworkService _socialMediaNetworkService;
+	private SocialMediaNetworkService socialMediaNetworkService;
 }

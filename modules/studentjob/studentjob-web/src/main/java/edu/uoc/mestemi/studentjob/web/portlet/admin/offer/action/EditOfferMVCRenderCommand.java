@@ -68,7 +68,7 @@ public class EditOfferMVCRenderCommand implements MVCRenderCommand {
 		if (offerId > 0) {
 			try {
 				// Call the service to get the offer for editing.
-				offer = _offerService.getOffer(offerId);
+				offer = offerService.getOffer(offerId);
 				if (offer.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
 					PortletResponse portletResponse = (PortletResponse) renderRequest.getAttribute(JavaConstants.JAVAX_PORTLET_RESPONSE);
 					LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
@@ -95,8 +95,8 @@ public class EditOfferMVCRenderCommand implements MVCRenderCommand {
 		portletDisplay.setURLBack(redirect);
 
 		List<Region> regions = ProvinceUtil.getRegionsByCountryA3(companyId, CountryA3Constants.SPAIN, true);
-		List<Degree> degrees = _degreeService.getDegreesByGroupId(groupId);
-		List<Long> currentOfferDegreesIds = _offerService.getDegreesIdsByOfferId(offerId);
+		List<Degree> degrees = degreeService.getDegreesByGroupId(groupId);
+		List<Long> currentOfferDegreesIds = offerService.getDegreesIdsByOfferId(offerId);
 		
 		// Set offer to the request attributes.
 		renderRequest.setAttribute("regions", regions);
@@ -111,14 +111,14 @@ public class EditOfferMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private OfferService _offerService;
+	private OfferService offerService;
 	
 	@Reference
-	private RegionService _regionService;
+	private RegionService regionService;
 	
 	@Reference
-	private CountryService _countryService;
+	private CountryService countryService;
 	
 	@Reference
-	private DegreeService _degreeService;
+	private DegreeService degreeService;
 }

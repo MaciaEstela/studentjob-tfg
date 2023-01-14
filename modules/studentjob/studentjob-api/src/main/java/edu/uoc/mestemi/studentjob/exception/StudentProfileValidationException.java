@@ -24,13 +24,13 @@ public class StudentProfileValidationException extends PortalException {
 	
 	private static final long serialVersionUID = 1L;
 
-	public StudentProfileValidationException(List<String> errors) {
-		super(String.join(",", errors));
-		_errors = errors;
+	public StudentProfileValidationException(List<String> errorsList) {
+		super(String.join(",", errorsList));
+		errors = errorsList;
 	}
 	
 	public List<String> getErrors() {
-		return _errors;
+		return errors;
 	}
 	
 	public StudentProfileValidationException() {
@@ -48,5 +48,5 @@ public class StudentProfileValidationException extends PortalException {
 		super(throwable);
 	}
 	
-	private List<String> _errors;
+	private List<String> errors;
 }

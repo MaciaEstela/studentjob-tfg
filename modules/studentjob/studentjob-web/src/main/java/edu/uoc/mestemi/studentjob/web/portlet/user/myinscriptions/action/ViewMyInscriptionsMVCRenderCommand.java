@@ -68,5 +68,5 @@ public class ViewMyInscriptionsMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	protected UserEnrollOfferService _userEnrollOfferService;
+	protected UserEnrollOfferService userEnrollOfferService;
 }

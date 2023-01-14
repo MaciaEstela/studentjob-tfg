@@ -69,7 +69,7 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 		long groupId = themeDisplay.getScopeGroupId();
 		long companyId = themeDisplay.getCompanyId();
 		
-		StudentProfile studentProfile = _studentProfileService.getStudentProfileByGroupIdAndUserId(groupId, userId);
+		StudentProfile studentProfile = studentProfileService.getStudentProfileByGroupIdAndUserId(groupId, userId);
 		long studentProfileId = studentProfile.getStudentProfileId();
 		
 		if (studentProfile.getUserId() != userId && !themeDisplay.getPermissionChecker().isOmniadmin()) {
@@ -89,9 +89,9 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 		
 		List<Region> regions = ProvinceUtil.getRegionsByCountryA3(companyId, CountryA3Constants.SPAIN, true);
 
-		List<SocialMediaNetwork> socialMediaNetworks = _socialMediaNetworkService.getSocialMediaNetworksByGroupId(groupId);
+		List<SocialMediaNetwork> socialMediaNetworks = socialMediaNetworkService.getSocialMediaNetworksByGroupId(groupId);
 		
-		List<SocialMedia> socialMedias = _socialMediaService.getSocialMediaNetworksByGroupIdAndClass(
+		List<SocialMedia> socialMedias = socialMediaService.getSocialMediaNetworksByGroupIdAndClass(
 				groupId, StudentProfile.class.getName(), studentProfileId);
 		
 		List<SocialMediaFormDTO> socialMediasList = new ArrayList<>();
@@ -107,8 +107,8 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 					socialURL, socialMediaNetwork.getName(), socialMediaNetwork.getSocialMediaNetworkId()));
 		}
 		
-		List<Long> currentStudentProfileDegreesIds = _studentProfileService.getDegreesIdsByOfferId(studentProfileId);
-		List<Degree> degrees = _degreeService.getDegreesByGroupId(groupId);
+		List<Long> currentStudentProfileDegreesIds = studentProfileService.getDegreesIdsByOfferId(studentProfileId);
+		List<Degree> degrees = degreeService.getDegreesByGroupId(groupId);
 		
 		String cvURL = StringPool.BLANK;
 		long cvId = studentProfile.getCurriculumId();
@@ -140,20 +140,20 @@ public class EditStudentProfileMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private RegionService _regionService;
+	private RegionService regionService;
 	
 	@Reference
-	private CountryService _countryService;
+	private CountryService countryService;
 	
 	@Reference
-	private StudentProfileService _studentProfileService;
+	private StudentProfileService studentProfileService;
 	
 	@Reference
-	private SocialMediaNetworkService _socialMediaNetworkService;
+	private SocialMediaNetworkService socialMediaNetworkService;
 	
 	@Reference
-	private SocialMediaService _socialMediaService;
+	private SocialMediaService socialMediaService;
 	
 	@Reference
-	private DegreeService _degreeService;
+	private DegreeService degreeService;
 }

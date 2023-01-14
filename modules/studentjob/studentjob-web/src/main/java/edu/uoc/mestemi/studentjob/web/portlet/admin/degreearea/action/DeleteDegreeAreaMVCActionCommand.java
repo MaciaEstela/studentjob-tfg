@@ -47,7 +47,7 @@ public class DeleteDegreeAreaMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			// Call service to delete the degreeArea.
-			_degreeAreaService.deleteDegreeAreaWithValidation(degreeAreaId);
+			degreeAreaService.deleteDegreeAreaWithValidation(degreeAreaId);
 		} catch (DegreeAreaValidationException dve) {
 			dve.getErrors().forEach(key -> SessionErrors.add(actionRequest, key));
 			log.error("Error deleting degreeArea with degreeAreaId " + degreeAreaId, dve);
@@ -57,5 +57,5 @@ public class DeleteDegreeAreaMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected DegreeAreaService _degreeAreaService;
+	protected DegreeAreaService degreeAreaService;
 }

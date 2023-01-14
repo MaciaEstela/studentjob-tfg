@@ -344,7 +344,4 @@ public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
 	
 	@Reference
 	DegreeLocalService degreeLocalService;
-	
-//	@Reference
-//	OfferValidator offerValidator;
 }

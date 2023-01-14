@@ -65,7 +65,7 @@ public class ViewPublicCompanyProfileDetailMVCRenderCommand implements MVCRender
 		
 		if (companyProfileId != 0) {
 			try {
-				companyProfile = _companyProfileService.getCompanyProfile(companyProfileId);
+				companyProfile = companyProfileService.getCompanyProfile(companyProfileId);
 				userId = companyProfile.getUserId();
 			} catch (PortalException e) {
 				log.error("Error obtaining user companyProfile ", e);
@@ -84,7 +84,7 @@ public class ViewPublicCompanyProfileDetailMVCRenderCommand implements MVCRender
 						StudentjobConstants.USER_COMPANY_EXPANDO);
 				
 				renderRequest.setAttribute("companyName", companyName);
-				companyProfile =_companyProfileService.getCompanyProfileByGroupIdAndUserId(groupId, userId);
+				companyProfile =companyProfileService.getCompanyProfileByGroupIdAndUserId(groupId, userId);
 				renderRequest.setAttribute("logo", user.getPortraitURL(themeDisplay));
 			}
 		} catch (PortalException e) {
@@ -121,5 +121,5 @@ public class ViewPublicCompanyProfileDetailMVCRenderCommand implements MVCRender
 	}
 
 	@Reference
-	private CompanyProfileService _companyProfileService;
+	private CompanyProfileService companyProfileService;
 }

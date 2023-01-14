@@ -52,7 +52,7 @@ public class EditDegreeAreaMVCRenderCommand implements MVCRenderCommand {
 		if (degreeAreaId > 0) {
 			try {
 				// Call the service to get the degreeArea for editing.
-				degreeArea = _degreeAreaService.getDegreeArea(degreeAreaId);
+				degreeArea = degreeAreaService.getDegreeArea(degreeAreaId);
 			}
 			catch (NoSuchDegreeAreaException nsoe) {
 				log.error("Can't find data for DegreeArea with degreeAreaId " + degreeAreaId, nsoe);
@@ -82,5 +82,5 @@ public class EditDegreeAreaMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private DegreeAreaService _degreeAreaService;
+	private DegreeAreaService degreeAreaService;
 }

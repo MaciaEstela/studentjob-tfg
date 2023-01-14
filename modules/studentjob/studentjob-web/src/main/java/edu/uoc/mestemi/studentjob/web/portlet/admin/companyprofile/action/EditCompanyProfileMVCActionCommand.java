@@ -101,7 +101,7 @@ public class EditCompanyProfileMVCActionCommand extends BaseMVCActionCommand {
 		
 		try {
 			// Call the service to update the companyProfile
-			_companyProfileService.updateCompanyProfile(
+			companyProfileService.updateCompanyProfile(
 					companyProfileId,
 					regionId,
 					active,
@@ -137,5 +137,5 @@ public class EditCompanyProfileMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected CompanyProfileService _companyProfileService;
+	protected CompanyProfileService companyProfileService;
 }

@@ -85,7 +85,7 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 		if (offerId > 0) {
 			try {
 				// Call the service to get the offer for show
-				offer = _offerService.getOffer(offerId);
+				offer = offerService.getOffer(offerId);
 			}
 			catch (NoSuchOfferException nsoe) {
 				log.error("Can't find data for Offer with offerId " + offerId, nsoe);
@@ -117,7 +117,7 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 		UserEnrollOffer userEnrollOffer = UserEnrollOfferLocalServiceUtil.getUserEnrollOffer(groupId, userId, offerId);
 		renderRequest.setAttribute("enrolled", userEnrollOffer != null);
 		
-		List<Degree> currentOfferDegrees = _offerService.getDegreesByOfferId(offer.getOfferId());
+		List<Degree> currentOfferDegrees = offerService.getDegreesByOfferId(offer.getOfferId());
 		
 		long companyUserId = offer.getUserId();
 		long companyProfileId = CompanyProfileLocalServiceUtil.getCompanyProfileByGroupIdAndUserId(
@@ -135,5 +135,5 @@ public class ViewPublicOfferDetailMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private OfferService _offerService;
+	private OfferService offerService;
 }

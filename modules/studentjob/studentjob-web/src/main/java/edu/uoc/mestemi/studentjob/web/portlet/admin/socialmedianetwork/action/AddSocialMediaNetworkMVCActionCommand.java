@@ -73,7 +73,7 @@ public class AddSocialMediaNetworkMVCActionCommand extends BaseMVCActionCommand 
 			logoId = curriculum.getFileEntryId();
 			
 			// Call the service to add a a new socialMediaNetwork.
-			_socialMediaNetworkService.addSocialMediaNetwork(
+			socialMediaNetworkService.addSocialMediaNetwork(
 				themeDisplay.getScopeGroupId(), name, logoId, baseURL, serviceContext);
 			
 			sendRedirect(actionRequest, actionResponse);
@@ -90,5 +90,5 @@ public class AddSocialMediaNetworkMVCActionCommand extends BaseMVCActionCommand 
 	}
 
 	@Reference
-	protected SocialMediaNetworkService _socialMediaNetworkService;
+	protected SocialMediaNetworkService socialMediaNetworkService;
 }

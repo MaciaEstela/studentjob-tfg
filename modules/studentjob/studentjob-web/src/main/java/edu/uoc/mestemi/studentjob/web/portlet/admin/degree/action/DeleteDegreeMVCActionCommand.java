@@ -47,7 +47,7 @@ public class DeleteDegreeMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			// Call service to delete the degree.
-			_degreeService.deleteDegreeWithValidation(degreeId);
+			degreeService.deleteDegreeWithValidation(degreeId);
 		} catch (DegreeValidationException dve) {
 			dve.getErrors().forEach(key -> SessionErrors.add(actionRequest, key));
 			log.error("Error deleting degree with degreeId " + degreeId, dve);
@@ -57,5 +57,5 @@ public class DeleteDegreeMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	protected DegreeService _degreeService;
+	protected DegreeService degreeService;
 }

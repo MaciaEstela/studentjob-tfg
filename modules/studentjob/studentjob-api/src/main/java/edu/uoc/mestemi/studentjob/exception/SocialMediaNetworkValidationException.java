@@ -24,13 +24,13 @@ public class SocialMediaNetworkValidationException extends PortalException {
 
 	private static final long serialVersionUID = 1L;
 
-	public SocialMediaNetworkValidationException(List<String> errors) {
-		super(String.join(",", errors));
-		_errors = errors;
+	public SocialMediaNetworkValidationException(List<String> errorsList) {
+		super(String.join(",", errorsList));
+		errors = errorsList;
 	}
 	
 	public List<String> getErrors() {
-		return _errors;
+		return errors;
 	}
 	
 	public SocialMediaNetworkValidationException() {
@@ -48,6 +48,6 @@ public class SocialMediaNetworkValidationException extends PortalException {
 		super(throwable);
 	}
 	
-	private List<String> _errors;
+	private List<String> errors;
 
 }

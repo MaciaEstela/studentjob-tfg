@@ -92,14 +92,14 @@ public class ViewSocialMediaNetworksMVCRenderCommand implements MVCRenderCommand
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		// Call the service to get the list of socialMediaNetworks.
-		List<SocialMediaNetwork> socialMediaNetworks =_socialMediaNetworkService.getSocialMediaNetworksByKeywords(
+		List<SocialMediaNetwork> socialMediaNetworks =socialMediaNetworkService.getSocialMediaNetworksByKeywords(
 				themeDisplay.getScopeGroupId(), keywords, start, end,
 				comparator);
 		
 		// Set request attributes.
 		renderRequest.setAttribute("socialMediaNetworks", socialMediaNetworks);
 		renderRequest.setAttribute(
-			"socialMediaNetworkCount", _socialMediaNetworkService.getSocialMediaNetworksCountByKeywords(
+			"socialMediaNetworkCount", socialMediaNetworkService.getSocialMediaNetworksCountByKeywords(
 				themeDisplay.getScopeGroupId(), keywords));
 	}
 
@@ -113,15 +113,15 @@ public class ViewSocialMediaNetworksMVCRenderCommand implements MVCRenderCommand
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		LiferayPortletRequest liferayPortletRequest =
-			_portal.getLiferayPortletRequest(renderRequest);
+			portal.getLiferayPortletRequest(renderRequest);
 
 		LiferayPortletResponse liferayPortletResponse =
-			_portal.getLiferayPortletResponse(renderResponse);
+			portal.getLiferayPortletResponse(renderResponse);
 
 		SocialMediaNetworkManagementToolbarDisplayContext socialMediaNetworksManagementToolbarDisplayContext =
 			new SocialMediaNetworkManagementToolbarDisplayContext(
 				liferayPortletRequest, liferayPortletResponse,
-				_portal.getHttpServletRequest(renderRequest));
+				portal.getHttpServletRequest(renderRequest));
 
 		renderRequest.setAttribute(
 			"socialMediaNetworksManagementToolbarDisplayContext",
@@ -130,8 +130,8 @@ public class ViewSocialMediaNetworksMVCRenderCommand implements MVCRenderCommand
 	}
 
 	@Reference
-	private Portal _portal;
+	private Portal portal;
 	
 	@Reference
-	protected SocialMediaNetworkService _socialMediaNetworkService;
+	protected SocialMediaNetworkService socialMediaNetworkService;
 }

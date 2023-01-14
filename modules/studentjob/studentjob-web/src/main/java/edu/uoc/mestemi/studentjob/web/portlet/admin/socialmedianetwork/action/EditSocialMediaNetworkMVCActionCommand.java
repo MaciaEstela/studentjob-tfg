@@ -80,7 +80,7 @@ public class EditSocialMediaNetworkMVCActionCommand extends BaseMVCActionCommand
 		
 		try {
 			// Call the service to update the socialMediaNetwork
-			_socialMediaNetworkService.updateSocialMediaNetwork(
+			socialMediaNetworkService.updateSocialMediaNetwork(
 				socialMediaNetworkId, name, logoId, baseURL, serviceContext);
 
 			if (newLogo)
@@ -99,5 +99,5 @@ public class EditSocialMediaNetworkMVCActionCommand extends BaseMVCActionCommand
 	}
 
 	@Reference
-	protected SocialMediaNetworkService _socialMediaNetworkService;
+	protected SocialMediaNetworkService socialMediaNetworkService;
 }
