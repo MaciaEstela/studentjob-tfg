@@ -1,1 +1,13 @@
-// Check GETTING_STARTED.markdown for information regarding usage.
+plugins {
+  id "org.sonarqube" version "3.5.0.2730"
+}
+
+description = 'Studentjob TFG by Macià EStela'
+version = '1.0'
+
+sonarqube {
+	properties {
+		property 'sonar.projectName', 'Studentjob-TFG'
+	}
+}
+

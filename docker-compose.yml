@@ -23,6 +23,11 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+  sonarqube:
+    container_name: sonarqube
+    image: sonarqube:8-community
+    ports:
+      - "9000:9000"
 
 networks:
   studentjob-network-tfg:
