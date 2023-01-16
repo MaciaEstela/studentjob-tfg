@@ -1,7 +1,7 @@
 # Studentjob-tfg
 Repository that includes the Liferay workspace corresponding to the computer engineering degree final project, which consists of the development of a job portal for UOC students
 
-# Importació en Local
+## Importació en Local
 
 Per aixecar el portal en un entorn local es pot utilitzar el docker definit en el docker-compose.yml en l'arrel del projecte per aixecar el servidor de MySQL. La resta de serveis (liferay i elasticsearch) s'han mogut al fitxer docker-compose-complete.yml
 
@@ -17,7 +17,7 @@ https://mega.nz/file/7FRAwa5A#s0xzMaBB3DwwIVTbBcQCbfe4RH9FYoGpJTl6Eqne4lY
 Vídeotutorial d'instal·lació en local. En instal·larlo tindrem una còpia idèntica a l'entorn de Producció, amb els mateixos usuaris i contingut. També tindrà configurat el servidor de correu.
 https://www.youtube.com/watch?v=LMDAt9r8BFI
 
-# Credits
+## Credits
 
 - E-mails templates based on templates available on : https://codedmails.com/
 - Stock images from ShutterStock : https://www.shutterstock.com/
