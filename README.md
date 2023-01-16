@@ -1,4 +1,4 @@
-# studentjob-tfg
+# Studentjob-tfg
 Repository that includes the Liferay workspace corresponding to the computer engineering degree final project, which consists of the development of a job portal for UOC students
 
 # Importació en Local
@@ -16,3 +16,9 @@ https://mega.nz/file/7FRAwa5A#s0xzMaBB3DwwIVTbBcQCbfe4RH9FYoGpJTl6Eqne4lY
 
 Vídeotutorial d'instal·lació en local. En instal·larlo tindrem una còpia idèntica a l'entorn de Producció, amb els mateixos usuaris i contingut. També tindrà configurat el servidor de correu.
 https://www.youtube.com/watch?v=LMDAt9r8BFI
+
+# Credits
+
+- E-mails templates based on templates available on : https://codedmails.com/
+- Stock images from ShutterStock : https://www.shutterstock.com/
+- Company content fake logos from UiLogos : https://uilogos.co/
